@@ -1,0 +1,90 @@
+body {
+    font-family: Inter;
+    margin: 0px;
+}
+
+.sidebar-container {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    height: 100vh;
+    width: 232px;
+    background-color: #2A3647;
+    display: flex;
+    justify-content: space-between;
+}
+
+aside {
+    padding: 64px 0px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.sidebar-logo {
+    width: 100px;
+    height: 122px;
+}
+
+.sidebar-menu {
+    width: 232px;
+    height: 229px;
+    gap: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.sidebar-menu a {
+    font-size: 16px;
+    color:  #CDCDCD;
+    text-decoration: none;
+}
+
+.sidebar-icons {
+    width: 30px;
+    height: 30px;
+}
+
+.summary,
+.add-task,
+.board,
+.contacts {
+    display: flex;
+    align-items: center;
+    height: 46px;
+    width: 100%;
+    gap: 8px;
+    padding: 0 61px;
+    box-sizing: border-box;
+}
+
+.summary:hover,
+.add-task:hover,
+.board:hover,
+.contacts:hover {
+    cursor: pointer;
+    background-color: #2A3D59;
+    transition: background-color 100ms ease-in;
+}
+
+.legals {
+    height: 317px;
+    gap: 4px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.legals a {
+    font-size: 16px;
+    color:  #CDCDCD;
+    text-decoration: none;
+}
+
+.legals a:hover {
+    color: #00BEE8;
+    font-weight: bold;
+}
