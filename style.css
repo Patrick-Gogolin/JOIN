@@ -9,6 +9,64 @@ body {
     
 }
 
+.loading-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 1;
+    visibility: visible;
+    background-color: #F6F7F8;
+    z-index: 9999;
+    animation: resizeLogo 1000ms ease-in-out forwards 5000ms;
+}
+
+.logo {
+    width: 250px;
+    height: 300px;
+    animation: resizeImg 1000ms ease-in-out forwards 5000ms;
+}
+
+@keyframes resizeLogo {
+    0% {
+        width: 100vw;
+        height: 100vh;
+    }
+
+    15% {
+        background-color: #f6f7f800;
+    }
+
+    100% {
+        width: 100px;
+        height: 120px;
+        position: fixed;
+        left: 77px;
+        top: 80px;
+    }
+}
+
+@keyframes resizeImg {
+    0% {
+        width: 250;
+        height: 300px;
+    }
+
+    15% {
+        background-color: #f6f7f800;
+    }
+
+    100% {
+        width: 100px;
+        height: 120px;
+    }
+
+}
+
 .background {
     position: fixed;
     background-color: #F6F7F8;
