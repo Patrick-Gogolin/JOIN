@@ -1,0 +1,86 @@
+@font-face {
+    font-family: 'Inter';
+    font-weight: 400;
+    src: url('fonts/inter-v13-latin-regular.woff2') format('woff2'); 
+  }
+
+  @font-face {
+    font-family: 'Inter';
+    font-weight: 700;
+    src: url('fonts/inter-v13-latin-700.woff2') format('woff2'); 
+  }
+
+body{
+    background-color: rgb(246,247,248);
+    font-family: 'Inter';
+    margin: 0;
+}
+
+h1{
+    font-size: 61px;
+    margin: 0;
+}
+
+h2{
+    font-size: 27px;
+}
+
+h3{
+    margin: 0;
+}
+
+a{
+    color: rgb(40, 171, 226);
+    text-decoration: none;
+}
+
+.no_top{
+    margin-top: 0;
+}
+
+.content{
+    margin-left: 96px;
+    margin-right: 96px;
+    margin-top: 110px;
+    margin-bottom: 24px;
+}
+
+.content_header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 32px;
+}
+
+.content_paragraph{
+    margin-bottom: 24px;
+}
+
+.img_boarder{
+    cursor: pointer;
+    width: 37px;
+    height: 37px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    right: 15%;
+    
+}
+
+.img_boarder:hover{
+    background-color: rgb(238,238,238);
+    border-radius: 25px;
+}
+
+body:has(.img_boarder:hover) .img_boarder img{
+    width: 38px;
+    height: 38px;
+}
+
+
+.img_boarder img{
+    width: 32px;
+    height: 32px;
+
+}

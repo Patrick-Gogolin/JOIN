@@ -4,8 +4,55 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JOIN</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../fonts.css">
 </head>
 <body>
+    <section class="logo-and-sign-up-content">
+        <div class="join-logo-log-in-small-container">
+            <img class="join-logo-log-in" src="img/join-logo-log-in-small.png" alt="">
+        </div>
+    
+        <div class="sign-up-container">
+            <span>Not a Join user?</span>
+            <button class="sign-up-button">Sign up</button>
+    
+        </div>
+
+    </section>
+
+    <section class="background">
+        <form class="log-in-container" onsubmit="addToRecipes(); return false">
+            <div>
+                <h1>Log in</h1>
+            </div>
+            <div class="blue-seperator">
+            </div>
+            <div class="input-container">
+                <input class="email-input" type="email" placeholder="Email">
+                <input class="password-input" type="password" placeholder="Password">
+            </div>
+            <div class="remember-me-container">
+                <input type="checkbox">
+                <span>Remember me</span>
+            </div>
+
+            <div class="log-in-and-guest-button-container">
+                <button class="log-in-button">Log in</button>
+                <button class="guest-log-in-button">Guest Log in</button>
+
+            </div>
+
+        </form>
+
+
+    </section>
+    <footer>
+        <div class="privacy-legal-notice-container">
+            <a href="">Privacy Policy</a>
+            <a href="">Legal Notice</a>
+        </div>
+    </footer>
     
 </body>
 </html>

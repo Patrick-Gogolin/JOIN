@@ -27,7 +27,6 @@ p{
 
 h1{
     margin: 0;
-    margin-bottom: 30px;
 }
 
 h2{
@@ -49,6 +48,7 @@ h3{
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin-bottom: 30px;
 }
 
 .img_boarder{
@@ -58,6 +58,8 @@ h3{
     display: flex;
     justify-content: center;
     align-items: center;
+    position: fixed;
+    right: 15%;
     
 }
 
@@ -79,7 +81,6 @@ body:has(.img_boarder:hover) .img_boarder img{
 
 .help{
     font-size: 61px;
-    gap: 30px;
 }
 
 
