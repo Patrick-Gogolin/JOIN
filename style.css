@@ -1,0 +1,224 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: inter;
+    
+}
+
+.background {
+    position: fixed;
+    background-color: #F6F7F8;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 50px;
+    z-index: -1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+
+.logo-and-sign-up-content{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1920px;
+    margin: 0 auto;
+}
+
+.join-logo-log-in-small-container {
+    padding-top: 80px
+}
+
+.join-logo-log-in {
+    width: 100px;
+    height: 120px;
+}
+
+.sign-up-container{
+    width: 280px;
+    height: 50px;
+    font-size: 20px;
+    font-weight: 400;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.sign-up-button{
+    background-color: #2A3647;
+    color: white;
+    font-family: inter;
+    font-size: 16px;
+    padding: 15px 16px 15px 16px;
+    border-radius: 8px;
+    border: none;    
+    cursor: pointer;
+}
+
+.sign-up-button:hover {
+    background-color:#29ABE2;
+
+}
+
+.log-in-container{
+    padding: 48px 115px 48px 115px;
+    background-color: white;
+    border-radius: 30px;
+    height: 490px;
+    width: 650px;
+    margin: 0 auto;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 32px;
+}
+
+h1 {
+    font-size: 60px;
+}
+
+.blue-seperator{
+    min-height: 3px;
+    width: 150px;
+    background-color: #29ABE2;
+}
+
+.input-container{
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+}
+
+.email-input{
+    padding: 12px 21px 12px 21px;
+    background: url(img/mail-logo-for-input.svg);
+    background-repeat: no-repeat;
+    background-position: 380px;
+    height: 48px;
+    width: 420px;
+    border-radius: 10px;
+    border: solid 1px #D1D1D1;
+    font-family: inter;
+    font-weight: 300;
+    font-size: 20px;
+    line-height: 24px;
+    display: flex;
+}
+
+.password-input{
+    padding: 12px 21px 12px 21px;
+    background: url(img/lock-logo-for-input.svg);
+    background-repeat: no-repeat;
+    background-position: 380px;
+    height: 48px;
+    width: 420px;
+    border-radius: 10px;
+    border: solid 1px #D1D1D1;
+    font-family: inter;
+    font-weight: 300;
+    font-size: 20px;
+    line-height: 24px;
+    display: flex;
+}
+
+::placeholder {
+    color: #D1D1D1;
+
+}
+
+.remember-me-container {
+    padding-left: 40px;
+    width: 420px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: inter;
+    font-size: 16px;
+}
+
+.remember-me-container input {
+    width: 16px;
+    height: 16px;
+    border: solid 2px #2A3647;
+    border-radius: 3px;
+    
+}
+
+.log-in-and-guest-button-container{
+    width: 322px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    gap: 32px;
+}
+
+.log-in-button {
+    border: none;
+    padding: 15px 24px 15px 24px;
+    border-radius: 8px;
+    background-color: #2A3647;
+    color: white;
+    font-family: inter;
+    font-size: 20px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.log-in-button:hover {
+   background-color: #29ABE2;
+}
+
+.guest-log-in-button {
+    border: solid 1px;
+    padding: 15px 24px 15px 24px;
+    border-radius: 8px;
+    background-color: white;
+    color: #2A3647;
+    font-family: inter;
+    font-size: 20px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.guest-log-in-button:hover {
+    border-color: #29ABE2;
+    color: #29ABE2;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+footer {
+    padding: 100px;
+    background-color: #F6F7F8;
+    width: 100vw;
+    position: fixed;
+    bottom: 0px;
+    display: flex;
+    justify-content: center;
+}
+
+.privacy-legal-notice-container {
+    font-size: 16px;
+    font-family: inter;
+    font-weight: 200;
+    display: flex;
+    gap: 32px;
+}
+
+.privacy-legal-notice-container a {
+    text-decoration: none;
+    padding: 1px;
+    background-color: transparent;
+}
+.privacy-legal-notice-container a:hover {
+    cursor: pointer;
+    color:#29ABE2;
+    font-weight: bold;
+}
