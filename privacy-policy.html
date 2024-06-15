@@ -5,8 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Privacy Policy</title>
     <link rel="stylesheet" href="privacy-policy.css">
+    <link rel="stylesheet" href="templates/header.css">
+    <link rel="stylesheet" href="templates/sidebar.css">
+    <script src="templates/include.js"></script>
 </head>
-<body>
+<body onload="includeHTML()">
+    <div w3-include-html="templates/header.html"></div>
+    <div w3-include-html="templates/sidebar.html"></div>
     <div class="content">
     <div class="content_header">
     <h1>Privacy Policy</h1>
