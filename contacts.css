@@ -10,10 +10,15 @@
     src: url('fonts/inter-v13-latin-700.woff2') format('woff2'); 
   }
 
+
 body{
     background-color: rgb(246,247,248);
     font-family: 'Inter';
     margin: 0;
+}
+
+.d-none{
+    display: none;
 }
 
 .popup-background{
