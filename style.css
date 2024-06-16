@@ -5,12 +5,11 @@
 }
 
 body {
-    font-family: inter;
-    
+    font-family: inter;    
 }
 
 .loading-screen {
-    position: fixed;
+    position: absolute;
     top: 0;
     left: 0;
     bottom: 0;
@@ -22,13 +21,13 @@ body {
     visibility: visible;
     background-color: #F6F7F8;
     z-index: 9999;
-    animation: resizeLogo 1000ms ease-in-out forwards 5000ms;
+    animation: resizeLogo 750ms ease-in-out forwards 500ms;
 }
 
 .logo {
     width: 250px;
     height: 300px;
-    animation: resizeImg 1000ms ease-in-out forwards 5000ms;
+    animation: resizeImg 750ms ease-in-out forwards 500ms;
 }
 
 @keyframes resizeLogo {
@@ -45,7 +44,7 @@ body {
         width: 100px;
         height: 120px;
         position: fixed;
-        left: 77px;
+        left: 240px;
         top: 80px;
     }
 }
@@ -80,25 +79,10 @@ body {
     justify-content: center;
 }
 
-
-.logo-and-sign-up-content{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    max-width: 1920px;
-    margin: 0 auto;
-}
-
-.join-logo-log-in-small-container {
-    padding-top: 80px
-}
-
-.join-logo-log-in {
-    width: 100px;
-    height: 120px;
-}
-
 .sign-up-container{
+    position: absolute;
+    top: 60px;
+    right: 240px;
     width: 280px;
     height: 50px;
     font-size: 20px;
@@ -108,7 +92,7 @@ body {
     align-items: center;
 }
 
-.sign-up-button{
+.sign-up-link {
     background-color: #2A3647;
     color: white;
     font-family: inter;
@@ -117,9 +101,10 @@ body {
     border-radius: 8px;
     border: none;    
     cursor: pointer;
+    text-decoration: none;
 }
 
-.sign-up-button:hover {
+.sign-up-link:hover {
     background-color:#29ABE2;
 
 }
@@ -136,6 +121,14 @@ body {
     flex-direction: column;
     align-items: center;
     gap: 32px;
+}
+
+.headline-seperator-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
 }
 
 h1 {

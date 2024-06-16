@@ -6,32 +6,34 @@
     <title>JOIN</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="../fonts.css">
+    <script src="js/log-in.js"></script>
 </head>
 <body>
 
-    <div class="loading-screen">
-        <img class="logo" src="img/join-logo-log-in-small.png" alt="">
-    </div>
+
+        <div class="loading-screen">
+            <img class="logo" src="img/join-logo-log-in-small.png" alt="">
+        </div>
     
         <div class="sign-up-container">
             <span>Not a Join user?</span>
-            <button class="sign-up-button">Sign up</button>
-    
+            <a class="sign-up-link" href="registration.html">Sign Up</a>
         </div>
 
-    </section>
 
     <section class="background">
-        <form class="log-in-container" onsubmit="addToRecipes(); return false">
-            <div>
+        <form class="log-in-container" onsubmit="logIn('/users'); return false">
+            <div class="headline-seperator-container">
                 <h1>Log in</h1>
+                <div class="blue-seperator">
+                </div>
             </div>
-            <div class="blue-seperator">
-            </div>
+            
             <div class="input-container">
-                <input class="email-input" type="email" placeholder="Email">
-                <input class="password-input" type="password" placeholder="Password">
+                <input id="email" class="email-input" type="email" placeholder="Email">
+                <input id="password" class="password-input" type="password" placeholder="Password">
             </div>
+
             <div class="remember-me-container">
                 <input type="checkbox">
                 <span>Remember me</span>
@@ -40,9 +42,7 @@
             <div class="log-in-and-guest-button-container">
                 <button class="log-in-button">Log in</button>
                 <button class="guest-log-in-button">Guest Log in</button>
-
             </div>
-
         </form>
 
 
