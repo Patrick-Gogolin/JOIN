@@ -15,13 +15,15 @@ body {
 }
 
 .icons {
-    height: 80px;
+    height: 76px;
     width: 80px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     gap: 16px;
+    border-radius: 16px;
+    /* background-color: #091931; muss später noch mit JS optimiert werden */
 }
 
 .icons img {
