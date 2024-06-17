@@ -11,57 +11,57 @@
 </head>
 
 <body>
-    <div class="logo-container">
-        <img class="join-logo" src="img/join-logo-log-in-small.svg" alt="">
-    </div>
-    <div class="sign-up-container">
-        <form class="sign-up-formular" onsubmit="postData('/users'); return false;">
-            <div class="back-to-log-in-container">
-                <a href="index.html"><img src="img/arrow-left-line.png" alt=""></a>
+    <section class="content-wrapper">
+            <img class="join-logo" src="img/join-logo-log-in-small.svg" alt="">
+        <div class="sign-up-container">
+            <form class="sign-up-formular" onsubmit="postData('/users'); return false;">
+                <div class="back-to-log-in-container">
+                    <a href="index.html"><img src="img/arrow-left-line.png" alt=""></a>
 
-            </div>
-            <div class="headline-seperator-container">
-                <h1>Sign up</h1>
-                <div class="blue-seperator">
                 </div>
-            </div>
-            <div class="input-container">
-                <input id="first-name" class="first-name-input" type="text" placeholder="First Name" required>
-                <input id="last-name" class="surname-input" type="text" placeholder="Last Name" required>
-                <input id="email" class="email-input" type="email" placeholder="Email" minlength="6" required>
-                <input id="password" class="password-input" type="password" placeholder="Password" minlength="6" required>
-                <div>
-                    <input id="confirm-password" class="password-input" type="password" placeholder="Confirm Password" required>
-                    <div id="not-same-password-container" class="not-same-password-container d-none">
-                        <span>Ups! your password don't match</span> 
+                <div class="headline-seperator-container">
+                    <h1>Sign up</h1>
+                    <div class="blue-seperator">
                     </div>
                 </div>
-            </div>
-            <div class="accept-privat-policy-container">
-                <input type="checkbox" required>
-                <span class="accept-text">I accept the </span><a href="">Privacy policy</a>
-            </div>
-            <div class="sign-up-button">
-                <button>Sign Up</button>
+                <div class="input-container">
+                    <input id="first-name" class="first-name-input" type="text" placeholder="First Name" required>
+                    <input id="last-name" class="surname-input" type="text" placeholder="Last Name" required>
+                    <input id="email" class="email-input" type="email" placeholder="Email" minlength="6" required>
+                    <input id="password" class="password-input" type="password" placeholder="Password" minlength="6"
+                        required>
+                    <div>
+                        <input id="confirm-password" class="password-input" type="password"
+                            placeholder="Confirm Password" required>
+                        <div id="not-same-password-container" class="not-same-password-container d-none">
+                            <span>Ups! your password don't match</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="accept-privat-policy-container">
+                    <input type="checkbox" required>
+                    <span class="accept-text">I accept the </span><a href="">Privacy policy</a>
+                </div>
+                <div class="sign-up-button">
+                    <button>Sign Up</button>
 
-            </div>
-        </form>
+                </div>
+            </form>
 
-        <div id="overlayer-successful-login" class="overlayer-successful-login d-none">
-            <div id="successful-login-banner" class="successful-login-banner">
-                <p>You Signed Up successfully</p>
+            <div id="overlayer-successful-login" class="overlayer-successful-login d-none">
+                <div id="successful-login-banner" class="successful-login-banner">
+                    <p>You Signed Up successfully</p>
+
+                </div>
 
             </div>
 
         </div>
-
-    </div>
-    <footer>
         <div class="privacy-legal-notice-container">
             <a href="">Privacy Policy</a>
             <a href="">Legal Notice</a>
         </div>
-    </footer>
+    </section>
 </body>
 
 </html>

@@ -3,6 +3,7 @@ const BASE_URL = "https://remotestorage-c5224-default-rtdb.europe-west1.firebase
 async function logIn(path = "") {
     let email = document.getElementById('email').value;
     let password = document.getElementById('password').value;
+    let isValidUser = false;
 
     let response = await fetch(BASE_URL + path + ".json");
     let responseToJson = await response.json();
@@ -14,10 +15,25 @@ async function logIn(path = "") {
         const key = keys[i];
         const userData = responseToJson[key];
 
-        if(userData.email === email && userData.password === password){
-            window.location.href = 'summary.html'
-        }
-        
-    }
 
+        if(userData.email === email && userData.password === password){
+            isValidUser = true;
+            break
+        }
+    }
+        checkLogInData(isValidUser);
+
+}
+
+
+function checkLogInData(isValidUser){
+    if(isValidUser){
+        document.getElementById('password').classList.remove('password-not-the-same');
+        document.getElementById('not-same-password-container').classList.add('d-none');
+        window.location.href = 'summary.html';
+    }
+    else{
+        document.getElementById('password').classList.add('password-not-the-same');
+        document.getElementById('not-same-password-container').classList.remove('d-none');
+    }
 }

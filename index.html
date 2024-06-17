@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,51 +9,62 @@
     <link rel="stylesheet" href="../fonts.css">
     <script src="js/log-in.js"></script>
 </head>
+
 <body>
+
+    <section class="content-wrapper">
+
+
 
 
         <div class="loading-screen">
-            <img class="logo" src="img/join-logo-log-in-small.png" alt="">
+            <img class="logo" src="img/join-logo-log-in-small.svg" alt="">
         </div>
-    
+
         <div class="sign-up-container">
             <span>Not a Join user?</span>
             <a class="sign-up-link" href="registration.html">Sign Up</a>
         </div>
 
 
-    <section class="background">
-        <form class="log-in-container" onsubmit="logIn('/users'); return false">
-            <div class="headline-seperator-container">
-                <h1>Log in</h1>
-                <div class="blue-seperator">
+        <section class="background">
+            <form class="log-in-container" onsubmit="logIn('/users'); return false">
+                <div class="headline-seperator-container">
+                    <h1>Log in</h1>
+                    <div class="blue-seperator">
+                    </div>
                 </div>
-            </div>
-            
-            <div class="input-container">
-                <input id="email" class="email-input" type="email" placeholder="Email">
-                <input id="password" class="password-input" type="password" placeholder="Password">
-            </div>
 
-            <div class="remember-me-container">
-                <input type="checkbox">
-                <span>Remember me</span>
-            </div>
+                <div class="input-container">
+                    <input id="email" class="email-input" type="email" placeholder="Email">
+                <div>
+                    <input id="password" class="password-input" type="password" placeholder="Password">
+                    <div id="not-same-password-container" class="not-same-password-container d-none">
+                        <span>Wrong Password Ups! Try again</span>
+                    </div>
+                </div>
+                </div>
 
-            <div class="log-in-and-guest-button-container">
-                <button class="log-in-button">Log in</button>
-                <button class="guest-log-in-button">Guest Log in</button>
-            </div>
-        </form>
+                <div class="remember-me-container">
+                    <input type="checkbox">
+                    <span>Remember me</span>
+                </div>
+
+                <div class="log-in-and-guest-button-container">
+                    <button class="log-in-button">Log in</button>
+                    <button class="guest-log-in-button">Guest Log in</button>
+                </div>
+            </form>
 
 
-    </section>
-    <footer>
+        </section>
+        
         <div class="privacy-legal-notice-container">
-            <a href="">Privacy Policy</a>
-            <a href="">Legal Notice</a>
+                <a href="">Privacy Policy</a>
+                <a href="">Legal Notice</a>
         </div>
-    </footer>
-    
+    </section>
+
 </body>
+
 </html>
