@@ -17,9 +17,7 @@
 
 
 
-        <div class="loading-screen">
-            <img class="logo" src="img/join-logo-log-in-small.svg" alt="">
-        </div>
+        <img class="logo" src="img/join-logo-log-in-small.svg" alt="">
 
         <div class="sign-up-container">
             <span>Not a Join user?</span>
@@ -28,7 +26,7 @@
 
 
         <section class="background">
-            <form class="log-in-container" onsubmit="logIn('/users'); return false">
+            <form class="log-in-container" onsubmit="handleFormSubmit(event)">
                 <div class="headline-seperator-container">
                     <h1>Log in</h1>
                     <div class="blue-seperator">
@@ -36,9 +34,9 @@
                 </div>
 
                 <div class="input-container">
-                    <input id="email" class="email-input" type="email" placeholder="Email">
+                    <input id="email" class="email-input" type="email" placeholder="Email" required>
                 <div>
-                    <input id="password" class="password-input" type="password" placeholder="Password">
+                    <input id="password" class="password-input" type="password" placeholder="Password" required>
                     <div id="not-same-password-container" class="not-same-password-container d-none">
                         <span>Wrong Password Ups! Try again</span>
                     </div>
@@ -51,8 +49,8 @@
                 </div>
 
                 <div class="log-in-and-guest-button-container">
-                    <button class="log-in-button">Log in</button>
-                    <button class="guest-log-in-button">Guest Log in</button>
+                    <button id="login-button" class="log-in-button">Log in</button>
+                    <button id="guest-login-button" class="guest-log-in-button">Guest Log in</button>
                 </div>
             </form>
 

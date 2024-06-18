@@ -20,40 +20,23 @@ body {
     flex-direction: column;
 }
 
-.loading-screen {
-    position: absolute;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    opacity: 1;
-    visibility: visible;
-    background-color: #F6F7F8;
-    z-index: 9999;
-    animation: resizeLogo 550ms ease-in-out forwards 550ms;
-}
-
 .logo {
     width: 250px;
     height: 300px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     animation: resizeImg 550ms ease-in-out forwards 550ms;
 }
 
-@keyframes resizeLogo {
+@keyframes resizeImg {
     0% {
-        width: 100vw;
-        height: 100vh;
-    }
-
-    15% {
-        background-color: #f6f7f800;
+        transform: translate(-50%, -50%);
+        height: 300px;
     }
 
     100% {
-        position: absolute;
         width: 100px;
         height: 120px;
         left: 77px;
@@ -61,28 +44,24 @@ body {
     }
 }
 
-@keyframes resizeImg {
-    0% {
-        width: 250px;
-        height: 300px;
-    }
-
-    15% {
-        background-color: #f6f7f800;
-    }
-
-    100% {
-        width: 100px;
-        height: 120px;
-    }
-
-}
-
 .background {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    opacity: 0;
+    animation: showContent  750ms ease-in forwards 750ms;
 }
+
+@keyframes showContent {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+      opacity: 1;
+    }
+}
+
 
 .sign-up-container{
     position: absolute;
@@ -95,6 +74,18 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    opacity: 0;
+    animation: showContent  750ms ease-in forwards 750ms;
+}
+
+@keyframes showContent {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+      opacity: 1;
+    }
 }
 
 .sign-up-link {
@@ -275,7 +266,20 @@ h1 {
     gap: 32px;
     position: fixed;
     bottom: 50px;
+    opacity: 0;
+    animation: showContent  750ms ease-in forwards 750ms;
 }
+
+@keyframes showContent {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+      opacity: 1;
+    }
+}
+
 
 .privacy-legal-notice-container a {
     text-decoration: none;

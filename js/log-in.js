@@ -1,5 +1,15 @@
 const BASE_URL = "https://remotestorage-c5224-default-rtdb.europe-west1.firebasedatabase.app/"
 
+document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('login-button').addEventListener('click', function() {
+        logIn('/users');
+    });
+
+    document.getElementById('guest-login-button').addEventListener('click', function() {
+        guestLogIn();
+    });
+});
+
 async function logIn(path = "") {
     let email = document.getElementById('email').value;
     let password = document.getElementById('password').value;
@@ -22,9 +32,7 @@ async function logIn(path = "") {
         }
     }
         checkLogInData(isValidUser);
-
 }
-
 
 function checkLogInData(isValidUser){
     if(isValidUser){
@@ -36,4 +44,12 @@ function checkLogInData(isValidUser){
         document.getElementById('password').classList.add('password-not-the-same');
         document.getElementById('not-same-password-container').classList.remove('d-none');
     }
+}
+
+function guestLogIn() {
+    window.location.href = 'summary.html';
+}
+
+function handleFormSubmit(event) {
+    event.preventDefault();
 }
