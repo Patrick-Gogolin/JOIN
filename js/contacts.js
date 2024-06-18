@@ -1,5 +1,6 @@
 const BASE_URL = "https://remotestorage-c5224-default-rtdb.europe-west1.firebasedatabase.app/";
 
+let contacts = [];
 
 async function onloadFunc(){
     
@@ -7,7 +8,18 @@ async function onloadFunc(){
 
     let contactKeysArray = Object.keys(contactResponse);
 
-    console.log(contactKeysArray);
+    for (let index = 0; index < contactKeysArray.length; index++) {
+        contacts.push(
+            {
+                id: contactKeysArray[index],
+                contact : contactResponse[contactKeysArray[index]],
+
+            }
+        )
+        
+    }
+
+    console.log(contacts);
     //postData("/contacts", {"":""});
     //deleteData("/contacts/-O-SvGfTOuulS1WyvDew");
     //putData("/contacts", {"":""});
@@ -20,6 +32,17 @@ async function loadContacts(path=""){
 }
 
 async function postContacts(path="", data={}){
+    let name = document.getElementById('name');
+    let email = document.getElementById('mail');
+    let phone = document.getElementById('phone');
+
+    data = {
+        name : name.value,
+        email : email.value,
+        phone : phone.value,
+    };
+
+
     let response = await fetch(BASE_URL + path + ".json",{
         method: "POST",
         header: {
@@ -27,6 +50,7 @@ async function postContacts(path="", data={}){
         },
         body: JSON.stringify(data)
     });
+    document.getElementById('add-contact-popup').classList.add('d-none');
     return responseToJson = await response.json();
 }
 
@@ -46,4 +70,12 @@ async function putContacts(path="", data={}){
         body: JSON.stringify(data)
     });
     return responseToJson = await response.json();
+}
+
+async function editContact(){
+    putContacts(`contacts/${id}`, user);
+}
+
+function addContact(){
+    document.getElementById('add-contact-popup').classList.remove('d-none');
 }
