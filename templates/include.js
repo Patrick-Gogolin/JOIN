@@ -9,7 +9,8 @@ async function includeHTML() {
         } else {
             element.innerHTML = 'Page not found';
         }
-    }
+    init();
+}
 }
 
 function load() {
@@ -40,4 +41,6 @@ function showUserInitials(firstLetterOfName, firstLetterOfSurname) {
     return `${firstLetterOfName} ${firstLetterOfSurname}`; // Initialen zurückgeben
 }
 
-document.addEventListener('DOMContentLoaded', init);
+document.addEventListener('DOMContentLoaded', function() {
+    includeHTML(); // HTML-Inhalte inkludieren
+})
