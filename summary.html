@@ -6,11 +6,13 @@
     <title>Summary</title>
     <link rel="stylesheet" href="templates/header.css">
     <link rel="stylesheet" href="templates/sidebar.css">
-    <script src="templates/include.js"></script>
 </head>
-<body onload="includeHTML()">
+<body onload="includeHTML(); init()">
     <div w3-include-html="templates/header.html"></div>
     <div w3-include-html="templates/sidebar.html"></div>
-    
+
+
+    <script src="templates/include.js"></script>
+
 </body>
 </html>

@@ -28,6 +28,8 @@ async function logIn(path = "") {
 
         if(userData.email === email && userData.password === password){
             isValidUser = true;
+            let user = JSON.stringify(userData);
+            localStorage.setItem('user', user);
             break
         }
     }
