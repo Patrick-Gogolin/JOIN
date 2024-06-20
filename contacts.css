@@ -235,6 +235,7 @@ body{
 }
 
 .contact-list{
+    overflow: scroll;
     width: 456px;
     height: 100%;
     background-color: white;
@@ -295,11 +296,6 @@ body{
 
 .contact:hover{
     background-color: rgb(246, 246, 246);
-}
-
-.contact:active{
-    background-color: rgb(43, 54, 71);
-    color: white;
 }
 
 
