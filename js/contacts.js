@@ -27,6 +27,15 @@ async function onloadFunc(){
 
 async function loadContacts(path=""){
     let response = await fetch(BASE_URL + path + ".json");
+    
+
+    for (let index = 0; index < contacts.length; index++) {
+        let eachContact = contacts[index];
+
+        document.getElementById('contact-list').innerHTML += getContactListTemplate(eachContact);
+
+    }
+
     return responseToJson = await response.json();
     
 }
@@ -50,6 +59,7 @@ async function postContacts(path="", data={}){
         },
         body: JSON.stringify(data)
     });
+    loadContacts();
     document.getElementById('add-contact-popup').classList.add('d-none');
     return responseToJson = await response.json();
 }
@@ -77,5 +87,29 @@ async function editContact(){
 }
 
 function addContact(){
-    document.getElementById('add-contact-popup').classList.remove('d-none');
+    document.getElementById('add-contact-popup').classList.remove("d-none");
+}
+
+function closePopup(){
+    document.getElementById('add-contact-popup').classList.add("d-none");
+}
+
+function doNotClose(event){
+    event.stopPropagation();
+}
+
+function getContactListTemplate(eachContact){
+    return`<div class="contact">
+    <div class="contact-logo">AM</div>
+    <div class="contact-name">
+        <p>${eachContact.contact.name}</p>
+        <a href="">${eachContact.contact.email}</a>
+    </div>
+    </div>`;
+}
+
+function getABCSeparatorTemplate(){
+    return `<div class="abc-separator">
+                <p>B</p>
+            </div>`;
 }

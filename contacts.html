@@ -10,9 +10,9 @@
     <script src="templates/include.js"></script>
     <script src="js/contacts.js"></script>
 </head>
-<body onload="includeHTML(), onloadFunc()">
-    <div id="add-contact-popup" class="popup-background, d-none">
-        <div class="popup-content">
+<body onload="includeHTML(), onloadFunc(), loadContacts()">
+    <div id="add-contact-popup" class="popup-background d-none"  onclick="closePopup()" >
+        <div class="popup-content" onclick="doNotClose(event)">
             <div class="popup-left">
                 <img src="/img/capa_2.png" alt="">
                 <h1>Add contact</h1>
@@ -20,7 +20,7 @@
                 <div class="blue-line"></div>
             </div>
             <div class="popup-right">
-                <div class="back-icon-boarder"><img class="back-icon" src="img/x.png" alt=""></div>
+                <div onclick="closePopup()" class="back-icon-boarder"><img class="back-icon" src="img/x.png" alt=""></div>
                 <img class="nobody" src="/img/nobody.png" alt="">
                 <form class="form" onsubmit="postContacts('/contacts'); return false;">
                     <input id="name" class="add-contact-input-name" placeholder="Name" type="text" required>
@@ -37,35 +37,9 @@
     <div w3-include-html="templates/header.html"></div>
     <div w3-include-html="templates/sidebar.html"></div>
     <section class="content">
-        <div class="contact-list">
+        <div id="contact-list" class="contact-list">
             <button onclick="addContact()" class="add-contact">Add new contact <img src="/img/person_add.png" alt=""></button>
-            <div class="abc-separator">
-                <p>A</p>
-            </div>
-            <div class="contact">
-                <div class="contact-logo">AM</div>
-                <div class="contact-name">
-                    <p>Anton Mayer</p>
-                    <a href="">antom@gmail.com</a>
-                </div>
-            </div>
-            <div class="contact">
-                <div class="contact-logo">AS</div>
-                <div class="contact-name">
-                    <p>Anja Schulz</p>
-                    <a href="">schulz@hotmail.com</a>
-                </div>
-            </div>
-            <div class="abc-separator">
-                <p>B</p>
-            </div>
-            <div class="contact">
-                <div class="contact-logo">BZ</div>
-                <div class="contact-name">
-                    <p>Benedikt Ziegler</p>
-                    <a href="">benedikt@gmail.com</a>
-                </div>
-            </div>
+        
         </div>
         <div class="contact-info">
             <div class="contact-info-header">
