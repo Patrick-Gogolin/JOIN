@@ -232,16 +232,13 @@ body{
 .content{
     margin-left: 232px;
     display: flex;
-    height: 100vh;
 }
 
 .contact-list{
     width: 456px;
     height: 100%;
     background-color: white;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    
 }
 
 .contact-info{
@@ -265,6 +262,15 @@ body{
     gap: 17px;
     margin-top: 22px;
     margin-bottom: 22px;
+    margin-left: 52px;
+    margin-right: 52px;
+}
+
+.opened-contact-list{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .add-contact:hover{
@@ -279,7 +285,7 @@ body{
 }
 
 .abc-separator p{
-    padding-left: 36px;
+    padding-left: 42px;
     padding-bottom: 17px;
 }
 
@@ -296,11 +302,6 @@ body{
 
 .contact:hover{
     background-color: rgb(246, 246, 246);
-}
-
-.contact:active{
-    background-color: rgb(43, 54, 71);
-    color: white;
 }
 
 
@@ -321,13 +322,14 @@ body{
 }
 
 .contact-name{
-    margin-left: 35px;
+    margin-left: 28px;
     padding-top: 15px;
     padding-bottom: 21px;
 }
 
 .contact-name p, a{
     margin: 0;
+    text-overflow: ellipsis;
 }
 
 .contact-name p{
@@ -374,6 +376,7 @@ body{
 .contact-data{
     margin-left: 62px;
     margin-top: 32px;
+    display: flex;
 }
 
 .contact-data-header{
@@ -422,6 +425,8 @@ body{
     margin-right: 16px;
 }
 
+
+
 .edit:hover{
     overflow: hidden;
     color: #29ABE2;
@@ -457,4 +462,22 @@ body:has(.delete:hover) .delete img{
 .contact-data a{
     text-decoration: none;
     color: #29ABE2;
+}
+
+.contact-info h2{
+    margin-left: 62px;
+    margin-top: 21px;
+    margin-bottom: 21px;
+    font-weight: 400;
+}
+.contact-info p, h3{
+    margin-left: 62px;
+}
+
+.contact-info a{
+    margin-left: 62px;
+}
+
+.contact-data-icon p{
+    margin: 0;
 }

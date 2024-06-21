@@ -37,32 +37,16 @@
     <div w3-include-html="templates/header.html"></div>
     <div w3-include-html="templates/sidebar.html"></div>
     <section class="content">
-        <div id="contact-list" class="contact-list">
+        <div class="contact-list">
             <button onclick="addContact()" class="add-contact">Add new contact <img src="/img/person_add.png" alt=""></button>
-        
+            <div class="opened-contact-list" id="contact-list"></div>
+            
         </div>
-        <div class="contact-info">
+        <div id="contact-info" class="contact-info">
             <div class="contact-info-header">
             <h1>Contacts</h1>
             <div class="contact-info-header-separator"></div>
             <span>Better with a team</span>
-            </div>
-            <div class="contact-data">
-                <div class="contact-data-header">
-                    <div class="contact-data-logo">AM</div>
-                    <div class="contact-data-name">Anton Mayer 
-                        <div class="contact-data-icon">
-                            <div class="edit"><img src="/img/edit.png" alt=""><p>Edit</p></div>
-                            <div class="delete"><img src="/img/delete.png" alt=""><p>Delete</p></div>
-                        </div>
-                    </div>
-                </div>
-                <h2>Contact Information</h2>
-                <h3>Email</h3>
-                <a href="">antom@gmail.com</a>
-                <h3>Phone</h3>
-                <p>+49 1111 111 11 1</p>
-
             </div>
         </div>
     </section>
