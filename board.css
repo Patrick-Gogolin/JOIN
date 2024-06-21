@@ -4,6 +4,119 @@
     padding: 0;
 }
 
+body {
+    font-family: inter;    
+    background-color: #F6F7F8;
+}
+
+.overlayer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(34, 34, 34, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.d-none {
+    display: none;
+}
+
+.add-task-slide {
+    position: relative;
+    background-color: white;
+    width: 1116px;
+    height: 870px;
+}
+
+.headline-container {
+    padding: 64px 0 0 74px;
+}
+
+.headline-container h1 {
+    font-family: inter;
+    font-weight: 700;
+    font-size: 61px;
+}
+
+.close-button-container {
+    position: absolute;
+    top: 64px;
+    right: 32px;
+    width: 32px;
+    height: 32px;
+}
+
+.input-for-task {
+    border: solid 5px brown;
+    height: 350px;
+    padding: 0px 74px 0px 74px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.left-side-input {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.title-input-container,
+.description-input-container,
+.asssigned-to-input-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.title-input-container input {
+    width: 440px;
+    height: 48px;
+    border: 1px solid #D1D1D1;
+    border-radius: 10px;
+    padding: 12px 21px 12px 21px;
+    font-family: inter;
+    font-weight: 300;
+    font-size: 20px;
+}
+
+.description-input-container textarea {
+    width: 440px;
+    height: 120px;
+    border: 1px solid #D1D1D1;
+    border-radius: 10px;
+    padding: 12px 21px 12px 21px;
+    font-family: inter;
+    font-weight: 200;
+    font-size: 20px;
+}
+
+.asssigned-to-input-container select {
+    width: 440px;
+    height: 48px;
+    border: 1px solid #D1D1D1;
+    border-radius: 10px;
+    padding: 12px 21px 12px 21px;
+    font-family: inter;
+    font-weight: 200;
+    font-size: 20px;
+
+}
+
+.headline-input {
+    font-family: inter;
+    font-weight: 300;
+    font-size: 20px;
+    margin-bottom: 4px;
+}
+
+.seperator {
+    border: solid 1px;
+    border-color: #D1D1D1;
+}
+
 .content {
     border: solid 5px red;
     max-width: 1440px;
@@ -19,14 +132,9 @@ h1 {
 }
 
 .header-board-container {
-    border: solid 5px green;
     display: flex;
     justify-content: space-between;
     align-items: center;
-}
-
-.headline-container {
-    border: solid 5px magenta;
 }
 
 .search-and-add-task-container {
@@ -68,4 +176,66 @@ h1 {
  .search-and-add-task-container button:hover {
     background-color: #29ABE2;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.state-of-task-content-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 40px;
+    margin-bottom: 20px;
+    gap: 32px;
+}
+
+.state-of-task-container {
+    width: 25%;
+    display: flex;
+    justify-content: space-between;
+    font-family: inter;
+    font-weight: 700;
+    font-size: 20px;
+    color: #42526E;
+
+}
+
+.rendered-tasks-container {
+    display: flex;
+    gap: 32px;
+
+}
+
+.rendered-tasks-area-to-do,
+.rendered-tasks-area-in-progress,
+.rendered-tasks-area-await-feedback,
+.rendered-tasks-area-done {
+    width: 25%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.create-task-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 48px;
+    border-radius: 10px;
+    border: solid 1px;
+    background-color: #E7E7E7;
+    color: #A8A8A8;
+    font-size: 16px;
+
+}
+
+.new-task-container {
+    background-color: white;
+    border-radius: 24px;
+    padding: 16px;
+
+}
+.user-story-container {
+    background-color: #0038FF;
+    border-radius: 8px;
+    padding: 4px 16px 4px 16px ;
+    color: white;
+    width: fit-content;
 }
