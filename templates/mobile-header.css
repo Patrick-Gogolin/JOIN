@@ -42,3 +42,31 @@ header img {
     align-items: center;
 }
 
+.sub-menu {
+    width: 150px;
+    height: 205px;
+    position: fixed;
+    right: 8px;
+    top: 81px;
+    background-color: #2A3647;
+    padding: 10px;
+    border-radius: 20px 0px 20px 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.button {
+    width: 130px;
+    height: 45px;
+    padding: 8px 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.button span {
+    height: 20px;
+    font-size: 16px;
+    font-weight: 400;
+    color: #CDCDCD;
+}
