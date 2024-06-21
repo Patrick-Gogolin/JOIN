@@ -190,7 +190,7 @@ function getEachContactInfo(eachContact){
                 <h1>Contacts</h1>
                 <div class="contact-info-header-separator"></div>
                 <span>Better with a team</span>
-                </div>
+    </div>
                 <div class="contact-data">
                 <div id="contact-data-logo" class="contact-data-logo" style="background:${actualBgColor};">${initials}</div>
                 <div class="contact-data-name">${contactName} 
@@ -198,7 +198,7 @@ function getEachContactInfo(eachContact){
                             <div class="edit"><img src="/img/edit.png" alt=""><p>Edit</p></div>
                             <div class="delete"><img src="/img/delete.png" alt=""><p>Delete</p></div>
                         </div>
-                    </div>
+                </div>
                 </div>
                 <h2>Contact Information</h2>
                 <h3>Email</h3>
@@ -206,7 +206,7 @@ function getEachContactInfo(eachContact){
                 <h3>Phone</h3>
                 <p>${contactPhone}</p>
                 
-            </div>`;
+                </div>`;
 }
 
 
