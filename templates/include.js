@@ -26,14 +26,15 @@ function load() {
 }
 
 function init() {
+    let userInitials = document.getElementById('user-initials');
     let user = load(); // Benutzer aus der Load-Funktion abrufen
     if (user) {
-        let userInitials = document.getElementById('user-initials');
         let firstLetterOfName = user['name'][0];
         let firstLetterOfSurname = user['surname'][0];
-        console.log(firstLetterOfName);
-        console.log(firstLetterOfSurname);
         userInitials.innerHTML = showUserInitials(firstLetterOfName, firstLetterOfSurname); // Initialen anzeigen
+    }
+    else{
+        userInitials.innerHTML = "G";
     }
 }
 
