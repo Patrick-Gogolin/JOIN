@@ -26,14 +26,14 @@
             <div class="input-for-task">
                 <div class="left-side-input">
                     <div class="title-input-container">
-                        <span class="headline-input">Title</span>
-                        <input type="text" placeholder="Enter a Title">
+                        <span class="headline-input">Title<span class="red-star-required">*</span></span>
+                        <input type="text" placeholder="Enter a Title" required>
                     </div>
                     <div class="description-input-container">
                         <span class="headline-input">Description</span>
                         <textarea name="" id="" placeholder="Enter a Description"></textarea>
                     </div>
-                    <div class="asssigned-to-input-container">
+                    <div class="assigned-to-input-container">
                         <span class="headline-input">Assigned to</span>
                         <select name="" id="">
                             <option value="" disabled selected>Select Contacts to assign</option>
@@ -44,29 +44,41 @@
                         </select>
                     </div>
                 </div>
-                <div class="seperator">
-
-                </div>
                 <div class="right-side-input">
-                    <div>
-                        <span>Due to</span>
-                        <input type="date">
+                    <div class="date-container">
+                        <span class="headline-input">Due date</span><span class="red-star-required">*</span>
+                        <input type="date" required>
                     </div>
-                    <div>
-                        <span>Prio</span>
-                        <button></button>
-                        <button></button>
-                        <button></button>
+                    <div class="priority-container">
+                        <span class="headline-input">Prio</span>
+                        <div class="priority-button-container">
+                            <button class="urgent-button">Urgent <img src="img/urgent-prio.svg" alt=""></button>
+                            <button class="medium-button">Medium <img src="img/medium-prio-orange.svg" alt=""></button>
+                            <button class="low-button">Low <img src="img/low-prio.svg" alt=""></button>
+                        </div>
                     </div>
-                    <div>
-                        <span>Category</span>
-                        <select name="" id=""></select>
+                    <div class="assigned-to-input-container">
+                        <span class="headline-input">Category</span><span class="red-star-required">*</span>
+                        <select name="" id="" required>
+                            <option value="" disabled selected>Select task category</option>
+                            <option value="contact1">Technical Task</option>
+                            <option value="contact2">User Story</option>
+                            <!-- Weitere Optionen hier -->
+                        </select>
                     </div>
-                    <div>
-                        <span>Subtask</span>
-                        <input type="text">
+                    <div class="add-subtast-container">
+                        <span class="headline-input">Subtask</span>
+                        <input type="text" placeholder="Add new subtask">
                     </div>
                 </div>
+            </div>
+            <div class="required-reminder-container">
+                <span><span class="red-star-required">*</span>This field is required</span>
+            </div>
+            <div class="clear-and-create-task-button-container">
+                <button class="cancel-button">Cancel</button>
+                <button class="check-button">Create Task <img src="img/check.svg" alt=""></button>
+
             </div>
         </div>
 
