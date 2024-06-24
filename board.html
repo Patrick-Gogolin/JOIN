@@ -27,7 +27,8 @@
                 <div class="left-side-input">
                     <div class="title-input-container">
                         <span class="headline-input">Title<span class="red-star-required">*</span></span>
-                        <input type="text" placeholder="Enter a Title" required>
+                        <input id="title" type="text" placeholder="Enter a Title" required>
+                        <span id="title-required-span" class="this-field-required-span d-none">This field is required</span>
                     </div>
                     <div class="description-input-container">
                         <span class="headline-input">Description</span>
@@ -46,25 +47,27 @@
                 </div>
                 <div class="right-side-input">
                     <div class="date-container">
-                        <span class="headline-input">Due date</span><span class="red-star-required">*</span>
-                        <input type="date" required>
+                        <span class="headline-input">Due Date<span class="red-star-required">*</span></span>
+                        <input id="date" type="date" required>
+                        <span id="date-required-span" class="this-field-required-span d-none">This field is required</span>
                     </div>
                     <div class="priority-container">
                         <span class="headline-input">Prio</span>
                         <div class="priority-button-container">
-                            <button class="urgent-button">Urgent <img src="img/urgent-prio.svg" alt=""></button>
-                            <button class="medium-button">Medium <img src="img/medium-prio-orange.svg" alt=""></button>
-                            <button class="low-button">Low <img src="img/low-prio.svg" alt=""></button>
+                            <button onclick="urgentPriority()" id="urgent-button" class="urgent-button">Urgent <img id="urgent-prio-sign" src="img/urgent-prio.svg" alt=""></button>
+                            <button onclick="mediumPriority()" id="medium-button" class="medium-button">Medium <img id="medium-prio-sign" src="img/medium-prio-orange.svg" alt=""></button>
+                            <button onclick="lowPriority()" id="low-button" class="low-button">Low <img id="low-prio-sign" src="img/low-prio.svg" alt=""></button>
                         </div>
                     </div>
                     <div class="assigned-to-input-container">
-                        <span class="headline-input">Category</span><span class="red-star-required">*</span>
-                        <select name="" id="" required>
+                        <span class="headline-input">Category<span class="red-star-required">*</span></span>
+                        <select name="" id="category" required>
                             <option value="" disabled selected>Select task category</option>
                             <option value="contact1">Technical Task</option>
                             <option value="contact2">User Story</option>
                             <!-- Weitere Optionen hier -->
                         </select>
+                        <span id="category-required-span" class="this-field-required-span d-none">This field is required</span>
                     </div>
                     <div class="add-subtast-container">
                         <span class="headline-input">Subtask</span>
@@ -76,8 +79,8 @@
                 <span><span class="red-star-required">*</span>This field is required</span>
             </div>
             <div class="clear-and-create-task-button-container">
-                <button class="cancel-button">Cancel</button>
-                <button class="check-button">Create Task <img src="img/check.svg" alt=""></button>
+                <button onclick="closeOverlayer()" id="cancel-button" class="cancel-button">Cancel</button>
+                <button onclick="addTask()" class="check-button">Create Task <img src="img/check.svg" alt=""></button>
 
             </div>
         </div>
