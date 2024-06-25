@@ -27,7 +27,7 @@ textarea {
 }
 
 .d-none {
-    display: none;
+    display: none !important;
 }
 
 .add-task-slide {
@@ -323,25 +323,46 @@ textarea {
     box-shadow: 0px 8px 4px 0px rgba(0, 0, 0, 0.1);
 }
 
-.add-subtast-container {
+.add-subtask-container {
     display: flex;
     flex-direction: column;
 }
 
-
-.add-subtast-container input {
-    background-image: url(img/addsubtask.svg);
-    background-repeat: no-repeat;
-    background-position: 395px;
+.add-subtask-input-container {
+    display: flex;
+    align-items: center;
     width: 440px;
     height: 48px;
-    border: 1px solid #D1D1D1;
     border-radius: 10px;
-    padding: 12px 21px 12px 21px;
-    font-family: inter;
-    font-weight: 200;
-    font-size: 20px;
+    border: 1px solid #D1D1D1;
     cursor: pointer;
+}
+
+.add-subtask-input-container input {
+   border: none;
+   outline: none;
+   height: 35px;
+   width: 390px;
+   padding: 12px 21px 12px 21px;
+   font-family: inter;
+   font-weight: 200;
+   font-size: 20px;
+}
+
+.add-subtask-svg:hover {
+    background-color: #D1D1D1;
+    border-radius: 10px;
+}
+
+.cancel-or-confirm-subtask-container {
+    display: flex;
+    align-items: center;
+}
+
+.seperator {
+    width: 1px;
+    height: 24px;
+    background-color: #D1D1D1;
 }
 
 .this-field-required-span {

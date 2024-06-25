@@ -69,9 +69,19 @@
                         </select>
                         <span id="category-required-span" class="this-field-required-span d-none">This field is required</span>
                     </div>
-                    <div class="add-subtast-container">
+                    <div class="add-subtask-container">
                         <span class="headline-input">Subtask</span>
-                        <input type="text" placeholder="Add new subtask">
+                        <div class="add-subtask-input-container">
+                            <input id="add-subtask-input-container-inputfield" oninput="changeIcons()" type="text" placeholder="Add new subtask">
+                            <div id="add-subtask-svg-container" class="add-subtask-svg-container">
+                                <img id="add-subtask-svg" class="add-subtask-svg" src="img/addsubtask.svg" alt="">
+                            </div>
+                            <div id="cancel-or-confirm-subtask-container" class="cancel-or-confirm-subtask-container d-none">
+                                <img src="img/cancel.svg" alt="">
+                                <div class="seperator"></div>
+                                <img src="img/check-grey.svg" alt="">
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

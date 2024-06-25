@@ -119,3 +119,17 @@ function resetButtons() {
     lowPrioSign.src= 'img/low-prio.svg';
     lowActive = false;
 }
+
+function changeIcons() {
+    let content = document.getElementById('add-subtask-svg-container');
+    let cancelAndConfirm = document.getElementById('cancel-or-confirm-subtask-container')
+    let input = document.getElementById('add-subtask-input-container-inputfield');
+    if(input.value === ''){
+        content.classList.remove('d-none');
+        cancelAndConfirm.classList.add('d-none');
+    }
+    else{
+        content.classList.add('d-none');
+        cancelAndConfirm.classList.remove('d-none');
+    }
+}
