@@ -46,6 +46,7 @@ body{
 
 .popup-left{
     padding-left: 48px;
+    padding-right: 5px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -117,10 +118,28 @@ body{
     height: 120px;
 }
 
+.edit-contact-logo{
+    margin-left: 83px;
+    margin-right: 72px;
+    width: 120px;
+    height: 120px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(255, 122, 1);
+    color: white;
+    border: solid 3px white;
+    border-radius: 50%;
+    font-size: 47px;
+}
+
+
+
 .form{
     margin-right: 48px;
     display: flex;
     flex-direction: column;
+    width: 54%;
 }
 
 .form input::placeholder{
@@ -138,9 +157,8 @@ body{
     padding: 12px 21px 12px 21px;
     background: url(img/person.svg);
     background-repeat: no-repeat;
-    background-position: 410px;
+    background-position: calc(100% - 14px);
     height: 48px;
-    width: 422px;
     border-radius: 10px;
     border: solid 1px #D1D1D1;
     font-family: inter;
@@ -156,9 +174,8 @@ body{
     padding: 12px 21px 12px 21px;
     background: url(img/mail-logo-for-input.svg);
     background-repeat: no-repeat;
-    background-position: 410px;
+    background-position: calc(100% - 14px);
     height: 48px;
-    width: 422px;
     border-radius: 10px;
     border: solid 1px #D1D1D1;
     font-family: inter;
@@ -174,9 +191,8 @@ body{
     padding: 12px 21px 12px 21px;
     background: url(img/call-for-input.png);
     background-repeat: no-repeat;
-    background-position: 410px;
+    background-position: calc(100% - 14px);
     height: 48px;
-    width: 422px;
     border-radius: 10px;
     border: solid 1px #D1D1D1;
     font-family: inter;
@@ -192,6 +208,7 @@ body{
 }
 
 .cancel{
+    cursor: pointer;
     width: 126px;
     height: 57px;
     margin-right: 24px;
@@ -212,6 +229,7 @@ body{
 
 
 .create{
+    cursor: pointer;
     width: 214px;
     height: 57px;
     color: white;
@@ -236,13 +254,26 @@ body{
 
 .contact-list{
     width: 456px;
-    height: 100%;
+    height: calc(100vh - 96px);
     background-color: white;
+    overflow-y: scroll;
     
 }
 
 .contact-info{
     height: 100%;
+}
+
+.animation{
+    animation: slideMe 0.2s ease-in;
+}
+@keyframes slideMe{
+    0%{
+        transform:  translateX(500px);
+    }
+    100%{
+        transform:  translateX(0px);
+    }
 }
 
 .add-contact{
@@ -263,7 +294,7 @@ body{
     margin-top: 22px;
     margin-bottom: 22px;
     margin-left: 52px;
-    margin-right: 52px;
+   
 }
 
 .opened-contact-list{
@@ -271,6 +302,7 @@ body{
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    margin-bottom: 22px;
 }
 
 .add-contact:hover{
@@ -450,6 +482,12 @@ body:has(.delete:hover) .delete img{
 
 .contact-data-icon p{
     margin: 0;
+}
+
+.contact-info a{
+    text-decoration: none;
+    color: #29ABE2;
+    display: flex;
 }
 
 .contact-data h2{

@@ -21,6 +21,7 @@ async function onloadFunc(){
     await loadContacts('/contacts');
 }   
 
+
 function sortContactsAlphabetically() {
     contacts.sort((a, b) => {
         const nameA = a.contact.name.toUpperCase();
@@ -57,8 +58,7 @@ async function loadContacts(path=""){
         random_bg_color(eachContact);
     }
 
-    return responseToJson = await response.json();
-    
+    return responseToJson = await response.json(); 
 }
 
 
@@ -66,14 +66,14 @@ async function postContacts(path="", data={}){
     let name = document.getElementById('name');
     let email = document.getElementById('mail');
     let phone = document.getElementById('phone');
-
+    let color = random_bg_color();
     data = {
         name : name.value,
         email : email.value,
         phone : phone.value,
+        color : color,
+
     };
-
-
     let response = await fetch(BASE_URL + path + ".json",{
         method: "POST",
         header: {
@@ -81,34 +81,132 @@ async function postContacts(path="", data={}){
         },
         body: JSON.stringify(data)
     });
-    loadContacts();
+    let newContact = await response.json();
+    contacts.push({
+        id: newContact.name,
+        contact: data,
+    });
+    sortContactsAlphabetically();
+    await loadContacts();
+    name.value = "";
+    email.value = "";
+    phone.value = "";
+
     document.getElementById('add-contact-popup').classList.add('d-none');
-    return responseToJson = await response.json();
+    showContactInfo({id: newContact.name, contact: data});
+    return newContact;
 }
 
 
-async function deleteContacts(path=""){
-    let response = await fetch(BASE_URL + path + ".json",{
+async function deleteContacts(contactID){
+
+    let response = await fetch(BASE_URL + `contacts/${contactID}.json`, {
         method: "DELETE",
     });
-    return responseToJson = await response.json();
+
+    if (response.ok) {
+        removeContactFromArray(contactID);
+        await loadContacts();
+    }
+    document.getElementById('contact-info').innerHTML = 
+    `<div class="contact-info-header">
+    <h1>Contacts</h1>
+    <div class="contact-info-header-separator"></div>
+    <span>Better with a team</span>
+    </div>`;
+    return await response.json();
+}
+
+function removeContactFromArray(contactID){
+    let index = contacts.findIndex(contact => contact.id === contactID);
+    if (index !== -1) {
+        contacts.splice(index, 1);
+    }
+}
+
+function editContact(eachContact){
+    
+
+    document.getElementById('edit-contact-popup').classList.remove("d-none");
+    document.getElementById('edit-contact-popup').innerHTML = getEditContactTemplate(eachContact);
+
+    document.getElementById('editName').value = eachContact.contact.name;
+    document.getElementById('editMail').value = eachContact.contact.email;
+    document.getElementById('editPhone').value = eachContact.contact.phone;
+    document.getElementById(`contact-logo-${eachContact}`).style.backgroundColor = eachContact.contact.color;
+    
+}
+
+function submitEditContactForm(event, contactID){
+    event.preventDefault();
+
+    let name = document.getElementById('editName').value;
+    let email = document.getElementById('editMail').value;
+    let phone = document.getElementById('editPhone').value;
+    
+    
+    let updatedContact = {
+        name : name,
+        email : email,
+        phone : phone
+    };
+   
+    putContacts(`contacts/${contactID}`, updatedContact).then(() => {
+        const index = contacts.findIndex(contact => contact.id === contactID);
+        if (index !== -1) {
+            contacts[index].contact = updatedContact;
+        }
+
+        document.getElementById('edit-contact-popup').classList.add('d-none');
+
+        loadContacts();
+        showContactInfo(contacts[index]);
+    }).catch(error => {
+        console.error('Error updating contact:', error);
+    });
 }
 
 
 async function putContacts(path="", data={}){
+
     let response = await fetch(BASE_URL + path + ".json",{
         method: "PUT",
         header: {
             "Content-Type": "application/json",
         },
-        body: JSON.stringify(data)
+        body: JSON.stringify(data),
     });
-    return responseToJson = await response.json();
+
+    if (!response.ok) {
+        throw new Error('Network response was not ok' + response.statusText);
+    }
+
+    return await response.json();
 }
 
 
-async function editContact(){
-    putContacts(`contacts/${id}`, user);
+function getEditContactTemplate(eachContact){
+    let initials = getContactsInitials(eachContact);
+    return `<div class="popup-content animation" onclick="doNotClose(event)">
+            <div class="popup-left">
+                <img src="/img/capa_2.png" alt="">
+                <h1>Edit contact</h1>
+                <div class="blue-line"></div>
+            </div>
+            <div class="popup-right">
+                <div onclick="closePopup()" class="back-icon-boarder"><img class="back-icon" src="img/x.png" alt=""></div>
+                <div id="contact-logo-${eachContact}" class="edit-contact-logo">${initials}</div>
+                <form class="form" onsubmit="submitEditContactForm(event, '${eachContact.id}'); return false;">
+                    <input id="editName" class="add-contact-input-name" placeholder="Name" type="text" required>
+                    <input id="editMail" class="add-contact-input-mail" placeholder="Email" type="email" required>
+                    <input id="editPhone" class="add-contact-input-tel" placeholder="Phone" type="tel" required>
+                    <div class="add-contact-form-buttons">
+                    <button type="button" class="cancel" onclick= "closePopup()">Cancel <img src="img/x.png" alt=""></button>
+                    <button type="submit" class="create"> Edit contact <img src="img/check.png" alt=""></button>
+                    </div>
+                </form>
+            </div>
+        </div>`;
 }
 
 
@@ -117,8 +215,10 @@ function addContact(){
 }
 
 
+
 function closePopup(){
     document.getElementById('add-contact-popup').classList.add("d-none");
+    document.getElementById('edit-contact-popup').classList.add("d-none");
 }
 
 
@@ -129,9 +229,10 @@ function doNotClose(event){
 
 function getContactListTemplate(eachContact){
     let initials = getContactsInitials(eachContact);
+    let bgColor = eachContact.contact.color;
     return`
     <div id="contact-list-element-${eachContact.id}" class="contact" onclick='showContactInfo(${JSON.stringify(eachContact)})'>
-        <div id="contact-logo-${eachContact.id}" class="contact-logo">${initials}</div>
+        <div class="contact-logo" style="background-color: ${bgColor};" >${initials}</div>
         <div class="contact-name">
          <p>${eachContact.contact.name}</p>
          <a href="">${eachContact.contact.email}</a>
@@ -171,46 +272,45 @@ function showContactInfo(eachContact){
 
     document.getElementById(`contact-list-element-${eachContact.id}`).style.backgroundColor = "#2A3647";
     document.getElementById(`contact-list-element-${eachContact.id}`).style.color = "white";
-    document.getElementById('contact-info').innerHTML = getEachContactInfo(eachContact);
+    showInfo(eachContact);
 }
 
+function showInfo(eachContact){
+    document.getElementById('contact-info').innerHTML = getEachContactInfo(eachContact);
+}
 
 function getEachContactInfo(eachContact){
     let initials = getContactsInitials(eachContact);
     let contactName = eachContact.contact.name;
     let contactEmail = eachContact.contact.email;
     let contactPhone = eachContact.contact.phone;
-    let actualBgColor = document.getElementById(`contact-logo-${eachContact.id}`).style.background;
+    let actualBgColor = eachContact.contact.color;
     
-    console.log(actualBgColor);
-    
-
     return `
     <div class="contact-info-header">
                 <h1>Contacts</h1>
                 <div class="contact-info-header-separator"></div>
                 <span>Better with a team</span>
     </div>
-                <div class="contact-data">
+                <div class="contact-data animation">
                 <div id="contact-data-logo" class="contact-data-logo" style="background:${actualBgColor};">${initials}</div>
                 <div class="contact-data-name">${contactName} 
                         <div class="contact-data-icon">
-                            <div class="edit"><img src="/img/edit.png" alt=""><p>Edit</p></div>
-                            <div class="delete"><img src="/img/delete.png" alt=""><p>Delete</p></div>
+                            <div onclick='editContact(${JSON.stringify(eachContact)})' class="edit"><img src="/img/edit.png" alt=""><p>Edit</p></div>
+                            <div onclick="deleteContacts('${eachContact.id}')" class="delete"><img src="/img/delete.png" alt=""><p>Delete</p></div>
                         </div>
                 </div>
                 </div>
-                <h2>Contact Information</h2>
-                <h3>Email</h3>
-                <a href="">${contactEmail}</a>
-                <h3>Phone</h3>
-                <p>${contactPhone}</p>
-                
+                <h2 class="animation">Contact Information</h2>
+                <h3 class="animation">Email</h3>
+                <a href="" class="animation">${contactEmail}</a>
+                <h3 class="animation" >Phone</h3>
+                <p class="animation" >${contactPhone}</p>
                 </div>`;
 }
 
 
-function random_bg_color(eachContact) {
+function random_bg_color() {
     // Generate random values for red, green, and blue components between 0 and 255.
     var x = Math.floor(Math.random() * 256);
     var y = Math.floor(Math.random() * 256);
@@ -218,7 +318,7 @@ function random_bg_color(eachContact) {
     // Construct the RGB color string.
     var bgColor = "rgb(" + x + "," + y + "," + z + ")";
     // Output the generated color to the console.
-    console.log(bgColor);
+
     // Set the background color of the document body to the generated color.
-    document.getElementById(`contact-logo-${eachContact.id}`).style.background = bgColor;
+    return bgColor;
 }
