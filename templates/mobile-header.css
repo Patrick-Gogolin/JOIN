@@ -29,7 +29,7 @@ header img {
 
 .profile-container:hover {
     cursor: pointer;
-    background-color:  #0C2E621F;
+    background-color: #0C2E621F;
 }
 
 .user-initials {
@@ -47,17 +47,21 @@ header img {
     width: 150px;
     height: 205px;
     position: fixed;
-    right: 8px;
+    right: -170px; /* Initially hidden */
     top: 81px;
     background-color: #2A3647;
     padding: 10px;
     border-radius: 20px 0px 20px 20px;
     display: flex;
     flex-direction: column;
+    transition: right 100ms ease-in-out; /* Transition for smooth sliding */
+}
+
+.sub-menu.visible {
+    right: 8px; /* Position when visible */
 }
 
 .button {
-    width: 130px;
     height: 45px;
     padding: 8px 16px;
     display: flex;
@@ -65,9 +69,19 @@ header img {
     gap: 8px;
 }
 
-.button span {
+.button:hover {
+    background-color: #2A3D59;
+    cursor: pointer;
+}
+
+.button span, .button a {
     height: 20px;
     font-size: 16px;
     font-weight: 400;
     color: #CDCDCD;
+    text-decoration: none;
+}
+
+.button a:hover {
+    cursor: pointer;
 }

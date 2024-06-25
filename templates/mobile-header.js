@@ -3,20 +3,16 @@ document.addEventListener("DOMContentLoaded", function() {
     const subMenu = document.getElementById("sub-menu");
 
     profileContainer.addEventListener("click", function() {
-        if (subMenu.style.display === "none" || subMenu.style.display === "") {
-            subMenu.style.display = "flex"; // Show the menu
-        } else {
-            subMenu.style.display = "none"; // Hide the menu
-        }
+        subMenu.classList.toggle("visible");
     });
 
     // Add click event listeners to all buttons in the sub-menu
     const buttons = subMenu.querySelectorAll(".button");
     buttons.forEach(button => {
         button.addEventListener("click", function(event) {
-            const link = button.querySelector("a");
+            const link = button.dataset.link;
             if (link) {
-                window.location.href = link.href;
+                window.location.href = link;
             }
         });
     });
