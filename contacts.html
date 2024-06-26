@@ -11,8 +11,8 @@
     <script src="js/contacts.js"></script>
 </head>
 <body onload="includeHTML(), onloadFunc(), loadContacts('/contacts')">
-    <div id="add-contact-popup" class="popup-background d-none"  onclick="closePopup()" >
-        <div class="popup-content" onclick="doNotClose(event)">
+    <div id="add-contact-popup" class="popup-background d-none"  onclick="closePopup()">
+        <div class="popup-content animation" onclick="doNotClose(event)">
             <div class="popup-left">
                 <img src="/img/capa_2.png" alt="">
                 <h1>Add contact</h1>
@@ -27,13 +27,14 @@
                     <input id="mail" class="add-contact-input-mail" placeholder="Email" type="email" required>
                     <input id="phone" class="add-contact-input-tel" placeholder="Phone" type="tel" required>
                     <div class="add-contact-form-buttons">
-                    <button class="cancel">Cancel <img src="img/x.png" alt=""></button>
-                    <button class="create"> Create contact <img src="img/check.png" alt=""></button>
+                    <button onclick="closePopup()" type="button" class="cancel">Cancel <img src="img/x.png" alt=""></button>
+                    <button type="submit" class="create"> Create contact <img src="img/check.png" alt=""></button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
+    <div id="edit-contact-popup" class="popup-background d-none"  onclick="closePopup()" ></div>
     <div w3-include-html="templates/header.html"></div>
     <div w3-include-html="templates/sidebar.html"></div>
     <section class="content">
