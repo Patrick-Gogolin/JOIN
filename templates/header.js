@@ -11,10 +11,12 @@ function isOpen() {
 
 function showMenu(subMenu) {
     subMenu.classList.remove("d-none");
+    subMenu.classList.add("sub-menu");
     open = true;
 }
 
 function closeMenu(subMenu) {
     subMenu.classList.add("d-none");
+    subMenu.classList.remove("sub-menu");
     open = false;
 }
