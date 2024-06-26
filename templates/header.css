@@ -97,6 +97,7 @@ header {
     background-color: #2A3647;
     padding: 10px;
     border-radius: 20px 0px 20px 20px;
+    z-index: 999;
     @media (min-width: 1440px) {
         right: calc((100% - 1440px) / 2 + 16px); /* Berechnet den Abstand vom rechten Rand basierend auf der Maximalbreite des Headers */
     }
