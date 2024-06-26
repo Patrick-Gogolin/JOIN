@@ -3,6 +3,10 @@ body {
     font-family: Inter;
 }
 
+.d-none {
+    display: none;
+}
+
 header {
     height: 80px;
     padding: 20px 16px;

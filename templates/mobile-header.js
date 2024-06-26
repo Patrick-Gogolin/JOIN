@@ -1,19 +1,20 @@
-document.addEventListener("DOMContentLoaded", function() {
-    const profileContainer = document.querySelector(".profile-container");
-    const subMenu = document.getElementById("sub-menu");
+let open = false;
 
-    profileContainer.addEventListener("click", function() {
-        subMenu.classList.toggle("visible");
-    });
+function isOpen() {
+    const subMenu = document.getElementById('sub-menu');
+    if (!open) {
+        showMenu(subMenu);
+    } else {
+        closeMenu(subMenu);
+    }
+}
 
-    // Add click event listeners to all buttons in the sub-menu
-    const buttons = subMenu.querySelectorAll(".button");
-    buttons.forEach(button => {
-        button.addEventListener("click", function(event) {
-            const link = button.dataset.link;
-            if (link) {
-                window.location.href = link;
-            }
-        });
-    });
-});
+function showMenu(subMenu) {
+    subMenu.classList.remove("d-none");
+    open = true;
+}
+
+function closeMenu(subMenu) {
+    subMenu.classList.add("d-none");
+    open = false;
+}

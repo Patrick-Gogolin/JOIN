@@ -7,20 +7,21 @@
     <title>JOIN</title>
     <link rel="stylesheet" href="./mobile-header.css">
     <link rel="stylesheet" href="../fonts.css">
-    <script src="./mobile-header.js"></script>
+    <script src="./header.js"></script>
 </head>
 
 <body>
+
     <header>
         <img src="../img/join-logo-log-in-small.png">
-        <div class="profile-container">
+        <div onclick="isOpen()" class="profile-container" id="profile-container">
             <span id="user-initials" class="user-initials">
                 SM
             </span>
         </div>
-
     </header>
-    <div id="sub-menu" class="sub-menu">
+
+    <div id="sub-menu" class="sub-menu d-none">
         <div class="button" data-link="../help.html">
             <a href="../help.html">Help</a>
         </div>

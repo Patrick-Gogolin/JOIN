@@ -2,7 +2,10 @@ body {
     margin: 0;
     font-family: Inter;
     color: black;
-    box-shadow: 0px 4px 4px 0px #0000001A;
+}
+
+.d-none {
+    display: none;
 }
 
 hr {
@@ -19,6 +22,10 @@ header {
     justify-content: space-between;
     align-items: center;
     margin: 0 auto;
+}
+
+.header-shadow {
+    box-shadow: 0px 4px 4px 0px #0000001A;
 }
 
 .headline-header {
@@ -81,8 +88,7 @@ header {
 }
 
 .sub-menu {
-    width: 150px;
-    height: 205px;
+    height: 160px;
     display: flex;
     flex-direction: column;
     position: fixed;
@@ -91,8 +97,6 @@ header {
     background-color: #2A3647;
     padding: 10px;
     border-radius: 20px 0px 20px 20px;
-    display: none; /* Initially hidden */
-
     @media (min-width: 1440px) {
         right: calc((100% - 1440px) / 2 + 16px); /* Berechnet den Abstand vom rechten Rand basierend auf der Maximalbreite des Headers */
     }
