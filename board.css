@@ -367,10 +367,28 @@ textarea {
     border-radius: 50px;
 }
 
+.list-element {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 4px 21px 4px 21px;
+}
+
 .seperator {
     width: 1px;
     height: 24px;
     background-color: #D1D1D1;
+}
+
+.edit-delete-created-subtask-container {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.added-subtask-container {
+    width: 440px;
+    border: solid 5px green;
 }
 
 .this-field-required-span {

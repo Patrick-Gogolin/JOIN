@@ -78,11 +78,16 @@
                                 <img id="add-subtask-svg" class="add-subtask-svg" src="img/addsubtask.svg" alt="">
                             </div>
                             <div id="cancel-or-confirm-subtask-container" class="cancel-or-confirm-subtask-container d-none">
-                                <img src="img/cancel.svg" alt="">
+                                <img onclick="clearSubtask()" src="img/cancel.svg" alt="">
                                 <div class="seperator"></div>
-                                <img src="img/check-grey.svg" alt="">
+                                <img onclick="addSubtask()" src="img/check-grey.svg" alt="">
                             </div>
                         </div>
+                    </div>
+                    <div id="added-subtask-container" class="added-subtask-container">
+                        <div id="added-subtask-list" class="subtask">
+                        </div>
+
                     </div>
                 </div>
             </div>

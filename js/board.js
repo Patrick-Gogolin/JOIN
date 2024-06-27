@@ -133,3 +133,38 @@ function changeIcons() {
         cancelAndConfirm.classList.remove('d-none');
     }
 }
+
+function addSubtask() {
+    let addSignContainer = document.getElementById('add-subtask-svg-container');
+    let cancelAndConfirm = document.getElementById('cancel-or-confirm-subtask-container')
+    let inputField = document.getElementById('add-subtask-input-container-inputfield');
+    let inputFieldContent = inputField.value;
+    let content = document.getElementById('added-subtask-list');
+    content.innerHTML += /*html*/`
+    <ul>
+        <li class="list-element">
+            <input type="text" value="${inputFieldContent}">
+            <div class="edit-delete-created-subtask-container">
+                <img src="img/edit.svg" alt="">
+                <div class="seperator"></div>
+                <img src="img/delete.svg" alt="">
+            </div>
+        </li>
+    </ul>
+    `;
+
+    inputField.value = '';
+    addSignContainer.classList.remove('d-none');
+    cancelAndConfirm.classList.add('d-none');
+}
+
+function clearSubtask() {
+    let addSignContainer = document.getElementById('add-subtask-svg-container');
+    let cancelAndConfirm = document.getElementById('cancel-or-confirm-subtask-container')
+    let inputField = document.getElementById('add-subtask-input-container-inputfield');
+
+    inputField.value = '';
+    addSignContainer.classList.remove('d-none');
+    cancelAndConfirm.classList.add('d-none');
+
+}
