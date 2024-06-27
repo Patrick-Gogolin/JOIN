@@ -374,6 +374,23 @@ textarea {
     padding: 4px 21px 4px 21px;
 }
 
+.edit-sign {
+    cursor: pointer;
+}
+
+.edit-subtask-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 4px 21px 4px 21px;
+}
+
+.delete-confirm-edit-subtask-container {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
 .seperator {
     width: 1px;
     height: 24px;
