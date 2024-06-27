@@ -1,0 +1,21 @@
+body {
+    margin: 0;
+    font-family: Inter;
+    background-color: #F6F7F8;
+}
+
+.summary-headline {
+    height: 75px;
+    position: absolute;
+    top: 205px;
+    left: 328px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 30px;
+}
+
+.summary-headline h1 {
+    font-size: 60px;
+    font-weight: 700;
+}
