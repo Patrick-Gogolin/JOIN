@@ -3,17 +3,13 @@ const BASE_URL = "https://remotestorage-c5224-default-rtdb.europe-west1.firebase
 let contacts = [];
 
 async function onloadFunc(){
-    
     let contactResponse = await loadContacts("contacts");
-
     let contactKeysArray = Object.keys(contactResponse);
-
     for (let index = 0; index < contactKeysArray.length; index++) {
         contacts.push(
             {
                 id: contactKeysArray[index],
                 contact : contactResponse[contactKeysArray[index]],
-
             }
         )   
     }
@@ -26,7 +22,6 @@ function sortContactsAlphabetically() {
     contacts.sort((a, b) => {
         const nameA = a.contact.name.toUpperCase();
         const nameB = b.contact.name.toUpperCase(); 
-        
         if (nameA < nameB) {
             return -1;
         }
@@ -43,21 +38,17 @@ async function loadContacts(path=""){
     let contactListElement = document.getElementById('contact-list');
     contactListElement.innerHTML = "";
     let currentInitial = "";
-
     for (let index = 0; index < contacts.length; index++) {
         let eachContact = contacts[index];
         let contactInitial = eachContact.contact.name.charAt(0).toUpperCase();
-
         if (contactInitial !== currentInitial) {
             currentInitial = contactInitial;
             contactListElement.innerHTML += getABCSeparatorTemplate(currentInitial);
         }
-
        contactListElement.innerHTML += getContactListTemplate(eachContact);
         getContactsInitials(eachContact);
         random_bg_color(eachContact);
     }
-
     return responseToJson = await response.json(); 
 }
 
@@ -72,7 +63,6 @@ async function postContacts(path="", data={}){
         email : email.value,
         phone : phone.value,
         color : color,
-
     };
     let response = await fetch(BASE_URL + path + ".json",{
         method: "POST",
@@ -91,7 +81,6 @@ async function postContacts(path="", data={}){
     name.value = "";
     email.value = "";
     phone.value = "";
-
     document.getElementById('add-contact-popup').classList.add('d-none');
     showContactInfo({id: newContact.name, contact: data});
     return newContact;
@@ -113,9 +102,11 @@ async function deleteContacts(contactID){
     <h1>Contacts</h1>
     <div class="contact-info-header-separator"></div>
     <span>Better with a team</span>
+    <div class="contact-info-header-separator-mobile"></div>
     </div>`;
     return await response.json();
 }
+
 
 function removeContactFromArray(contactID){
     let index = contacts.findIndex(contact => contact.id === contactID);
@@ -124,51 +115,42 @@ function removeContactFromArray(contactID){
     }
 }
 
-function editContact(eachContact){
-    
 
+function editContact(eachContact){
     document.getElementById('edit-contact-popup').classList.remove("d-none");
     document.getElementById('edit-contact-popup').innerHTML = getEditContactTemplate(eachContact);
-
     document.getElementById('editName').value = eachContact.contact.name;
     document.getElementById('editMail').value = eachContact.contact.email;
     document.getElementById('editPhone').value = eachContact.contact.phone;
-    document.getElementById(`contact-logo-${eachContact}`).style.backgroundColor = eachContact.contact.color;
-    
+    document.getElementById(`contact-logo-${eachContact}`).style.backgroundColor = eachContact.contact.color; 
 }
+
 
 function submitEditContactForm(event, contactID){
     event.preventDefault();
-
     let name = document.getElementById('editName').value;
     let email = document.getElementById('editMail').value;
     let phone = document.getElementById('editPhone').value;
-    
-    
     let updatedContact = {
         name : name,
         email : email,
         phone : phone
     };
-   
     putContacts(`contacts/${contactID}`, updatedContact).then(() => {
         const index = contacts.findIndex(contact => contact.id === contactID);
         if (index !== -1) {
             contacts[index].contact = updatedContact;
         }
-
         document.getElementById('edit-contact-popup').classList.add('d-none');
-
         loadContacts();
         showContactInfo(contacts[index]);
-    }).catch(error => {
+        }).catch(error => {
         console.error('Error updating contact:', error);
     });
 }
 
 
 async function putContacts(path="", data={}){
-
     let response = await fetch(BASE_URL + path + ".json",{
         method: "PUT",
         header: {
@@ -176,11 +158,9 @@ async function putContacts(path="", data={}){
         },
         body: JSON.stringify(data),
     });
-
     if (!response.ok) {
         throw new Error('Network response was not ok' + response.statusText);
     }
-
     return await response.json();
 }
 
@@ -189,7 +169,8 @@ function getEditContactTemplate(eachContact){
     let initials = getContactsInitials(eachContact);
     return `<div class="popup-content animation" onclick="doNotClose(event)">
             <div class="popup-left">
-                <img src="/img/capa_2.png" alt="">
+                <div onclick="closePopup()" class="back-icon-white-boarder"><img class="back-icon-white" src="img/close_white.png" alt=""></div>
+                <img class="join-logo" src="/img/capa_2.png" alt="">
                 <h1>Edit contact</h1>
                 <div class="blue-line"></div>
             </div>
@@ -201,8 +182,8 @@ function getEditContactTemplate(eachContact){
                     <input id="editMail" class="add-contact-input-mail" placeholder="Email" type="email" required>
                     <input id="editPhone" class="add-contact-input-tel" placeholder="Phone" type="tel" required>
                     <div class="add-contact-form-buttons">
-                    <button type="button" class="cancel" onclick= "closePopup()">Cancel <img src="img/x.png" alt=""></button>
-                    <button type="submit" class="create"> Edit contact <img src="img/check.png" alt=""></button>
+                    <button type="button" class="cancel" onclick= "closePopup()">Delete<img src="img/x.png" alt=""></button>
+                    <button type="submit" class="create">Save<img src="img/check.png" alt=""></button>
                     </div>
                 </form>
             </div>
@@ -213,7 +194,6 @@ function getEditContactTemplate(eachContact){
 function addContact(){
     document.getElementById('add-contact-popup').classList.remove("d-none");
 }
-
 
 
 function closePopup(){
@@ -245,13 +225,11 @@ function getContactsInitials(eachContact){
     let fullname = eachContact.contact.name;
     let nameparts = fullname.split(" ");
     let initials = "";
-    
     if (nameparts.length > 1) {
         initials = nameparts[0].charAt(0).toUpperCase() + nameparts[1].charAt(0).toUpperCase();
     } else if (nameparts.length === 1){
         initials = nameparts[0].charAt(0).toUpperCase();
     }
-    
     return initials;
 }
 
@@ -262,22 +240,33 @@ function getABCSeparatorTemplate(letter){
             </div>`;
 }
 
+function checkForMobileMode(){
+    let width = window.innerWidth;
+    let contactList = document.getElementById('contacts');
+    let contactInfo = document.getElementById('contact-info');
+    if(width <= 890){
+        contactList.classList.add("d-none");
+        contactInfo.style.display = "block";
+    };
+}
 
 function showContactInfo(eachContact){
-
+    checkForMobileMode();
     document.querySelectorAll('.contact').forEach(element => {
         element.style.backgroundColor = '';
         element.style.color = '';
     })
-
     document.getElementById(`contact-list-element-${eachContact.id}`).style.backgroundColor = "#2A3647";
     document.getElementById(`contact-list-element-${eachContact.id}`).style.color = "white";
     showInfo(eachContact);
+    
 }
+
 
 function showInfo(eachContact){
     document.getElementById('contact-info').innerHTML = getEachContactInfo(eachContact);
 }
+
 
 function getEachContactInfo(eachContact){
     let initials = getContactsInitials(eachContact);
@@ -285,12 +274,15 @@ function getEachContactInfo(eachContact){
     let contactEmail = eachContact.contact.email;
     let contactPhone = eachContact.contact.phone;
     let actualBgColor = eachContact.contact.color;
-    
     return `
     <div class="contact-info-header">
+                <div class="back_img_boarder">
+                    <img src="/img/arrow-left-line.png" alt="">
+                </div>
                 <h1>Contacts</h1>
                 <div class="contact-info-header-separator"></div>
                 <span>Better with a team</span>
+                <div class="contact-info-header-separator-mobile"></div>
     </div>
                 <div class="contact-data animation">
                 <div id="contact-data-logo" class="contact-data-logo" style="background:${actualBgColor};">${initials}</div>
@@ -306,7 +298,16 @@ function getEachContactInfo(eachContact){
                 <a href="" class="animation">${contactEmail}</a>
                 <h3 class="animation" >Phone</h3>
                 <p class="animation" >${contactPhone}</p>
-                </div>`;
+                </div>
+                <div class="more_img_boarder d-none">
+                    <img src="/img/more_vert.png" alt="">
+                </div>
+                <div class="more_options d-none">
+                <div class="more_options_icon" >
+                            <div onclick='editContact(${JSON.stringify(eachContact)})' class="edit" style="margin-bottom: 15px;"><img src="/img/edit.png" alt="" ><p>Edit</p></div>
+                            <div onclick="deleteContacts('${eachContact.id}')" class="delete"><img src="/img/delete.png" alt=""><p>Delete</p></div>
+                        </div></div>`
+                ;
 }
 
 
