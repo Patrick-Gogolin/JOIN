@@ -1,57 +1,63 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./sidebar.css">
     <link rel="stylesheet" href="../fonts.css">
     <title>JOIN</title>
-    <script src="./sidebar.js" defer></script>
 </head>
+
 <body>
     <div class="sidebar-container">
         <aside>
             <div class="logo-container">
                 <img class="sidebar-logo" src="../img/sidebar-logo.png" alt="">
             </div>
-            
+
             <div class="sidebar-menu">
                 <div>
-                    <div class="summary" id="summary">
-                        <div>
-                            <img class="sidebar-icons" src="../img/summary-sidebar-icon.png" alt="">
+                    <a href="../summary.html">
+                        <div class="summary" id="summary">
+                            <div>
+                                <img class="sidebar-icons" src="../img/summary-sidebar-icon.png" alt="">
+                            </div>
+                            <div>
+                                Summary
+                            </div>
                         </div>
-                        <div>
-                            <a href="../summary.html">Summary</a>
+                    </a>
+                    <a href="./add-task.html">
+                        <div class="add-task" id="add-task">
+                            <div>
+                                <img class="sidebar-icons" src="../img/addtask-sidebar-icon.png" alt="">
+                            </div>
+                            <div>
+                                Add Task
+                            </div>
                         </div>
-                    </div>
-
-                    <div class="add-task" id="add-task">
-                        <div>
-                            <img class="sidebar-icons" src="../img/addtask-sidebar-icon.png" alt="">
+                    </a>
+                    <a href="../board.html">
+                        <div class="board" id="board">
+                            <div>
+                                <img class="sidebar-icons" src="../img/board-sidebar-icon.png" alt="">
+                            </div>
+                            <div>
+                                Board
+                            </div>
                         </div>
-                        <div>
-                            <a href="./add-task.html">Add Task</a>
+                    </a>
+                    <a href="../contacts.html">
+                        <div class="contacts" id="contacts">
+                            <div>
+                                <img class="sidebar-icons" src="../img/contacts-sidebar-icon.png" alt="">
+                            </div>
+                            <div>
+                                Contacts
+                            </div>
                         </div>
-                    </div>
-
-                    <div class="board" id="board">
-                        <div>
-                            <img class="sidebar-icons" src="../img/board-sidebar-icon.png" alt="">
-                        </div>
-                        <div>
-                            <a href="../board.html">Board</a>
-                        </div>
-                    </div>
-
-                    <div class="contacts" id="contacts">
-                        <div>
-                            <img class="sidebar-icons" src="../img/contacts-sidebar-icon.png" alt="">
-                        </div>
-                        <div>
-                            <a href="../contacts.html">Contacts</a>
-                        </div>
-                    </div>
+                    </a>
                 </div>
             </div>
 
@@ -66,4 +72,5 @@
         </aside>
     </div>
 </body>
+
 </html>

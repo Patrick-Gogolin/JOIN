@@ -12,27 +12,24 @@
 </head>
 
 <body>
-
-    <header>
-        <span class="headline-header">Kanban Project Management Tool</span>
-        <div class="profile-and-help">
-            <div class="img-bounding-box">
-                <img src="../img/help-header-icon.png" alt="Help Icon">
-            </div>
-            <div>
-                <div class="profile-container">
-                    <span id="user-initials" class="user-initials">
-                        SM
-                    </span>
+    <div class="header-shadow">
+        <header>
+            <span class="headline-header">Kanban Project Management Tool</span>
+            <div class="profile-and-help">
+                <a href="../help.html" class="img-bounding-box" class="img-bounding-box">
+                    <img src="../img/help-header-icon.png" alt="Help Icon">
+                </a>
+                <div>
+                    <div onclick="isOpen()" class="profile-container" id="profile-container">
+                        <span id="user-initials" class="user-initials">
+                            SM
+                        </span>
+                    </div>
                 </div>
-
             </div>
-        </div>
-    </header>
-    <div id="sub-menu" class="sub-menu">
-        <div class="button" data-link="../help.html">
-            <a href="../help.html">Help</a>
-        </div>
+        </header>
+    </div>
+    <div id="sub-menu" class="d-none">
         <div class="button" data-link="../legal-notice.html">
             <a href="../legal-notice.html">Legal Notice</a>
         </div>
