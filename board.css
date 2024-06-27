@@ -350,7 +350,7 @@ textarea {
 }
 
 .add-subtask-svg:hover {
-    background-color: #D1D1D1;
+    background-color: hsl(0, 0%, 95%);
     border-radius: 10px;
 }
 
@@ -359,6 +359,12 @@ textarea {
     align-items: center;
     gap: 4px;
     padding-right: 18px;
+}
+
+.cancel-or-confirm-subtask-container img:hover {
+    cursor: pointer;
+    background-color: hsl(0, 0%, 95%);
+    border-radius: 50px;
 }
 
 .seperator {
