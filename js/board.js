@@ -141,16 +141,16 @@ function addSubtask() {
     let inputFieldContent = inputField.value;
     let content = document.getElementById('added-subtask-list');
     content.innerHTML += /*html*/`
-    <ul id="list" onmouseout="hoverExitFunction()" onmouseover="hoverFunction()">
-        <li class="list-element">
-            <input id="subtask-inputfield" type="text" value="${inputFieldContent}">
-            <div id="edit-delete-created-subtask-container" class="edit-delete-created-subtask-container d-none">
+    <div class="single-subtask-container" id="list" onmouseout="hoverExitFunction()" onmouseover="hoverFunction()">
+        <ul>
+            <li class="list-element">${inputFieldContent}</li>
+        </ul>
+        <div id="edit-delete-created-subtask-container" class="edit-delete-created-subtask-container d-none">
                 <img class="edit-sign" onclick="editTask()" src="img/edit.svg" alt="">
                 <div class="seperator"></div>
                 <img src="img/delete.svg" alt="">
-            </div>
-        </li>
-    </ul>
+        </div>
+    </div>
     `;
 
     inputField.value = '';
