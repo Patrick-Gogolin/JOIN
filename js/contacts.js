@@ -245,8 +245,16 @@ function checkForMobileMode(){
     let contactList = document.getElementById('contacts');
     let contactInfo = document.getElementById('contact-info');
     if(width <= 890){
-        contactList.classList.add("d-none");
+        contactList.style.display = "none";
         contactInfo.style.display = "block";
+    } else{
+        contactInfo.style.display = "block";
+    };
+}
+
+function backToList(){
+    if(window.innerWidth<= 890){
+        document.getElementById('contact-info').style.display = "none";
     };
 }
 
@@ -276,7 +284,7 @@ function getEachContactInfo(eachContact){
     let actualBgColor = eachContact.contact.color;
     return `
     <div class="contact-info-header">
-                <div class="back_img_boarder">
+                <div onclick="backToList()" class="back_img_boarder">
                     <img src="/img/arrow-left-line.png" alt="">
                 </div>
                 <h1>Contacts</h1>
@@ -286,7 +294,7 @@ function getEachContactInfo(eachContact){
     </div>
                 <div class="contact-data animation">
                 <div id="contact-data-logo" class="contact-data-logo" style="background:${actualBgColor};">${initials}</div>
-                <div class="contact-data-name">${contactName} 
+                <div class="contact-data-name"><span>${contactName}</span> 
                         <div class="contact-data-icon">
                             <div onclick='editContact(${JSON.stringify(eachContact)})' class="edit"><img src="/img/edit.png" alt=""><p>Edit</p></div>
                             <div onclick="deleteContacts('${eachContact.id}')" class="delete"><img src="/img/delete.png" alt=""><p>Delete</p></div>

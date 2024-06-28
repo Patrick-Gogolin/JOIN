@@ -272,7 +272,7 @@ body{
 }
 
 .contact-list{
-    min-width: 456px;
+    min-width: 452px;
     height: calc(100vh - 96px);
     background-color: white;
     overflow-y: scroll;
@@ -606,6 +606,10 @@ body:has(.delete:hover) .delete img{
     .header-mobile{
         display: none;
     }
+
+    .opened-contact-list{
+        margin-bottom: 80px;
+    }
 }
 
 
@@ -775,6 +779,7 @@ body:has(.delete:hover) .delete img{
 
     .contact-data{
         margin-left: 16px;
+        width: 100%;
     }
 
     .contact-data-logo{
@@ -792,6 +797,10 @@ body:has(.delete:hover) .delete img{
         margin-bottom: 0;
         justify-content: center;
         font-size: 36px;
+    }
+
+    .contact-data-name span{
+        position: absolute;
     }
     .contact-list{
         width: 100%;
@@ -866,11 +875,57 @@ body:has(.delete:hover) .delete img{
     .header{
         display: none;
     }
-}
 
-
-@media (max-width: 890px) {
-    .contact-info{
-        display: none;
+    .sidebar-mobile{
+        display: block !important;
     }
 }
+
+@media (max-width: 900px) {
+.contact-info{
+    display: none;
+}
+
+.contact-list{
+    min-width: 0 !important;
+}
+
+.contact-info{
+    width: 48%;
+}
+}
+
+
+
+@media (max-width: 400px) {
+    .contact p{
+        font-size: 18px;
+    }
+
+    .contact-logo{
+        width: 25px;
+        height: 25px;
+        font-size: 16px;
+        margin-left: 10%;
+    }
+
+    .abc-separator{
+        width: 90%;
+    }
+
+    .abc-separator p{
+        padding-left: 4%;
+        padding-bottom: 5px;
+    }
+
+    .contact-name{
+        margin-left: 19px;
+    }
+
+    .contact-name a{
+        font-size: small;
+    }
+
+
+}
+
