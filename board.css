@@ -10,7 +10,8 @@ body {
 }
 
 input,
-textarea {
+textarea,
+select {
     outline: none;
 }
 
@@ -107,6 +108,14 @@ textarea {
     cursor: pointer;
 }
 
+.title-input-container input:focus {
+    border-color: #29ABE2;
+}
+
+.title-input-container input:hover {
+    border-color: #29ABE2;
+}
+
 .description-input-container textarea {
     width: 440px;
     height: 120px;
@@ -117,6 +126,16 @@ textarea {
     font-weight: 200;
     font-size: 20px;
     cursor: pointer;
+}
+
+.task-description-textarea:focus {
+    border-color: #29ABE2;
+
+}
+
+.task-description-textarea:hover {
+    border-color: #29ABE2;
+
 }
 
 .assigned-to-input-container {
@@ -140,6 +159,14 @@ textarea {
     background-position: 400px;
     cursor: pointer;
 }
+
+.assigned-to-input-container select:hover {
+    border-color: #29ABE2;
+} 
+
+.assigned-to-input-container select:focus {
+    border-color: #29ABE2;
+} 
 
 .right-side-input {
     display: flex;
@@ -239,6 +266,14 @@ textarea {
     font-weight: 200;
     font-size: 20px;
     cursor: pointer;
+}
+
+.date-container input:hover {
+    border-color: #29ABE2;
+}
+
+.date-container input:focus {
+    border-color: #29ABE2;
 }
 
 .priority-container {
@@ -357,6 +392,10 @@ textarea {
    font-family: inter;
    font-weight: 200;
    font-size: 20px;
+}
+
+.add-subtask-input-container:hover {
+    border-color: #29ABE2;
 }
 
 .add-subtask-svg:hover {
