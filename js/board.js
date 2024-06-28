@@ -1,3 +1,5 @@
+let editMenuSubtaskIsOpen = false;
+let subtasks = [];
 let urgentActive = false; // für Die Buttons beim Addtask Formular
 let mediumActive = false;
 let lowActive = false;
@@ -8,10 +10,8 @@ function openAddTaskOverlayer() {
 
 function closeOverlayer() {
     document.getElementById('overlayer').classList.add('d-none');
-
 }
 
-// vorübergehende Funktion zum Überprüfen der benötigen Inputfelder
 function addTask() {
     let title = document.getElementById('title');
     let date = document.getElementById('date');
@@ -47,7 +47,6 @@ function checkField(field, requiredSpan) {
         return false;
     }
 }
-
 
 function urgentPriority() {
     if (!urgentActive) {
@@ -138,24 +137,26 @@ function addSubtask() {
     let addSignContainer = document.getElementById('add-subtask-svg-container');
     let cancelAndConfirm = document.getElementById('cancel-or-confirm-subtask-container')
     let inputField = document.getElementById('add-subtask-input-container-inputfield');
-    let inputFieldContent = inputField.value;
-    let content = document.getElementById('added-subtask-list');
-    content.innerHTML += /*html*/`
-    <div class="single-subtask-container" id="list" onmouseout="hoverExitFunction()" onmouseover="hoverFunction()">
-        <ul>
-            <li class="list-element">${inputFieldContent}</li>
-        </ul>
-        <div id="edit-delete-created-subtask-container" class="edit-delete-created-subtask-container d-none">
-                <img class="edit-sign" onclick="editTask()" src="img/edit.svg" alt="">
-                <div class="seperator"></div>
-                <img src="img/delete.svg" alt="">
-        </div>
-    </div>
-    `;
-
+    let content = document.getElementById('added-subtask-main-container');
+    subtasks.push(inputField.value);
+    content.innerHTML = "";
+    for (let i = 0; i < subtasks.length; i++) {
+        const subtask = subtasks[i];
+        content.innerHTML += renderAddedSubtasksHtml(i, subtask);
+    }
     inputField.value = '';
     addSignContainer.classList.remove('d-none');
     cancelAndConfirm.classList.add('d-none');
+    editMenuSubtaskIsOpen = false;
+}
+
+function renderSubtasks() {
+    let content = document.getElementById('added-subtask-main-container');
+    content.innerHTML = "";
+    for (let i = 0; i < subtasks.length; i++) {
+        const subtask = subtasks[i];
+        content.innerHTML += renderAddedSubtasksHtml(i, subtask);
+    }
 }
 
 function clearSubtask() {
@@ -166,34 +167,50 @@ function clearSubtask() {
     inputField.value = '';
     addSignContainer.classList.remove('d-none');
     cancelAndConfirm.classList.add('d-none');
-
 }
 
-function hoverFunction() {
-    editContainer = document.getElementById('edit-delete-created-subtask-container');
-    editContainer.classList.remove('d-none');
+function hoverFunction(i) {
+    let editContainer = document.getElementById(`edit-delete-created-subtask-container${i}`);
+    if (editContainer) {
+        editContainer.classList.remove('d-none');
+    }
 }
 
-function hoverExitFunction() {
-    editContainer = document.getElementById('edit-delete-created-subtask-container');
-    editContainer.classList.add('d-none');
-
+function hoverExitFunction(i) {
+    let editContainer = document.getElementById(`edit-delete-created-subtask-container${i}`);
+    if (editContainer) {
+        editContainer.classList.add('d-none');
+    }
 }
 
-function editTask() {
-    let list = document.getElementById('list');
-    let inputValue = document.getElementById('subtask-inputfield');
+function OpenEditTask(i) {
+    let content = document.getElementById(`single-subtask-container${i}`);
+    let listValue = document.getElementById(`list-content${i}`).innerHTML;
     
-    list.innerHTML = /*html*/`
-    <div class="edit-subtask-container">
-    <input value="${inputValue.value}">
-    <div id="delete-confirm-edit-subtask" class="delete-confirm-edit-subtask-container">
-                <img class="edit-sign" src="img/delete.svg" alt="">
-                <div class="seperator"></div>
-                <img src="img/check-grey.svg" alt="">
-            </div>
+    if (editMenuSubtaskIsOpen === false) {
+        content.classList.remove('bg-grey-hover');
+        content.classList.add('blue-underline');
+        content.innerHTML = renderOpenEditHtml(i, listValue);
+        editMenuSubtaskIsOpen = true;
+    }
+}
 
-    </div>`;
+function editTask(i) {
+    let task = document.getElementById(`edit-task-input${i}`);
+    subtasks.splice(i,1, task.value);
+    renderSubtasks();
+    editMenuSubtaskIsOpen = false;
+}
 
-    // MIT FOR SCHLEIFE UND ARRAY ARBEITEN FPR DIE SUBTASK
+function deleteOpenEditTask(i) {
+    subtasks.splice(i,1);
+    renderSubtasks();
+    editMenuSubtaskIsOpen = false;
+}
+
+function deleteTask(i) {
+    if (editMenuSubtaskIsOpen === false) {
+    subtasks.splice(i,1);
+    renderSubtasks();
+    }
 }
