@@ -10,6 +10,10 @@ body {
     background-color: #F6F7F8;
 }
 
+.content {
+    height: 100vh;
+}
+
 .summary-headline {
     height: 75px;
     position: absolute;
@@ -212,4 +216,66 @@ body {
 .deadline {
     font-size: 16px;
     font-weight: 400;
+}
+
+.tasks {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    gap: 32px;
+}
+
+.task-button {
+    width: 170px;
+    height: 170px;
+    background-color: white;
+    border-radius: 30px;
+    padding: 25px 0px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 13px;
+}
+
+.task-numbers {
+    font-size: 64px;
+    font-weight: 600;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.task-status {
+    width: 93px;
+    font-size: 20px;
+    font-weight: 400;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.greeting-container {
+    width: 385px;
+    height: 136px;
+    position: absolute;
+    top: 550px;
+    left: 968px;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.greeting {
+    font-size: 47px;
+    font-weight: 500;
+    color: #2A3647;
+}
+
+.greeting-name {
+    font-size: 64px;
+    font-weight: 700;
+    color: #29ABE2;
 }
