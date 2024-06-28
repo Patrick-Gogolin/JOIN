@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,44 +12,62 @@
     <script src="templates/include.js"></script>
     <script src="./templates/header.js"></script>
 </head>
+
 <body>
     <div w3-include-html="templates/header.html"></div>
     <div w3-include-html="templates/sidebar.html"></div>
 
-        <div class="summary-headline">
-            <h1>Join 360</h1>
-            <div class="vertical-divider"></div>
-            <h2>Key Metrics at a Glance</h2>    
-        </div>
+    <div class="summary-headline">
+        <h1>Join 360</h1>
+        <div class="vertical-divider"></div>
+        <h2>Key Metrics at a Glance</h2>
+    </div>
 
-        <div class="overview">
-            <div class="overview-todo">
-                <div class="todo">
-                    <div class="edit-background">
-                        <img src="./img/summary-edit.png">
-                    </div>
-                    <div class="todo-txt-container">
-                        <span class="how-much-todos">1</span>
-                        <span class="todo-txt">To-do</span>
-                    </div>
+    <div class="overview">
+        <div class="overview-todo">
+            <div class="todo">
+                <div class="edit-bg">
+                    <img src="./img/summary-edit.png">
                 </div>
-                <div class="done">
-                    <div class="done-background">
-                        <img src="./img/summary-vector.png">
-                    </div>
-                    <div class="done-txt-container">
-                        <span class="how-much-done">1</span>
-                        <span class="done-txt">Done</span>
-                    </div>
+                <div class="todo-txt-container">
+                    <span class="how-much-todos">1</span>
+                    <span class="todo-txt">To-do</span>
                 </div>
             </div>
-
-            <div></div>
-            <div></div>
+            <div class="done">
+                <div class="done-bg">
+                    <img src="./img/summary-vector.png">
+                </div>
+                <div class="done-txt-container">
+                    <span class="how-much-done">1</span>
+                    <span class="done-txt">Done</span>
+                </div>
+            </div>
         </div>
+
+        <div class="urgency">
+            <div class="urgency-item">
+                <div class="urgency-bg">
+                    <img src="./img/urgency-arrow.png">
+                    <img src="./img/urgency-arrow.png">
+                </div>
+                <div class="urgency-txt-container">
+                    <span class="urgency-quantity">1</span>
+                    <span class="urgency-txt">Urgent</span>
+                </div>
+            </div>
+            <div> <img src="./img/urgency-vertical.png" alt=""></div>
+            <div class="date">
+            <div class="deadline-container">
+                <span class="date">Juni 28, 2024</span>
+                <span class="deadline">Upcoming Deadline</span>
+            </div>
+        </div>
+
 
 
 
 
 </body>
+
 </html>

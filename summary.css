@@ -37,18 +37,21 @@ body {
 }
 
 .overview {
-    width: 560;
     height: 560px;
     position: absolute;
     top: 335px;
     left: 330px;
     display: flex;
+    flex-direction: column;
+    gap: 32px;
 }
 
 .overview-todo {
     width: 560px;
     height: 170px;
     display: flex;
+    flex-direction: row;
+    gap: 32px;
 }
 
 .todo {
@@ -68,7 +71,7 @@ body {
     width: 25px;
 }
 
-.edit-background {
+.edit-bg {
     height: 70px;
     width: 70px;
     background-color: #2A3647;
@@ -107,7 +110,6 @@ body {
     align-items: center;
     justify-content: center;
     gap: 18px;
-    margin-left: 32px;
 }
 
 .done img {
@@ -115,7 +117,7 @@ body {
     height: 22px;
 }
 
-.done-background {
+.done-bg {
     height: 70px;
     width: 70px;
     background-color: #2A3647;
@@ -141,5 +143,73 @@ body {
 
 .done-txt {
     font-size: 20px;
+    font-weight: 400;
+}
+
+.urgency {
+    width: 560px;
+    height: 170px;
+    border-radius: 30px;
+    background-color: white;
+    padding: 28px 48px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 60px;
+}
+
+.urgency-item {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.urgency-bg {
+    height: 70px;
+    width: 70px;
+    background-color: #FF3D00;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    border-radius: 50%;
+}
+
+.urgency-quantity {
+    font-size: 64px;
+    font-weight: 600;
+}
+
+.urgency-txt {
+    font-size: 16px;
+    font-weight: 400;
+}
+
+.urgency-txt-container {
+    width: 65px;
+    height: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.deadline-container {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: center;
+    gap: 13px;
+}
+
+.date {
+    font-size: 21px;
+    font-weight: 700;
+}
+
+.deadline {
+    font-size: 16px;
     font-weight: 400;
 }
