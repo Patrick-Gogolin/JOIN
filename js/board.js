@@ -133,3 +133,67 @@ function changeIcons() {
         cancelAndConfirm.classList.remove('d-none');
     }
 }
+
+function addSubtask() {
+    let addSignContainer = document.getElementById('add-subtask-svg-container');
+    let cancelAndConfirm = document.getElementById('cancel-or-confirm-subtask-container')
+    let inputField = document.getElementById('add-subtask-input-container-inputfield');
+    let inputFieldContent = inputField.value;
+    let content = document.getElementById('added-subtask-list');
+    content.innerHTML += /*html*/`
+    <div class="single-subtask-container" id="list" onmouseout="hoverExitFunction()" onmouseover="hoverFunction()">
+        <ul>
+            <li class="list-element">${inputFieldContent}</li>
+        </ul>
+        <div id="edit-delete-created-subtask-container" class="edit-delete-created-subtask-container d-none">
+                <img class="edit-sign" onclick="editTask()" src="img/edit.svg" alt="">
+                <div class="seperator"></div>
+                <img src="img/delete.svg" alt="">
+        </div>
+    </div>
+    `;
+
+    inputField.value = '';
+    addSignContainer.classList.remove('d-none');
+    cancelAndConfirm.classList.add('d-none');
+}
+
+function clearSubtask() {
+    let addSignContainer = document.getElementById('add-subtask-svg-container');
+    let cancelAndConfirm = document.getElementById('cancel-or-confirm-subtask-container')
+    let inputField = document.getElementById('add-subtask-input-container-inputfield');
+
+    inputField.value = '';
+    addSignContainer.classList.remove('d-none');
+    cancelAndConfirm.classList.add('d-none');
+
+}
+
+function hoverFunction() {
+    editContainer = document.getElementById('edit-delete-created-subtask-container');
+    editContainer.classList.remove('d-none');
+}
+
+function hoverExitFunction() {
+    editContainer = document.getElementById('edit-delete-created-subtask-container');
+    editContainer.classList.add('d-none');
+
+}
+
+function editTask() {
+    let list = document.getElementById('list');
+    let inputValue = document.getElementById('subtask-inputfield');
+    
+    list.innerHTML = /*html*/`
+    <div class="edit-subtask-container">
+    <input value="${inputValue.value}">
+    <div id="delete-confirm-edit-subtask" class="delete-confirm-edit-subtask-container">
+                <img class="edit-sign" src="img/delete.svg" alt="">
+                <div class="seperator"></div>
+                <img src="img/check-grey.svg" alt="">
+            </div>
+
+    </div>`;
+
+    // MIT FOR SCHLEIFE UND ARRAY ARBEITEN FPR DIE SUBTASK
+}

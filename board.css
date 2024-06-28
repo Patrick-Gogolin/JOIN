@@ -77,7 +77,6 @@ textarea {
 }
 
 .input-for-task {
-    height: 350px;
     padding: 0px 74px 0px 74px;
     display: flex;
     justify-content: space-between;
@@ -130,7 +129,7 @@ textarea {
     height: 48px;
     border: 1px solid #D1D1D1;
     border-radius: 10px;
-    padding: 12px 21px 12px 21px;
+    padding: 12px 16px 12px 16px;
     font-family: inter;
     font-weight: 500;
     font-size: 20px;
@@ -235,7 +234,7 @@ textarea {
     height: 48px;
     border: 1px solid #D1D1D1;
     border-radius: 10px;
-    padding: 12px 21px 12px 21px;
+    padding: 12px 16px 12px 16px;
     font-family: inter;
     font-weight: 200;
     font-size: 20px;
@@ -323,6 +322,12 @@ textarea {
     box-shadow: 0px 8px 4px 0px rgba(0, 0, 0, 0.1);
 }
 
+.subtask-area-container{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
 .add-subtask-container {
     display: flex;
     flex-direction: column;
@@ -343,26 +348,82 @@ textarea {
    outline: none;
    height: 35px;
    width: 390px;
-   padding: 12px 21px 12px 21px;
+   padding: 12px 16px 12px 16px;
    font-family: inter;
    font-weight: 200;
    font-size: 20px;
 }
 
 .add-subtask-svg:hover {
-    background-color: #D1D1D1;
+    background-color: hsl(0, 0%, 95%);
     border-radius: 10px;
 }
 
 .cancel-or-confirm-subtask-container {
     display: flex;
     align-items: center;
+    gap: 4px;
+    padding-right: 18px;
+}
+
+.cancel-or-confirm-subtask-container img:hover {
+    cursor: pointer;
+    background-color: hsl(0, 0%, 95%);
+    border-radius: 50px;
+}
+
+.single-subtask-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 440px;
+    min-height: 35px;
+    background-color: #A8A8A8;
+    padding: 4px 21px 4px 21px;
+    border-radius: 10px;
+}
+
+ul {
+    padding-left: 20px;
+  }
+
+.list-element {
+    font-family: inter;
+}
+
+.edit-sign {
+    cursor: pointer;
+}
+
+.edit-subtask-container {
+    border: solid 1px blue;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 4px 21px 4px 21px;
+}
+
+.delete-confirm-edit-subtask-container {
+    display: flex;
+    align-items: center;
+    gap: 4px;
 }
 
 .seperator {
     width: 1px;
     height: 24px;
     background-color: #D1D1D1;
+}
+
+.edit-delete-created-subtask-container {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.added-subtask-container {
+    width: 440px;
+    border-radius: 10px;
 }
 
 .this-field-required-span {
