@@ -6,8 +6,6 @@
     <title>Contacts</title>
     <link rel="stylesheet" href="templates/header.css">
     <link rel="stylesheet" href="templates/sidebar.css">
-    <link rel="stylesheet" href="templates/mobile-sidebar.css">
-    <link rel="stylesheet" href="templates/mobile-header.css">
     <link rel="stylesheet" href="contacts.css">
     <script src="templates/include.js"></script>
     <script src="templates/sidebar.js"></script>
@@ -15,10 +13,9 @@
     <script src="templates/header.js"></script>
 </head>
 <body onload="onloadFunc()">
-    <div class="header-mobile" w3-include-html="templates/mobile-header.html"></div>
-    <div class="header" w3-include-html="templates/header.html"></div>
-    <div class="sidebar-mobile" style="display: none;" w3-include-html="templates/mobile-sidebar.html"></div>
-    <div class="sidebar" w3-include-html="templates/sidebar.html"></div>
+    <div w3-include-html="templates/header.html"></div>
+    <div w3-include-html="templates/sidebar.html"></div>
+
     <div id="add-contact-popup" class="popup-background d-none"  onclick="closePopup()">
         <div class="popup-content animation" onclick="doNotClose(event)">
             <div class="popup-left">
