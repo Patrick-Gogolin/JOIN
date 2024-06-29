@@ -251,12 +251,10 @@ function checkForMobileMode(){
         contactList.classList.add("d-none");
         contactInfo.style.display = "block";
         contactInfo.style.width = "100%";
-        backBtn.classList.remove("d-none");
     } else{
         contactInfo.style.display = "block";
         contactInfo.style.width = "48%";
         contactList.classList.remove("d-none");
-        backBtn.classList.add("d-none");
     };
 }
 
