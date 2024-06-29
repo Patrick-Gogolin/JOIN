@@ -10,6 +10,12 @@
     src: url('fonts/inter-v13-latin-700.woff2') format('woff2'); 
   }
 
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
 
 body{
     background-color: rgb(246,247,248);
