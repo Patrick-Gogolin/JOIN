@@ -28,6 +28,7 @@ header {
 .header-shadow {
     background-color: white;
     box-shadow: 0px 4px 4px 0px #0000001A;
+    margin-bottom: 8px;
 }
 
 .headline-header {
