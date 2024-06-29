@@ -170,6 +170,7 @@ body {
     flex-direction: row;
     justify-content: center;
     align-items: center;
+    gap: 18px;
 }
 
 .urgency-bg {
@@ -200,6 +201,11 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+}
+
+.urgency-vertical-line {
+    height: 100px;
+    width: 2px;
 }
 
 .deadline-container {
@@ -260,7 +266,6 @@ body {
 }
 
 .greeting-container {
-    width: 385px;
     height: 136px;
     position: absolute;
     top: 550px;
@@ -282,4 +287,24 @@ body {
     font-size: 64px;
     font-weight: 700;
     color: #29ABE2;
+}
+
+@media screen and (max-width: 1360px) {
+    .greeting {
+        font-size: 36px; /* Adjust the size as needed */
+    }
+
+    .greeting-name {
+        font-size: 48px; /* Adjust the size as needed */
+    }
+}
+
+@media screen and (max-width: 1270px) {
+    .greeting {
+        font-size: 30px; /* Adjust the size as needed */
+    }
+
+    .greeting-name {
+        font-size: 40px; /* Adjust the size as needed */
+    }
 }
