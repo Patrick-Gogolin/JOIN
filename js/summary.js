@@ -10,12 +10,12 @@
             } else if (hours >= 18) {
                 greeting = 'Good evening,';
             }
-            init();
+            initUserName();
 
             greetingElement.textContent = greeting;
         }
 
-        function load() {
+        function loadUserName() {
             let userAsText = localStorage.getItem('user');
             if (userAsText) {
                 let user = JSON.parse(userAsText);
@@ -27,13 +27,13 @@
             }
         }
 
-        function init() {
+        function initUserName() {
             let userName = document.getElementById('greeting-name');
             let user = load(); // Benutzer aus der Load-Funktion abrufen
             if (user) {
                 let name = user['name'];
                 let surname = user['surname'];
-                userName.innerHTML = showUserInitials(name, surname); // Initialen anzeigen
+                userName.innerHTML = showUserName(name, surname); // Initialen anzeigen
             }
             else{
                 userName.innerHTML = "Guest";
@@ -41,6 +41,6 @@
         }
 
 
-        function showUserInitials(name, surname) {
+        function showUserName(name, surname) {
             return `${name} ${surname}`; // Initialen zurückgeben
         }
