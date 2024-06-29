@@ -2,6 +2,8 @@ const BASE_URL = "https://remotestorage-c5224-default-rtdb.europe-west1.firebase
 
 let contacts = [];
 
+window.onresize = checkForMobileMode;
+
 async function onloadFunc(){
     let contactResponse = await loadContacts("contacts");
     let contactKeysArray = Object.keys(contactResponse);
@@ -242,21 +244,32 @@ function getABCSeparatorTemplate(letter){
 
 function checkForMobileMode(){
     let width = window.innerWidth;
-    let contactList = document.getElementById('contacts');
+    let contactList = document.getElementById('contact-list-responsive');
     let contactInfo = document.getElementById('contact-info');
-    if(width <= 890){
-        contactList.style.display = "none";
+    let backBtn = document.getElementById('backButton');
+    if(width <= 750){
+        contactList.classList.add("d-none");
         contactInfo.style.display = "block";
+        contactInfo.style.width = "100%";
+        backBtn.classList.remove("d-none");
     } else{
         contactInfo.style.display = "block";
+        contactInfo.style.width = "48%";
+        contactList.classList.remove("d-none");
+        backBtn.classList.add("d-none");
     };
 }
 
 function backToList(){
     if(window.innerWidth<= 890){
+        document.getElementById('contact-list-responsive').classList.remove("d-none");
         document.getElementById('contact-info').style.display = "none";
     };
 }
+
+window.addEventListener("resize", function(event) {
+    checkForMobileMode()
+  })
 
 function showContactInfo(eachContact){
     checkForMobileMode();

@@ -15,9 +15,9 @@
     <script src="./templates/header.js"></script>
 </head>
 <body onload="includeHTML(), onloadFunc(), loadContacts('/contacts')">
-    <div class="header-mobile d-none" w3-include-html="templates/mobile-header.html"></div>
+    <div class="header-mobile" w3-include-html="templates/mobile-header.html"></div>
     <div class="header" w3-include-html="templates/header.html"></div>
-    <div class="sidebar-mobile d-none" w3-include-html="templates/mobile-sidebar.html"></div>
+    <div class="sidebar-mobile" style="display: none;" w3-include-html="templates/mobile-sidebar.html"></div>
     <div class="sidebar" w3-include-html="templates/sidebar.html"></div>
     <div id="add-contact-popup" class="popup-background d-none"  onclick="closePopup()">
         <div class="popup-content animation" onclick="doNotClose(event)">
@@ -44,21 +44,20 @@
         </div>
     </div>
     <div id="edit-contact-popup" class="popup-background d-none"  onclick="closePopup()" ></div>
-    <div class="header-mobile" w3-include-html="templates/mobile-header.html"></div>
-    <div class="header" w3-include-html="templates/header.html"></div>
-    <div class="sidebar-mobile" style="display: none;" w3-include-html="templates/mobile-sidebar.html"></div>
-    <div class="sidebar" w3-include-html="templates/sidebar.html"></div>
  <section class="content">
-        <div id="contacts" class="contact-list">
+   
+        <div id="contact-list-responsive" class="contact-list">
             <button onclick="addContact()" class="add-contact">Add new contact <img src="/img/person_add.png" alt=""></button>
             <div class="opened-contact-list" id="contact-list"></div>
             <div onclick="addContact()" class="add_contacts_img_boarder">
                 <img src="/img/person_add.png" alt="">
             </div>
-            
         </div>
         <div id="contact-info" class="contact-info">
             <div class="contact-info-header">
+            <div id="backButton" onclick="backToList()" class="back_img_boarder d-none">
+                <img src="/img/arrow-left-line.png" alt="">
+            </div>
             <h1>Contacts</h1>
             <div class="contact-info-header-separator"></div>
             <span>Better with a team</span>
