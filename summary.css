@@ -47,6 +47,8 @@ body {
     left: 330px;
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
     gap: 32px;
 }
 
@@ -265,6 +267,8 @@ body {
     left: 968px;
     display: flex;
     flex-direction: column;
+    align-items: start;
+    justify-content: center;
     gap: 3px;
 }
 
