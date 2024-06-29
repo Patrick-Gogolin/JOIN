@@ -1,8 +1,21 @@
+const BASE_URL = "https://remotestorage-c5224-default-rtdb.europe-west1.firebasedatabase.app/"
+let assignOptionsContactsContainer = false;
 let editMenuSubtaskIsOpen = false;
 let subtasks = [];
 let urgentActive = false; // für Die Buttons beim Addtask Formular
 let mediumActive = false;
 let lowActive = false;
+let contacts = [];
+
+async function getContacts(path = "") {
+    let response = await fetch(BASE_URL + path + ".json");
+    let responseToJson = await response.json();
+    console.log(responseToJson);
+    contacts.push(responseToJson);
+    console.log(contacts);
+}
+
+
 
 function openAddTaskOverlayer() {
     document.getElementById('overlayer').classList.remove('d-none');
@@ -212,5 +225,17 @@ function deleteTask(i) {
     if (editMenuSubtaskIsOpen === false) {
     subtasks.splice(i,1);
     renderSubtasks();
+    }
+}
+
+function openSelectContactsContainer() {
+    let container = document.getElementById('choose-contacts-container');
+    if (assignOptionsContactsContainer === false) {
+        container.classList.remove('d-none');
+        assignOptionsContactsContainer = true;
+    }
+    else {
+        container.classList.add('d-none');
+        assignOptionsContactsContainer = false;
     }
 }

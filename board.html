@@ -14,7 +14,7 @@
     <script src="./templates/header.js"></script>
 
 </head>
-<body> 
+<body onload="getContacts('/contacts')"> 
     <div w3-include-html="templates/header.html"></div>
     <div w3-include-html="templates/sidebar.html"></div>
     <div id="overlayer" class="overlayer d-none">
@@ -38,13 +38,13 @@
                     </div>
                     <div class="assigned-to-input-container">
                         <span class="headline-input">Assigned to</span>
-                        <select name="" id="">
-                            <option value="" disabled selected>Select Contacts to assign</option>
-                            <option value="contact1">Contact 1</option>
-                            <option value="contact2">Contact 2</option>
-                            <option value="contact3">Contact 3</option>
-                            <!-- Weitere Optionen hier -->
-                        </select>
+                        <div class="select-contacts-container" id="">
+                            <p>Select contacts to assign</p>
+                            <img onclick="openSelectContactsContainer()" src="img/arrow-drop-down-contacts.svg" alt="">
+                        </div>
+                        <div id="choose-contacts-container" class="choose-contacts-container d-none">
+
+                        </div>
                     </div>
                 </div>
                 <div class="right-side-input">
