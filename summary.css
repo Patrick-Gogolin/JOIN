@@ -11,18 +11,21 @@ body {
 }
 
 .content {
-    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 32px;
+    margin-left: 328px;
+    padding-right: 87px;
 }
 
 .summary-headline {
-    height: 75px;
-    position: absolute;
-    top: 205px;
-    left: 328px;
     display: flex;
     flex-direction: row;
     align-items: center;
     gap: 30px;
+    margin-top: 110px;
 }
 
 .summary-headline h1 {
@@ -41,10 +44,6 @@ body {
 }
 
 .overview {
-    height: 560px;
-    position: absolute;
-    top: 335px;
-    left: 330px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -53,8 +52,7 @@ body {
 }
 
 .overview-todo {
-    width: 560px;
-    height: 170px;
+    width: 100%;
     display: flex;
     flex-direction: row;
     gap: 32px;
@@ -62,8 +60,7 @@ body {
 
 .todo {
     background-color: white;
-    width: 265px;
-    height: 170px;
+    width: 50%;
     border-radius: 30px;
     padding: 38px 19px;
     display: flex;
@@ -88,8 +85,6 @@ body {
 }
 
 .todo-txt-container {
-    width: 65px;
-    height: 100px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -108,8 +103,7 @@ body {
 
 .done {
     background-color: white;
-    width: 265px;
-    height: 170px;
+    width: 50%;
     border-radius: 30px;
     padding: 38px 19px;
     display: flex;
@@ -134,8 +128,6 @@ body {
 }
 
 .done-txt-container {
-    width: 65px;
-    height: 100px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -153,8 +145,7 @@ body {
 }
 
 .urgency {
-    width: 560px;
-    height: 170px;
+    width: 100%;
     border-radius: 30px;
     background-color: white;
     padding: 28px 48px;
@@ -195,8 +186,6 @@ body {
 }
 
 .urgency-txt-container {
-    width: 65px;
-    height: 100px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -227,6 +216,7 @@ body {
 }
 
 .tasks {
+    width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -235,8 +225,7 @@ body {
 }
 
 .task-button {
-    width: 170px;
-    height: 170px;
+    width: 33%;
     background-color: white;
     border-radius: 30px;
     padding: 25px 0px;
@@ -256,7 +245,6 @@ body {
 }
 
 .task-status {
-    width: 93px;
     font-size: 20px;
     font-weight: 400;
     display: flex;
@@ -266,10 +254,6 @@ body {
 }
 
 .greeting-container {
-    height: 136px;
-    position: absolute;
-    top: 550px;
-    left: 968px;
     display: flex;
     flex-direction: column;
     align-items: start;
@@ -287,6 +271,13 @@ body {
     font-size: 64px;
     font-weight: 700;
     color: #29ABE2;
+}
+
+.overview-and-greetings {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 56px;
 }
 
 @media screen and (max-width: 1360px) {
