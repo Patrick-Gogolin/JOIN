@@ -935,7 +935,7 @@ body:has(.delete:hover) .delete img{
 }
 
 @media (max-width: 430px) {
-    .contact-list{
+    .contact-list-responsive{
         min-width: 0;
     }
 }
