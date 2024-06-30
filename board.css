@@ -165,6 +165,31 @@ select {
     transform: translateY(-2px);
 }
 
+.single-contact-container {
+    color: white;
+    font-family: inter;
+    font-size: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px;
+    background-color: #2A3647;
+}
+
+.single-contact-name-container {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.contact-name-initials-cotainer {
+    background-color: #29ABE2;
+    padding: 12px;
+    border-radius: 50%;
+    border: 3px solid white;
+    font-size: 12px;
+}
+
 .select-contacts-container:hover  {
     border-color: #29ABE2;
 }

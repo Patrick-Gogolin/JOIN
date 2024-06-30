@@ -6,13 +6,26 @@ let urgentActive = false; // für Die Buttons beim Addtask Formular
 let mediumActive = false;
 let lowActive = false;
 let contacts = [];
+let userNames = [];
 
 async function getContacts(path = "") {
     let response = await fetch(BASE_URL + path + ".json");
     let responseToJson = await response.json();
-    console.log(responseToJson);
-    contacts.push(responseToJson);
+    let contactsKeys = Object.keys(responseToJson);
+
+    for (let i = 0; i < contactsKeys.length; i++) {
+        contacts.push({
+            id: contactsKeys[i],
+            name: responseToJson[contactsKeys[i]]['name'],
+            color: responseToJson[contactsKeys[i]]['color'],
+        });
+        userNames.push(responseToJson[contactsKeys[i]]['name']);
+    }
+
+    console.log(contactsKeys);
     console.log(contacts);
+    console.log(userNames);
+    getInitials();
 }
 
 
@@ -233,9 +246,39 @@ function openSelectContactsContainer() {
     if (assignOptionsContactsContainer === false) {
         container.classList.remove('d-none');
         assignOptionsContactsContainer = true;
+        renderContacts();
     }
     else {
         container.classList.add('d-none');
         assignOptionsContactsContainer = false;
     }
+}
+
+function renderContacts() {
+    let container = document.getElementById('choose-contacts-container');
+    for (let i = 0; i < contacts.length; i++) {
+        const contact = contacts[i];
+        container.innerHTML += /*html*/`
+        <div class="single-contact-container">
+            <div class="single-contact-name-container">
+                <div class="contact-name-initials-cotainer">
+                    <span>SM</span>
+                </div>
+                <span>${contact.name}</span>
+            </div>
+            <div><input type="checkbox"></div>
+        </div>`;
+
+    }
+}
+
+function getInitials() {
+let names = userNames;
+let initials = names.map(name => {
+    let nameParts = name.split(/[\s-]+/); // Split by space or hyphen
+    let initial = nameParts.map(part => part.charAt(0).toUpperCase()).join("");
+    return initial;
+});
+
+console.log(initials); // Die Initials von Anfang an erstelllen lassen mit der Async Funtion ist sinnvoller !!!
 }
