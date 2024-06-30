@@ -163,17 +163,22 @@ select {
     border-radius: 10px;
     z-index: 2;
     transform: translateY(-2px);
+    overflow: auto;
 }
 
 .single-contact-container {
-    color: white;
     font-family: inter;
     font-size: 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 12px;
-    background-color: #2A3647;
+    border-radius: 10px;
+}
+
+.single-contact-container:hover {
+    cursor: pointer;
+    background-color: hsl(0, 0%, 95%);
 }
 
 .single-contact-name-container {
@@ -183,11 +188,14 @@ select {
 }
 
 .contact-name-initials-cotainer {
-    background-color: #29ABE2;
     padding: 12px;
     border-radius: 50%;
     border: 3px solid white;
     font-size: 12px;
+}
+
+.user-initials-span {
+    color: white;
 }
 
 .select-contacts-container:hover  {

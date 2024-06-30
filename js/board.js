@@ -7,6 +7,11 @@ let mediumActive = false;
 let lowActive = false;
 let contacts = [];
 let userNames = [];
+let userNamesInitials = [];
+let colors = [];
+let activeUser = [];
+let activeUserInitials = [];
+let colorForActiveUser = ["rgb(0,190,232)"];
 
 async function getContacts(path = "") {
     let response = await fetch(BASE_URL + path + ".json");
@@ -20,12 +25,17 @@ async function getContacts(path = "") {
             color: responseToJson[contactsKeys[i]]['color'],
         });
         userNames.push(responseToJson[contactsKeys[i]]['name']);
+        colors.push(responseToJson[contactsKeys[i]]['color']);
     }
 
     console.log(contactsKeys);
     console.log(contacts);
     console.log(userNames);
+    console.log(colors);
+    loadAndGetNameOfActiveUser();
     getInitials();
+    sortAlphabetically();
+    console.log(activeUser);
 }
 
 
@@ -45,21 +55,18 @@ function addTask() {
     let titleRequiredSpan = document.getElementById('title-required-span');
     let dateRequiredSpan = document.getElementById('date-required-span');
     let categoryRequiredSpan = document.getElementById('category-required-span');
-    
+
     let hasError = false;
 
-    if (checkField(title, titleRequiredSpan))
-        {
-            hasError = true;
-        }
-    if (checkField(date, dateRequiredSpan))
-        {
-            hasError = true;
-        }
-    if (checkField(category, categoryRequiredSpan))
-        {
-            hasError = true;
-        }
+    if (checkField(title, titleRequiredSpan)) {
+        hasError = true;
+    }
+    if (checkField(date, dateRequiredSpan)) {
+        hasError = true;
+    }
+    if (checkField(category, categoryRequiredSpan)) {
+        hasError = true;
+    }
 }
 
 function checkField(field, requiredSpan) {
@@ -129,19 +136,19 @@ function resetButtons() {
     let urgentButton = document.getElementById('urgent-button');
     let urgentPrioSign = document.getElementById('urgent-prio-sign');
     urgentButton.classList.remove('urgent');
-    urgentPrioSign.src= 'img/urgent-prio.svg';
-    urgentActive = false; 
+    urgentPrioSign.src = 'img/urgent-prio.svg';
+    urgentActive = false;
 
     let mediumButton = document.getElementById('medium-button');
     let mediumPrioSign = document.getElementById('medium-prio-sign');
     mediumButton.classList.remove('medium');
-    mediumPrioSign.src= 'img/medium-prio-orange.svg';
+    mediumPrioSign.src = 'img/medium-prio-orange.svg';
     mediumActive = false;
 
     let lowButton = document.getElementById('low-button');
     let lowPrioSign = document.getElementById('low-prio-sign');
     lowButton.classList.remove('low');
-    lowPrioSign.src= 'img/low-prio.svg';
+    lowPrioSign.src = 'img/low-prio.svg';
     lowActive = false;
 }
 
@@ -149,11 +156,11 @@ function changeIcons() {
     let content = document.getElementById('add-subtask-svg-container');
     let cancelAndConfirm = document.getElementById('cancel-or-confirm-subtask-container')
     let input = document.getElementById('add-subtask-input-container-inputfield');
-    if(input.value === ''){
+    if (input.value === '') {
         content.classList.remove('d-none');
         cancelAndConfirm.classList.add('d-none');
     }
-    else{
+    else {
         content.classList.add('d-none');
         cancelAndConfirm.classList.remove('d-none');
     }
@@ -212,7 +219,7 @@ function hoverExitFunction(i) {
 function OpenEditTask(i) {
     let content = document.getElementById(`single-subtask-container${i}`);
     let listValue = document.getElementById(`list-content${i}`).innerHTML;
-    
+
     if (editMenuSubtaskIsOpen === false) {
         content.classList.remove('bg-grey-hover');
         content.classList.add('blue-underline');
@@ -223,21 +230,21 @@ function OpenEditTask(i) {
 
 function editTask(i) {
     let task = document.getElementById(`edit-task-input${i}`);
-    subtasks.splice(i,1, task.value);
+    subtasks.splice(i, 1, task.value);
     renderSubtasks();
     editMenuSubtaskIsOpen = false;
 }
 
 function deleteOpenEditTask(i) {
-    subtasks.splice(i,1);
+    subtasks.splice(i, 1);
     renderSubtasks();
     editMenuSubtaskIsOpen = false;
 }
 
 function deleteTask(i) {
     if (editMenuSubtaskIsOpen === false) {
-    subtasks.splice(i,1);
-    renderSubtasks();
+        subtasks.splice(i, 1);
+        renderSubtasks();
     }
 }
 
@@ -255,30 +262,88 @@ function openSelectContactsContainer() {
 }
 
 function renderContacts() {
+    let activeUserUpdated = [activeUser.join(" ")];
+    let activeUserContainer = document.getElementById('active-user-container');
     let container = document.getElementById('choose-contacts-container');
-    for (let i = 0; i < contacts.length; i++) {
-        const contact = contacts[i];
-        container.innerHTML += /*html*/`
-        <div class="single-contact-container">
+    for (let y = 0; y < activeUserUpdated.length; y++) {
+        const activeUserName = activeUserUpdated[y];
+        activeUserContainer.innerHTML = /*html*/`
+        <div id="${y}" class="single-contact-container">
             <div class="single-contact-name-container">
-                <div class="contact-name-initials-cotainer">
-                    <span>SM</span>
+                <div class="contact-name-initials-cotainer" style="background-color: ${colorForActiveUser[y]};">
+                    <span class="user-initials-span">PG</span>
                 </div>
-                <span>${contact.name}</span>
+                <span>${activeUserName} (You) </span>
             </div>
             <div><input type="checkbox"></div>
         </div>`;
 
+        for (let i = 0; i < contacts.length; i++) {
+            const color = colors[i];
+            const userName = userNames[i];
+            const userNameInitial = userNamesInitials[i];
+            container.innerHTML += /*html*/`
+    <div id="${i}" class="single-contact-container">
+        <div class="single-contact-name-container">
+            <div class="contact-name-initials-cotainer" style="background-color: ${color};">
+                <span class="user-initials-span">${userNameInitial}</span>
+            </div>
+            <span>${userName}</span>
+        </div>
+        <div><input type="checkbox"></div>
+    </div>`;
+
+        }
     }
+
+    console.log(activeUser);
+    console.log(activeUserUpdated);
 }
 
 function getInitials() {
-let names = userNames;
-let initials = names.map(name => {
-    let nameParts = name.split(/[\s-]+/); // Split by space or hyphen
-    let initial = nameParts.map(part => part.charAt(0).toUpperCase()).join("");
-    return initial;
-});
+    let initials = userNames.map(name => {
+        let nameParts = name.split(/[\s-]+/); // Split by space or hyphen
+        let initial = nameParts.map(part => part.charAt(0).toUpperCase()).join("");
+        userNamesInitials.push(initial);
+        return initial;
+    });
 
-console.log(initials); // Die Initials von Anfang an erstelllen lassen mit der Async Funtion ist sinnvoller !!!
+    console.log(initials); // Die Initials von Anfang an erstelllen lassen mit der Async Funtion ist sinnvoller !!!
+}
+
+function sortAlphabetically() {
+    // Erstelle ein Array von Objekten mit Namen und Initialen
+    let combinedArray = userNames.map((name, index) => {
+        return { name: name, initial: userNamesInitials[index], color: colors[index] };
+    });
+
+    // Sortiere das kombinierte Array nach den Namen
+    combinedArray.sort((a, b) => a.name.localeCompare(b.name));
+
+    // Extrahiere die sortierten Namen und Initialen in separate Arrays
+    userNames = combinedArray.map(item => item.name);
+    userNamesInitials = combinedArray.map(item => item.initial);
+    colors = combinedArray.map(item => item.color);
+
+    console.log(userNames);
+    console.log(userNamesInitials);
+    console.log(colors);
+}
+
+function loadAndGetNameOfActiveUser() {
+    let userAsText = localStorage.getItem('user');
+    if (userAsText) {
+        let user = JSON.parse(userAsText);
+        console.log(user);
+        activeUser.push(user.name);
+        activeUser.push(user.surname);
+        let initials = activeUser.map(name => name.charAt(0));
+        activeUserInitials.push(initials);
+        console.log(activeUserInitials);
+
+        return user; // User zurückgeben
+    } else {
+        console.log("user not found");
+        return null; // Null zurückgeben, wenn kein Benutzer gefunden wird
+    }
 }
