@@ -6,7 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Summary</title>
     <link rel="stylesheet" href="templates/header.css">
+    <link rel="stylesheet" href="templates/mobile-header.css">
     <link rel="stylesheet" href="templates/sidebar.css">
+    <link rel="stylesheet" href="templates/mobile-sidebar.css">
     <link rel="stylesheet" href="../fonts.css">
     <link rel="stylesheet" href="./summary.css">
     <script src="templates/include.js"></script>
@@ -16,7 +18,9 @@
 
 <body onload="updateGreeting()">
     <div w3-include-html="templates/header.html"></div>
+    <div id="mobile-header" class="d-none" w3-include-html="templates/mobile-header.html"></div>
     <div w3-include-html="templates/sidebar.html"></div>
+    <div id="mobile-sidebar" w3-include-html="templates/mobile-sidebar.html"></div>
 
     <div>
 
@@ -33,6 +37,7 @@
                         <h1>Join 360</h1>
                         <div class="vertical-divider"></div>
                         <h2>Key Metrics at a Glance</h2>
+                        <div class="horizontal-divider"></div>
                     </div>
                 </div>
 
@@ -115,7 +120,6 @@
                         <span class="greeting" id="greeting-text">Good morning,</span>
                         <span id="greeting-name" class="greeting-name">Sofia Müller</span>
                     </div>
-                </div>
             </div>
 
 

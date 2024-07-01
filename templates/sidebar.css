@@ -30,6 +30,7 @@ aside {
 .sidebar-menu {
     width: 232px;
     height: 229px;
+    margin-top: 115px;
     gap: 15px;
     display: flex;
     flex-direction: column;

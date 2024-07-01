@@ -43,6 +43,12 @@ body {
     height: 60px;
 }
 
+.horizontal-divider {
+    border-left: 60px solid #29ABE2;
+    height: 3px;
+    display: none;
+}
+
 .overview {
     display: flex;
     flex-direction: column;
@@ -282,20 +288,119 @@ body {
 
 @media screen and (max-width: 1360px) {
     .greeting {
-        font-size: 36px; /* Adjust the size as needed */
+        font-size: 36px;
+        /* Adjust the size as needed */
     }
 
     .greeting-name {
-        font-size: 48px; /* Adjust the size as needed */
+        font-size: 48px;
+        /* Adjust the size as needed */
     }
 }
 
 @media screen and (max-width: 1270px) {
     .greeting {
-        font-size: 30px; /* Adjust the size as needed */
+        font-size: 30px;
+        /* Adjust the size as needed */
     }
 
     .greeting-name {
-        font-size: 40px; /* Adjust the size as needed */
+        font-size: 40px;
+        /* Adjust the size as needed */
     }
+}
+
+@media screen and (max-width: 1100px) {
+    .summary-headline h1 {
+        font-size: 47px;
+        font-weight: 700;
+    }
+
+    .summary-headline h2 {
+        font-size: 20px;
+        font-weight: 400;
+    }
+    
+}
+
+@media screen and (max-width: 920px) {
+    .greeting-container {
+        display: none;
+    }
+
+    header {
+        display: none;
+    }
+
+    .sidebar-container {
+        display: none;
+    }
+
+    .content {
+        margin: 0px 8px;
+        padding-right: 0px;
+        padding-bottom: 80px;
+    }
+
+    .overview-and-greetings {
+        gap: 40px;
+    }
+
+    .summary-headline {
+        margin-top: 48px;
+    }
+
+    .mobile-sidebar-container {
+    background-color: #2A3647;
+    height: 80px;
+    width: -webkit-fill-available;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0px 16px 0px 16px;
+    position: fixed;
+    bottom: 0px;
+    }
+}
+
+@media screen and (max-width: 670px) {
+    .summary-headline {
+        display: flex;
+        flex-direction: column;
+        align-items: baseline;
+        gap: 8px;
+        margin-top: 48px;
+    }
+
+    .vertical-divider {
+        border-left: 3px solid #29ABE2;
+        height: 60px;
+        display: none;
+    }
+    
+    .horizontal-divider {
+        border-left: 60px solid #29ABE2;
+        height: 3px;
+        display: block;
+    }
+
+    .overview {
+        gap: 8px;
+    }
+
+    .overview-todo {
+        gap: 8px;
+    }
+
+    .urgency {
+        gap: 20px;
+    }
+
+    .tasks {
+        gap: 8px;
+    }
+}
+
+@media screen and (max-width: 670px) {
+
 }
