@@ -176,11 +176,6 @@ select {
     border-radius: 10px;
 }
 
-.active-user-container {
-    height: 300px;
-    background-color: #FF3D00;
-}
-
 .single-contact-container:hover {
     cursor: pointer;
     background-color: hsl(0, 0%, 95%);
