@@ -10,7 +10,7 @@ let userNames = [];
 let userNamesInitials = [];
 let colors = [];
 let activeUser = [];
-let activeUserInitials = [];
+let activeUserInitials = null;
 let colorForActiveUser = ["rgb(0,190,232)"];
 
 async function getContacts(path = "") {
@@ -28,14 +28,9 @@ async function getContacts(path = "") {
         colors.push(responseToJson[contactsKeys[i]]['color']);
     }
 
-    console.log(contactsKeys);
-    console.log(contacts);
-    console.log(userNames);
-    console.log(colors);
     loadAndGetNameOfActiveUser();
     getInitials();
     sortAlphabetically();
-    console.log(activeUser);
 }
 
 
@@ -261,23 +256,48 @@ function openSelectContactsContainer() {
     }
 }
 
+// Problem: Was bei Guest Reundern (IfAbfrage?) Initials vom Active User generieren lassen und abbilden//
 function renderContacts() {
-    let activeUserUpdated = [activeUser.join(" ")];
     let activeUserContainer = document.getElementById('active-user-container');
     let container = document.getElementById('choose-contacts-container');
-    for (let y = 0; y < activeUserUpdated.length; y++) {
-        const activeUserName = activeUserUpdated[y];
-        activeUserContainer.innerHTML = /*html*/`
-        <div id="${y}" class="single-contact-container">
-            <div class="single-contact-name-container">
-                <div class="contact-name-initials-cotainer" style="background-color: ${colorForActiveUser[y]};">
-                    <span class="user-initials-span">PG</span>
+    if (activeUser != "") {
+        activeUserContainer.classList.remove('d-none');
+        let activeUserUpdated = [activeUser.join(" ")];
+        let activeUserInitialsUpdated = [activeUserInitials.join("")];
+        console.log(activeUserInitialsUpdated);
+        for (let y = 0; y < activeUserUpdated.length; y++) {
+            const activeUserName = activeUserUpdated[y];
+            activeUserContainer.innerHTML = /*html*/`
+            <div id="${y}" class="single-contact-container">
+                <div class="single-contact-name-container">
+                    <div class="contact-name-initials-cotainer" style="background-color: ${colorForActiveUser[y]};">
+                        <span class="user-initials-span">${activeUserInitialsUpdated}</span>
+                    </div>
+                    <span>${activeUserName} (You) </span>
                 </div>
-                <span>${activeUserName} (You) </span>
+                <div><input type="checkbox"></div>
+            </div>`;
+    
+            for (let i = 0; i < contacts.length; i++) {
+                const color = colors[i];
+                const userName = userNames[i];
+                const userNameInitial = userNamesInitials[i];
+                container.innerHTML += /*html*/`
+        <div id="${i}" class="single-contact-container">
+            <div class="single-contact-name-container">
+                <div class="contact-name-initials-cotainer" style="background-color: ${color};">
+                    <span class="user-initials-span">${userNameInitial}</span>
+                </div>
+                <span>${userName}</span>
             </div>
             <div><input type="checkbox"></div>
         </div>`;
-
+    
+            }
+        }
+    }
+    else {
+    
         for (let i = 0; i < contacts.length; i++) {
             const color = colors[i];
             const userName = userNames[i];
@@ -292,12 +312,11 @@ function renderContacts() {
         </div>
         <div><input type="checkbox"></div>
     </div>`;
-
-        }
     }
+ 
 
-    console.log(activeUser);
-    console.log(activeUserUpdated);
+}
+
 }
 
 function getInitials() {
@@ -307,8 +326,7 @@ function getInitials() {
         userNamesInitials.push(initial);
         return initial;
     });
-
-    console.log(initials); // Die Initials von Anfang an erstelllen lassen mit der Async Funtion ist sinnvoller !!!
+ // Die Initials von Anfang an erstelllen lassen mit der Async Funtion ist sinnvoller !!!
 }
 
 function sortAlphabetically() {
@@ -325,9 +343,6 @@ function sortAlphabetically() {
     userNamesInitials = combinedArray.map(item => item.initial);
     colors = combinedArray.map(item => item.color);
 
-    console.log(userNames);
-    console.log(userNamesInitials);
-    console.log(colors);
 }
 
 function loadAndGetNameOfActiveUser() {
@@ -337,8 +352,9 @@ function loadAndGetNameOfActiveUser() {
         console.log(user);
         activeUser.push(user.name);
         activeUser.push(user.surname);
+        console.log(activeUser);
         let initials = activeUser.map(name => name.charAt(0));
-        activeUserInitials.push(initials);
+        activeUserInitials = initials;
         console.log(activeUserInitials);
 
         return user; // User zurückgeben
