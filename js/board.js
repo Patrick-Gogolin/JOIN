@@ -303,7 +303,7 @@ function renderContacts() {
             const userName = userNames[i];
             const userNameInitial = userNamesInitials[i];
             container.innerHTML += /*html*/`
-    <div id="${i}" class="single-contact-container">
+    <div id="${i}"onclick="assignTaskToContact(${i})" class="single-contact-container">
         <div class="single-contact-name-container">
             <div class="contact-name-initials-cotainer" style="background-color: ${color};">
                 <span class="user-initials-span">${userNameInitial}</span>
@@ -316,6 +316,12 @@ function renderContacts() {
  
 
 }
+
+}
+
+function assignTaskToContact(i) {
+    let container = document.getElementById(i);
+    container.classList.add('bg-navy');
 
 }
 

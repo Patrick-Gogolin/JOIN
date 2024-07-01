@@ -162,8 +162,15 @@ select {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 4px 8px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
     z-index: 2;
-    transform: translateY(-2px);
+    transform: translateY(-1px);
     overflow: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.bg-navy {
+    background-color: #2A3647;
 }
 
 .single-contact-container {
