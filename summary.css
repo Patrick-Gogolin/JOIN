@@ -11,18 +11,21 @@ body {
 }
 
 .content {
-    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 32px;
+    margin-left: 328px;
+    padding-right: 87px;
 }
 
 .summary-headline {
-    height: 75px;
-    position: absolute;
-    top: 205px;
-    left: 328px;
     display: flex;
     flex-direction: row;
     align-items: center;
     gap: 30px;
+    margin-top: 110px;
 }
 
 .summary-headline h1 {
@@ -40,11 +43,13 @@ body {
     height: 60px;
 }
 
+.horizontal-divider {
+    border-left: 60px solid #29ABE2;
+    height: 3px;
+    display: none;
+}
+
 .overview {
-    height: 560px;
-    position: absolute;
-    top: 335px;
-    left: 330px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -53,8 +58,7 @@ body {
 }
 
 .overview-todo {
-    width: 560px;
-    height: 170px;
+    width: 100%;
     display: flex;
     flex-direction: row;
     gap: 32px;
@@ -62,8 +66,7 @@ body {
 
 .todo {
     background-color: white;
-    width: 265px;
-    height: 170px;
+    width: 50%;
     border-radius: 30px;
     padding: 38px 19px;
     display: flex;
@@ -88,8 +91,6 @@ body {
 }
 
 .todo-txt-container {
-    width: 65px;
-    height: 100px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -108,8 +109,7 @@ body {
 
 .done {
     background-color: white;
-    width: 265px;
-    height: 170px;
+    width: 50%;
     border-radius: 30px;
     padding: 38px 19px;
     display: flex;
@@ -134,8 +134,6 @@ body {
 }
 
 .done-txt-container {
-    width: 65px;
-    height: 100px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -153,8 +151,7 @@ body {
 }
 
 .urgency {
-    width: 560px;
-    height: 170px;
+    width: 100%;
     border-radius: 30px;
     background-color: white;
     padding: 28px 48px;
@@ -195,8 +192,6 @@ body {
 }
 
 .urgency-txt-container {
-    width: 65px;
-    height: 100px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -227,6 +222,7 @@ body {
 }
 
 .tasks {
+    width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -235,8 +231,7 @@ body {
 }
 
 .task-button {
-    width: 170px;
-    height: 170px;
+    width: 33%;
     background-color: white;
     border-radius: 30px;
     padding: 25px 0px;
@@ -256,7 +251,6 @@ body {
 }
 
 .task-status {
-    width: 93px;
     font-size: 20px;
     font-weight: 400;
     display: flex;
@@ -266,10 +260,6 @@ body {
 }
 
 .greeting-container {
-    height: 136px;
-    position: absolute;
-    top: 550px;
-    left: 968px;
     display: flex;
     flex-direction: column;
     align-items: start;
@@ -289,22 +279,130 @@ body {
     color: #29ABE2;
 }
 
+.overview-and-greetings {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 56px;
+}
+
 @media screen and (max-width: 1360px) {
     .greeting {
-        font-size: 36px; /* Adjust the size as needed */
+        font-size: 36px;
+        /* Adjust the size as needed */
     }
 
     .greeting-name {
-        font-size: 48px; /* Adjust the size as needed */
+        font-size: 48px;
+        /* Adjust the size as needed */
     }
 }
 
 @media screen and (max-width: 1270px) {
     .greeting {
-        font-size: 30px; /* Adjust the size as needed */
+        font-size: 30px;
+        /* Adjust the size as needed */
     }
 
     .greeting-name {
-        font-size: 40px; /* Adjust the size as needed */
+        font-size: 40px;
+        /* Adjust the size as needed */
     }
+}
+
+@media screen and (max-width: 1100px) {
+    .summary-headline h1 {
+        font-size: 47px;
+        font-weight: 700;
+    }
+
+    .summary-headline h2 {
+        font-size: 20px;
+        font-weight: 400;
+    }
+    
+}
+
+@media screen and (max-width: 920px) {
+    .greeting-container {
+        display: none;
+    }
+
+    header {
+        display: none;
+    }
+
+    .sidebar-container {
+        display: none;
+    }
+
+    .content {
+        margin: 0px 8px;
+        padding-right: 0px;
+        padding-bottom: 80px;
+    }
+
+    .overview-and-greetings {
+        gap: 40px;
+    }
+
+    .summary-headline {
+        margin-top: 48px;
+    }
+
+    .mobile-sidebar-container {
+    background-color: #2A3647;
+    height: 80px;
+    width: -webkit-fill-available;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0px 16px 0px 16px;
+    position: fixed;
+    bottom: 0px;
+    }
+}
+
+@media screen and (max-width: 670px) {
+    .summary-headline {
+        display: flex;
+        flex-direction: column;
+        align-items: baseline;
+        gap: 8px;
+        margin-top: 48px;
+    }
+
+    .vertical-divider {
+        border-left: 3px solid #29ABE2;
+        height: 60px;
+        display: none;
+    }
+    
+    .horizontal-divider {
+        border-left: 60px solid #29ABE2;
+        height: 3px;
+        display: block;
+    }
+
+    .overview {
+        gap: 24px;
+    }
+
+    .overview-todo {
+        gap: 24px;
+    }
+
+    .urgency {
+        gap: 20px;
+    }
+
+    .tasks {
+        gap: 24px;
+    }
+
+    
+}
+
+@media screen and (max-width: 670px) {
+
 }

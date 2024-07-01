@@ -1,23 +1,26 @@
-    <header>
+
+    <header class="mobile-header">
         <img src="../img/join-logo-log-in-small.png">
-        <div onclick="isOpen()" class="profile-container" id="profile-container">
-            <span id="user-initials" class="user-initials">
+        <div onclick="isMobileOpen()" class="mobile-profile-container" id="mobile-profile-container">
+            <span id="mobile-user-initials" class="mobile-user-initials">
                 SM
             </span>
         </div>
     </header>
 
-    <div id="sub-menu" class="sub-menu d-none">
-        <div class="button" data-link="../help.html">
+    <div id="mobile-sub-menu" class="mobile-sub-menu d-none">
+        <div class="mobile-button">
             <a href="../help.html">Help</a>
         </div>
-        <div class="button" data-link="../legal-notice.html">
+        <div class="mobile-button">
             <a href="../legal-notice.html">Legal Notice</a>
         </div>
-        <div class="button" data-link="../privacy-policy.html">
+        <div class="mobile-button">
             <a href="../privacy-policy.html">Privacy Policy</a>
         </div>
-        <div class="button" data-link="../logout.html">
+        <div class="mobile-button" onclick="logOut()">
             <span>Log out</span>
         </div>
     </div>
+
+

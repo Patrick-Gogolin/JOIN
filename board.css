@@ -162,7 +162,47 @@ select {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 4px 8px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
     z-index: 2;
-    transform: translateY(-2px);
+    transform: translateY(-1px);
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.bg-navy {
+    background-color: #2A3647;
+}
+
+.single-contact-container {
+    font-family: inter;
+    font-size: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px;
+    border-radius: 10px;
+}
+
+.single-contact-container:hover {
+    cursor: pointer;
+    background-color: hsl(0, 0%, 95%);
+}
+
+.single-contact-name-container {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.contact-name-initials-cotainer {
+    padding: 12px;
+    border-radius: 50%;
+    border: 3px solid white;
+    font-size: 12px;
+}
+
+.user-initials-span {
+    color: white;
 }
 
 .select-contacts-container:hover  {

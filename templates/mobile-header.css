@@ -3,11 +3,18 @@ body {
     font-family: Inter;
 }
 
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
 .d-none {
     display: none;
 }
 
-header {
+.mobile-header {
+    display: none;
     height: 80px;
     padding: 20px 16px;
     box-shadow: 0px 4px 4px 0px #0000001A;
@@ -16,12 +23,12 @@ header {
     align-items: center;
 }
 
-header img {
+.mobile-header img {
     height: 40px;
     width: 32px;
 }
 
-.profile-container {
+.mobile-profile-container {
     height: 40px;
     width: 40px;
     border: 2px solid #2A3647;
@@ -31,12 +38,12 @@ header img {
     align-items: center;
 }
 
-.profile-container:hover {
+.mobile-profile-container:hover {
     cursor: pointer;
     background-color: #0C2E621F;
 }
 
-.user-initials {
+.mobile-user-initials {
     font-weight: bold;
     font-style: normal;
     color: #29ABE2;
@@ -47,9 +54,7 @@ header img {
     align-items: center;
 }
 
-.sub-menu {
-    width: 150px;
-    height: 205px;
+.mobile-sub-menu {
     position: fixed;
     right: -170px; /* Initially hidden */
     top: 81px;
@@ -62,11 +67,11 @@ header img {
     transition: right 100ms ease-in-out; /* Transition for smooth sliding */
 }
 
-.sub-menu.visible {
+.mobile-sub-menu.visible {
     right: 8px; /* Position when visible */
 }
 
-.button {
+.mobile-button {
     height: 45px;
     padding: 8px 16px;
     display: flex;
@@ -74,12 +79,12 @@ header img {
     gap: 8px;
 }
 
-.button:hover {
+.mobile-button:hover {
     background-color: #2A3D59;
     cursor: pointer;
 }
 
-.button span, .button a {
+.mobile-button span, .mobile-button a {
     height: 20px;
     font-size: 16px;
     font-weight: 400;
@@ -87,6 +92,6 @@ header img {
     text-decoration: none;
 }
 
-.button a:hover {
+.-mobile-button a:hover {
     cursor: pointer;
 }

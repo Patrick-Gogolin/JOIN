@@ -10,8 +10,9 @@ body {
     justify-content: space-between;
     align-items: center;
     padding: 0px 16px 0px 16px;
-    position: absolute;
+    position: fixed;
     bottom: 0px;
+    display: none;
 }
 
 .icons {

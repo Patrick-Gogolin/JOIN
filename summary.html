@@ -6,7 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Summary</title>
     <link rel="stylesheet" href="templates/header.css">
+    <link rel="stylesheet" href="templates/mobile-header.css">
     <link rel="stylesheet" href="templates/sidebar.css">
+    <link rel="stylesheet" href="templates/mobile-sidebar.css">
     <link rel="stylesheet" href="../fonts.css">
     <link rel="stylesheet" href="./summary.css">
     <script src="templates/include.js"></script>
@@ -16,91 +18,118 @@
 
 <body onload="updateGreeting()">
     <div w3-include-html="templates/header.html"></div>
+    <div id="mobile-header" class="d-none" w3-include-html="templates/mobile-header.html"></div>
     <div w3-include-html="templates/sidebar.html"></div>
+    <div id="mobile-sidebar" w3-include-html="templates/mobile-sidebar.html"></div>
 
-    <div class="summary-headline">
-        <h1>Join 360</h1>
-        <div class="vertical-divider"></div>
-        <h2>Key Metrics at a Glance</h2>
-    </div>
-    <div class="content">
-        <div class="overview">
-            <div class="overview-todo">
-                <div class="todo">
-                    <div class="edit-bg">
-                        <img src="./img/summary-edit.png">
-                    </div>
-                    <div class="todo-txt-container">
-                        <span class="how-much-todos">1</span>
-                        <span class="todo-txt">To-do</span>
-                    </div>
-                </div>
-                <div class="done">
-                    <div class="done-bg">
-                        <img src="./img/summary-vector.png">
-                    </div>
-                    <div class="done-txt-container">
-                        <span class="how-much-done">1</span>
-                        <span class="done-txt">Done</span>
+    <div>
+
+
+
+
+        <div class="content">
+
+
+
+            <div class="overview-and-greetings">
+                <div>
+                    <div class="summary-headline">
+                        <h1>Join 360</h1>
+                        <div class="vertical-divider"></div>
+                        <h2>Key Metrics at a Glance</h2>
+                        <div class="horizontal-divider"></div>
                     </div>
                 </div>
+
+
+                <div style="display: flex;
+                align-items: center;
+                gap: 32px;">
+                    <div class="overview">
+                        <div class="overview-todo">
+                            <div class="todo">
+                                <div class="edit-bg">
+                                    <img src="./img/summary-edit.png">
+                                </div>
+                                <div class="todo-txt-container">
+                                    <span class="how-much-todos">1</span>
+                                    <span class="todo-txt">To-do</span>
+                                </div>
+                            </div>
+                            <div class="done">
+                                <div class="done-bg">
+                                    <img src="./img/summary-vector.png">
+                                </div>
+                                <div class="done-txt-container">
+                                    <span class="how-much-done">1</span>
+                                    <span class="done-txt">Done</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="urgency">
+                            <div class="urgency-item">
+                                <div class="urgency-bg">
+                                    <img src="./img/urgency-arrow.png">
+                                    <img src="./img/urgency-arrow.png">
+                                </div>
+                                <div class="urgency-txt-container">
+                                    <span class="urgency-quantity">1</span>
+                                    <span class="urgency-txt">Urgent</span>
+                                </div>
+                            </div>
+
+                            <div class="urgency-vertical-line">
+                                <img src="./img/urgency-vertical.png">
+                            </div>
+
+                            <div class="date">
+                                <div class="deadline-container">
+                                    <span class="date">October 16, 2024</span>
+                                    <span class="deadline">Upcoming Deadline</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="tasks">
+                            <div class="task-button">
+                                <span class="task-numbers">5</span>
+                                <div class="task-status">
+                                    <span>Tasks In</span>
+                                    <span>Board</span>
+                                </div>
+                            </div>
+                            <div class="task-button">
+                                <span class="task-numbers">2</span>
+                                <div class="task-status">
+                                    <span>Tasks In</span>
+                                    <span>Progress</span>
+                                </div>
+                            </div>
+                            <div class="task-button">
+                                <span class="task-numbers">2</span>
+                                <div class="task-status">
+                                    <span>Awaiting</span>
+                                    <span>Feedback</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="greeting-container">
+                        <span class="greeting" id="greeting-text">Good morning,</span>
+                        <span id="greeting-name" class="greeting-name">Sofia Müller</span>
+                    </div>
             </div>
 
-            <div class="urgency">
-                <div class="urgency-item">
-                    <div class="urgency-bg">
-                        <img src="./img/urgency-arrow.png">
-                        <img src="./img/urgency-arrow.png">
-                    </div>
-                    <div class="urgency-txt-container">
-                        <span class="urgency-quantity">1</span>
-                        <span class="urgency-txt">Urgent</span>
-                    </div>
-                </div>
 
-                <div class="urgency-vertical-line">
-                    <img src="./img/urgency-vertical.png">
-                </div>
 
-                <div class="date">
-                    <div class="deadline-container">
-                        <span class="date">October 16, 2024</span>
-                        <span class="deadline">Upcoming Deadline</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="tasks">
-                <div class="task-button">
-                    <span class="task-numbers">5</span>
-                    <div class="task-status">
-                        <span>Tasks In</span>
-                        <span>Board</span>
-                    </div>
-                </div>
-                <div class="task-button">
-                    <span class="task-numbers">2</span>
-                    <div class="task-status">
-                        <span>Tasks In</span>
-                        <span>Progress</span>
-                    </div>
-                </div>
-                <div class="task-button">
-                    <span class="task-numbers">2</span>
-                    <div class="task-status">
-                        <span>Awaiting</span>
-                        <span>Feedback</span>
-                    </div>
-                </div>
-            </div>
         </div>
-
-        <div class="greeting-container">
-            <span class="greeting" id="greeting-text">Good morning,</span>
-            <span id="greeting-name" class="greeting-name">Sofia Müller</span>
-        </div>
     </div>
 
+
+
+    </div>
 </body>
 
 </html>
