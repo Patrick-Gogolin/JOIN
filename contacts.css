@@ -44,6 +44,7 @@ body{
     overflow: hidden;
     height: 65vh;
     width: 75vw;
+    max-width: 1212px;
     background-color: white;
     display: flex;
     border-radius: 30px;
@@ -109,8 +110,8 @@ body{
     align-items: center;
     cursor: pointer;
     position: absolute;
-    top: 48px;
-    right: 48px;
+    top: 30px;
+    right: 30px;
     border-radius: 45px;
 }
 
@@ -137,15 +138,17 @@ body{
 }
 
 .nobody{
-    padding-left: 83px;
-    margin-right: 72px;
+    margin-left: 12%;
+    margin-right: 9%;
     width: 120px;
     height: 120px;
+    border-radius: 50%;
+    flex: none;
 }
 
 .edit-contact-logo{
-    margin-left: 83px;
-    margin-right: 72px;
+    margin-left: 12%;
+    margin-right: 9%;
     width: 120px;
     height: 120px;
     display: flex;
@@ -156,6 +159,7 @@ body{
     border: solid 3px white;
     border-radius: 50%;
     font-size: 47px;
+    flex: none;
 }
 
 
@@ -275,6 +279,7 @@ body{
 .content{
     margin-left: 232px;
     display: flex;
+    height: 100vh;
 }
 
 .contact-list{
@@ -363,6 +368,7 @@ body{
 
 
 .contact-logo{
+    box-sizing: content-box;
     margin-left: 24px;
     margin-top: 15px;
     margin-bottom: 21px;
@@ -424,7 +430,7 @@ body{
 }
 
 .contact-info-header span{
-    color: #2A3647;
+    color: #2A3647; 
     font-size: 27px;
 }
 
@@ -433,6 +439,8 @@ body{
     margin-left: 62px;
     margin-top: 32px;
     display: flex;
+    width: 100%;
+    gap: 54px;
 }
 
 .contact-data-header{
@@ -451,7 +459,7 @@ body{
     color: white;
     font-size: 47px;
     font-weight: 500;
-    margin-right: 54px;
+    flex: none;
 }
 
 .contact-data-name{
@@ -534,6 +542,8 @@ body:has(.delete:hover) .delete img{
 }
 .contact-info p, h3{
     margin-left: 62px;
+    margin-top: 15px;
+    margin-bottom: 22px;
 }
 
 .contact-info a{
@@ -552,12 +562,13 @@ body:has(.delete:hover) .delete img{
     box-shadow: 0px 4px 4px 0px #00000040;
     position: fixed;
     right: 1%;
-    bottom: 2.5%;
-    display: flex;
+    bottom: 10.5%;
+    display: none;
     justify-content: center;
     align-items: center;
-    
+    transition: .25s ease-in-out;
 }
+
 
 .more_options_icon{
     font-size: 16px;
@@ -580,16 +591,56 @@ body:has(.delete:hover) .delete img{
     align-items: center;
 }
 
+.back_img_boarder{
+    cursor: pointer;
+    width: 37px;
+    height: 37px;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    right: 4%; 
+}
+
+.back_img_boarder:hover{
+    background-color: rgb(238,238,238);
+    border-radius: 25px;
+}
+
+body:has(.back_img_boarder:hover) .back_img_boarder img{
+    width: 38px;
+    height: 38px;
+}
+
+
+.back_img_boarder img{
+    width: 32px;
+    height: 32px;
+}
+
+.more_img_boarder{
+    cursor: pointer;
+    width: 56px;
+    height: 56px;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    right: 4%;
+    bottom: 11.35%;
+    background-color:#2A3647;
+    border-radius: 30px;
+    box-shadow: 0px 4px 4px 0px #00000040;
+}
+
+.more_img_boarder:hover{
+    background-color:#29ABE2;
+    border-radius: 30px;
+}
+
+
 @media (min-width:1100px) {
     .contact-info-header-separator-mobile{
-        display: none;
-    }
-
-    .back_img_boarder{
-        display: none;
-    }
-
-    .more_img_boarder{
         display: none;
     }
 
@@ -597,19 +648,7 @@ body:has(.delete:hover) .delete img{
         display: none;
     }
 
-    .more_options{
-        display: none;
-    }
-
     .back-icon-white-boarder{
-        display: none;
-    }
-
-    .sidebar-mobile{
-        display: none;
-    }
-    
-    .header-mobile{
         display: none;
     }
 
@@ -622,7 +661,7 @@ body:has(.delete:hover) .delete img{
 @media (max-width: 1300px) {
     .contact-info-header{
         margin-top: 48px;
-        margin-left: 16px;
+        margin-left: 62px;
         display: block;
     }
 
@@ -648,11 +687,21 @@ body:has(.delete:hover) .delete img{
         background-color: #29ABE2;
         margin-top: 16px;
     }
+
+
 }
 
 
 
 @media (max-width: 1100px) {
+    .nobody{
+        margin-bottom: 35px;
+    }
+
+    .sidebar-container{
+        display: none;
+    }
+
     .content{
         margin-left: 0;
     }
@@ -684,55 +733,6 @@ body:has(.delete:hover) .delete img{
         background-color:#29ABE2;
         border-radius: 30px;
     }
-
-
-    .more_img_boarder{
-        cursor: pointer;
-        width: 56px;
-        height: 56px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        position: fixed;
-        right: 4%;
-        bottom: 5.35%;
-        background-color:#2A3647;
-        border-radius: 30px;
-        box-shadow: 0px 4px 4px 0px #00000040;
-    }
-    
-    .more_img_boarder:hover{
-        background-color:#29ABE2;
-        border-radius: 30px;
-    }
-    
-    .back_img_boarder{
-        cursor: pointer;
-        width: 37px;
-        height: 37px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        position: fixed;
-        right: 4%; 
-    }
-    
-    .back_img_boarder:hover{
-        background-color: rgb(238,238,238);
-        border-radius: 25px;
-    }
-    
-    body:has(.back_img_boarder:hover) .back_img_boarder img{
-        width: 38px;
-        height: 38px;
-    }
-    
-    
-    .back_img_boarder img{
-        width: 32px;
-        height: 32px;
-    }
-
 
     .contact-info h2, h3{
         margin-left: 16px;
@@ -786,6 +786,7 @@ body:has(.delete:hover) .delete img{
     .contact-data{
         margin-left: 16px;
         width: 100%;
+        gap: 0;
     }
 
     .contact-data-logo{
@@ -795,19 +796,14 @@ body:has(.delete:hover) .delete img{
         margin-right: 20px;
     }
 
-    .contact-data-icon{
-        display: none;
-    }
-
+  
     .contact-data-name{
         margin-bottom: 0;
         justify-content: center;
         font-size: 36px;
     }
 
-    .contact-data-name span{
-        position: absolute;
-    }
+
     .contact-list{
         width: 100%;
     }
@@ -815,7 +811,7 @@ body:has(.delete:hover) .delete img{
     .popup-content{
         flex-direction: column;
         height: 82vh;
-        width: 93vw;
+        width: 50vw;
         position: relative;
     }
 
@@ -832,7 +828,7 @@ body:has(.delete:hover) .delete img{
         flex-direction: column;
         overflow: auto;
         position: absolute;
-        bottom: 0;
+        bottom: 7%;
     }
 
     .form{
@@ -873,24 +869,9 @@ body:has(.delete:hover) .delete img{
     .add-contact{
         display: none;
     }
-
-    .sidebar{
-        display: none;
-    }
-
-    .header{
-        display: none;
-    }
-
-    .sidebar-mobile{
-        display: block !important;
-    }
 }
 
 @media (max-width: 900px) {
-.contact-info{
-    display: none;
-}
 
 .contact-list{
     min-width: 0 !important;
@@ -899,6 +880,33 @@ body:has(.delete:hover) .delete img{
 .contact-info{
     width: 48%;
 }
+
+.content{
+    margin-left: 0;
+}
+}
+
+@media (max-width: 750px){
+  .back_img_boarder{
+    display: flex;
+  }
+
+  .more_img_boarder{
+    display: flex;
+  }
+
+  .contact-data-icon{
+    display: none;
+}
+
+.popup-content{
+    width: 80%;
+}
+
+.form input{
+    font-size: 18px;
+}
+
 }
 
 
@@ -930,6 +938,10 @@ body:has(.delete:hover) .delete img{
 
     .contact-name a{
         font-size: small;
+    }
+
+    .popup-content{
+        width: 98%;
     }
 
 

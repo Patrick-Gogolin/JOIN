@@ -19,6 +19,7 @@
     <div id="add-contact-popup" class="popup-background d-none"  onclick="closePopup()">
         <div class="popup-content animation" onclick="doNotClose(event)">
             <div class="popup-left">
+                <div onclick="closePopup()" class="back-icon-white-boarder"><img class="back-icon-white" src="img/close_white.png" alt=""></div>
                 <img class="join-logo" src="/img/capa_2.png" alt="">
                 <h1>Add contact</h1>
                 <h3>Tasks are better with a team!</h3>
@@ -26,7 +27,6 @@
             </div>
             <div class="popup-right">
                 <div onclick="closePopup()" class="back-icon-boarder"><img class="back-icon" src="img/x.png" alt=""></div>
-                <div onclick="closePopup()" class="back-icon-white-boarder"><img class="back-icon-white" src="img/close_white.png" alt=""></div>
                 <img class="nobody" src="/img/nobody.png" alt="">
                 <form class="form" onsubmit="postContacts('/contacts'); return false;">
                     <input id="name" class="add-contact-input-name" placeholder="Name" type="text" required>
@@ -41,7 +41,7 @@
         </div>
     </div>
     <div id="edit-contact-popup" class="popup-background d-none"  onclick="closePopup()" ></div>
- <section class="content">
+ <section class="content" onclick="closeEditOptions()">
         <div id="contact-list-responsive" class="contact-list">
             <button onclick="addContact()" class="add-contact">Add new contact <img src="/img/person_add.png" alt=""></button>
             <div class="opened-contact-list" id="contact-list"></div>
@@ -51,7 +51,7 @@
         </div>
         <div id="contact-info" class="contact-info">
             <div class="contact-info-header">
-            <div id="backButton" onclick="backToList()" class="back_img_boarder d-none">
+            <div id="backButton" onclick="backToList()" class="back_img_boarder">
                 <img src="/img/arrow-left-line.png" alt="">
             </div>
             <h1>Contacts</h1>

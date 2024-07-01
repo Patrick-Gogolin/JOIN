@@ -1,10 +1,12 @@
 const BASE_URL = "https://remotestorage-c5224-default-rtdb.europe-west1.firebasedatabase.app/";
 
 let contacts = [];
+let isSelected = false;
 
 window.onresize = checkForMobileMode;
 
 async function onloadFunc(){
+    isSelected = false;
     let contactResponse = await loadContacts("contacts");
     let contactKeysArray = Object.keys(contactResponse);
     for (let index = 0; index < contactKeysArray.length; index++) {
@@ -90,7 +92,7 @@ async function postContacts(path="", data={}){
 
 
 async function deleteContacts(contactID){
-
+    closeEditOptions();
     let response = await fetch(BASE_URL + `contacts/${contactID}.json`, {
         method: "DELETE",
     });
@@ -101,6 +103,9 @@ async function deleteContacts(contactID){
     }
     document.getElementById('contact-info').innerHTML = 
     `<div class="contact-info-header">
+    <div onclick="backToList()" class="back_img_boarder">
+    <img src="/img/arrow-left-line.png" alt="">
+</div>
     <h1>Contacts</h1>
     <div class="contact-info-header-separator"></div>
     <span>Better with a team</span>
@@ -119,6 +124,7 @@ function removeContactFromArray(contactID){
 
 
 function editContact(eachContact){
+    closeEditOptions();
     document.getElementById('edit-contact-popup').classList.remove("d-none");
     document.getElementById('edit-contact-popup').innerHTML = getEditContactTemplate(eachContact);
     document.getElementById('editName').value = eachContact.contact.name;
@@ -242,34 +248,38 @@ function getABCSeparatorTemplate(letter){
             </div>`;
 }
 
+
+
 function checkForMobileMode(){
     let width = window.innerWidth;
     let contactList = document.getElementById('contact-list-responsive');
     let contactInfo = document.getElementById('contact-info');
-    let backBtn = document.getElementById('backButton');
-    if(width <= 750){
-        contactList.classList.add("d-none");
+    if(width <= 750 && (isSelected === true)){
+        contactList.style.display = "none";
         contactInfo.style.display = "block";
         contactInfo.style.width = "100%";
-    } else{
+    } else if(width > 750){
+        contactList.style.display = "block";
         contactInfo.style.display = "block";
         contactInfo.style.width = "48%";
-        contactList.classList.remove("d-none");
+    } else{
+        contactInfo.style.display = "none";
+        contactList.style.display = "block";
     };
 }
 
 function backToList(){
-    if(window.innerWidth<= 890){
-        document.getElementById('contact-list-responsive').classList.remove("d-none");
+    if(window.innerWidth<= 750){
+        isSelected = false;
+        document.getElementById('contact-list-responsive').style.display ="block";
         document.getElementById('contact-info').style.display = "none";
+        document.getElementById('edit-more-options').style.display = "none";
     };
 }
 
-window.addEventListener("resize", function(event) {
-    checkForMobileMode()
-  })
 
 function showContactInfo(eachContact){
+    isSelected = true;
     checkForMobileMode();
     document.querySelectorAll('.contact').forEach(element => {
         element.style.backgroundColor = '';
@@ -318,10 +328,10 @@ function getEachContactInfo(eachContact){
                 <h3 class="animation" >Phone</h3>
                 <p class="animation" >${contactPhone}</p>
                 </div>
-                <div class="more_img_boarder d-none">
+                <div onclick='openEditOptions(); doNotClose(event)' id="edit-more-options" class="more_img_boarder">
                     <img src="/img/more_vert.png" alt="">
                 </div>
-                <div class="more_options d-none">
+                <div onclick="doNotClose(event)" id="edit-more-options-list" class="more_options">
                 <div class="more_options_icon" >
                             <div onclick='editContact(${JSON.stringify(eachContact)})' class="edit" style="margin-bottom: 15px;"><img src="/img/edit.png" alt="" ><p>Edit</p></div>
                             <div onclick="deleteContacts('${eachContact.id}')" class="delete"><img src="/img/delete.png" alt=""><p>Delete</p></div>
@@ -342,3 +352,14 @@ function random_bg_color() {
     // Set the background color of the document body to the generated color.
     return bgColor;
 }
+
+function openEditOptions(){
+    document.getElementById('edit-more-options').classList.add("d-none");
+    document.getElementById('edit-more-options-list').style.display = "flex";
+}
+
+function closeEditOptions(){
+    document.getElementById('edit-more-options-list').style.display = "none";
+    document.getElementById('edit-more-options').classList.remove("d-none");
+}
+
