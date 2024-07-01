@@ -385,11 +385,11 @@ body {
     }
 
     .overview {
-        gap: 8px;
+        gap: 24px;
     }
 
     .overview-todo {
-        gap: 8px;
+        gap: 24px;
     }
 
     .urgency {
@@ -397,8 +397,10 @@ body {
     }
 
     .tasks {
-        gap: 8px;
+        gap: 24px;
     }
+
+    
 }
 
 @media screen and (max-width: 670px) {
