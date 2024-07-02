@@ -3,7 +3,8 @@ const BASE_URL = "https://remotestorage-c5224-default-rtdb.europe-west1.firebase
 let contacts = [];
 let isSelected = false;
 
-window.onresize = checkForMobileMode;
+window.addEventListener('resize', checkForMobileMode);
+window.addEventListener('load', checkForMobileMode);
 
 async function onloadFunc(){
     isSelected = false;
@@ -205,6 +206,7 @@ function addContact(){
 
 
 function closePopup(){
+    checkForMobileMode();
     document.getElementById('add-contact-popup').classList.add("d-none");
     document.getElementById('edit-contact-popup').classList.add("d-none");
 }
@@ -251,20 +253,32 @@ function getABCSeparatorTemplate(letter){
 
 
 function checkForMobileMode(){
+    console.log('checkForMobileMode aufgerufen');
+    showMobileHeader();
     let width = window.innerWidth;
+    let height = window.innerHeight;
     let contactList = document.getElementById('contact-list-responsive');
     let contactInfo = document.getElementById('contact-info');
-    if(width <= 750 && (isSelected === true)){
+
+    console.log('Breite:', width);
+    console.log('Höhe:', height)
+    console.log('isSelected:', isSelected);
+    
+    if(width <= 800 && (isSelected === true)){
+        console.log('Mobile Ansicht aktivieren wenn ein Contact ausgewählt ist.');
         contactList.style.display = "none";
         contactInfo.style.display = "block";
         contactInfo.style.width = "100%";
-    } else if(width > 750){
+    } else if(width <= 800 && (isSelected === false)){
+        console.log('Mobile Ansicht aktivieren wenn ein Contact nicht ausgewählt ist.');
         contactList.style.display = "block";
-        contactInfo.style.display = "block";
-        contactInfo.style.width = "48%";
-    } else{
         contactInfo.style.display = "none";
+        contactList.style.width = "100%";
+    } else{
+        console.log('Desktop Ansicht aktivieren.')
+        contactInfo.style.display = "block";
         contactList.style.display = "block";
+        contactInfo.style.width = "48%";
     };
 }
 
@@ -275,6 +289,18 @@ function backToList(){
         document.getElementById('contact-info').style.display = "none";
         document.getElementById('edit-more-options').style.display = "none";
     };
+}
+
+function showMobileHeader(){
+    let header = document.getElementById('contact-header');
+    let mobileHeader = document.getElementById('contact-mobile-header');
+    if (window.innerWidth <= 1100){
+        header.classList.add("d-none");
+        mobileHeader.classList.remove("d-none");
+    } else {
+        header.classList.remove("d-none");
+        mobileHeader.classList.add("d-none");
+    }
 }
 
 
@@ -326,7 +352,7 @@ function getEachContactInfo(eachContact){
                 <h3 class="animation">Email</h3>
                 <a href="" class="animation">${contactEmail}</a>
                 <h3 class="animation" >Phone</h3>
-                <p class="animation" >${contactPhone}</p>
+                <p class="tel-number animation" >${contactPhone}</p>
                 </div>
                 <div onclick='openEditOptions(); doNotClose(event)' id="edit-more-options" class="more_img_boarder">
                     <img src="/img/more_vert.png" alt="">
@@ -354,12 +380,17 @@ function random_bg_color() {
 }
 
 function openEditOptions(){
-    document.getElementById('edit-more-options').classList.add("d-none");
+    document.getElementById('edit-more-options-list').style.animation = "300ms move-in";
     document.getElementById('edit-more-options-list').style.display = "flex";
+    
 }
 
 function closeEditOptions(){
-    document.getElementById('edit-more-options-list').style.display = "none";
-    document.getElementById('edit-more-options').classList.remove("d-none");
+    document.getElementById('edit-more-options-list').style.animation = "300ms move-out";
+    setTimeout(() => {
+        document.getElementById('edit-more-options-list').style.display = "none";
+    }, 300);
+  
+    
 }
 
