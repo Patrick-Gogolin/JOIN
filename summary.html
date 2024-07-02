@@ -14,6 +14,7 @@
     <script src="templates/include.js"></script>
     <script src="./templates/header.js"></script>
     <script src="./js/summary.js"></script>
+    <script src="templates/sidebar.js"></script>
 </head>
 
 <body onload="updateGreeting()">
@@ -23,14 +24,7 @@
     <div id="mobile-sidebar" w3-include-html="templates/mobile-sidebar.html"></div>
 
     <div>
-
-
-
-
         <div class="content">
-
-
-
             <div class="overview-and-greetings">
                 <div>
                     <div class="summary-headline">
@@ -40,11 +34,7 @@
                         <div class="horizontal-divider"></div>
                     </div>
                 </div>
-
-
-                <div style="display: flex;
-                align-items: center;
-                gap: 32px;">
+                <div class="overview-container">
                     <div class="overview">
                         <div class="overview-todo">
                             <div class="todo">
@@ -66,7 +56,6 @@
                                 </div>
                             </div>
                         </div>
-
                         <div class="urgency">
                             <div class="urgency-item">
                                 <div class="urgency-bg">
@@ -78,11 +67,8 @@
                                     <span class="urgency-txt">Urgent</span>
                                 </div>
                             </div>
-
                             <div class="urgency-vertical-line">
-                                <img src="./img/urgency-vertical.png">
                             </div>
-
                             <div class="date">
                                 <div class="deadline-container">
                                     <span class="date">October 16, 2024</span>
@@ -90,7 +76,6 @@
                                 </div>
                             </div>
                         </div>
-
                         <div class="tasks">
                             <div class="task-button">
                                 <span class="task-numbers">5</span>
@@ -115,20 +100,13 @@
                             </div>
                         </div>
                     </div>
-
                     <div class="greeting-container">
                         <span class="greeting" id="greeting-text">Good morning,</span>
                         <span id="greeting-name" class="greeting-name">Sofia Müller</span>
                     </div>
+                </div>
             </div>
-
-
-
         </div>
-    </div>
-
-
-
     </div>
 </body>
 

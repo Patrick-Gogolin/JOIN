@@ -49,6 +49,13 @@ body {
     display: none;
 }
 
+.overview-container {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    margin-bottom: 32px;
+}
+
 .overview {
     display: flex;
     flex-direction: column;
@@ -199,9 +206,10 @@ body {
 }
 
 .urgency-vertical-line {
-    height: 100px;
-    width: 2px;
-}
+        border-left: 2px solid #D1D1D1;
+        height: 100px;
+    }
+
 
 .deadline-container {
     display: flex;
@@ -332,6 +340,10 @@ body {
         display: none;
     }
 
+    .header-shadow {
+        display: none;
+    }
+
     .sidebar-container {
         display: none;
     }
@@ -404,5 +416,104 @@ body {
 }
 
 @media screen and (max-width: 670px) {
+    .overview {
+        gap: 30px;
+    }
 
+    .todo {
+        border-radius: 20px;
+        gap: 10px;
+    }
+
+    .edit-bg {
+        height: 40px;
+        width: 40px;
+    }
+
+    .todo img {
+        height: 14px;
+        width: 14px;
+    }
+
+    .how-much-todos {
+        font-size: 47px;
+    }
+
+    .todo-txt {
+        font-size: 14px;
+    }
+
+
+    .done {
+        border-radius: 20px;
+        gap: 10px;
+    }
+
+    .done-bg {
+        height: 40px;
+        width: 40px;
+    }
+
+    .done img {
+        height: 11px;
+        width: 15px;
+    }
+
+    .how-much-done {
+        font-size: 47px;
+    }
+
+    .done-txt {
+        font-size: 14px;
+    }
+
+    .urgency {
+        padding: 28px 8px;
+    }
+
+    .urgency-bg {
+        width: 40px;
+        height: 40px;
+    }
+
+    .urgency-bg img {
+        width: 22px;
+    }
+
+    .urgency-quantity {
+        font-size: 47px;
+    }
+
+    .urgency-txt {
+        font-size: 14px;
+    }
+
+    .urgency-vertical-line {
+        height: 68px;
+    }
+
+    .deadline-container {
+        gap: 8px;
+    }
+
+    .date {
+        font-size: 16px;
+    }
+
+    .deadline {
+        font-size: 14px;
+    }
+
+    .task-numbers {
+        font-size: 47px;
+    }
+
+    .task-status {
+        font-size: 14px;
+        font-weight: 400;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
 }

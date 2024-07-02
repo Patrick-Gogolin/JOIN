@@ -1,19 +1,18 @@
-<body>
-    <div class="mobile-sidebar-container">
-        <div class="icons">
-            <img src="../img/summary-sidebar-icon.png" alt="">
-            <span>Summary</span>
-        </div>
-        <div class="icons">
-            <img src="../img/board-sidebar-icon.png" alt="">
-            <span>Board</span>
-        </div>
-        <div class="icons">
-            <img src="../img/addtask-sidebar-icon.png" alt="">
-            <span>AddTask</span>
-        </div>
-        <div class="icons">
-            <img src="../img/contacts-sidebar-icon.png" alt="">
-            <span>Contacts</span>
-        </div>
+<div class="mobile-sidebar-container">
+    <div id="summary" class="icons" onclick="goToPage('summary.html', 'summary')">
+        <img src="../img/summary-sidebar-icon.png" alt="">
+        <span>Summary</span>
     </div>
+    <div id="board" class="icons" onclick="goToPage('board.html', 'board')">
+        <img src="../img/board-sidebar-icon.png" alt="">
+        <span>Board</span>
+    </div>
+    <div id="add-task" class="icons" onclick="goToPage('add-task.html', 'add-task')">
+        <img src="../img/addtask-sidebar-icon.png" alt="">
+        <span>Add Task</span>
+    </div>
+    <div id="contacts" class="icons" onclick="goToPage('contacts.html', 'contacts')">
+        <img src="../img/contacts-sidebar-icon.png" alt="">
+        <span>Contacts</span>
+    </div>
+</div>
