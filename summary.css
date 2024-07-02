@@ -355,6 +355,7 @@ body {
     .content {
         margin: 0px 8px;
         padding-right: 0px;
+        padding-bottom: 96px;
     }
 
     .overview-and-greetings {

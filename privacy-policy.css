@@ -47,7 +47,7 @@ h2 {
     display: flex;
     justify-content: center;
     align-items: center;
-    position: fixed;
+    position: sticky;
     right: 15%;
 }
 
@@ -98,7 +98,7 @@ body:has(.img_boarder:hover) .content_header img {
     }
 
     .img_boarder {
-        position: fixed;
+        position: sticky;
         right: 0%;
     }
 }

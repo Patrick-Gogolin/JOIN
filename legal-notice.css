@@ -56,6 +56,10 @@ a{
     margin-bottom: 24px;
 }
 
+.content_paragraph ul {
+    padding-left: 24px;
+}
+
 .img_boarder{
     cursor: pointer;
     width: 37px;
@@ -63,7 +67,7 @@ a{
     display: flex;
     justify-content: center;
     align-items: center;
-    position: fixed;
+    position: sticky;
     right: 15%;
     
 }
@@ -83,4 +87,42 @@ body:has(.img_boarder:hover) .img_boarder img{
     width: 32px;
     height: 32px;
 
+}
+
+@media screen and (max-width: 920px) {
+    header {
+        display: none;
+    }
+
+    .sidebar-container {
+        display: none;
+    }
+
+    .header-shadow {
+        display: none;
+    }
+
+    .mobile-header {
+        display: flex;
+    }
+
+    .mobile-sidebar-container {
+        display: flex;
+    }
+
+    .content {
+        margin: 48px 16px 24px 16px;
+        padding-bottom: 96px;
+    }
+}
+
+@media screen and (max-width: 570px) {
+    h1 {
+        font-size: 47px;
+    }
+
+    .img_boarder {
+        position: sticky;
+        right: 0%;
+    }
 }
