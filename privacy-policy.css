@@ -1,22 +1,22 @@
 @font-face {
     font-family: 'Inter';
     font-weight: 400;
-    src: url('fonts/inter-v13-latin-regular.woff2') format('woff2'); 
-  }
+    src: url('fonts/inter-v13-latin-regular.woff2') format('woff2');
+}
 
-  @font-face {
+@font-face {
     font-family: 'Inter';
     font-weight: 700;
-    src: url('fonts/inter-v13-latin-700.woff2') format('woff2'); 
-  }
+    src: url('fonts/inter-v13-latin-700.woff2') format('woff2');
+}
 
-  body{
-    background-color: rgb(246,247,248);
+body {
+    background-color: rgb(246, 247, 248);
     font-family: 'Inter';
     margin: 0;
 }
 
-.content{
+.content {
     margin-left: 328px;
     margin-right: 96px;
     margin-top: 110px;
@@ -28,19 +28,19 @@ h1 {
     margin: 0;
 }
 
-h2{
+h2 {
     font-size: 27px;
 }
 
 
-.content_header{
+.content_header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 32px;
 }
 
-.img_boarder{
+.img_boarder {
     cursor: pointer;
     width: 37px;
     height: 37px;
@@ -51,17 +51,54 @@ h2{
     right: 15%;
 }
 
-.content_header img{
+.content_header img {
     width: 32px;
     height: 32px;
 }
 
-.img_boarder:hover{
-    background-color: rgb(238,238,238);
+.img_boarder:hover {
+    background-color: rgb(238, 238, 238);
     border-radius: 25px;
 }
 
-body:has(.img_boarder:hover) .content_header img{
+body:has(.img_boarder:hover) .content_header img {
     width: 37px;
     height: 37px;
+}
+
+@media screen and (max-width: 920px) {
+    header {
+        display: none;
+    }
+
+    .sidebar-container {
+        display: none;
+    }
+
+    .header-shadow {
+        display: none;
+    }
+
+    .mobile-header {
+        display: flex;
+    }
+
+    .mobile-sidebar-container {
+        display: flex;
+    }
+
+    .content {
+        margin: 48px 16px 24px 16px;
+    }
+}
+
+@media screen and (max-width: 570px) {
+    h1 {
+        font-size: 47px;
+    }
+
+    .img_boarder {
+        position: fixed;
+        right: 0%;
+    }
 }

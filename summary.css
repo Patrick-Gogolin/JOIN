@@ -340,6 +340,10 @@ body {
         display: none;
     }
 
+    .mobile-header{
+        display: flex;
+    }
+
     .header-shadow {
         display: none;
     }
