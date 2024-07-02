@@ -5,6 +5,7 @@ let subtasks = [];
 let urgentActive = false; // für Die Buttons beim Addtask Formular
 let mediumActive = false;
 let lowActive = false;
+let assignedTaskToLoggedInUser = false;
 let contacts = [];
 let userNames = [];
 let userNamesInitials = [];
@@ -12,6 +13,7 @@ let colors = [];
 let activeUser = [];
 let activeUserInitials = null;
 let colorForActiveUser = ["rgb(0,190,232)"];
+let assignedContacts = [];
 
 async function getContacts(path = "") {
     let response = await fetch(BASE_URL + path + ".json");
@@ -268,7 +270,7 @@ function renderContacts() {
         for (let y = 0; y < activeUserUpdated.length; y++) {
             const activeUserName = activeUserUpdated[y];
             activeUserContainer.innerHTML = /*html*/`
-            <div id="${y}" class="single-contact-container">
+            <div id="logged-in-user" onclick="assignTaskToLoggedInUserContact('logged-in-user')" class="single-contact-container">
                 <div class="single-contact-name-container">
                     <div class="contact-name-initials-cotainer" style="background-color: ${colorForActiveUser[y]};">
                         <span class="user-initials-span">${activeUserInitialsUpdated}</span>
@@ -283,7 +285,7 @@ function renderContacts() {
                 const userName = userNames[i];
                 const userNameInitial = userNamesInitials[i];
                 container.innerHTML += /*html*/`
-        <div id="${i}" class="single-contact-container">
+        <div id="${i}" onclick="assignTaskToContact(${i})" class="single-contact-container">
             <div class="single-contact-name-container">
                 <div class="contact-name-initials-cotainer" style="background-color: ${color};">
                     <span class="user-initials-span">${userNameInitial}</span>
@@ -321,8 +323,58 @@ function renderContacts() {
 
 function assignTaskToContact(i) {
     let container = document.getElementById(i);
-    container.classList.add('bg-navy');
+    let index = assignedContacts.indexOf(i);
+    if (index === -1) {
+        container.classList.add('bg-navy');
+        assignedContacts.push(i);
+        console.log(assignedContacts);
+    }
+    else {
+        container.classList.remove('bg-navy');
+        assignedContacts.splice(index, 1);
+        console.log(assignedContacts);
+    }
+}
 
+function assignTaskToLoggedInUserContact(id) {
+    let container = document.getElementById(id);
+    let index = assignedContacts.indexOf(id);
+    if (index === -1) {
+        container.classList.add('bg-navy');
+        assignedContacts.push(i);
+        console.log(assignedContacts);
+    }
+    else {
+        container.classList.remove('bg-navy');
+        assignedContacts.splice(index, 1);
+        console.log(assignedContacts);
+    }
+}
+
+function searchContacts() {
+    let search = document.getElementById('search-contact-inputfield').value.toLowerCase().trim();
+    let content = document.getElementById('choose-contacts-container');
+    content.innerHTML = '';
+
+    for (let i = 0; i < userNames.length; i++) {
+        const userName = userNames[i].toLowerCase();
+        const color = colors[i];
+        const userNameInitial = userNamesInitials[i];
+
+        if (userName.includes(search)) {
+            console.log(search);
+            content.innerHTML += /*html*/`
+            <div id="${i}"onclick="assignTaskToContact(${i})" class="single-contact-container">
+                <div class="single-contact-name-container">
+                    <div class="contact-name-initials-cotainer" style="background-color: ${color};">
+                        <span class="user-initials-span">${userNameInitial}</span>
+                    </div>
+                    <span>${userName}</span>
+                </div>
+                <div><input type="checkbox"></div>
+            </div>`;
+        }
+    }
 }
 
 function getInitials() {
