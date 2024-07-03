@@ -57,12 +57,14 @@ function isMobileOpen() {
 function showMobileMenu(subMenu) {
     subMenu.classList.remove("d-none");
     subMenu.classList.add("visible");
+    subMenu.classList.add("mobile-sub-menu");
     open = true;
     document.addEventListener('click', handleClickOutside, true);
 }
 
 function closeMobileMenu(subMenu) {
     subMenu.classList.add("d-none");
+    subMenu.classList.remove("mobile-sub-menu");
     subMenu.classList.remove("visible");
     open = false;
     document.removeEventListener('click', handleClickOutside, true);

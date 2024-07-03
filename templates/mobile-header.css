@@ -65,7 +65,7 @@ body {
     display: flex;
     flex-direction: column;
     z-index: 999;
-    transition: right 100ms ease-in-out; /* Transition for smooth sliding */
+    transition: right 1000ms ease-in-out; /* Transition for smooth sliding */
 }
 
 .mobile-sub-menu.visible {
