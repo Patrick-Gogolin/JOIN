@@ -25,24 +25,15 @@ function closeMenu(subMenu) {
 
 function handleClickOutside(event) {
     const subMenu = document.getElementById('sub-menu');
-    const profileContainer = document.getElementById('profile-container'); // Adjust the ID if necessary
+    const profileContainer = document.getElementById('profile-container');
     if (!subMenu.contains(event.target) && !profileContainer.contains(event.target)) {
         closeMenu(subMenu);
     }
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-    document.addEventListener('click', (event) => {
-        const subMenu = document.getElementById('sub-menu');
-        if (!subMenu.contains(event.target) && !event.target.matches('.profile-container, .profile-container *')) {
-            closeMenu(subMenu);
-        }
-    });
-});
-
 function logOut() {
-            localStorage.clear();
-            window.location.href = 'index.html';
+    localStorage.clear();
+    window.location.href = 'index.html';
 }
 
 function isMobileOpen() {
@@ -59,7 +50,7 @@ function showMobileMenu(subMenu) {
     subMenu.classList.add("visible");
     subMenu.classList.add("mobile-sub-menu");
     open = true;
-    document.addEventListener('click', handleClickOutside, true);
+    document.addEventListener('click', handleClickOutsideMobile, true);
 }
 
 function closeMobileMenu(subMenu) {
@@ -67,22 +58,13 @@ function closeMobileMenu(subMenu) {
     subMenu.classList.remove("mobile-sub-menu");
     subMenu.classList.remove("visible");
     open = false;
-    document.removeEventListener('click', handleClickOutside, true);
+    document.removeEventListener('click', handleClickOutsideMobile, true);
 }
 
-function handleClickOutside(event) {
+function handleClickOutsideMobile(event) {
     const subMenu = document.getElementById('mobile-sub-menu');
     const profileContainer = document.getElementById('mobile-profile-container');
     if (!subMenu.contains(event.target) && !profileContainer.contains(event.target)) {
         closeMobileMenu(subMenu);
     }
 }
-
-document.addEventListener('DOMContentLoaded', () => {
-    document.addEventListener('click', (event) => {
-        const subMenu = document.getElementById('mobile-sub-menu');
-        if (!subMenu.contains(event.target) && !event.target.matches('.mobile-profile-container, .mobile-profile-container *')) {
-            closeMobileMenu(subMenu);
-        }
-    });
-});

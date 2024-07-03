@@ -27,14 +27,21 @@ function load() {
 
 function init() {
     let userInitials = document.getElementById('user-initials');
+    let mobileUserInitials = document.getElementById('mobile-user-initials');
     let user = load(); // Benutzer aus der Load-Funktion abrufen
+    let initials = "G";
+    
     if (user) {
         let firstLetterOfName = user['name'][0];
         let firstLetterOfSurname = user['surname'][0];
-        userInitials.innerHTML = showUserInitials(firstLetterOfName, firstLetterOfSurname); // Initialen anzeigen
+        initials = showUserInitials(firstLetterOfName, firstLetterOfSurname); // Initialen anzeigen
     }
-    else{
-        userInitials.innerHTML = "G";
+    
+    if (userInitials) {
+        userInitials.innerHTML = initials;
+    }
+    if (mobileUserInitials) {
+        mobileUserInitials.innerHTML = initials;
     }
 }
 
