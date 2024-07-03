@@ -310,8 +310,9 @@ function renderContacts() {
             const color = colors[i];
             const userName = userNames[i];
             const userNameInitial = userNamesInitials[i];
+            let bgColor = assignedContacts.indexOf(i) !== -1 ? 'bg-navy' : 'bg-white'
             container.innerHTML += /*html*/`
-    <div id="${i}"onclick="assignTaskToContact(${i})" class="single-contact-container">
+     <div id="${i}" onclick="assignTaskToContact(${i})"  class="single-contact-container ${bgColor}">
         <div class="single-contact-name-container">
             <div class="contact-name-initials-cotainer" style="background-color: ${color};">
                 <span class="user-initials-span">${userNameInitial}</span>
