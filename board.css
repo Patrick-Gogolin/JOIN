@@ -172,7 +172,7 @@ select {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 4px 8px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
     z-index: 2;
-    transform: translateY(-1px);
+    transform: translateY(0px);
     overflow: auto;
     display: flex;
     flex-direction: column;
@@ -180,8 +180,12 @@ select {
 }
 
 .bg-navy {
-    background-color: #2A3647;
+    background-color: #2A3647 !important;
     color: white;
+}
+
+.bg-white {
+    background-color: white;
 }
 
 .bg-navy:hover {

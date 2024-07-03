@@ -261,16 +261,21 @@ function openSelectContactsContainer() {
 // Problem: Was bei Guest Reundern (IfAbfrage?) Initials vom Active User generieren lassen und abbilden//
 function renderContacts() {
     let activeUserContainer = document.getElementById('active-user-container');
-    let container = document.getElementById('choose-contacts-container');
+    let container = document.getElementById('select-contact-container');
+    activeUserContainer.innerHTML = "";
+    container.innerHTML = "";
+
     if (activeUser != "") {
         activeUserContainer.classList.remove('d-none');
         let activeUserUpdated = [activeUser.join(" ")];
         let activeUserInitialsUpdated = [activeUserInitials.join("")];
         console.log(activeUserInitialsUpdated);
+
         for (let y = 0; y < activeUserUpdated.length; y++) {
             const activeUserName = activeUserUpdated[y];
+            let bgColor = assignedContacts.indexOf('logged-in-user') !== -1 ? 'bg-navy' : 'bg-white'
             activeUserContainer.innerHTML = /*html*/`
-            <div id="logged-in-user" onclick="assignTaskToLoggedInUserContact('logged-in-user')" class="single-contact-container">
+            <div id="logged-in-user" onclick="assignTaskToContact('logged-in-user')" class="single-contact-container ${bgColor}">
                 <div class="single-contact-name-container">
                     <div class="contact-name-initials-cotainer" style="background-color: ${colorForActiveUser[y]};">
                         <span class="user-initials-span">${activeUserInitialsUpdated}</span>
@@ -284,8 +289,9 @@ function renderContacts() {
                 const color = colors[i];
                 const userName = userNames[i];
                 const userNameInitial = userNamesInitials[i];
+                let bgColor = assignedContacts.indexOf(i) !== -1 ? 'bg-navy' : 'bg-white'
                 container.innerHTML += /*html*/`
-        <div id="${i}" onclick="assignTaskToContact(${i})" class="single-contact-container">
+        <div id="${i}" onclick="assignTaskToContact(${i})"  class="single-contact-container ${bgColor}">
             <div class="single-contact-name-container">
                 <div class="contact-name-initials-cotainer" style="background-color: ${color};">
                     <span class="user-initials-span">${userNameInitial}</span>
@@ -324,21 +330,6 @@ function renderContacts() {
 function assignTaskToContact(i) {
     let container = document.getElementById(i);
     let index = assignedContacts.indexOf(i);
-    if (index === -1) {
-        container.classList.add('bg-navy');
-        assignedContacts.push(i);
-        console.log(assignedContacts);
-    }
-    else {
-        container.classList.remove('bg-navy');
-        assignedContacts.splice(index, 1);
-        console.log(assignedContacts);
-    }
-}
-
-function assignTaskToLoggedInUserContact(id) {
-    let container = document.getElementById(id);
-    let index = assignedContacts.indexOf(id);
     if (index === -1) {
         container.classList.add('bg-navy');
         assignedContacts.push(i);
