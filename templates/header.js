@@ -86,24 +86,3 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 });
-
-// function adjustMobileHeaderVisibility() {
-//     var mobileHeader = document.getElementById('mobile-header');
-
-//     // Überprüfen, ob das Element existiert, bevor darauf zugegriffen wird
-//     if (mobileHeader) {
-//         var screenWidth = window.innerWidth;
-
-//         if (screenWidth <= 920) {
-//             mobileHeader.classList.remove('d-none');
-//         } else {
-//             mobileHeader.classList.add('d-none');
-//         }
-//     }
-// }
-
-// // Aufruf in DOMContentLoaded-Event einbetten, wenn notwendig
-// document.addEventListener('DOMContentLoaded', function() {
-//     adjustMobileHeaderVisibility();
-//     window.addEventListener('resize', adjustMobileHeaderVisibility);
-// });
