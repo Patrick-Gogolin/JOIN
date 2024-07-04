@@ -179,6 +179,12 @@ select {
     gap: 4px;
 }
 
+.contacts-to-select-container {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
 .bg-navy {
     background-color: #2A3647 !important;
     color: white;
