@@ -273,16 +273,20 @@ function renderContacts() {
 
         for (let y = 0; y < activeUserUpdated.length; y++) {
             const activeUserName = activeUserUpdated[y];
-            let bgColor = assignedContacts.indexOf('logged-in-user') !== -1 ? 'bg-navy' : 'bg-white'
+            let bgColor = assignedContacts.indexOf('logged-in-user') !== -1 ? 'bg-navy' : 'bg-white';
+            let checkBoxImage = assignedContacts.indexOf('logged-in-user') !== -1 ? 'img/filled-check-box-white.svg' : 'img/empty-check-box.svg';
             activeUserContainer.innerHTML = /*html*/`
-            <div id="logged-in-user" onclick="assignTaskToContact('logged-in-user')" class="single-contact-container ${bgColor}">
+            <div id="logged-in-user" onclick="assignTaskToLoggedInUser('logged-in-user')" class="single-contact-container ${bgColor}">
                 <div class="single-contact-name-container">
                     <div class="contact-name-initials-cotainer" style="background-color: ${colorForActiveUser[y]};">
                         <span class="user-initials-span">${activeUserInitialsUpdated}</span>
                     </div>
                     <span>${activeUserName} (You) </span>
                 </div>
-                <div><input type="checkbox"></div>
+                <div>
+                    <img id="empty-checkbox-active-user" src=${checkBoxImage} alt="Empty Checkbox">
+                    <img id="filled-checkbox-for-active-user" class="d-none" src=${checkBoxImage} alt="Filled Checkbox">
+                </div>
             </div>`;
     
             for (let i = 0; i < contacts.length; i++) {
@@ -298,7 +302,10 @@ function renderContacts() {
                 </div>
                 <span>${userName}</span>
             </div>
-            <div><input type="checkbox"></div>
+            <div>
+                <img id="empty-checkbox${i}" src="img/empty-check-box.svg" alt="Empty Checkbox">
+                <img id="filled-checkbox${i}" class="d-none" src="img/filled-check-box-white.svg" alt="Filled Checkbox">
+            </div>
         </div>`;
     
             }
@@ -328,20 +335,48 @@ function renderContacts() {
 
 }
 
-function assignTaskToContact(i) {
+function assignTaskToLoggedInUser(i) {
     let container = document.getElementById(i);
     let index = assignedContacts.indexOf(i);
+    let emptyCheckbox = document.getElementById('empty-checkbox-active-user');
+    let filledCheckbox = document.getElementById('filled-checkbox-for-active-user');
     if (index === -1) {
         container.classList.add('bg-navy');
         assignedContacts.push(i);
         console.log(assignedContacts);
+        emptyCheckbox.classList.add('d-none')
+        filledCheckbox.classList.remove('d-none');
     }
     else {
         container.classList.remove('bg-navy');
         assignedContacts.splice(index, 1);
         console.log(assignedContacts);
+        emptyCheckbox.classList.remove('d-none')
+        filledCheckbox.classList.add('d-none');
     }
 }
+
+function assignTaskToContact(i) {
+    let container = document.getElementById(i);
+    let index = assignedContacts.indexOf(i);
+    let emptyCheckbox = document.getElementById(`empty-checkbox${i}`);
+    let filledCheckbox = document.getElementById(`filled-checkbox${i}`);
+    if (index === -1) {
+        container.classList.add('bg-navy');
+        assignedContacts.push(i);
+        console.log(assignedContacts);
+        emptyCheckbox.classList.add('d-none')
+        filledCheckbox.classList.remove('d-none');
+    }
+    else {
+        container.classList.remove('bg-navy');
+        assignedContacts.splice(index, 1);
+        console.log(assignedContacts);
+        emptyCheckbox.classList.remove('d-none')
+        filledCheckbox.classList.add('d-none');
+    }
+}
+
 
 function searchContacts() {
     let search = document.getElementById('search-contact-inputfield').value.toLowerCase().trim();
