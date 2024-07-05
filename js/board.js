@@ -518,7 +518,7 @@ function loadAndGetNameOfActiveUser() {
 function updateHTML() {
     updateCategory('todo', 'To Do');
     updateCategory('progress', 'in Progress');
-    updateCategory('feedback', 'Awaiting for Feedback');
+    updateCategory('feedback', 'Awaiting Feedback');
     updateCategory('done', 'Done');
 }
 
