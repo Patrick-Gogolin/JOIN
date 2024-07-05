@@ -13,11 +13,14 @@ let colors = [];
 let activeUser = [];
 let activeUserInitials = null;
 let colorForActiveUser = ["rgb(0,190,232)"];
-let assignedContacts = [];
+let assignedContactsNames = [];
+let assignedContactsId = [];
+let assignedContactsColors =[];
 
 async function getContacts(path = "") {
     let response = await fetch(BASE_URL + path + ".json");
     let responseToJson = await response.json();
+    console.log(responseToJson);
     let contactsKeys = Object.keys(responseToJson);
 
     for (let i = 0; i < contactsKeys.length; i++) {
@@ -273,19 +276,18 @@ function renderContacts() {
 
         for (let y = 0; y < activeUserUpdated.length; y++) {
             const activeUserName = activeUserUpdated[y];
-            let bgColor = assignedContacts.indexOf('logged-in-user') !== -1 ? 'bg-navy' : 'bg-white';
-            let checkBoxImage = assignedContacts.indexOf('logged-in-user') !== -1 ? 'img/filled-check-box-white.svg' : 'img/empty-check-box.svg';
+            let checkBox = renderCheckBox("logged-in-user");
+            let bgColor = assignedContactsId.indexOf('logged-in-user') !== -1 ? 'bg-navy' : 'bg-white';
             activeUserContainer.innerHTML = /*html*/`
             <div id="logged-in-user" onclick="assignTaskToLoggedInUser('logged-in-user')" class="single-contact-container ${bgColor}">
                 <div class="single-contact-name-container">
                     <div class="contact-name-initials-cotainer" style="background-color: ${colorForActiveUser[y]};">
                         <span class="user-initials-span">${activeUserInitialsUpdated}</span>
                     </div>
-                    <span>${activeUserName} (You) </span>
+                    <span id="logged-in-user-name">${activeUserName}</span><span>(You)</span>
                 </div>
                 <div>
-                    <img id="empty-checkbox-active-user" src=${checkBoxImage} alt="Empty Checkbox">
-                    <img id="filled-checkbox-for-active-user" class="d-none" src=${checkBoxImage} alt="Filled Checkbox">
+                    <img id="checkbox-active-user" src=${checkBox} alt="Checkbox">
                 </div>
             </div>`;
     
@@ -293,18 +295,18 @@ function renderContacts() {
                 const color = colors[i];
                 const userName = userNames[i];
                 const userNameInitial = userNamesInitials[i];
-                let bgColor = assignedContacts.indexOf(i) !== -1 ? 'bg-navy' : 'bg-white'
+                let checkBoxContacts = renderCheckBox(i);
+                let bgColor = assignedContactsId.indexOf(i) !== -1 ? 'bg-navy' : 'bg-white'
                 container.innerHTML += /*html*/`
         <div id="${i}" onclick="assignTaskToContact(${i})"  class="single-contact-container ${bgColor}">
             <div class="single-contact-name-container">
                 <div class="contact-name-initials-cotainer" style="background-color: ${color};">
                     <span class="user-initials-span">${userNameInitial}</span>
                 </div>
-                <span>${userName}</span>
+                <span id="assigned-contact-name${i}">${userName}</span>
             </div>
             <div>
-                <img id="empty-checkbox${i}" src="img/empty-check-box.svg" alt="Empty Checkbox">
-                <img id="filled-checkbox${i}" class="d-none" src="img/filled-check-box-white.svg" alt="Filled Checkbox">
+                <img id="checkbox${i}" src=${checkBoxContacts} alt="Checkbox">
             </div>
         </div>`;
     
@@ -317,16 +319,19 @@ function renderContacts() {
             const color = colors[i];
             const userName = userNames[i];
             const userNameInitial = userNamesInitials[i];
-            let bgColor = assignedContacts.indexOf(i) !== -1 ? 'bg-navy' : 'bg-white'
+             let checkBoxContacts = renderCheckBox(i);
+            let bgColor = assignedContactsId.indexOf(i) !== -1 ? 'bg-navy' : 'bg-white'
             container.innerHTML += /*html*/`
      <div id="${i}" onclick="assignTaskToContact(${i})"  class="single-contact-container ${bgColor}">
         <div class="single-contact-name-container">
             <div class="contact-name-initials-cotainer" style="background-color: ${color};">
                 <span class="user-initials-span">${userNameInitial}</span>
             </div>
-            <span>${userName}</span>
+            <span id="assigned-contact-name${i}">${userName}</span>
         </div>
-        <div><input type="checkbox"></div>
+        <div>
+            <img id="checkbox${i}" src=${checkBoxContacts} alt="Checkbox">
+        </div>
     </div>`;
     }
  
@@ -337,43 +342,65 @@ function renderContacts() {
 
 function assignTaskToLoggedInUser(i) {
     let container = document.getElementById(i);
-    let index = assignedContacts.indexOf(i);
-    let emptyCheckbox = document.getElementById('empty-checkbox-active-user');
-    let filledCheckbox = document.getElementById('filled-checkbox-for-active-user');
+    let loggedInUserName = document.getElementById('logged-in-user-name').innerHTML;
+    let index = assignedContactsId.indexOf(i);
+    let checkbox = document.getElementById('checkbox-active-user');
     if (index === -1) {
         container.classList.add('bg-navy');
-        assignedContacts.push(i);
-        console.log(assignedContacts);
-        emptyCheckbox.classList.add('d-none')
-        filledCheckbox.classList.remove('d-none');
+        assignedContactsColors.push(colorForActiveUser[0]);
+        assignedContactsId.push(i);
+        assignedContactsNames.push(loggedInUserName)
+        console.log(assignedContactsId);
+        console.log(assignedContactsNames);
+        console.log(assignedContactsColors);
+        checkbox.src = "img/filled-check-box-white.svg"
     }
     else {
         container.classList.remove('bg-navy');
-        assignedContacts.splice(index, 1);
-        console.log(assignedContacts);
-        emptyCheckbox.classList.remove('d-none')
-        filledCheckbox.classList.add('d-none');
+        assignedContactsNames.splice(index, 1);
+        assignedContactsId.splice(index, 1);
+        console.log(assignedContactsId);
+        console.log(assignedContactsNames);
+        checkbox.src = "img/empty-check-box.svg"
     }
 }
 
 function assignTaskToContact(i) {
     let container = document.getElementById(i);
-    let index = assignedContacts.indexOf(i);
-    let emptyCheckbox = document.getElementById(`empty-checkbox${i}`);
-    let filledCheckbox = document.getElementById(`filled-checkbox${i}`);
+    let contactName = document.getElementById(`assigned-contact-name${i}`).innerHTML;
+    let index = assignedContactsId.indexOf(i);
+    let checkbox = document.getElementById(`checkbox${i}`);
     if (index === -1) {
         container.classList.add('bg-navy');
-        assignedContacts.push(i);
-        console.log(assignedContacts);
-        emptyCheckbox.classList.add('d-none')
-        filledCheckbox.classList.remove('d-none');
+        assignedContactsColors.push(colors[i]);
+        assignedContactsId.push(i);
+        assignedContactsNames.push(contactName)
+        console.log(assignedContactsId);
+        console.log(assignedContactsNames);
+        console.log(assignedContactsColors);
+        checkbox.src = "img/filled-check-box-white.svg"
     }
     else {
         container.classList.remove('bg-navy');
-        assignedContacts.splice(index, 1);
-        console.log(assignedContacts);
-        emptyCheckbox.classList.remove('d-none')
-        filledCheckbox.classList.add('d-none');
+        assignedContactsColors.splice(index,1);
+        assignedContactsNames.splice(index, 1);
+        assignedContactsId.splice(index, 1);
+        console.log(assignedContactsId);
+        console.log(assignedContactsNames);
+        console.log(assignedContactsColors);
+        checkbox.src = "img/empty-check-box.svg"
+    }
+}
+
+function renderCheckBox(id) {
+    if(assignedContactsId.length === 0) {
+        return "img/empty-check-box.svg";
+    }
+    else if(assignedContactsId.indexOf(id) !== -1) {
+        return "img/filled-check-box-white.svg"
+    }
+    else {
+        return "img/empty-check-box.svg";
     }
 }
 
