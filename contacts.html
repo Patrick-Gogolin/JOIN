@@ -6,24 +6,24 @@
     <title>Contacts</title>
     <link rel="icon" type="image/x-icon" href="img/join-logo-log-in-small.svg">
     <link rel="stylesheet" href="templates/header.css">
+    <link rel="stylesheet" href="templates/mobile-header.css">
     <link rel="stylesheet" href="templates/sidebar.css">
     <link rel="stylesheet" href="templates/mobile-sidebar.css">
-    <link rel="stylesheet" href="templates/mobile-header.css">
     <link rel="stylesheet" href="contacts.css">
     <script src="templates/include.js"></script>
-    <script src="templates/sidebar.js"></script>
-    <script src="js/contacts.js"></script>
-    <script src="templates/header.js"></script>
+    <script src="/templates/sidebar.js"></script>
+    <script src="./js/contacts.js"></script>
+    <script src="./templates/header.js"></script>
 </head>
 <body onload="onloadFunc()">
     <div id="contact-header" w3-include-html="templates/header.html"></div>
-    <div id="contact-mobile-header" class="d-none" w3-include-html="templates/mobile-header.html"></div>
+    <div id="contact-mobile-header" w3-include-html="templates/mobile-header.html"></div>
     <div class="sidebar" w3-include-html="templates/sidebar.html"></div>
     <div class="sidebar-mobile" w3-include-html="templates/mobile-sidebar.html"></div>
 
 
     <div id="add-contact-popup" class="popup-background d-none"  onclick="closePopup()">
-        <div class="popup-content animation" onclick="doNotClose(event)">
+        <div id="popup-content" class="popup-content animation" onclick="doNotClose(event)">
             <div class="popup-left">
                 <div onclick="closePopup()" class="back-icon-white-boarder"><img class="back-icon-white" src="img/close_white.png" alt=""></div>
                 <img class="join-logo" src="/img/capa_2.png" alt="">

@@ -20,6 +20,7 @@ async function onloadFunc(){
     }
     sortContactsAlphabetically();
     await loadContacts('/contacts');
+    checkForMobileMode();
 }   
 
 
@@ -127,11 +128,15 @@ function removeContactFromArray(contactID){
 function editContact(eachContact){
     closeEditOptions();
     document.getElementById('edit-contact-popup').classList.remove("d-none");
+    
     document.getElementById('edit-contact-popup').innerHTML = getEditContactTemplate(eachContact);
     document.getElementById('editName').value = eachContact.contact.name;
     document.getElementById('editMail').value = eachContact.contact.email;
     document.getElementById('editPhone').value = eachContact.contact.phone;
     document.getElementById(`contact-logo-${eachContact}`).style.backgroundColor = eachContact.contact.color; 
+
+    document.getElementById('edit-contact-popup-content').classList.remove("animation-close");
+    document.getElementById('edit-contact-popup-content').classList.add("animation");
 }
 
 
@@ -176,7 +181,7 @@ async function putContacts(path="", data={}){
 
 function getEditContactTemplate(eachContact){
     let initials = getContactsInitials(eachContact);
-    return `<div class="popup-content animation" onclick="doNotClose(event)">
+    return `<div id="edit-contact-popup-content" class="popup-content animation" onclick="doNotClose(event)">
             <div class="popup-left">
                 <div onclick="closePopup()" class="back-icon-white-boarder"><img class="back-icon-white" src="img/close_white.png" alt=""></div>
                 <img class="join-logo" src="/img/capa_2.png" alt="">
@@ -201,14 +206,27 @@ function getEditContactTemplate(eachContact){
 
 
 function addContact(){
+    document.getElementById('popup-content').classList.remove("animation-close");
+    document.getElementById('popup-content').classList.add("animation");
     document.getElementById('add-contact-popup').classList.remove("d-none");
 }
 
 
 function closePopup(){
     checkForMobileMode();
-    document.getElementById('add-contact-popup').classList.add("d-none");
-    document.getElementById('edit-contact-popup').classList.add("d-none");
+    document.getElementById('popup-content').classList.remove("animation");
+    document.getElementById('popup-content').classList.add("animation-close");
+    setTimeout(() => {
+        document.getElementById('add-contact-popup').classList.add("d-none");
+    }, 300);
+    
+    
+    document.getElementById('edit-contact-popup-content').classList.remove("animation")
+    document.getElementById('edit-contact-popup-content').classList.add("animation-close");
+    setTimeout(() => {
+        document.getElementById('edit-contact-popup').classList.add("d-none");
+    }, 300);
+    
 }
 
 
@@ -296,10 +314,10 @@ function showMobileHeader(){
     let mobileHeader = document.getElementById('contact-mobile-header');
     if (window.innerWidth <= 1100){
         header.classList.add("d-none");
-        mobileHeader.classList.remove("d-none");
+        mobileHeader.style.display = 'flex';
     } else {
         header.classList.remove("d-none");
-        mobileHeader.classList.add("d-none");
+        mobileHeader.style.display = 'none';
     }
 }
 

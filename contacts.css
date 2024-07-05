@@ -19,10 +19,19 @@
 
 @keyframes slideMe{
     0%{
-        transform:  translateX(500px);
+        transform:  translateX(2000px);
     }
     100%{
         transform:  translateX(0px);
+    }
+}
+
+@keyframes slideOut{
+    0%{
+        transform:  translateX(0px);
+    }
+    100%{
+        transform:  translateX(2000px);
     }
 }
 
@@ -314,6 +323,7 @@ body{
     background-color: white;
     overflow-y: scroll;
     width: 38%;
+    max-height: 100vh;
     
 }
 
@@ -322,7 +332,11 @@ body{
 }
 
 .animation{
-    animation: slideMe 0.2s ease-in;
+    animation: slideMe 0.5s;
+}
+
+.animation-close{
+    animation: slideOut 0.5s;
 }
 
 
@@ -726,6 +740,9 @@ body:has(.back_img_boarder:hover) .back_img_boarder img{
 
 
 @media (max-width: 1100px) {
+    .mobile-header{
+        display: flex;
+    }
     .opened-contact-list{
         margin-bottom: 80px;
     }
