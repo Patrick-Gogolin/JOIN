@@ -77,7 +77,6 @@
         background-color: white;
         max-width: 445px;
         width: 36.5%;
-        height: 91%;
         max-height: 1024px;
         border-radius: 30px;
         padding: 48px 40px 48px 40px;
@@ -184,6 +183,11 @@
         background: rgb(238,238,238);
     }
 
+    .task-card-subtasks-list-element img{
+        width: 24px;
+        height: 24px;
+    }
+
     .task-card-footer{
         display: flex;
         gap: 8px;
@@ -219,12 +223,39 @@
     filter: drop-shadow(0px 1000px 0 #29ABE2);
     transform: translateY(-1000px);
     }
-    
 
     .task-card-separator{
         height: 24px;
         width: 1px;
         background: #D1D1D1;
+    }
+
+    @media (max-width: 1200px){
+        .task-card-title{
+            font-size: 48px;
+        }
+    }
+
+    @media (max-width: 850px){
+        .popup-content{
+            width: 95%;
+        }
+    }
+
+    @media (max-width:550px){
+        .popup-content{
+            margin-left: 4%;
+            margin-right: 4%;
+        }
+    }
+
+    @media (max-width: 460px){
+        .popup-content{
+            font-size: 16px;
+        }
+        .task-card-title{
+            font-size: 31px;
+        }
     }
 
     
