@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,7 +15,8 @@
     <script src="./templates/header.js"></script>
 
 </head>
-<body onload="getContacts('/contacts')"> 
+
+<body onload="getContacts('/contacts'); updateHTML();">
     <div w3-include-html="templates/header.html"></div>
     <div w3-include-html="templates/sidebar.html"></div>
     <div id="overlayer" class="overlayer d-none">
@@ -30,16 +32,19 @@
                     <div class="title-input-container">
                         <span class="headline-input">Title<span class="red-star-required">*</span></span>
                         <input id="title" type="text" placeholder="Enter a Title" required>
-                        <span id="title-required-span" class="this-field-required-span d-none">This field is required</span>
+                        <span id="title-required-span" class="this-field-required-span d-none">This field is
+                            required</span>
                     </div>
                     <div class="description-input-container">
                         <span class="headline-input">Description</span>
-                        <textarea class="task-description-textarea" name="" id="" placeholder="Enter a Description"></textarea>
+                        <textarea class="task-description-textarea" name="" id=""
+                            placeholder="Enter a Description"></textarea>
                     </div>
                     <div class="assigned-to-input-container">
                         <span class="headline-input">Assigned to</span>
                         <div class="select-contacts-container" id="">
-                            <input onkeyup="searchContacts()" id="search-contact-inputfield" type="text" placeholder="Select contacts to assign">
+                            <input onkeyup="searchContacts()" id="search-contact-inputfield" type="text"
+                                placeholder="Select contacts to assign">
                             <img onclick="openSelectContactsContainer()" src="img/arrow-drop-down-contacts.svg" alt="">
                         </div>
                         <div id="choose-contacts-container" class="choose-contacts-container d-none">
@@ -57,14 +62,18 @@
                     <div class="date-container">
                         <span class="headline-input">Due Date<span class="red-star-required">*</span></span>
                         <input id="date" type="date" required>
-                        <span id="date-required-span" class="this-field-required-span d-none">This field is required</span>
+                        <span id="date-required-span" class="this-field-required-span d-none">This field is
+                            required</span>
                     </div>
                     <div class="priority-container">
                         <span class="headline-input">Prio</span>
                         <div class="priority-button-container">
-                            <button onclick="urgentPriority()" id="urgent-button" class="urgent-button">Urgent <img id="urgent-prio-sign" src="img/urgent-prio.svg" alt=""></button>
-                            <button onclick="mediumPriority()" id="medium-button" class="medium-button">Medium <img id="medium-prio-sign" src="img/medium-prio-orange.svg" alt=""></button>
-                            <button onclick="lowPriority()" id="low-button" class="low-button">Low <img id="low-prio-sign" src="img/low-prio.svg" alt=""></button>
+                            <button onclick="urgentPriority()" id="urgent-button" class="urgent-button">Urgent <img
+                                    id="urgent-prio-sign" src="img/urgent-prio.svg" alt=""></button>
+                            <button onclick="mediumPriority()" id="medium-button" class="medium-button">Medium <img
+                                    id="medium-prio-sign" src="img/medium-prio-orange.svg" alt=""></button>
+                            <button onclick="lowPriority()" id="low-button" class="low-button">Low <img
+                                    id="low-prio-sign" src="img/low-prio.svg" alt=""></button>
                         </div>
                     </div>
                     <div class="assigned-to-input-container">
@@ -75,17 +84,20 @@
                             <option value="contact2">User Story</option>
                             <!-- Weitere Optionen hier -->
                         </select>
-                        <span id="category-required-span" class="this-field-required-span d-none">This field is required</span>
+                        <span id="category-required-span" class="this-field-required-span d-none">This field is
+                            required</span>
                     </div>
                     <div class="subtask-area-container">
                         <div class="add-subtask-container">
                             <span class="headline-input">Subtask</span>
                             <div class="add-subtask-input-container">
-                                <input id="add-subtask-input-container-inputfield" oninput="changeIcons()" type="text" placeholder="Add new subtask">
+                                <input id="add-subtask-input-container-inputfield" oninput="changeIcons()" type="text"
+                                    placeholder="Add new subtask">
                                 <div id="add-subtask-svg-container" class="add-subtask-svg-container">
                                     <img id="add-subtask-svg" class="add-subtask-svg" src="img/addsubtask.svg" alt="">
                                 </div>
-                                <div id="cancel-or-confirm-subtask-container" class="cancel-or-confirm-subtask-container d-none">
+                                <div id="cancel-or-confirm-subtask-container"
+                                    class="cancel-or-confirm-subtask-container d-none">
                                     <img onclick="clearSubtask()" src="img/cancel.svg" alt="">
                                     <div class="seperator"></div>
                                     <img onclick="addSubtask()" src="img/check-grey.svg" alt="">
@@ -120,8 +132,8 @@
         </div>
         <div class="state-of-task-content-container">
             <div class="state-of-task-container">
-               <span>To Do</span>
-               <img src="img/plus button.svg" alt="">
+                <span>To Do</span>
+                <img src="img/plus button.svg" alt="">
             </div>
             <div class="state-of-task-container">
                 <span>in progress</span>
@@ -136,26 +148,12 @@
             </div>
         </div>
         <div class="rendered-tasks-container">
-            <div class="rendered-tasks-area-to-do">
+            <div id="todo" class="rendered-tasks-area-to-do drag-area" ondrop="moveTo('todo')" ondragleave="removeHighlight('todo')" ondragover="allowDrop(event); highlight('todo')">
                 <div class="create-task-container">
                     <span>No tasks To do</span>
                 </div>
             </div>
-            <div class="rendered-tasks-area-in-progress">
-                <div class="new-task-container">
-                    <div class="user-story-container">
-                        <span>User Story<span>
-                    </div>
-                    <h2>Kochwelt Page and Recipe Recommender</h2>
-                    <span>Build start page with recipe recommendation</span>
-                </div>
-                <div class="new-task-container">
-                    <div class="user-story-container">
-                        <span>User Story<span>
-                    </div>
-                    <h2>Kochwelt Page and Recipe Recommender</h2>
-                    <span>Build start page with recipe recommendation</span>
-                </div>
+            <div id="progress" class="rendered-tasks-area-in-progress drag-area" ondrop="moveTo('progress')" ondragleave="removeHighlight('progress')" ondragover="allowDrop(event); highlight('progress')">
                 <div class="new-task-container">
                     <div class="user-story-container">
                         <span>User Story<span>
@@ -164,7 +162,7 @@
                     <span>Build start page with recipe recommendation</span>
                 </div>
             </div>
-            <div class="rendered-tasks-area-await-feedback">
+            <div id="feedback" class="rendered-tasks-area-await-feedback drag-area" ondrop="moveTo('feedback')" ondragleave="removeHighlight('feedback')" ondragover="allowDrop(event); highlight('feedback')">
                 <div class="new-task-container">
                     <div class="user-story-container">
                         <span>User Story<span>
@@ -173,7 +171,7 @@
                     <span>Build start page with recipe recommendation</span>
                 </div>
             </div>
-            <div class="rendered-tasks-area-done">
+            <div id="done" class="rendered-tasks-area-done drag-area" ondrop="moveTo('done')" ondragleave="removeHighlight('done')" ondragover="allowDrop(event); highlight('done')">
                 <div class="new-task-container">
                     <div class="user-story-container">
                         <span>User Story<span>
@@ -182,12 +180,10 @@
                     <span>Build start page with recipe recommendation</span>
                 </div>
             </div>
-            
-
-
         </div>
 
     </section>
-    
+
 </body>
+
 </html>

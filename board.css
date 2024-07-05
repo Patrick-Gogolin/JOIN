@@ -707,6 +707,21 @@ h1 {
     background-color: #0038FF;
     border-radius: 8px;
     padding: 4px 16px 4px 16px ;
+    margin-bottom: 24px;
     color: white;
     width: fit-content;
 }
+
+.title-content-container {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+/* .todo {
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 10px;
+} */

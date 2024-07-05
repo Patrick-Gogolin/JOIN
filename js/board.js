@@ -17,6 +17,120 @@ let assignedContactsNames = [];
 let assignedContactsId = [];
 let assignedContactsColors =[];
 
+let todos = [{
+    'id' : 0,
+    'title': 'Implement Login Feature',
+    'content': 'Create login page and integrate authentication.',
+    'category': 'todo'
+}, {
+    'id' : 1,
+    'title': 'Fix Bugs in Payment Module',
+    'content': 'Resolve issues with payment processing and improve error handling.',
+    'category': 'progress'
+}, {
+    'id' : 2,
+    'title': 'Code Review for Registration Module',
+    'content': 'Review the code for the registration module and provide feedback.',
+    'category': 'feedback'
+}, {
+    'id' : 3,
+    'title': 'Complete Unit Tests for User Profile',
+    'content': 'Write and run unit tests for the user profile functionality.',
+    'category': 'done'
+}, {
+    'id' : 4,
+    'title': 'Optimize Query Performance',
+    'content': 'Analyze and optimize slow database queries.',
+    'category': 'done'
+}, {
+    'id' : 5,
+    'title': 'Integrate Third-Party APIs',
+    'content': 'Integrate third-party APIs for weather and news updates.',
+    'category': 'progress'
+},];
+
+function updateHTML() {
+    let todo = todos.filter(t => t['category'] == 'todo');
+
+    document.getElementById('todo').innerHTML = '';
+
+    for (let index = 0; index < todo.length; index++) {
+        const element = todo[index];
+        document.getElementById('todo').innerHTML += generateTodoHTML(element);
+    }
+
+    let progress = todos.filter(t => t['category'] == 'progress');
+
+    document.getElementById('progress').innerHTML = '';
+
+    for (let index = 0; index < progress.length; index++) {
+        const element = progress[index];
+        document.getElementById('progress').innerHTML += generateTodoHTML(element);
+    }
+
+    let feedback = todos.filter(t => t['category'] == 'feedback');
+
+    document.getElementById('feedback').innerHTML = '';
+
+    for (let index = 0; index < feedback.length; index++) {
+        const element = feedback[index];
+        document.getElementById('feedback').innerHTML += generateTodoHTML(element);
+    }
+
+    let done = todos.filter(t => t['category'] == 'done');
+
+    document.getElementById('done').innerHTML = '';
+
+    for (let index = 0; index < done.length; index++) {
+        const element = done[index];
+        document.getElementById('done').innerHTML += generateTodoHTML(element);
+    }
+}
+
+let currentDraggedElement;
+
+function startDragging(id) {
+    currentDraggedElement = id;
+}
+
+function generateTodoHTML(element) {
+    return `
+        <div draggable="true" ondragstart="startDragging(${element['id']})" class="new-task-container">
+            <div class="user-story-container">
+                <span>User Story</span>
+            </div>
+            <div class="title-content-container">
+                <h2>${element['title']}</h2>
+                <span>${element['content']}</span>
+            </div>
+        </div>
+    `;
+}
+
+function allowDrop(ev) {
+    ev.preventDefault();
+}
+
+function moveTo(category) {
+    todos[currentDraggedElement]['category'] = category;
+    updateHTML();
+}
+
+function highlight(id) {
+    document.getElementById(id).classList.add('drag-area-highlight');
+}
+
+function removeHighlight(id) {
+    document.getElementById(id).classList.remove('drag-area-highlight');
+}
+
+// Initiale HTML Aktualisierung
+updateHTML();
+
+
+
+
+
 async function getContacts(path = "") {
     let response = await fetch(BASE_URL + path + ".json");
     let responseToJson = await response.json();
