@@ -514,40 +514,25 @@ function loadAndGetNameOfActiveUser() {
 //----------------------------------- Drag-and-Drop --------------------------------------//
 
 function updateHTML() {
-    let todo = todos.filter(t => t['status'] == 'todo');
+    updateCategory('todo', 'To Do');
+    updateCategory('progress', 'in Progress');
+    updateCategory('feedback', 'Awaiting for Feedback');
+    updateCategory('done', 'Done');
+}
 
-    document.getElementById('todo').innerHTML = '';
+function updateCategory(category, displayText) {
+    let tasks = todos.filter(t => t['status'] === category);
 
-    for (let index = 0; index < todo.length; index++) {
-        const element = todo[index];
-        document.getElementById('todo').innerHTML += generateTodoHTML(element);
-    }
+    let container = document.getElementById(category);
+    container.innerHTML = '';
 
-    let progress = todos.filter(t => t['status'] == 'progress');
-
-    document.getElementById('progress').innerHTML = '';
-
-    for (let index = 0; index < progress.length; index++) {
-        const element = progress[index];
-        document.getElementById('progress').innerHTML += generateTodoHTML(element);
-    }
-
-    let feedback = todos.filter(t => t['status'] == 'feedback');
-
-    document.getElementById('feedback').innerHTML = '';
-
-    for (let index = 0; index < feedback.length; index++) {
-        const element = feedback[index];
-        document.getElementById('feedback').innerHTML += generateTodoHTML(element);
-    }
-
-    let done = todos.filter(t => t['status'] == 'done');
-
-    document.getElementById('done').innerHTML = '';
-
-    for (let index = 0; index < done.length; index++) {
-        const element = done[index];
-        document.getElementById('done').innerHTML += generateTodoHTML(element);
+    if (tasks.length === 0) {
+        container.innerHTML = `<div class="create-task-container">No tasks ${displayText}</div>`;
+    } else {
+        for (let index = 0; index < tasks.length; index++) {
+            const element = tasks[index];
+            container.innerHTML += generateTodoHTML(element);
+        }
     }
 }
 
