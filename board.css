@@ -58,11 +58,6 @@ select {
     }
 }
 
-.headline-container {
-    padding: 64px 0 0 74px;
-    margin-bottom: 48px;
-}
-
 .headline-container h1 {
     font-family: inter;
     font-weight: 700;
@@ -605,6 +600,7 @@ h1 {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin-bottom: 48px;
 }
 
 .search-and-add-task-container {
@@ -666,6 +662,12 @@ h1 {
     color: #42526E;
 
 }
+
+.state-of-task-container img {
+    width: 24px;
+    height: 24px;
+}
+
 
 .rendered-tasks-container {
     display: flex;
