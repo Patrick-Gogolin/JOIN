@@ -271,29 +271,19 @@ function getABCSeparatorTemplate(letter){
 
 
 function checkForMobileMode(){
-    console.log('checkForMobileMode aufgerufen');
     showMobileHeader();
     let width = window.innerWidth;
-    let height = window.innerHeight;
     let contactList = document.getElementById('contact-list-responsive');
     let contactInfo = document.getElementById('contact-info');
-
-    console.log('Breite:', width);
-    console.log('Höhe:', height)
-    console.log('isSelected:', isSelected);
-    
     if(width <= 800 && (isSelected === true)){
-        console.log('Mobile Ansicht aktivieren wenn ein Contact ausgewählt ist.');
         contactList.style.display = "none";
         contactInfo.style.display = "block";
         contactInfo.style.width = "100%";
     } else if(width <= 800 && (isSelected === false)){
-        console.log('Mobile Ansicht aktivieren wenn ein Contact nicht ausgewählt ist.');
         contactList.style.display = "block";
         contactInfo.style.display = "none";
         contactList.style.width = "100%";
     } else{
-        console.log('Desktop Ansicht aktivieren.')
         contactInfo.style.display = "block";
         contactList.style.display = "block";
         contactInfo.style.width = "48%";
