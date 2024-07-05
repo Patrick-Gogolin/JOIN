@@ -391,10 +391,12 @@ function assignTaskToLoggedInUser(i) {
     }
     else {
         container.classList.remove('bg-navy');
+        assignedContactsColors.splice(index,1);
         assignedContactsNames.splice(index, 1);
         assignedContactsId.splice(index, 1);
         console.log(assignedContactsId);
         console.log(assignedContactsNames);
+        console.log(assignedContactsColors);
         checkbox.src = "img/empty-check-box.svg"
     }
 }
