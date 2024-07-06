@@ -96,7 +96,10 @@ function checkScreenWidthAndShowGreeting() {
     const screenWidth = window.innerWidth;
 
     if (screenWidth <= 920) {
-        setTimeout(showGreetingForTwoSeconds, 2000); // Zeigt die Begrüßung nach 2 Sekunden an
+        setTimeout(showGreetingForTwoSeconds, 1000); // Zeigt die Begrüßung nach 2 Sekunden an
+        setTimeout(showContent, 1000); // Zeigt den gesamten Inhalt nach 2 Sekunden an
+    } else {
+        showContent(); // Zeigt den gesamten Inhalt sofort an
     }
 }
 
@@ -111,7 +114,7 @@ function hideContentForTwoSeconds() {
         contentElement.classList.remove('d-none'); // Entfernt 'd-none' nach 2 Sekunden, um den Inhalt wieder anzuzeigen
         document.getElementById('mobile-header').classList.remove('d-none'); // Zeigt das mobile Header wieder an
         document.getElementById('mobile-sidebar').classList.remove('d-none'); // Zeigt die mobile Sidebar wieder an
-    }, 2000); // 2000 Millisekunden = 2 Sekunden
+    }, 1000); // 2000 Millisekunden = 2 Sekunden
 }
 
 // Funktion zum Anzeigen der Begrüßung für 2 Sekunden
@@ -129,15 +132,9 @@ function showContent() {
     const headerElement = document.getElementById('mobile-header');
     const sidebarElement = document.getElementById('mobile-sidebar');
 
-    setTimeout(function() {
-        contentElement.style.opacity = '1'; // Erhöht die Opazität auf 1 für den Inhalt
-        headerElement.style.opacity = '1'; // Erhöht die Opazität auf 1 für das Header-Element
-        sidebarElement.style.opacity = '1'; // Erhöht die Opazität auf 1 für die Sidebar
-
-        setTimeout(function() {
-            // Optional: Fügen Sie weitere Anpassungen oder Logik hier ein, die nach der Animation ausgeführt werden sollen
-        }, 1000); // Wartet 300 Millisekunden (0,3 Sekunden) für die Animation
-    }, 0); // Startet die Animation sofort nach der Ausblendung des Greetings
+    contentElement.style.opacity = '1'; // Erhöht die Opazität auf 1 für den Inhalt
+    headerElement.style.opacity = '1'; // Erhöht die Opazität auf 1 für das Header-Element
+    sidebarElement.style.opacity = '1'; // Erhöht die Opazität auf 1 für die Sidebar
 }
 
 // Funktion zum Anzeigen des Benutzernamens

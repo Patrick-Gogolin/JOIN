@@ -429,7 +429,6 @@ body {
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    transition: transform 100ms ease-in-out; /* Definiert die Transition für Opazität mit ease-in-out */
 }
 
 .log-in-greeting-text {
@@ -532,6 +531,15 @@ body {
         padding: 0px 16px 0px 16px;
         position: fixed;
         bottom: 0px;
+    }
+    
+    #content,
+    #mobile-header,
+    #mobile-sidebar {
+        transition: opacity 1s ease-in-out;
+        /* Definiert die Transition für Opazität mit ease-in-out */
+        opacity: 0;
+        /* Setzt die Opazität auf 0, um den Inhalt initial auszublenden */
     }
 }
 
@@ -688,11 +696,4 @@ body {
     .log-in-greeting {
         display: none;
     }
-}
-
-#content,
-#mobile-header,
-#mobile-sidebar {
-    transition: opacity 1s ease-in-out; /* Definiert die Transition für Opazität mit ease-in-out */
-    opacity: 0; /* Setzt die Opazität auf 0, um den Inhalt initial auszublenden */
 }
