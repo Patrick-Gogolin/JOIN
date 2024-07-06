@@ -369,7 +369,7 @@ body {
 }
 
 .todo:hover .todo-txt-container,
-.done:hover .done-txt-container
+.done:hover .done-txt-container,
 .urgency:hover .urgency-quantity,
 .urgency:hover .urgency-txt-container,
 .urgency:hover .date {
