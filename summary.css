@@ -80,7 +80,8 @@ body {
     align-items: center;
     justify-content: center;
     gap: 18px;
-    transition: transform 100ms ease, background-color 100ms ease; /* Transition für Transform und Hintergrundfarbe */
+    transition: transform 100ms ease, background-color 100ms ease;
+    /* Transition für Transform und Hintergrundfarbe */
 }
 
 .todo img {
@@ -124,7 +125,8 @@ body {
     align-items: center;
     justify-content: center;
     gap: 18px;
-    transition: transform 100ms ease, background-color 100ms ease; /* Transition für Transform und Hintergrundfarbe */
+    transition: transform 100ms ease, background-color 100ms ease;
+    /* Transition für Transform und Hintergrundfarbe */
 }
 
 .done img {
@@ -169,7 +171,8 @@ body {
     justify-content: center;
     align-items: center;
     gap: 60px;
-    transition: transform 100ms ease, background-color 100ms ease; /* Transition für Transform und Hintergrundfarbe */
+    transition: transform 100ms ease, background-color 100ms ease;
+    /* Transition für Transform und Hintergrundfarbe */
 }
 
 .urgency-item {
@@ -209,9 +212,9 @@ body {
 }
 
 .urgency-vertical-line {
-        border-left: 2px solid #D1D1D1;
-        height: 100px;
-    }
+    border-left: 2px solid #D1D1D1;
+    height: 100px;
+}
 
 
 .deadline-container {
@@ -251,7 +254,8 @@ body {
     align-items: center;
     justify-content: center;
     gap: 13px;
-    transition: transform 100ms ease, background-color 100ms ease; /* Transition für Transform und Hintergrundfarbe */
+    transition: transform 100ms ease, background-color 100ms ease;
+    /* Transition für Transform und Hintergrundfarbe */
 }
 
 .task-button-middle {
@@ -264,7 +268,8 @@ body {
     align-items: center;
     justify-content: center;
     gap: 13px;
-    transition: transform 100ms ease, background-color 100ms ease; /* Transition für Transform und Hintergrundfarbe */
+    transition: transform 100ms ease, background-color 100ms ease;
+    /* Transition für Transform und Hintergrundfarbe */
 }
 
 .task-button-right {
@@ -277,7 +282,8 @@ body {
     align-items: center;
     justify-content: center;
     gap: 13px;
-    transition: transform 100ms ease, background-color 100ms ease; /* Transition für Transform und Hintergrundfarbe */
+    transition: transform 100ms ease, background-color 100ms ease;
+    /* Transition für Transform und Hintergrundfarbe */
 }
 
 .task-numbers {
@@ -325,47 +331,65 @@ body {
 }
 
 
-.todo:hover{
-    transform: scale(1.1) translateX(8px); /* Vergrößern bei Hover */
-    cursor: pointer; /* Zeiger-Cursor bei Hover */
-    background-color: #2A3647; /* Hintergrundfarbe bei Hover */
+.todo:hover {
+    transform: scale(1.1) translateX(8px);
+    /* Vergrößern bei Hover */
+    cursor: pointer;
+    /* Zeiger-Cursor bei Hover */
+    background-color: #2A3647;
+    /* Hintergrundfarbe bei Hover */
 }
 
 .done:hover {
-    transform: scale(1.1) translateX(-8px); /* Vergrößern bei Hover */
-    cursor: pointer; /* Zeiger-Cursor bei Hover */
-    background-color: #2A3647; /* Hintergrundfarbe bei Hover */
+    transform: scale(1.1) translateX(-8px);
+    /* Vergrößern bei Hover */
+    cursor: pointer;
+    /* Zeiger-Cursor bei Hover */
+    background-color: #2A3647;
+    /* Hintergrundfarbe bei Hover */
 }
 
 .task-button-left:hover {
-    transform: scale(1.1) translateX(8px); /* Vergrößern bei Hover */
-    cursor: pointer; /* Zeiger-Cursor bei Hover */
-    background-color: #2A3647; /* Hintergrundfarbe bei Hover */
+    transform: scale(1.1) translateX(8px);
+    /* Vergrößern bei Hover */
+    cursor: pointer;
+    /* Zeiger-Cursor bei Hover */
+    background-color: #2A3647;
+    /* Hintergrundfarbe bei Hover */
 }
 
 .task-button-middle:hover {
-    transform: scale(1.1); /* Vergrößern bei Hover */
-    cursor: pointer; /* Zeiger-Cursor bei Hover */
-    background-color: #2A3647; /* Hintergrundfarbe bei Hover */
+    transform: scale(1.1);
+    /* Vergrößern bei Hover */
+    cursor: pointer;
+    /* Zeiger-Cursor bei Hover */
+    background-color: #2A3647;
+    /* Hintergrundfarbe bei Hover */
 }
 
 .task-button-right:hover {
-    transform: scale(1.1) translateX(-8px); /* Vergrößern bei Hover */
-    cursor: pointer; /* Zeiger-Cursor bei Hover */
-    background-color: #2A3647; /* Hintergrundfarbe bei Hover */
+    transform: scale(1.1) translateX(-8px);
+    /* Vergrößern bei Hover */
+    cursor: pointer;
+    /* Zeiger-Cursor bei Hover */
+    background-color: #2A3647;
+    /* Hintergrundfarbe bei Hover */
 }
 
 .todo:hover .edit-bg,
 .done:hover .done-bg {
-    background-color: white; /* Hintergrundfarbe der Edit- und Done-Hintergründe bei Hover */
+    background-color: white;
+    /* Hintergrundfarbe der Edit- und Done-Hintergründe bei Hover */
 }
 
 .todo:hover .edit-bg svg path {
-    fill: #2A3647; /* Füllfarbe des SVG-Pfads bei Hover */
+    fill: #2A3647;
+    /* Füllfarbe des SVG-Pfads bei Hover */
 }
 
 .done:hover .done-bg svg path {
-    stroke: #2A3647; /* Strichfarbe des SVG-Pfads bei Hover */
+    stroke: #2A3647;
+    /* Strichfarbe des SVG-Pfads bei Hover */
 }
 
 .todo:hover .todo-txt-container,
@@ -373,27 +397,58 @@ body {
 .urgency:hover .urgency-quantity,
 .urgency:hover .urgency-txt-container,
 .urgency:hover .date {
-    color: white; /* Textfarbe ändern, wenn .urgency gehovert wird */
+    color: white;
+    /* Textfarbe ändern, wenn .urgency gehovert wird */
 }
 
 .urgency:hover {
-    transform: scale(1.02) translateY(8px) translateX(8px); /* Vergrößern bei Hover */
-    cursor: pointer; /* Zeiger-Cursor bei Hover */
-    background-color: #2A3647; /* Hintergrundfarbe bei Hover */
+    transform: scale(1.02) translateY(8px) translateX(8px);
+    /* Vergrößern bei Hover */
+    cursor: pointer;
+    /* Zeiger-Cursor bei Hover */
+    background-color: #2A3647;
+    /* Hintergrundfarbe bei Hover */
 }
 
 .task-button-left:hover .task-numbers,
 .task-button-middle:hover .task-numbers,
-.task-button-right:hover .task-numbers{
+.task-button-right:hover .task-numbers {
     color: white;
 }
 
 .task-button-left:hover .task-status,
 .task-button-middle:hover .task-status,
-.task-button-right:hover .task-status{
+.task-button-right:hover .task-status {
     color: white;
 }
 
+.log-in-greeting {
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    transition: transform 100ms ease-in-out; /* Definiert die Transition für Opazität mit ease-in-out */
+}
+
+.log-in-greeting-text {
+    font-family: Inter;
+    font-size: 36px;
+    font-weight: 400;
+    line-height: 43.2px;
+    text-align: left;
+}
+
+.log-in-greeting-name {
+    color: #29ABE2;
+    font-family: Inter;
+    font-size: 47px;
+    font-weight: 700;
+    line-height: 56.4px;
+    text-align: left;
+
+}
 
 @media screen and (max-width: 1360px) {
     .greeting {
@@ -429,7 +484,7 @@ body {
         font-size: 20px;
         font-weight: 400;
     }
-    
+
 }
 
 @media screen and (max-width: 920px) {
@@ -441,7 +496,7 @@ body {
         display: none;
     }
 
-    .mobile-header{
+    .mobile-header {
         display: flex;
     }
 
@@ -468,15 +523,15 @@ body {
     }
 
     .mobile-sidebar-container {
-    background-color: #2A3647;
-    height: 80px;
-    width: -webkit-fill-available;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0px 16px 0px 16px;
-    position: fixed;
-    bottom: 0px;
+        background-color: #2A3647;
+        height: 80px;
+        width: -webkit-fill-available;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0px 16px 0px 16px;
+        position: fixed;
+        bottom: 0px;
     }
 }
 
@@ -500,7 +555,7 @@ body {
         height: 60px;
         display: none;
     }
-    
+
     .horizontal-divider {
         border-left: 60px solid #29ABE2;
         height: 3px;
@@ -523,7 +578,7 @@ body {
         gap: 24px;
     }
 
-    
+
 }
 
 @media screen and (max-width: 670px) {
@@ -627,4 +682,17 @@ body {
         justify-content: center;
         align-items: center;
     }
+}
+
+@media (min-width: 921px) {
+    .log-in-greeting {
+        display: none;
+    }
+}
+
+#content,
+#mobile-header,
+#mobile-sidebar {
+    transition: opacity 1s ease-in-out; /* Definiert die Transition für Opazität mit ease-in-out */
+    opacity: 0; /* Setzt die Opazität auf 0, um den Inhalt initial auszublenden */
 }
