@@ -179,6 +179,12 @@ select {
     gap: 4px;
 }
 
+.show-assigned-contacts {
+    width: 300px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
 .bg-navy {
     background-color: #2A3647 !important;
     color: white;
@@ -213,7 +219,7 @@ select {
     gap: 16px;
 }
 
-.contact-name-initials-cotainer {
+.contact-name-initials-container {
     padding: 12px;
     border-radius: 50%;
     border: 3px solid white;

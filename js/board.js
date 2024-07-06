@@ -14,8 +14,10 @@ let activeUser = [];
 let activeUserInitials = null;
 let colorForActiveUser = ["rgb(0,190,232)"];
 let assignedContactsNames = [];
+let assignedContactsInitials = [];
 let assignedContactsId = [];
 let assignedContactsColors =[];
+
 
 let currentDraggedElement;
 let todos = [{
@@ -284,14 +286,18 @@ function deleteTask(i) {
 
 function openSelectContactsContainer() {
     let container = document.getElementById('choose-contacts-container');
+    let assignedContacts = document.getElementById('show-assigned-contacts');
     if (assignOptionsContactsContainer === false) {
         container.classList.remove('d-none');
         assignOptionsContactsContainer = true;
         renderContacts();
+        assignedContacts.classList.add('d-none')
     }
     else {
         container.classList.add('d-none');
         assignOptionsContactsContainer = false;
+        renderAssignedContacts();
+        assignedContacts.classList.remove('d-none');
     }
 }
 
@@ -306,7 +312,6 @@ function renderContacts() {
         activeUserContainer.classList.remove('d-none');
         let activeUserUpdated = [activeUser.join(" ")];
         let activeUserInitialsUpdated = [activeUserInitials.join("")];
-        console.log(activeUserInitialsUpdated);
 
         for (let y = 0; y < activeUserUpdated.length; y++) {
             const activeUserName = activeUserUpdated[y];
@@ -315,7 +320,7 @@ function renderContacts() {
             activeUserContainer.innerHTML = /*html*/`
             <div id="logged-in-user" onclick="assignTaskToLoggedInUser('logged-in-user')" class="single-contact-container ${bgColor}">
                 <div class="single-contact-name-container">
-                    <div class="contact-name-initials-cotainer" style="background-color: ${colorForActiveUser[y]};">
+                    <div class="contact-name-initials-container" style="background-color: ${colorForActiveUser[y]};">
                         <span class="user-initials-span">${activeUserInitialsUpdated}</span>
                     </div>
                     <span id="logged-in-user-name">${activeUserName}</span><span>(You)</span>
@@ -334,7 +339,7 @@ function renderContacts() {
                 container.innerHTML += /*html*/`
         <div id="${i}" onclick="assignTaskToContact(${i})"  class="single-contact-container ${bgColor}">
             <div class="single-contact-name-container">
-                <div class="contact-name-initials-cotainer" style="background-color: ${color};">
+                <div class="contact-name-initials-container" style="background-color: ${color};">
                     <span class="user-initials-span">${userNameInitial}</span>
                 </div>
                 <span id="assigned-contact-name${i}">${userName}</span>
@@ -358,7 +363,7 @@ function renderContacts() {
             container.innerHTML += /*html*/`
      <div id="${i}" onclick="assignTaskToContact(${i})"  class="single-contact-container ${bgColor}">
         <div class="single-contact-name-container">
-            <div class="contact-name-initials-cotainer" style="background-color: ${color};">
+            <div class="contact-name-initials-container" style="background-color: ${color};">
                 <span class="user-initials-span">${userNameInitial}</span>
             </div>
             <span id="assigned-contact-name${i}">${userName}</span>
@@ -424,9 +429,10 @@ function assignTaskToContact(i) {
         console.log(assignedContactsId);
         console.log(assignedContactsNames);
         console.log(assignedContactsColors);
-        checkbox.src = "img/empty-check-box.svg"
+        checkbox.src = "img/empty-check-box.svg";
     }
 }
+
 
 function renderCheckBox(id) {
     if(assignedContactsId.length === 0) {
@@ -440,23 +446,52 @@ function renderCheckBox(id) {
     }
 }
 
+function renderAssignedContacts() {
+    getInitialsAssignedContactsId();
+    let assignedContactsContainer = document.getElementById('show-assigned-contacts');
+    assignedContactsContainer.innerHTML = "";
+    for (let i = 0; i < assignedContactsInitials.length; i++) {
+        const initials = assignedContactsInitials[i];
+        const color = assignedContactsColors[i];
+        assignedContactsContainer.innerHTML += /*html*/`
+        <div class="contact-name-initials-container" style="background-color: ${color}">
+            <span class="user-initials-span">${initials}</span>
+        </div>`;
+        
+    }
+}
 
+function getInitialsAssignedContactsId() {
+        assignedContactsInitials.length = 0;
+    let initials = assignedContactsNames.map(name => {
+        let nameParts = name.split(/[\s-]+/); // Split by space or hyphen
+        let initial = nameParts.map(part => part.charAt(0).toUpperCase()).join("");
+        if(assignedContactsInitials.indexOf(initial) === -1) {
+            assignedContactsInitials.push(initial);
+        }
+    });
+    console.log(assignedContactsInitials);
+}
+
+
+// Hier weiter
 function searchContacts() {
     let search = document.getElementById('search-contact-inputfield').value.toLowerCase().trim();
     let content = document.getElementById('choose-contacts-container');
     content.innerHTML = '';
 
     for (let i = 0; i < userNames.length; i++) {
-        const userName = userNames[i].toLowerCase();
+        const userName = userNames[i];
+        const userNameLowerCase = userNames[i].toLowerCase();
         const color = colors[i];
         const userNameInitial = userNamesInitials[i];
 
-        if (userName.includes(search)) {
+        if (userNameLowerCase.includes(search)) {
             console.log(search);
             content.innerHTML += /*html*/`
             <div id="${i}"onclick="assignTaskToContact(${i})" class="single-contact-container">
                 <div class="single-contact-name-container">
-                    <div class="contact-name-initials-cotainer" style="background-color: ${color};">
+                    <div class="contact-name-initials-container" style="background-color: ${color};">
                         <span class="user-initials-span">${userNameInitial}</span>
                     </div>
                     <span>${userName}</span>
@@ -474,7 +509,7 @@ function getInitials() {
         userNamesInitials.push(initial);
         return initial;
     });
- // Die Initials von Anfang an erstelllen lassen mit der Async Funtion ist sinnvoller !!!
+    console.log(userNamesInitials);
 }
 
 function sortAlphabetically() {
@@ -484,12 +519,12 @@ function sortAlphabetically() {
     });
 
     // Sortiere das kombinierte Array nach den Namen
-    combinedArray.sort((a, b) => a.name.localeCompare(b.name));
+     let sortedCombinedArray = combinedArray.sort((a, b) => a.name.localeCompare(b.name));
 
     // Extrahiere die sortierten Namen und Initialen in separate Arrays
-    userNames = combinedArray.map(item => item.name);
-    userNamesInitials = combinedArray.map(item => item.initial);
-    colors = combinedArray.map(item => item.color);
+    userNames = sortedCombinedArray.map(item => item.name);
+    userNamesInitials = sortedCombinedArray.map(item => item.initial);
+    colors = sortedCombinedArray.map(item => item.color);
 
 }
 
