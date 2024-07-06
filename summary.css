@@ -80,6 +80,7 @@ body {
     align-items: center;
     justify-content: center;
     gap: 18px;
+    transition: transform 100ms ease, background-color 100ms ease; /* Transition für Transform und Hintergrundfarbe */
 }
 
 .todo img {
@@ -123,6 +124,7 @@ body {
     align-items: center;
     justify-content: center;
     gap: 18px;
+    transition: transform 100ms ease, background-color 100ms ease; /* Transition für Transform und Hintergrundfarbe */
 }
 
 .done img {
@@ -167,6 +169,7 @@ body {
     justify-content: center;
     align-items: center;
     gap: 60px;
+    transition: transform 100ms ease, background-color 100ms ease; /* Transition für Transform und Hintergrundfarbe */
 }
 
 .urgency-item {
@@ -238,7 +241,7 @@ body {
     gap: 32px;
 }
 
-.task-button {
+.task-button-left {
     width: 33%;
     background-color: white;
     border-radius: 30px;
@@ -248,6 +251,33 @@ body {
     align-items: center;
     justify-content: center;
     gap: 13px;
+    transition: transform 100ms ease, background-color 100ms ease; /* Transition für Transform und Hintergrundfarbe */
+}
+
+.task-button-middle {
+    width: 33%;
+    background-color: white;
+    border-radius: 30px;
+    padding: 25px 0px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 13px;
+    transition: transform 100ms ease, background-color 100ms ease; /* Transition für Transform und Hintergrundfarbe */
+}
+
+.task-button-right {
+    width: 33%;
+    background-color: white;
+    border-radius: 30px;
+    padding: 25px 0px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 13px;
+    transition: transform 100ms ease, background-color 100ms ease; /* Transition für Transform und Hintergrundfarbe */
 }
 
 .task-numbers {
@@ -293,6 +323,77 @@ body {
     justify-content: center;
     gap: 56px;
 }
+
+
+.todo:hover{
+    transform: scale(1.1) translateX(8px); /* Vergrößern bei Hover */
+    cursor: pointer; /* Zeiger-Cursor bei Hover */
+    background-color: #2A3647; /* Hintergrundfarbe bei Hover */
+}
+
+.done:hover {
+    transform: scale(1.1) translateX(-8px); /* Vergrößern bei Hover */
+    cursor: pointer; /* Zeiger-Cursor bei Hover */
+    background-color: #2A3647; /* Hintergrundfarbe bei Hover */
+}
+
+.task-button-left:hover {
+    transform: scale(1.1) translateX(8px); /* Vergrößern bei Hover */
+    cursor: pointer; /* Zeiger-Cursor bei Hover */
+    background-color: #2A3647; /* Hintergrundfarbe bei Hover */
+}
+
+.task-button-middle:hover {
+    transform: scale(1.1); /* Vergrößern bei Hover */
+    cursor: pointer; /* Zeiger-Cursor bei Hover */
+    background-color: #2A3647; /* Hintergrundfarbe bei Hover */
+}
+
+.task-button-right:hover {
+    transform: scale(1.1) translateX(-8px); /* Vergrößern bei Hover */
+    cursor: pointer; /* Zeiger-Cursor bei Hover */
+    background-color: #2A3647; /* Hintergrundfarbe bei Hover */
+}
+
+.todo:hover .edit-bg,
+.done:hover .done-bg {
+    background-color: white; /* Hintergrundfarbe der Edit- und Done-Hintergründe bei Hover */
+}
+
+.todo:hover .edit-bg svg path {
+    fill: #2A3647; /* Füllfarbe des SVG-Pfads bei Hover */
+}
+
+.done:hover .done-bg svg path {
+    stroke: #2A3647; /* Strichfarbe des SVG-Pfads bei Hover */
+}
+
+.todo:hover .todo-txt-container,
+.done:hover .done-txt-container
+.urgency:hover .urgency-quantity,
+.urgency:hover .urgency-txt-container,
+.urgency:hover .date {
+    color: white; /* Textfarbe ändern, wenn .urgency gehovert wird */
+}
+
+.urgency:hover {
+    transform: scale(1.02) translateY(8px) translateX(8px); /* Vergrößern bei Hover */
+    cursor: pointer; /* Zeiger-Cursor bei Hover */
+    background-color: #2A3647; /* Hintergrundfarbe bei Hover */
+}
+
+.task-button-left:hover .task-numbers,
+.task-button-middle:hover .task-numbers,
+.task-button-right:hover .task-numbers{
+    color: white;
+}
+
+.task-button-left:hover .task-status,
+.task-button-middle:hover .task-status,
+.task-button-right:hover .task-status{
+    color: white;
+}
+
 
 @media screen and (max-width: 1360px) {
     .greeting {
