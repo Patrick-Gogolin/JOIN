@@ -38,7 +38,7 @@
                         </div>
                         <div class="description-input-container">
                             <span class="headline-input">Description</span>
-                            <textarea class="task-description-textarea" name="" id=""
+                            <textarea id="description-of-task" class="task-description-textarea" name="" id=""
                                 placeholder="Enter a Description"></textarea>
                         </div>
                         <div class="assigned-to-input-container">
@@ -116,7 +116,7 @@
                 </div>
                 <div class="clear-and-create-task-button-container">
                     <button onclick="closeOverlayer()" id="cancel-button" class="cancel-button">Cancel</button>
-                    <button onclick="addTask()" class="check-button">Create Task <img src="img/check.svg"
+                    <button id="post-task-button" onclick="postTask('/tasks/')" class="check-button">Create Task <img src="img/check.svg"
                             alt=""></button>
 
                 </div>

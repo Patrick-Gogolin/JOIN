@@ -5,6 +5,7 @@ let subtasks = [];
 let urgentActive = false; // für Die Buttons beim Addtask Formular
 let mediumActive = false;
 let lowActive = false;
+let priority = [];
 let assignedTaskToLoggedInUser = false;
 let contacts = [];
 let userNames = [];
@@ -122,14 +123,19 @@ function urgentPriority() {
         resetButtons();
         let urgentButton = document.getElementById('urgent-button');
         let urgentPrioSign = document.getElementById('urgent-prio-sign');
+        let taskPriority = urgentButton.innerText;
         urgentButton.classList.add('urgent');
         urgentPrioSign.src = 'img/urgent-prio-white.svg';
+        priority.push(taskPriority);
+        console.log(priority);
         urgentActive = true;
     } else {
         let urgentButton = document.getElementById('urgent-button');
         let urgentPrioSign = document.getElementById('urgent-prio-sign');
         urgentButton.classList.remove('urgent');
         urgentPrioSign.src = 'img/urgent-prio.svg';
+        priority.length = 0;
+        console.log(priority);
         urgentActive = false;
     }
 }
@@ -139,14 +145,19 @@ function mediumPriority() {
         resetButtons();
         let mediumButton = document.getElementById('medium-button');
         let mediumPrioSign = document.getElementById('medium-prio-sign');
+        let taskPriority = mediumButton.innerText;
         mediumButton.classList.add('medium');
         mediumPrioSign.src = 'img/medium-prio.svg';
+        priority.push(taskPriority);
+        console.log(priority);
         mediumActive = true;
     } else {
         let mediumButton = document.getElementById('medium-button');
         let mediumPrioSign = document.getElementById('medium-prio-sign');
         mediumButton.classList.remove('medium');
         mediumPrioSign.src = 'img/medium-prio-orange.svg';
+        priority.length = 0;
+        console.log(priority);
         mediumActive = false;
     }
 }
@@ -156,19 +167,25 @@ function lowPriority() {
         resetButtons();
         let lowButton = document.getElementById('low-button');
         let lowPrioSign = document.getElementById('low-prio-sign');
+        let taskPriority = lowButton.innerText;
         lowButton.classList.add('low');
         lowPrioSign.src = 'img/low-prio-white.svg';
+        priority.push(taskPriority);
+        console.log(priority);
         lowActive = true;
     } else {
         let lowButton = document.getElementById('low-button');
         let lowPrioSign = document.getElementById('low-prio-sign');
         lowButton.classList.remove('low');
         lowPrioSign.src = 'img/low-prio.svg';
+        priority.length = 0;
+        console.log(priority);
         lowActive = false;
     }
 }
 
 function resetButtons() {
+    priority.length = 0;
     let urgentButton = document.getElementById('urgent-button');
     let urgentPrioSign = document.getElementById('urgent-prio-sign');
     urgentButton.classList.remove('urgent');
@@ -481,26 +498,30 @@ function searchContacts() {
     content.innerHTML = '';
 
     for (let i = 0; i < userNames.length; i++) {
+        let checkBox = renderCheckBox(i);
         const userName = userNames[i];
         const userNameLowerCase = userNames[i].toLowerCase();
         const color = colors[i];
         const userNameInitial = userNamesInitials[i];
 
         if (userNameLowerCase.includes(search)) {
-            console.log(search);
             content.innerHTML += /*html*/`
             <div id="${i}"onclick="assignTaskToContact(${i})" class="single-contact-container">
                 <div class="single-contact-name-container">
                     <div class="contact-name-initials-container" style="background-color: ${color};">
                         <span class="user-initials-span">${userNameInitial}</span>
                     </div>
-                    <span>${userName}</span>
+                    <span id="assigned-contact-name${i}">${userName}</span>
                 </div>
-                <div><input type="checkbox"></div>
+                <div>
+                    <img id="checkbox-active-user" src=${checkBox} alt="Checkbox">
+                </div>
             </div>`;
         }
     }
 }
+
+
 
 function getInitials() {
     let initials = userNames.map(name => {
@@ -545,6 +566,31 @@ function loadAndGetNameOfActiveUser() {
         console.log("user not found");
         return null; // Null zurückgeben, wenn kein Benutzer gefunden wird
     }
+}
+
+async function postTask(path = "", data={}) {
+    let TaskTitle = document.getElementById('title').value;
+    let taskDescription = document.getElementById('description-of-task').value;
+    let date = document.getElementById('date').value;
+
+    data = {
+        title: TaskTitle,
+        description: taskDescription,
+        deadline: date,
+        priority: priority[0],
+        subtasks: subtasks,
+    };
+
+    let response = await fetch(BASE_URL + path + ".json",{
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data)
+    });
+    console.log(response);
+    return responseToJson = await response.json();
+
 }
 
 

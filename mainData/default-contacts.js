@@ -13,7 +13,8 @@ async function postContacts(path = "", data={}) {
         },
         body: JSON.stringify(data)
     });
-    console.log(response);
+    let responseToJson = await response.json();
+    console.log(responseToJson);
     return responseToJson = await response.json();
 
 }
