@@ -20,7 +20,7 @@ body {
     margin-left: 328px;
     margin-right: 96px;
     margin-top: 110px;
-    margin-bottom: 24px;
+    margin-bottom: 104px;
 }
 
 h1 {
@@ -30,8 +30,16 @@ h1 {
 
 h2 {
     font-size: 27px;
+    margin-bottom: 8px;
 }
 
+h3{
+    margin-bottom: 8px;
+}
+
+p{
+    margin-bottom: 4px;
+}
 
 .content_header {
     display: flex;
@@ -88,7 +96,7 @@ body:has(.img_boarder:hover) .content_header img {
     }
 
     .content {
-        margin: 48px 16px 24px 16px;
+        margin: 48px 16px 104px 16px;
     }
 }
 

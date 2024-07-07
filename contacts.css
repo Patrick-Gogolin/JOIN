@@ -58,6 +58,7 @@ body{
     background-color: rgb(246,247,248);
     font-family: 'Inter';
     margin: 0;
+    overflow-x: hidden;
 }
 
 .d-none{
