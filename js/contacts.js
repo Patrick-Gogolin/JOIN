@@ -291,6 +291,7 @@ function checkForMobileMode(){
 }
 
 function backToList(){
+    checkForMobileMode();
     if(window.innerWidth<= 750){
         isSelected = false;
         document.getElementById('contact-list-responsive').style.display ="block";

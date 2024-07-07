@@ -110,7 +110,7 @@ body {
     background-color: white;
     border-radius: 30px;
     height: 490px;
-    width: 650px;
+    max-width: 650px;
     margin: 0 auto;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 4px 8px rgba(0, 0, 0, 0.1);
     display: flex;
@@ -291,4 +291,59 @@ h1 {
     cursor: pointer;
     color:#29ABE2;
     font-weight: bold;
+}
+
+@media (max-width:680px) {
+    .log-in-container{
+        height: auto;
+        padding: 32px 0 32px 0;
+    }
+
+    .log-in-and-guest-button-container {
+        flex-direction: column;
+        height: auto;
+        gap: 21px;
+    }
+
+    .log-in-and-guest-button-container button{
+        height: 51px;
+        width: 180px;
+        font-size: 16px;
+        
+    }
+
+    .input-container{
+        margin-left: 16px;
+        margin-right: 16px;
+    }
+
+    .sign-up-link{
+        width: 104px;
+        text-align: center;
+    }
+
+    .content-wrapper{
+        flex-flow: column-reverse;
+    }
+    .sign-up-container{
+        position: unset;
+        margin-top: 57.5px;
+    }
+}
+
+@media (max-width:460px){
+    .log-in-and-guest-button-container{
+        width: 320px;
+    }
+
+    .email-input, .password-input{
+        width: 288px;
+        background-position: 250px;
+    }
+
+    .remember-me-container{
+        padding-left: 16px;
+        width: 288px;
+    }
+
 }
