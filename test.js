@@ -1,20 +1,17 @@
 const BASE_URL = "https://remotestorage-c5224-default-rtdb.europe-west1.firebasedatabase.app/"
 let allTasks = [];
 let taskKeys = null;
+let responseToJsonArray = null;
 
 
 async function getTasks(path = "") {
     let response = await fetch(BASE_URL + path + ".json");
     let responseToJson = await response.json();
-    tasks = responseToJson;
-    console.log(tasks);
+    responseToJsonArray = responseToJson;
+    console.log(responseToJsonArray);
     let keys = Object.keys(responseToJson); // erstellt ein Array, das alle Schlüssel eines Objekts enthält
     taskKeys = keys;
     console.log(taskKeys);
-    let key = keys[0];
-    subtasks = responseToJson[key]['subtasks'];
-    console.log(subtasks);
-    console.log(subtasks);
 
     for (let i = 0; i < keys.length; i++) {
         const key = keys[i];
@@ -25,11 +22,14 @@ async function getTasks(path = "") {
             deadline: task['deadline'],
             priority: task['priority'],
             subtasks: JSON.parse(task['subtasks']),
+            assignedContacts: JSON.parse(task['assignedContacts']),
+            assignedContactsColors: JSON.parse(task['assignedContactsColors']),
+            category: task['category'],
         };
         allTasks.push(data);
-        console.log(allTasks);
 
 }
+console.log(allTasks);
 
 renderTask();
 
@@ -62,10 +62,16 @@ async function updateData(path = "", data={}) {
 
 function newHeadline() {
     headline = document.getElementById(`headline0`);
-    headline.innerHTML = "Europameister"
-    allTasks[0].title = "Europameister"
-    JSON.stringify(allTasks[0]['subtasks']);
+    headline.innerHTML = "Europameister";
+    allTasks[0].title = "Europameister";
+    let subtasks = JSON.stringify(allTasks[0].subtasks);
+    let contacts = JSON.stringify(allTasks[0].assignedContacts)
+    let colors = JSON.stringify(allTasks[0].assignedContactsColors)
+    allTasks[0].subtasks = subtasks;
+    allTasks[0].assignedContacts = contacts;
+    allTasks[0].assignedContactsColors = colors;
     console.log(allTasks[0].subtasks);
+    console.log("Original subtasks:", allTasks[0]['subtasks']);
 }
 
 //let subtask = allTasks[3].subtasks;

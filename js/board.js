@@ -2,12 +2,12 @@ const BASE_URL = "https://remotestorage-c5224-default-rtdb.europe-west1.firebase
 let assignOptionsContactsContainer = false;
 let assignCategoryContainer = false;
 let editMenuSubtaskIsOpen = false;
-let assignedCategory = null;
+let assignedCategory = "";
 let subtasks = [];
 let urgentActive = false; // für Die Buttons beim Addtask Formular
 let mediumActive = false;
 let lowActive = false;
-let priority = [];
+let priority = "";
 let assignedTaskToLoggedInUser = false;
 let contacts = [];
 let userNames = [];
@@ -128,7 +128,7 @@ function urgentPriority() {
         let taskPriority = urgentButton.innerText;
         urgentButton.classList.add('urgent');
         urgentPrioSign.src = 'img/urgent-prio-white.svg';
-        priority.push(taskPriority);
+        priority = taskPriority;
         console.log(priority);
         urgentActive = true;
     } else {
@@ -150,7 +150,7 @@ function mediumPriority() {
         let taskPriority = mediumButton.innerText;
         mediumButton.classList.add('medium');
         mediumPrioSign.src = 'img/medium-prio.svg';
-        priority.push(taskPriority);
+        priority = taskPriority;
         console.log(priority);
         mediumActive = true;
     } else {
@@ -172,7 +172,7 @@ function lowPriority() {
         let taskPriority = lowButton.innerText;
         lowButton.classList.add('low');
         lowPrioSign.src = 'img/low-prio-white.svg';
-        priority.push(taskPriority);
+        priority = taskPriority;
         console.log(priority);
         lowActive = true;
     } else {
@@ -187,7 +187,7 @@ function lowPriority() {
 }
 
 function resetButtons() {
-    priority.length = 0;
+    priority = "";
     let urgentButton = document.getElementById('urgent-button');
     let urgentPrioSign = document.getElementById('urgent-prio-sign');
     urgentButton.classList.remove('urgent');
@@ -340,6 +340,7 @@ function selectCategory (id, i) {
     container.classList.add('d-none');
     assignCategoryContainer = false;
     assignedCategory = category;
+    console.log(assignedCategory);
 }
 
 // Problem: Was bei Guest Reundern (IfAbfrage?) Initials vom Active User generieren lassen und abbilden//
@@ -601,7 +602,7 @@ async function postTask(path = "", data={}) {
         title: taskTitle,
         description: taskDescription,
         deadline: date,
-        priority: priority[0],
+        priority: priority,
         subtasks: JSON.stringify(subtasks),
         assignedContacts: JSON.stringify(assignedContactsNames),
         assignedContactsColors: JSON.stringify(assignedContactsColors),
