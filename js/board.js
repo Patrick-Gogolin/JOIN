@@ -1,6 +1,8 @@
 const BASE_URL = "https://remotestorage-c5224-default-rtdb.europe-west1.firebasedatabase.app/"
 let assignOptionsContactsContainer = false;
+let assignCategoryContainer = false;
 let editMenuSubtaskIsOpen = false;
+let assignedCategory = null;
 let subtasks = [];
 let urgentActive = false; // für Die Buttons beim Addtask Formular
 let mediumActive = false;
@@ -318,6 +320,28 @@ function openSelectContactsContainer() {
     }
 }
 
+function openSelectCategoryContainer() {
+    let container = document.getElementById('choose-category-container');
+    if (assignCategoryContainer === false) {
+        container.classList.remove('d-none');
+        assignCategoryContainer = true;
+    }
+    else {
+        container.classList.add('d-none');
+        assignCategoryContainer = false;
+    }
+}
+
+function selectCategory (id, i) {
+    let container = document.getElementById('choose-category-container');
+    category = document.getElementById(id).innerHTML;
+    categoryHeadline = document.getElementById(i);
+    categoryHeadline.innerHTML = category;
+    container.classList.add('d-none');
+    assignCategoryContainer = false;
+    assignedCategory = category;
+}
+
 // Problem: Was bei Guest Reundern (IfAbfrage?) Initials vom Active User generieren lassen und abbilden//
 function renderContacts() {
     let activeUserContainer = document.getElementById('active-user-container');
@@ -569,16 +593,19 @@ function loadAndGetNameOfActiveUser() {
 }
 
 async function postTask(path = "", data={}) {
-    let TaskTitle = document.getElementById('title').value;
+    let taskTitle = document.getElementById('title').value;
     let taskDescription = document.getElementById('description-of-task').value;
     let date = document.getElementById('date').value;
 
     data = {
-        title: TaskTitle,
+        title: taskTitle,
         description: taskDescription,
         deadline: date,
         priority: priority[0],
-        subtasks: subtasks,
+        subtasks: JSON.stringify(subtasks),
+        assignedContacts: JSON.stringify(assignedContactsNames),
+        assignedContactsColors: JSON.stringify(assignedContactsColors),
+        category: assignedCategory,
     };
 
     let response = await fetch(BASE_URL + path + ".json",{

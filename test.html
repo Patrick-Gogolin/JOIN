@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="test.js"></script>
+
+    <style>
+        .d-none {
+            display: none;
+        }
+    </style>
+</head>
+<body onload= "getTasks('/tasks')">
+    <div id="content">
+
+    </div>
+
+    <button>task1 Aktualisieren</button>
+    <button onclick="newHeadline(); updateData(`/tasks/${taskKeys[0]}`)">headline Aktualisieren</button>
+
+    
+</body>
+</html>

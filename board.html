@@ -79,12 +79,19 @@
                         </div>
                         <div class="assigned-to-input-container">
                             <span class="headline-input">Category<span class="red-star-required">*</span></span>
-                            <select name="" id="category" required>
-                                <option value="" disabled selected>Select task category</option>
-                                <option value="contact1">Technical Task</option>
-                                <option value="contact2">User Story</option>
-                                <!-- Weitere Optionen hier -->
-                            </select>
+                            <div class="select-contacts-container">
+                                <span id="selected-task-headline">Select task category</span>
+                                <img onclick="openSelectCategoryContainer()" src="img/arrow-drop-down-contacts.svg"
+                                    alt="">
+                            </div>
+                            <div id="choose-category-container" class="choose-category-container d-none">
+                                <div onclick="selectCategory('select-category-technical-task-span', 'selected-task-headline')" class="category-to-select-container" id="select-category-technical-task">
+                                    <span id="select-category-technical-task-span">Technical Task</span>
+                                </div>
+                                <div onclick="selectCategory('select-category-user-story-span', 'selected-task-headline')" class="category-to-select-container" id="select-category-user-story">
+                                    <span id="select-category-user-story-span">User Story</span>
+                                </div>
+                            </div>
                             <span id="category-required-span" class="this-field-required-span d-none">This field is
                                 required</span>
                         </div>

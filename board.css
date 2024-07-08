@@ -450,6 +450,26 @@ select {
     box-shadow: 0px 8px 4px 0px rgba(0, 0, 0, 0.1);
 }
 
+.choose-category-container {
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    z-index: 2;
+    transform: translateY(0px);
+}
+
+.category-to-select-container {
+    font-family: inter;
+    font-size: 20px;
+    padding: 12px 16px 12px 16px;
+    z-index: 2;
+}
+
+.category-to-select-container:hover {
+    cursor: pointer;
+    background-color: hsl(0, 0%, 95%);
+}
+
 .subtask-area-container{
     display: flex;
     flex-direction: column;
