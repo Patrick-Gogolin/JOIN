@@ -4,6 +4,7 @@ let assignCategoryContainer = false;
 let editMenuSubtaskIsOpen = false;
 let assignedCategory = "";
 let subtasks = [];
+let doneSubtasks = [];
 let urgentActive = false;
 let mediumActive = false;
 let lowActive = false;
@@ -570,6 +571,7 @@ async function postTask(path = "", data={}) {
         deadline: date,
         priority: priority,
         subtasks: JSON.stringify(subtasks),
+        doneSubtasks: JSON.stringify(doneSubtasks),
         assignedContacts: JSON.stringify(assignedContactsNames),
         assignedContactsColors: JSON.stringify(assignedContactsColors),
         category: assignedCategory,

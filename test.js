@@ -26,6 +26,7 @@ async function getTasks(path = "") {
             deadline: task['deadline'],
             priority: task['priority'],
             subtasks: JSON.parse(task['subtasks']),
+            doneSubtasks: JSON.parse(task['doneSubtasks']),
             assignedContacts: JSON.parse(task['assignedContacts']),
             assignedContactsColors: JSON.parse(task['assignedContactsColors']),
             category: task['category'],
@@ -43,7 +44,9 @@ function renderTask() {
     let content = document.getElementById('progress');
     for (let i = 0; i < allTasks.length; i++) {
         let task = allTasks[i];
-        let imageSrc = renderPriorityImage(task)
+        let subtasks = task.subtasks.length;
+        let doneSubtasks = task.doneSubtasks.length;
+        let imageSrc = renderPriorityImage(task);
         let initials = getInitialsOfFetchedData(task.assignedContacts);
         let bgColor = task.category === "User Story" ? 'bg-blue' : 'bg-green';
         content.innerHTML +=  /*html*/`
@@ -58,8 +61,8 @@ function renderTask() {
                 <p id="description${i}">${task.description}</p> 
             </div>
             <div class="subtasks-container">
-                <label for="file">1/2 Subtasks</label>
-                <progress id="file" value="1" max="2"> 1 </progress>
+                <label for="file">${doneSubtasks}/${subtasks} Subtasks</label>
+                <progress id="file" value=${doneSubtasks} max=${subtasks}> 1 </progress>
             </div>
             <div class="contacts-and-priority-container">
                 <div id="contacts-container${i}" class="contacts-container">
@@ -74,9 +77,10 @@ function renderTask() {
 
         for (let x = 0; x < initials.length; x++) {
             const initial = initials[x];
+            let contactColors = task.assignedContactsColors[x]
             let contentForContacts = document.getElementById(`contacts-container${i}`)
             contentForContacts.innerHTML += /*html*/`
-            <div>
+            <div class="rendered-task-assigned-contact-container" style="background-color:${contactColors}">
                 <span>${initial}
             </div>`;
 
@@ -87,14 +91,16 @@ function renderTask() {
 
  async function editTask(i) {
     let title = document.getElementById(`title${i}`);
-    title.innerHTML = "Europameister";
-    allTasks[i].title ="Europameister";
+    title.innerHTML = "Contact Form & Imprint";
+    allTasks[i].title ="Contact Form & Imprint";
     let subtasks = JSON.stringify(allTasks[i].subtasks);
+    let doneSubtasks = JSON.stringify(allTasks[i].doneSubtasks);
     let contacts = JSON.stringify(allTasks[i].assignedContacts);
     let colors = JSON.stringify(allTasks[i].assignedContactsColors);
     allTasks[i].subtasks = subtasks;
     allTasks[i].assignedContacts = contacts;
     allTasks[i].assignedContactsColors = colors;
+    allTasks[i].doneSubtasks = doneSubtasks;
 
     await updateData(`/tasks/${taskKeys[i]}`, data, i)
 
@@ -140,6 +146,7 @@ function newHeadline() {
     headline.innerHTML = "Europameister";
     allTasks[0].title = "Europameister";
     let subtasks = JSON.stringify(allTasks[0].subtasks);
+
     let contacts = JSON.stringify(allTasks[0].assignedContacts)
     let colors = JSON.stringify(allTasks[0].assignedContactsColors)
     allTasks[0].subtasks = subtasks;
