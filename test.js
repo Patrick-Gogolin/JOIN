@@ -1,4 +1,4 @@
-const BASE_URL = "https://remotestorage-c5224-default-rtdb.europe-west1.firebasedatabase.app/"
+
 let allTasks = [];
 let taskKeys = null;
 
@@ -40,18 +40,25 @@ renderTask();
 }
 
 function renderTask() {
-    let content = document.getElementById('content');
+    let content = document.getElementById('progress');
     for (let i = 0; i < allTasks.length; i++) {
         let task = allTasks[i];
         let imageSrc = renderPriorityImage(task)
-        let initials = getInitials(task.assignedContacts);
+        let initials = getInitialsOfFetchedData(task.assignedContacts);
+        let bgColor = task.category === "User Story" ? 'bg-blue' : 'bg-green';
         content.innerHTML +=  /*html*/`
         <div onclick="editTask(${i})" id="task-container${i}" class="task-container">
-            <h1 id="category${i}">${task.category}</h1>
-            <h2 id="title${i}">${task.title}</h2>
-            <p id="description${i}">${task.description}</p>
+            <div class="category-container ${bgColor}">
+                <span class="category-span" id="category${i}">${task.category}</span>
+            </div>
+            <div class="title-container">
+                <span class="title-span" id="title${i}">${task.title}</span>
+            </div>
+            <div class="description-container">
+                <p id="description${i}">${task.description}</p> 
+            </div>
             <div class="subtasks-container">
-                <label for="file">Subtasks:</label>
+                <label for="file">1/2 Subtasks</label>
                 <progress id="file" value="1" max="2"> 1 </progress>
             </div>
             <div class="contacts-and-priority-container">
@@ -68,7 +75,10 @@ function renderTask() {
         for (let x = 0; x < initials.length; x++) {
             const initial = initials[x];
             let contentForContacts = document.getElementById(`contacts-container${i}`)
-            contentForContacts.innerHTML += initial + " ";
+            contentForContacts.innerHTML += /*html*/`
+            <div>
+                <span>${initial}
+            </div>`;
 
             
         }
@@ -90,7 +100,7 @@ function renderTask() {
 
 }
 
-function getInitials(namesArray) {
+function getInitialsOfFetchedData(namesArray) {
     return namesArray.map(name => {
         let nameParts = name.split(" ");
         let initials = nameParts.map(part => part.charAt(0).toUpperCase()).join("");

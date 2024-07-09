@@ -705,7 +705,7 @@ h1 {
 .rendered-tasks-area-in-progress,
 .rendered-tasks-area-await-feedback,
 .rendered-tasks-area-done {
-    width: 25%;
+    width: 252px;
     display: flex;
     flex-direction: column;
     gap: 10px;
@@ -753,6 +753,70 @@ h1 {
 .content-center {
     display: flex;
     justify-content: center;
+}
+
+.task-container {
+    padding: 16px;
+    border-radius: 24px;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.category-container {
+    padding: 4px 16px 4px 16px;
+    border-radius: 8px;
+    width: fit-content;
+}
+
+.category-span {
+    font-family: inter;
+    font-size: 16px;
+    color: white;
+}
+
+.title-span {
+    font-family: inter;
+    font-weight: 700;
+    font-size: 16px;
+}
+
+.bg-blue {
+    background-color: #0038FF;
+}
+
+.bg-green {
+    background-color: #1FD7C1;
+}
+
+.subtasks-container {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: start;
+    gap: 19px;
+    width: 220px;
+}
+
+label {
+    font-size: 12px;
+    font-family: inter;
+}
+
+progress {
+    width: 128px;
+}
+
+.contacts-and-priority-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.contacts-container {
+    display: flex;
+    align-items: center;
+    gap: 2px;
 }
 
 @media screen and (min-width: 2500px) {

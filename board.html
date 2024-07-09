@@ -13,10 +13,11 @@
     <script src="js/board.js"></script>
     <script src="js/board-template.js"></script>
     <script src="./templates/header.js"></script>
+    <script src="test.js"></script>
 
 </head>
 
-<body onload="getContacts('/contacts'); updateHTML();">
+<body onload="getContacts('/contacts'); getTasks('/tasks');">
     <div w3-include-html="templates/header.html"></div>
     <div w3-include-html="templates/sidebar.html"></div>
     <div class="content-center">
@@ -166,11 +167,6 @@
                 </div>
                 <div id="progress" class="rendered-tasks-area-in-progress drag-area" ondrop="moveTo('progress')"
                     ondragleave="removeHighlight('progress')" ondragover="allowDrop(event); highlight('progress')">
-                    <div class="new-task-container">
-                        <div class="user-story-container">
-                            <span>User Story</span>
-                        </div>
-                    </div>
                 </div>
                 <div id="feedback" class="rendered-tasks-area-await-feedback drag-area" ondrop="moveTo('feedback')"
                     ondragleave="removeHighlight('feedback')" ondragover="allowDrop(event); highlight('feedback')">
