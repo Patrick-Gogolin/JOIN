@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <script src="test.js"></script>
+    <link rel="stylesheet" href="test.css">
 
     <style>
         .d-none {
@@ -13,12 +14,13 @@
     </style>
 </head>
 <body onload= "getTasks('/tasks')">
-    <div id="content">
+    <div class="content" id="content">
 
     </div>
 
     <button onclick="newHeadline()">task1 Aktualisieren</button>
     <button onclick="newHeadline(); updateData(`/tasks/${taskKeys[0]}`)">headline Aktualisieren</button>
+    <button onclick="updateEmptyTask()">Update</button>
 
     
 </body>

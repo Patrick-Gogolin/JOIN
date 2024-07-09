@@ -1,14 +1,18 @@
 const BASE_URL = "https://remotestorage-c5224-default-rtdb.europe-west1.firebasedatabase.app/"
 let allTasks = [];
 let taskKeys = null;
-let responseToJsonArray = null;
+
+let emptyTask = null;
+
+ function updateEmptyTask() {
+    emptyTask = allTasks[0];
+    console.log(emptyTask);
+ }
 
 
 async function getTasks(path = "") {
     let response = await fetch(BASE_URL + path + ".json");
-    let responseToJson = await response.json();
-    responseToJsonArray = responseToJson;
-    console.log(responseToJsonArray);
+    let responseToJson = await response.json();;
     let keys = Object.keys(responseToJson); // erstellt ein Array, das alle Schlüssel eines Objekts enthält
     taskKeys = keys;
     console.log(taskKeys);
@@ -39,16 +43,77 @@ function renderTask() {
     let content = document.getElementById('content');
     for (let i = 0; i < allTasks.length; i++) {
         let task = allTasks[i];
-        let title = task.title === "" ? 'd-none' : 'd-block'
+        let imageSrc = renderPriorityImage(task)
+        let initials = getInitials(task.assignedContacts);
         content.innerHTML +=  /*html*/`
-        <div class="${title}">
-            <h1 id="headline${i}">${task.title}</h1>
+        <div onclick="editTask(${i})" id="task-container${i}" class="task-container">
+            <h1 id="category${i}">${task.category}</h1>
+            <h2 id="title${i}">${task.title}</h2>
+            <p id="description${i}">${task.description}</p>
+            <div class="subtasks-container">
+                <label for="file">Subtasks:</label>
+                <progress id="file" value="1" max="2"> 1 </progress>
+            </div>
+            <div class="contacts-and-priority-container">
+                <div id="contacts-container${i}" class="contacts-container">
+
+                </div>
+                <div id="priority-container${i}" class="priority-container">
+                    <img src=${imageSrc} alt="">
+
+                </div>   
+            </div>
         </div>`;
+
+        for (let x = 0; x < initials.length; x++) {
+            const initial = initials[x];
+            let contentForContacts = document.getElementById(`contacts-container${i}`)
+            contentForContacts.innerHTML += initial + " ";
+
+            
+        }
     }
 }
 
-async function updateData(path = "", data={}) {
-    data = allTasks[0];
+ async function editTask(i) {
+    let title = document.getElementById(`title${i}`);
+    title.innerHTML = "Europameister";
+    allTasks[i].title ="Europameister";
+    let subtasks = JSON.stringify(allTasks[i].subtasks);
+    let contacts = JSON.stringify(allTasks[i].assignedContacts);
+    let colors = JSON.stringify(allTasks[i].assignedContactsColors);
+    allTasks[i].subtasks = subtasks;
+    allTasks[i].assignedContacts = contacts;
+    allTasks[i].assignedContactsColors = colors;
+
+    await updateData(`/tasks/${taskKeys[i]}`, data, i)
+
+}
+
+function getInitials(namesArray) {
+    return namesArray.map(name => {
+        let nameParts = name.split(" ");
+        let initials = nameParts.map(part => part.charAt(0).toUpperCase()).join("");
+        return initials;
+    });
+}
+
+
+function renderPriorityImage(task) {
+    if(task.priority === "Urgent") {
+        return 'img/urgent-prio.svg';
+    }
+    else if(task.priority === "Medium" ) {
+        return 'img/medium-prio-orange.svg';
+    }
+    else if(task.priority === "Low") {
+        return 'img/low-prio.svg';
+    }
+
+}
+
+async function updateData(path = "", data={}, i) {
+    data = allTasks[i];
     let response = await fetch(BASE_URL + path + ".json",{
         method: "PUT",
         headers: {
@@ -77,3 +142,5 @@ function newHeadline() {
 //let subtask = allTasks[3].subtasks;
     //content.innerHTML =  /*html*/`
    // <p>${subtask}</p>`;
+
+  // let title = task.title === "" ? 'd-none' : 'd-block'// Verwendung, falls leere Daten gesendet werden
