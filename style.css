@@ -347,3 +347,75 @@ h1 {
     }
 
 }
+
+@media (max-height: 900px){
+    @keyframes resizeImg {
+        0% {
+            transform: translate(-50%, -50%);
+            height: 300px;
+        }
+    
+        100% {
+            width: 64px;
+            height: 78px;
+            left: 77px;
+            top: 80px;
+        }
+    }
+
+    .sign-up-container{
+        margin-top: 10.7px;
+    }
+
+    .privacy-legal-notice-container{
+        bottom: 12px;
+    }
+
+    .sign-up-link{
+        padding: 9px 16px 9px 16px;
+    }
+
+    .headline-seperator-container h1{
+        font-size: 47px;
+    }
+}
+
+@media (max-height: 820px){
+    @keyframes resizeImg {
+        0% {
+            transform: translate(-50%, -50%);
+            height: 300px;
+        }
+    
+        100% {
+            width: 64px;
+            height: 78px;
+            left: 49px;
+            top: 52px;
+        }
+    }
+
+    .log-in-container{
+        padding: 10px 0 10px 0;
+    }
+
+    .headline-seperator-container{
+        gap: 10px;
+    }
+
+    .input-container input{
+        height: 36px;
+    }
+
+    .input-container{
+        gap: 23px;
+    }
+
+    .remember-me-container{
+        height: 10px;
+    }
+
+    .log-in-and-guest-button-container{
+        gap: 15px;
+    }
+}

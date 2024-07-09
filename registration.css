@@ -303,3 +303,46 @@ h1 {
     }
     
 }
+
+@media (max-height:950px) {
+    .join-logo{
+        top: 37px;
+        left: 38px;
+        width: 64px;
+        height: 78px;
+    }
+}
+
+@media (max-height:850px) {
+    .sign-up-formular{
+        padding: 9px 16px 9px 16px;
+        gap: 20px;
+    }
+
+    .headline-seperator-container{
+        gap: 10px;
+    }
+
+    .input-container input{
+        height: 36px;
+    }
+
+    .input-container{
+        gap: 10px;
+    }
+
+    .sign-up-button button{
+        padding: 10px 24px 10px 24px;
+    }
+
+    .privacy-legal-notice-container{
+        bottom: 12px;
+    }
+
+    .join-logo{
+        top: 37px;
+        left: 38px;
+        width: 64px;
+        height: 78px;
+    }
+}
