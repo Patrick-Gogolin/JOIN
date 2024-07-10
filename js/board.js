@@ -21,6 +21,7 @@ let assignedContactsNames = [];
 let assignedContactsInitials = [];
 let assignedContactsId = [];
 let assignedContactsColors =[];
+let TaskStatus = "feedback";
 
 
 async function getContacts(path = "") {
@@ -566,6 +567,7 @@ async function postTask(path = "", data={}) {
     let date = document.getElementById('date').value;
 
     data = {
+        id: "",
         title: taskTitle,
         description: taskDescription,
         deadline: date,
@@ -575,6 +577,7 @@ async function postTask(path = "", data={}) {
         assignedContacts: JSON.stringify(assignedContactsNames),
         assignedContactsColors: JSON.stringify(assignedContactsColors),
         category: assignedCategory,
+        status: TaskStatus
     };
 
     let response = await fetch(BASE_URL + path + ".json",{

@@ -4,6 +4,8 @@ let taskKeys = null;
 
 let emptyTask = null;
 
+let currentDraggedElement;
+
  function updateEmptyTask() {
     emptyTask = allTasks[0];
     console.log(emptyTask);
@@ -21,6 +23,7 @@ async function getTasks(path = "") {
         const key = keys[i];
         const task = responseToJson[key];
          data = {
+            id: key,
             title: task['title'],
             description: task['description'],
             deadline: task['deadline'],
@@ -30,13 +33,14 @@ async function getTasks(path = "") {
             assignedContacts: JSON.parse(task['assignedContacts']),
             assignedContactsColors: JSON.parse(task['assignedContactsColors']),
             category: task['category'],
+            status: task['status']
         };
         allTasks.push(data);
 
 }
 console.log(allTasks);
 
-renderTask();
+updateHTML();
 
 }
 
@@ -161,3 +165,136 @@ function newHeadline() {
    // <p>${subtask}</p>`;
 
   // let title = task.title === "" ? 'd-none' : 'd-block'// Verwendung, falls leere Daten gesendet werden
+
+  function updateHTML() {
+    let inProgress = allTasks.filter(t => t['status'] == 'progress');
+
+    document.getElementById('progress').innerHTML = '';
+
+    for (let i = 0; i < inProgress.length; i++) {
+        let content = document.getElementById('progress');
+                let task = inProgress[i];
+                let subtasks = task.subtasks.length;
+                let doneSubtasks = task.doneSubtasks.length;
+                let imageSrc = renderPriorityImage(task);
+                let initials = getInitialsOfFetchedData(task.assignedContacts);
+                let bgColor = task.category === "User Story" ? 'bg-blue' : 'bg-green';
+                content.innerHTML +=  /*html*/`
+                <div draggable="true" ondragstart="startDragging('${task.id}')" onclick="editTask(${i})" id="task-container${i}" class="task-container">
+                    <div class="category-container ${bgColor}">
+                        <span class="category-span" id="category${i}">${task.category}</span>
+                    </div>
+                    <div class="title-container">
+                        <span class="title-span" id="title${i}">${task.title}</span>
+                    </div>
+                    <div class="description-container">
+                        <p id="description${i}">${task.description}</p> 
+                    </div>
+                    <div class="subtasks-container">
+                        <label for="file">${doneSubtasks}/${subtasks} Subtasks</label>
+                        <progress id="file" value=${doneSubtasks} max=${subtasks}> 1 </progress>
+                    </div>
+                    <div class="contacts-and-priority-container">
+                        <div id="contacts-progress-container${i}" class="contacts-container">
+        
+                        </div>
+                        <div id="priority-container${i}" class="priority-container">
+                            <img src=${imageSrc} alt="">
+        
+                        </div>   
+                    </div>
+                </div>`;
+        
+                for (let x = 0; x < initials.length; x++) {
+                    const initial = initials[x];
+                    let contactColors = task.assignedContactsColors[x]
+                    let contentForContacts = document.getElementById(`contacts-progress-container${i}`)
+                    contentForContacts.innerHTML += /*html*/`
+                    <div class="rendered-task-assigned-contact-container" style="background-color:${contactColors}">
+                        <span>${initial}
+                    </div>`;
+        
+                    
+                }
+            }
+
+    let awaitFeedback = allTasks.filter(t => t['status'] == 'feedback');
+
+    document.getElementById('feedback').innerHTML = '';
+
+    for (let i = 0; i < awaitFeedback.length; i++) {
+        let content = document.getElementById('feedback');
+                let task = awaitFeedback[i];
+                let subtasks = task.subtasks.length;
+                let doneSubtasks = task.doneSubtasks.length;
+                let imageSrc = renderPriorityImage(task);
+                let initials = getInitialsOfFetchedData(task.assignedContacts);
+                let bgColor = task.category === "User Story" ? 'bg-blue' : 'bg-green';
+                content.innerHTML +=  /*html*/`
+                <div draggable="true" ondragstart="startDragging('${task.id}')" onclick="editTask(${i})" id="task-container${i}" class="task-container">
+                    <div class="category-container ${bgColor}">
+                        <span class="category-span" id="category${i}">${task.category}</span>
+                    </div>
+                    <div class="title-container">
+                        <span class="title-span" id="title${i}">${task.title}</span>
+                    </div>
+                    <div class="description-container">
+                        <p id="description${i}">${task.description}</p> 
+                    </div>
+                    <div class="subtasks-container">
+                        <label for="file">${doneSubtasks}/${subtasks} Subtasks</label>
+                        <progress id="file" value=${doneSubtasks} max=${subtasks}> 1 </progress>
+                    </div>
+                    <div class="contacts-and-priority-container">
+                        <div id="contacts-feedback-container${i}" class="contacts-container">
+        
+                        </div>
+                        <div id="priority-container${i}" class="priority-container">
+                            <img src=${imageSrc} alt="">
+        
+                        </div>   
+                    </div>
+                </div>`;
+        
+                for (let x = 0; x < initials.length; x++) {
+                    const initial = initials[x];
+                    let contactColors = task.assignedContactsColors[x]
+                    let contentForContacts = document.getElementById(`contacts-feedback-container${i}`)
+                    contentForContacts.innerHTML += /*html*/`
+                    <div class="rendered-task-assigned-contact-container" style="background-color:${contactColors}">
+                        <span>${initial}
+                    </div>`;
+        
+                    
+                }
+            }
+
+            
+        
+        }
+
+function startDragging(id) {
+    currentDraggedElement = id;
+}
+
+function allowDrop(ev) {
+    ev.preventDefault();
+}
+
+async function moveTo(status) {
+    let index = taskKeys.indexOf(currentDraggedElement);
+    allTasks[index].status = status;
+    updateHTML();
+    let subtasks = JSON.stringify(allTasks[index].subtasks);
+    let doneSubtasks = JSON.stringify(allTasks[index].doneSubtasks);
+    let contacts = JSON.stringify(allTasks[index].assignedContacts);
+    let colors = JSON.stringify(allTasks[index].assignedContactsColors);
+    allTasks[index].subtasks = subtasks;
+    allTasks[index].assignedContacts = contacts;
+    allTasks[index].assignedContactsColors = colors;
+    allTasks[index].doneSubtasks = doneSubtasks;
+    console.log(allTasks);
+    await updateData(`/tasks/${taskKeys[index]}`, data, index);
+}
+
+
