@@ -16,7 +16,6 @@
     padding: 0;
   }
 
-
 @keyframes slideMe{
     0%{
         transform:  translateX(2000px);
@@ -53,7 +52,6 @@
     }
   }
 
-
 body{
     background-color: rgb(246,247,248);
     font-family: 'Inter';
@@ -87,7 +85,6 @@ body{
     display: flex;
     border-radius: 30px;
 }
-
 
 .popup-left{
     padding-left: 48px;
@@ -139,7 +136,6 @@ body{
     height: 24px;
 }
 
-
 .back-icon-boarder{
     width: 28px;
     height: 28px;
@@ -156,7 +152,6 @@ body{
 .back-icon-boarder:hover{
     background-color: rgb(238,238,238);
 }
-
 
 .back-icon-white-boarder{
     width: 28px;
@@ -200,8 +195,6 @@ body{
     flex: none;
 }
 
-
-
 .form{
     margin-right: 48px;
     display: flex;
@@ -219,7 +212,6 @@ body{
 }
 
 .add-contact-input-name{
-    
     margin-bottom: 32px;
     padding: 12px 21px 12px 21px;
     background: url(img/person.svg);
@@ -294,7 +286,6 @@ body{
     height: 24px;
 }
 
-
 .create{
     cursor: pointer;
     width: 214px;
@@ -325,7 +316,6 @@ body{
     overflow-y: scroll;
     width: 38%;
     max-height: 100vh;
-    
 }
 
 .contact-info{
@@ -339,7 +329,6 @@ body{
 .animation-close{
     animation: slideOut 0.5s;
 }
-
 
 .add-contact{
     cursor: pointer;
@@ -360,7 +349,6 @@ body{
     margin-top: 22px;
     margin-bottom: 22px;
     margin-left: 9%;
-   
 }
 
 .opened-contact-list{
@@ -402,7 +390,6 @@ body{
 .contact:hover{
     background-color: rgb(246, 246, 246);
 }
-
 
 .contact-logo{
     box-sizing: content-box;
@@ -474,7 +461,6 @@ body{
     font-size: 27px;
 }
 
-
 .contact-data{
     margin-left: 62px;
     margin-top: 32px;
@@ -529,8 +515,6 @@ body{
     margin-right: 16px;
 }
 
-
-
 .edit:hover{
     overflow: hidden;
     color: #29ABE2;
@@ -550,7 +534,6 @@ body:has(.delete:hover) .delete img{
     filter: drop-shadow(0px 1000px 0 #29ABE2);
     transform: translateY(-1000px);
 }
-
 
 .contact-data-icon p{
     margin: 0;
@@ -608,9 +591,7 @@ body:has(.delete:hover) .delete img{
     justify-content: center;
     align-items: center;
     animation: 300ms move-in;
-    
 }
-
 
 .more_options_icon{
     font-size: 16px;
@@ -673,14 +654,12 @@ body:has(.back_img_boarder:hover) .back_img_boarder img{
     background-color:#2A3647;
     border-radius: 30px;
     box-shadow: 0px 4px 4px 0px #00000040;
-    
 }
 
 .more_img_boarder:hover{
     background-color:#29ABE2;
     border-radius: 30px;
 }
-
 
 @media (min-width:1100px) {
     .contact-info-header-separator-mobile{
@@ -700,10 +679,7 @@ body:has(.back_img_boarder:hover) .back_img_boarder img{
     .contact-list{
         max-width: 452px;
     }
-
- 
 }
-
 
 @media (max-width: 1300px) {
     .contact-info-header{
@@ -734,16 +710,13 @@ body:has(.back_img_boarder:hover) .back_img_boarder img{
         background-color: #29ABE2;
         margin-top: 16px;
     }
-
-
 }
-
-
 
 @media (max-width: 1100px) {
     .mobile-header{
         display: flex;
     }
+
     .opened-contact-list{
         margin-bottom: 80px;
     }
@@ -763,8 +736,9 @@ body:has(.back_img_boarder:hover) .back_img_boarder img{
     .content{
         margin-left: 0;
     }
+
     .back-icon-boarder{
-    display: none;
+        display: none;
     }
 
     .back-icon-white-boarder{
@@ -855,7 +829,6 @@ body:has(.back_img_boarder:hover) .back_img_boarder img{
         margin-right: 20px;
     }
 
-  
     .contact-data-name{
         margin-bottom: 0;
         justify-content: center;
@@ -935,7 +908,6 @@ body:has(.back_img_boarder:hover) .back_img_boarder img{
 }
 
 @media (max-width: 900px) {
-
 .contact-list{
     min-width: 0 !important;
 }
@@ -950,36 +922,32 @@ body:has(.back_img_boarder:hover) .back_img_boarder img{
 }
 
 @media (max-width: 800px){
-  .back_img_boarder{
-    display: flex;
-  }
+     .back_img_boarder{
+        display: flex;
+    }
 
-  .more_img_boarder{
-    display: flex;
-  }
+    .more_img_boarder{
+        display: flex;
+    }
 
   .contact-data-icon{
-    display: none;
+        display: none;
+    }
+
+    .popup-content{
+        width: 80%;
+    }
+
+    .form input{
+        font-size: 18px;
+    }
+
 }
-
-.popup-content{
-    width: 80%;
-}
-
-.form input{
-    font-size: 18px;
-}
-
-}
-
-
 
 @media (max-width: 400px) {
-
     .popup-left h1{
         font-size: 54px;
     }
-
 
     .contact p{
         font-size: 18px;
@@ -1047,5 +1015,4 @@ body:has(.back_img_boarder:hover) .back_img_boarder img{
     .popup-left h1{
         font-size: 47px;
     }
-
 }

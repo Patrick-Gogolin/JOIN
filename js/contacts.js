@@ -128,13 +128,11 @@ function removeContactFromArray(contactID){
 function editContact(eachContact){
     closeEditOptions();
     document.getElementById('edit-contact-popup').classList.remove("d-none");
-    
     document.getElementById('edit-contact-popup').innerHTML = getEditContactTemplate(eachContact);
     document.getElementById('editName').value = eachContact.contact.name;
     document.getElementById('editMail').value = eachContact.contact.email;
     document.getElementById('editPhone').value = eachContact.contact.phone;
     document.getElementById(`contact-logo-${eachContact}`).style.backgroundColor = eachContact.contact.color; 
-
     document.getElementById('edit-contact-popup-content').classList.remove("animation-close");
     document.getElementById('edit-contact-popup-content').classList.add("animation");
 }
@@ -219,14 +217,11 @@ function closePopup(){
     setTimeout(() => {
         document.getElementById('add-contact-popup').classList.add("d-none");
     }, 300);
-    
-    
     document.getElementById('edit-contact-popup-content').classList.remove("animation")
     document.getElementById('edit-contact-popup-content').classList.add("animation-close");
     setTimeout(() => {
         document.getElementById('edit-contact-popup').classList.add("d-none");
-    }, 300);
-    
+    }, 300);   
 }
 
 
@@ -322,8 +317,7 @@ function showContactInfo(eachContact){
     })
     document.getElementById(`contact-list-element-${eachContact.id}`).style.backgroundColor = "#2A3647";
     document.getElementById(`contact-list-element-${eachContact.id}`).style.color = "white";
-    showInfo(eachContact);
-    
+    showInfo(eachContact); 
 }
 
 
@@ -383,23 +377,20 @@ function random_bg_color() {
     // Construct the RGB color string.
     var bgColor = "rgb(" + x + "," + y + "," + z + ")";
     // Output the generated color to the console.
-
     // Set the background color of the document body to the generated color.
     return bgColor;
 }
 
+
 function openEditOptions(){
     document.getElementById('edit-more-options-list').style.animation = "300ms move-in";
     document.getElementById('edit-more-options-list').style.display = "flex";
-    
 }
+
 
 function closeEditOptions(){
     document.getElementById('edit-more-options-list').style.animation = "300ms move-out";
     setTimeout(() => {
         document.getElementById('edit-more-options-list').style.display = "none";
     }, 300);
-  
-    
 }
-
