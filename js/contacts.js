@@ -58,6 +58,20 @@ async function loadContacts(path=""){
     return responseToJson = await response.json(); 
 }
 
+function showUserFeedback(){
+    let feedback = document.getElementById('user-feedback');
+    let width = window.innerWidth;
+    if (width <= 1100){
+    feedback.style.display = "block";
+    setTimeout(() => {
+       feedback.style.animation = "climb-down 1000ms";
+    }, 2000);
+    setTimeout(() => {
+        feedback.style.display = "none";
+     }, 3000);
+    }
+    
+}
 
 async function postContacts(path="", data={}){
     let name = document.getElementById('name');
@@ -89,6 +103,8 @@ async function postContacts(path="", data={}){
     phone.value = "";
     document.getElementById('add-contact-popup').classList.add('d-none');
     showContactInfo({id: newContact.name, contact: data});
+    checkForMobileMode();
+    showUserFeedback();
     return newContact;
 }
 

@@ -52,6 +52,28 @@
     }
   }
 
+
+  @keyframes climb-up {
+    from{
+        transform: translateY(400%);
+    }
+
+    to{
+        transform: translateY(0%);
+    }
+  }
+
+  @keyframes climb-down {
+    from{
+        transform: translateY(0%);
+    }
+
+    to{
+        transform: translateY(400%);
+    }
+  }
+
+
 body{
     background-color: rgb(246,247,248);
     font-family: 'Inter';
@@ -486,10 +508,13 @@ body{
     font-size: 47px;
     font-weight: 500;
     flex: none;
+    border: 3px solid;
+    border-color: white;
 }
 
 .contact-data-name{
     display: flex;
+    justify-content: center;
     flex-direction: column;
     font-size: 47px;
     margin-bottom: 8px;
@@ -559,16 +584,21 @@ body:has(.delete:hover) .delete img{
 
 .contact-info h2{
     margin-left: 62px;
-    margin-top: 21px;
-    margin-bottom: 21px;
+    margin-top: 48px;
+    margin-bottom: 48px;
     font-weight: 400;
+    font-size: 20px;
 }
+
 .contact-info p, h3{
     margin-left: 62px;
-    margin-top: 15px;
+    margin-top: 22px;
     margin-bottom: 22px;
 }
 
+.contact-info p{
+    margin-top: 15px;
+}
 .contact-info a{
     margin-left: 62px;
     pointer-events: none;
@@ -659,6 +689,19 @@ body:has(.back_img_boarder:hover) .back_img_boarder img{
 .more_img_boarder:hover{
     background-color:#29ABE2;
     border-radius: 30px;
+}
+
+.user-feedback-window{
+    display: none;
+    border-radius: 20px;
+    color: white;
+    position: absolute;
+    padding: 20px;
+    background-color: #2A3647;
+    font-size: 20px;
+    bottom: 28%;
+    left: 8%;
+    animation: climb-up 1000ms;
 }
 
 @media (min-width:1100px) {
@@ -988,8 +1031,8 @@ body:has(.back_img_boarder:hover) .back_img_boarder img{
     }
 
     .edit-contact-logo{
-        width: 80px;
-        height: 80px;
+        width: 100px;
+        height: 100px;
         margin-bottom: 11px;
         font-size: 40px;
     }
