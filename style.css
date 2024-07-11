@@ -341,7 +341,7 @@ h1 {
 @media (max-width:680px) {
     .log-in-container {
         height: auto;
-        padding: 32px 0 32px 0;
+        padding: 32px 8px 32px 8px;
     }
 
     .log-in-and-guest-button-container {
@@ -443,7 +443,7 @@ h1 {
     }
 
     .log-in-container {
-        padding: 10px 0 10px 0;
+        padding: 10px 8px 10px 8px;
     }
 
     .headline-seperator-container {
