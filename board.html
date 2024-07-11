@@ -144,15 +144,18 @@
             <div class="state-of-task-content-container">
                 <div class="state-of-task-container">
                     <span>To Do</span>
-                    <img src="img/plus button.svg" alt="">
+                    <img class="add-task-todo-img" id="add-task-todo-grey" onmouseover="changeAddSignToBlue('add-task-todo-grey', 'add-task-todo-blue')" src="img/plus-button.svg" alt="">
+                    <img class="add-task-todo-img d-none" id="add-task-todo-blue" onmouseout="changeAddSingToDefault('add-task-todo-grey', 'add-task-todo-blue')" src="img/plus-button-blue.svg" alt="">
                 </div>
                 <div class="state-of-task-container">
                     <span>in progress</span>
-                    <img src="img/plus button.svg" alt="">
+                    <img class="add-task-todo-img" id="add-task-progress-grey" onmouseover="changeAddSignToBlue('add-task-progress-grey', 'add-task-progress-blue')" src="img/plus-button.svg" alt="">
+                    <img class="add-task-todo-img d-none" id="add-task-progress-blue" onmouseout="changeAddSingToDefault('add-task-progress-grey', 'add-task-progress-blue')" src="img/plus-button-blue.svg" alt="">
                 </div>
                 <div class="state-of-task-container">
                     <span>Await feedback</span>
-                    <img src="img/plus button.svg" alt="">
+                    <img class="add-task-todo-img" id="add-task-feedback-grey" onmouseover="changeAddSignToBlue('add-task-feedback-grey', 'add-task-feedback-blue' )" src="img/plus-button.svg" alt="">
+                    <img class="add-task-todo-img d-none" id="add-task-feedback-blue" onmouseout="changeAddSingToDefault('add-task-feedback-grey', 'add-task-feedback-blue')" src="img/plus-button-blue.svg" alt="">
                 </div>
                 <div class="state-of-task-container">
                     <span>Done</span>

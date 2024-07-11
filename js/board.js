@@ -591,3 +591,17 @@ async function postTask(path = "", data={}) {
     return responseToJson = await response.json();
 
 }
+
+function changeAddSignToBlue(idDefault, idBlue) {
+    let addButtonGrey = document.getElementById(idDefault);
+    let addButtonBlue = document.getElementById(idBlue);
+    addButtonGrey.classList.add('d-none');
+    addButtonBlue.classList.remove('d-none');
+}
+
+function changeAddSingToDefault(idDefault, idBlue) {
+    let addButtonGrey = document.getElementById(idDefault);
+    let addButtonBlue = document.getElementById(idBlue);
+    addButtonGrey.classList.remove('d-none');
+    addButtonBlue.classList.add('d-none');
+}
