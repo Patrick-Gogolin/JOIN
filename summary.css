@@ -727,4 +727,24 @@ body {
     .overview-and-greetings {
         gap: 32px;
     }
+
+    .todo {
+        padding: 24px 19px;
+    }
+
+    .done {
+        padding: 24px 19px;
+    }
+
+    .task-button-left {
+        padding: 16px 0px;
+    }
+
+    .task-button-middle {
+        padding: 16px 0px;
+    }
+
+    .task-button-right {
+        padding: 16px 0px;
+    }
 }
