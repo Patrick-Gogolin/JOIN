@@ -5,7 +5,7 @@
 }
 
 body {
-    font-family: inter;    
+    font-family: inter;
     background-color: #F6F7F8;
 }
 
@@ -18,16 +18,20 @@ body {
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    /* Ausgangsfarbe */
 }
 
 .logo {
+    background: url('./img/join-logo-log-in-small.png');
+    background-size: contain;
+    background-repeat: no-repeat;
     width: 250px;
     height: 300px;
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    animation: resizeImg 550ms ease-in-out forwards 550ms;
+    animation: resizeImg 550ms ease-in-out forwards 550ms, changeLogo 550ms ease-in-out forwards 550ms;
 }
 
 @keyframes resizeImg {
@@ -44,26 +48,17 @@ body {
     }
 }
 
+
+
 .background {
     display: flex;
     flex-direction: column;
     justify-content: center;
     opacity: 0;
-    animation: showContent  750ms ease-in forwards 750ms;
+    animation: showContent 750ms ease-in forwards 750ms;
 }
 
-@keyframes showContent {
-    0% {
-        opacity: 0;
-    }
-
-    100% {
-      opacity: 1;
-    }
-}
-
-
-.sign-up-container{
+.sign-up-container {
     position: absolute;
     top: 67px;
     right: 77px;
@@ -75,7 +70,7 @@ body {
     justify-content: space-between;
     align-items: center;
     opacity: 0;
-    animation: showContent  750ms ease-in forwards 750ms;
+    animation: showContent 750ms ease-in forwards 750ms;
 }
 
 @keyframes showContent {
@@ -84,7 +79,56 @@ body {
     }
 
     100% {
-      opacity: 1;
+        opacity: 1;
+    }
+}
+
+@media screen and (max-width: 680px) {
+    .content-wrapper {
+        animation: resizeBackground 550ms ease-in-out forwards 550ms;
+        background-color: #2A3647;
+    }
+
+    .logo {
+        animation: resizeImg 550ms ease-in-out forwards, changeLogo 550ms ease-in-out forwards;
+    }
+
+    @keyframes resizeBackground {
+        0% {
+            background-color: #2A3647;
+        }
+
+        100% {
+            background-color: #fff;
+        }
+    }
+
+    @keyframes resizeImg {
+        0% {
+            transform: translate(-50%, -50%);
+            height: 300px;
+        }
+
+        100% {
+            width: 100px;
+            height: 120px;
+            left: 77px;
+            top: 80px;
+        }
+    }
+
+    @keyframes changeLogo {
+        from {
+            background: url('./img/capa_2.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+        }
+
+        to {
+            background: url('./img/join-logo-log-in-small.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+        }
     }
 }
 
@@ -95,17 +139,17 @@ body {
     font-size: 16px;
     padding: 15px 16px 15px 16px;
     border-radius: 8px;
-    border: none;    
+    border: none;
     cursor: pointer;
     text-decoration: none;
 }
 
 .sign-up-link:hover {
-    background-color:#29ABE2;
+    background-color: #29ABE2;
 
 }
 
-.log-in-container{
+.log-in-container {
     padding: 48px 115px 48px 115px;
     background-color: white;
     border-radius: 30px;
@@ -131,19 +175,19 @@ h1 {
     font-size: 60px;
 }
 
-.blue-seperator{
+.blue-seperator {
     min-height: 3px;
     width: 150px;
     background-color: #29ABE2;
 }
 
-.input-container{
+.input-container {
     display: flex;
     flex-direction: column;
     gap: 32px;
 }
 
-.email-input{
+.email-input {
     padding: 12px 21px 12px 21px;
     background: url(img/mail-logo-for-input.svg);
     background-repeat: no-repeat;
@@ -160,7 +204,7 @@ h1 {
     outline: none;
 }
 
-.password-input{
+.password-input {
     padding: 12px 21px 12px 21px;
     background: url(img/lock-logo-for-input.svg);
     background-repeat: no-repeat;
@@ -213,10 +257,10 @@ h1 {
     height: 16px;
     border: solid 2px #2A3647;
     border-radius: 3px;
-    
+
 }
 
-.log-in-and-guest-button-container{
+.log-in-and-guest-button-container {
     width: 322px;
     height: 48px;
     display: flex;
@@ -237,7 +281,7 @@ h1 {
 }
 
 .log-in-button:hover {
-   background-color: #29ABE2;
+    background-color: #29ABE2;
 }
 
 .guest-log-in-button {
@@ -267,7 +311,7 @@ h1 {
     position: fixed;
     bottom: 50px;
     opacity: 0;
-    animation: showContent  750ms ease-in forwards 750ms;
+    animation: showContent 750ms ease-in forwards 750ms;
 }
 
 @keyframes showContent {
@@ -276,7 +320,7 @@ h1 {
     }
 
     100% {
-      opacity: 1;
+        opacity: 1;
     }
 }
 
@@ -287,14 +331,15 @@ h1 {
     padding: 1px;
     background-color: transparent;
 }
+
 .privacy-legal-notice-container a:hover {
     cursor: pointer;
-    color:#29ABE2;
+    color: #29ABE2;
     font-weight: bold;
 }
 
 @media (max-width:680px) {
-    .log-in-container{
+    .log-in-container {
         height: auto;
         padding: 32px 0 32px 0;
     }
@@ -305,56 +350,58 @@ h1 {
         gap: 21px;
     }
 
-    .log-in-and-guest-button-container button{
+    .log-in-and-guest-button-container button {
         height: 51px;
         width: 180px;
         font-size: 16px;
-        
+
     }
 
-    .input-container{
+    .input-container {
         margin-left: 16px;
         margin-right: 16px;
     }
 
-    .sign-up-link{
+    .sign-up-link {
         width: 104px;
         text-align: center;
     }
 
-    .content-wrapper{
+    .content-wrapper {
         flex-flow: column-reverse;
     }
-    .sign-up-container{
+
+    .sign-up-container {
         position: unset;
         margin-top: 57.5px;
     }
 }
 
-@media (max-width:460px){
-    .log-in-and-guest-button-container{
+@media (max-width:460px) {
+    .log-in-and-guest-button-container {
         width: 320px;
     }
 
-    .email-input, .password-input{
+    .email-input,
+    .password-input {
         width: 288px;
         background-position: 250px;
     }
 
-    .remember-me-container{
+    .remember-me-container {
         padding-left: 16px;
         width: 288px;
     }
 
 }
 
-@media (max-height: 900px){
+@media (max-height: 900px) {
     @keyframes resizeImg {
         0% {
             transform: translate(-50%, -50%);
             height: 300px;
         }
-    
+
         100% {
             width: 64px;
             height: 78px;
@@ -363,30 +410,30 @@ h1 {
         }
     }
 
-    .sign-up-container{
+    .sign-up-container {
         margin-top: 10.7px;
     }
 
-    .privacy-legal-notice-container{
+    .privacy-legal-notice-container {
         bottom: 12px;
     }
 
-    .sign-up-link{
+    .sign-up-link {
         padding: 9px 16px 9px 16px;
     }
 
-    .headline-seperator-container h1{
+    .headline-seperator-container h1 {
         font-size: 47px;
     }
 }
 
-@media (max-height: 820px){
+@media (max-height: 820px) {
     @keyframes resizeImg {
         0% {
             transform: translate(-50%, -50%);
             height: 300px;
         }
-    
+
         100% {
             width: 64px;
             height: 78px;
@@ -395,27 +442,27 @@ h1 {
         }
     }
 
-    .log-in-container{
+    .log-in-container {
         padding: 10px 0 10px 0;
     }
 
-    .headline-seperator-container{
+    .headline-seperator-container {
         gap: 10px;
     }
 
-    .input-container input{
+    .input-container input {
         height: 36px;
     }
 
-    .input-container{
+    .input-container {
         gap: 23px;
     }
 
-    .remember-me-container{
+    .remember-me-container {
         height: 10px;
     }
 
-    .log-in-and-guest-button-container{
+    .log-in-and-guest-button-container {
         gap: 15px;
     }
 }
