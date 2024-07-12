@@ -62,6 +62,8 @@ function showUserFeedback(){
     let feedback = document.getElementById('user-feedback');
     let width = window.innerWidth;
     if (width <= 1100){
+        feedback.style.bottom = "28%";
+        feedback.style.left = "calc((100% - 316px) / 2)";
         feedback.style.animation = "climb-up 1000ms";
     feedback.classList.remove("d-none");
     setTimeout(() => {
@@ -70,8 +72,9 @@ function showUserFeedback(){
     setTimeout(() => {
         feedback.classList.add("d-none");
      }, 2900);
-    }
-    
+    } else{
+        userFeedbackSlideIn();
+    };
 }
 
 async function postContacts(path="", data={}){
@@ -108,6 +111,7 @@ async function postContacts(path="", data={}){
     showContactInfo({id: newContact.name, contact: data});
     return newContact;
 }
+
 
 
 async function deleteContacts(contactID){
@@ -326,6 +330,22 @@ function giveAnimations(){
     })
 }
 
+function userFeedbackSlideIn(){
+    let feedback = document.getElementById('user-feedback');
+        feedback.style.animation = "slide-from-right 1000ms";
+        feedback.style.bottom = "3%";
+        feedback.style.left = "650px";
+        feedback.classList.remove("d-none");
+        setTimeout(() => {
+            feedback.style.animation = "slide-to-right 1000ms";
+        }, 2000);
+        setTimeout(() => {
+            feedback.classList.add("d-none");
+        }, 2900);
+    }
+
+
+
 
 function backToList(){
     
@@ -360,6 +380,7 @@ function showContactInfo(eachContact){
     })
     document.getElementById(`contact-list-element-${eachContact.id}`).style.backgroundColor = "#2A3647";
     document.getElementById(`contact-list-element-${eachContact.id}`).style.color = "white";
+    document.getElementById(`contact-list-element-${eachContact.id}`).scrollIntoView();
     showInfo(eachContact); 
 }
 

@@ -73,6 +73,26 @@
     }
   }
 
+  @keyframes slide-from-right {
+    from{
+        transform: translateX(500%);
+    }
+
+    to{
+        transform: translateX(0%);
+    }
+  }
+
+  @keyframes slide-to-right {
+    from{
+        transform: translateX(0%);
+    }
+
+    to{
+        transform: translateX(500%);
+    }
+  }
+
 
 body{
     background-color: rgb(246,247,248);
