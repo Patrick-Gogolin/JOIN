@@ -299,7 +299,7 @@ h1 {
 
     .input-container input{
         width: 100%;
-        background-position: 230px
+        background-position: 97%;
     }
     
 }
@@ -314,10 +314,7 @@ h1 {
 }
 
 @media (max-height:850px) {
-    .sign-up-formular{
-        padding: 9px 16px 9px 16px;
-        gap: 20px;
-    }
+
 
     .headline-seperator-container{
         gap: 10px;
@@ -345,4 +342,39 @@ h1 {
         width: 64px;
         height: 78px;
     }
+
+    .back-to-log-in-container{
+        left: 10%;
+        top: 6.7%;
+    }
 }
+
+@media (max-height:750px) {
+    .sign-up-formular{
+        padding: 9px 16px 9px 16px;
+        gap: 20px;
+    }
+}
+
+@media screen and (max-height:670px) {
+    .sign-up-formular{
+        gap: 13px;
+    }    
+
+    .headline-seperator-container{
+        gap: 5px;
+    }
+
+    .input-container input{
+        height: 30px;
+    }
+
+    .sign-up-button button{
+        padding: 5px 24px 5px 24px;
+    }
+
+    .back-to-log-in-container{
+        left: 7%;
+    }
+} 
+    
