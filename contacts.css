@@ -55,7 +55,7 @@
 
   @keyframes climb-up {
     from{
-        transform: translateY(400%);
+        transform: translateY(500%);
     }
 
     to{
@@ -69,7 +69,7 @@
     }
 
     to{
-        transform: translateY(400%);
+        transform: translateY(500%);
     }
   }
 
@@ -692,7 +692,6 @@ body:has(.back_img_boarder:hover) .back_img_boarder img{
 }
 
 .user-feedback-window{
-    display: none;
     border-radius: 20px;
     color: white;
     position: absolute;
@@ -700,7 +699,7 @@ body:has(.back_img_boarder:hover) .back_img_boarder img{
     background-color: #2A3647;
     font-size: 20px;
     bottom: 28%;
-    left: 8%;
+    left: calc((100% - 316px) / 2);
     animation: climb-up 1000ms;
 }
 
@@ -756,6 +755,7 @@ body:has(.back_img_boarder:hover) .back_img_boarder img{
 }
 
 @media (max-width: 1100px) {
+
     .mobile-header{
         display: flex;
     }

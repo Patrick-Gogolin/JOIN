@@ -62,13 +62,14 @@ function showUserFeedback(){
     let feedback = document.getElementById('user-feedback');
     let width = window.innerWidth;
     if (width <= 1100){
-    feedback.style.display = "block";
+        feedback.style.animation = "climb-up 1000ms";
+    feedback.classList.remove("d-none");
     setTimeout(() => {
        feedback.style.animation = "climb-down 1000ms";
     }, 2000);
     setTimeout(() => {
-        feedback.style.display = "none";
-     }, 3000);
+        feedback.classList.add("d-none");
+     }, 2900);
     }
     
 }
@@ -102,9 +103,9 @@ async function postContacts(path="", data={}){
     email.value = "";
     phone.value = "";
     document.getElementById('add-contact-popup').classList.add('d-none');
-    showContactInfo({id: newContact.name, contact: data});
     checkForMobileMode();
     showUserFeedback();
+    showContactInfo({id: newContact.name, contact: data});
     return newContact;
 }
 
@@ -283,6 +284,7 @@ function getABCSeparatorTemplate(letter){
 
 function checkForMobileMode(){
     showMobileHeader();
+    giveAnimations();
     let width = window.innerWidth;
     let contactList = document.getElementById('contact-list-responsive');
     let contactInfo = document.getElementById('contact-info');
@@ -301,14 +303,39 @@ function checkForMobileMode(){
     };
 }
 
+function giveAnimations(){
+
+    let elements = [
+        document.getElementById('animation-header'),
+        document.getElementById('animation-title'),
+        document.getElementById('animation-email-title'),
+        document.getElementById('animation-email'),
+        document.getElementById('animation-phone-title'),
+        document.getElementById('animation-phone')
+    ];
+    let width = window.innerWidth;
+
+    elements.forEach(element =>{
+        if (element) {
+            if (width <= 800) {
+                element.classList.remove('animation');
+            } else {
+                element.classList.add('animation');
+            }
+        }
+    })
+}
+
+
 function backToList(){
-    checkForMobileMode();
-    if(window.innerWidth<= 750){
+    
+    if(window.innerWidth<= 800){
         isSelected = false;
         document.getElementById('contact-list-responsive').style.display ="block";
         document.getElementById('contact-info').style.display = "none";
         document.getElementById('edit-more-options').style.display = "none";
     };
+    checkForMobileMode();
 }
 
 function showMobileHeader(){
@@ -339,6 +366,7 @@ function showContactInfo(eachContact){
 
 function showInfo(eachContact){
     document.getElementById('contact-info').innerHTML = getEachContactInfo(eachContact);
+    giveAnimations();
 }
 
 
@@ -358,7 +386,7 @@ function getEachContactInfo(eachContact){
                 <span>Better with a team</span>
                 <div class="contact-info-header-separator-mobile"></div>
     </div>
-                <div class="contact-data animation">
+                <div id="animation-header" class="contact-data animation">
                 <div id="contact-data-logo" class="contact-data-logo" style="background:${actualBgColor};">${initials}</div>
                 <div class="contact-data-name"><span>${contactName}</span> 
                         <div class="contact-data-icon">
@@ -367,11 +395,11 @@ function getEachContactInfo(eachContact){
                         </div>
                 </div>
                 </div>
-                <h2 class="animation">Contact Information</h2>
-                <h3 class="animation">Email</h3>
-                <a href="" class="animation">${contactEmail}</a>
-                <h3 class="animation" >Phone</h3>
-                <p class="tel-number animation" >${contactPhone}</p>
+                <h2 id="animation-title" class="animation">Contact Information</h2>
+                <h3 id="animation-email-title" class="animation">Email</h3>
+                <a id="animation-email" href="" class="animation">${contactEmail}</a>
+                <h3 id="animation-phone-title" class="animation" >Phone</h3>
+                <p id="animation-phone" class="tel-number animation" >${contactPhone}</p>
                 </div>
                 <div onclick='openEditOptions(); doNotClose(event)' id="edit-more-options" class="more_img_boarder">
                     <img src="/img/more_vert.png" alt="">
