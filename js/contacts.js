@@ -154,8 +154,9 @@ function editContact(eachContact){
     document.getElementById('editMail').value = eachContact.contact.email;
     document.getElementById('editPhone').value = eachContact.contact.phone;
     document.getElementById(`contact-logo-${eachContact}`).style.backgroundColor = eachContact.contact.color; 
-    document.getElementById('edit-contact-popup-content').classList.remove("animation-close");
     document.getElementById('edit-contact-popup-content').classList.add("animation");
+    document.getElementById('edit-contact-popup-content').classList.remove("animation-close");
+   
 }
 
 
@@ -238,11 +239,13 @@ function closePopup(){
     setTimeout(() => {
         document.getElementById('add-contact-popup').classList.add("d-none");
     }, 300);
+    if (document.getElementById('edit-contact-popup-content') != null){
     document.getElementById('edit-contact-popup-content').classList.remove("animation")
     document.getElementById('edit-contact-popup-content').classList.add("animation-close");
     setTimeout(() => {
         document.getElementById('edit-contact-popup').classList.add("d-none");
     }, 300);   
+    }
 }
 
 
