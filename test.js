@@ -106,7 +106,7 @@ function renderTask() {
     allTasks[i].assignedContactsColors = colors;
     allTasks[i].doneSubtasks = doneSubtasks;
 
-    await updateData(`/tasks/${taskKeys[i]}`, data, i)
+    //await updateData(`/tasks/${taskKeys[i]}`, data, i)
 
 }
 
@@ -188,7 +188,7 @@ function newHeadline() {
                 let initials = getInitialsOfFetchedData(task.assignedContacts);
                 let bgColor = task.category === "User Story" ? 'bg-blue' : 'bg-green';
                 content.innerHTML +=  /*html*/`
-                <div draggable="true" ondragstart="startDragging('${task.id}')" onclick="editTask(${i})" id="task-container${i}" class="task-container">
+                <div onclick="renderEditTaskSlide('${task.id}')" draggable="true" ondragstart="startDragging('${task.id}')" onclick="editTask(${i})" id="${task.id}" class="task-container">
                     <div class="category-container ${bgColor}">
                         <span class="category-span" id="category${i}">${task.category}</span>
                     </div>
@@ -241,7 +241,7 @@ function newHeadline() {
                 let initials = getInitialsOfFetchedData(task.assignedContacts);
                 let bgColor = task.category === "User Story" ? 'bg-blue' : 'bg-green';
                 content.innerHTML +=  /*html*/`
-                <div draggable="true" ondragstart="startDragging('${task.id}')" onclick="editTask(${i})" id="task-container${i}" class="task-container">
+                <div onclick="renderEditTaskSlide('${task.id}')" draggable="true" ondragstart="startDragging('${task.id}')" onclick="editTask(${i})" id="${task.id}" class="task-container">
                     <div class="category-container ${bgColor}">
                         <span class="category-span" id="category${i}">${task.category}</span>
                     </div>
@@ -294,7 +294,7 @@ function newHeadline() {
                 let initials = getInitialsOfFetchedData(task.assignedContacts);
                 let bgColor = task.category === "User Story" ? 'bg-blue' : 'bg-green';
                 content.innerHTML +=  /*html*/`
-                <div draggable="true" ondragstart="startDragging('${task.id}')" onclick="editTask(${i})" id="task-container${i}" class="task-container">
+                <div onclick="renderEditTaskSlide('${task.id}')" draggable="true" ondragstart="startDragging('${task.id}')" onclick="editTask(${i})" id="${task.id}" class="task-container">
                     <div class="category-container ${bgColor}">
                         <span class="category-span" id="category${i}">${task.category}</span>
                     </div>
@@ -347,7 +347,7 @@ function newHeadline() {
                 let initials = getInitialsOfFetchedData(task.assignedContacts);
                 let bgColor = task.category === "User Story" ? 'bg-blue' : 'bg-green';
                 content.innerHTML +=  /*html*/`
-                <div draggable="true" ondragstart="startDragging('${task.id}')" onclick="editTask(${i})" id="task-container${i}" class="task-container">
+                <div onclick="renderEditTaskSlide('${task.id}')" draggable="true" ondragstart="startDragging('${task.id}')" onclick="editTask(${i})" id="${task.id}" class="task-container">
                     <div class="category-container ${bgColor}">
                         <span class="category-span" id="category${i}">${task.category}</span>
                     </div>

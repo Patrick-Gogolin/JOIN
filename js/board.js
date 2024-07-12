@@ -21,7 +21,7 @@ let assignedContactsNames = [];
 let assignedContactsInitials = [];
 let assignedContactsId = [];
 let assignedContactsColors =[];
-let TaskStatus = "feedback";
+let statusOfTask = null;
 
 
 async function getContacts(path = "") {
@@ -47,12 +47,108 @@ async function getContacts(path = "") {
 
 
 
-function openAddTaskOverlayer() {
+function openAddTaskOverlayer(id) {
+   if( id === "todo") {
+    statusOfTask = "todo"
+   }
+   else if(id === "progress") {
+    statusOfTask = "progress"
+   }
+   else if(id === "feedback") {
+    statusOfTask = "feedback"
+   }
+   console.log(statusOfTask);
     document.getElementById('overlayer').classList.remove('d-none');
 }
 
 function closeOverlayer() {
     document.getElementById('overlayer').classList.add('d-none');
+}
+
+function openEditTaskOverlayer() {
+    document.getElementById('edit-task-overlayer').classList.remove('d-none');
+}
+
+function closeEditTaskOverlay() {
+    document.getElementById('edit-task-overlayer').classList.add('d-none');
+}
+
+function renderEditTaskSlide(id) {
+    content = document.getElementById('edit-task-overlayer');
+    let index = taskKeys.indexOf(id);
+    let task = allTasks[index];
+    let imageSrc = renderPriorityImage(task);
+    let initials = getInitialsOfFetchedData(task.assignedContacts);
+    console.log(index);
+    openEditTaskOverlayer();
+    content.innerHTML = /*html*/`
+    <div class="popup-content">
+                    <div class="task-card-header">
+                        <span>${task.category}</span><div onclick="closeEditTaskOverlay()" class="task-card-back-icon-boarder"><img class="task-card-back-icon" src="/img/x.png" alt=""></div>
+                    </div>
+                    <div class="task-card-title">${task.title}</div>
+                    <div class="task-card-description">${task.description}</div>
+                    <div class="task-card-date"><span class="edit-task-subheadline">Due date:</span><div>${task.deadline}</div></div>
+                    <div class="task-card-priority"><span class="edit-task-subheadline">Priority:</span><div class="task-card-priority-icon">${task.priority}<img class="task-card-priority-sign" src=${imageSrc} alt="medium"></div></div>
+                    <div class="task-card-assigned"><span class="edit-task-subheadline">Assigned To:</span>
+                        <div id="assigned-contacts-edit-task-container" class="task-card-assigned-list">
+                        </div>
+                    </div>
+                    <div class="task-card-subtasks"><span class="edit-task-subheadline">Subtasks</span>
+                        <div id="task-card-subtasks-container" class="task-card-subtasks-list">
+                        </div>
+                    </div>
+                    <div class="task-card-footer">
+                        <div class="task-card-delete"><img onclick="deleteTask('/tasks/${taskKeys[index]}')" src="/img/delete.png" alt="">Delete</div>
+                        <div class="task-card-separator"></div>
+                        <div class="task-card-edit"><img src="/img/edit.png" alt="">Edit</div>
+                    </div>
+                </div>`;
+            for (let i = 0; i < task['assignedContacts'].length; i++) {
+                let assignedContactsContent = document.getElementById('assigned-contacts-edit-task-container');
+                let contact= task['assignedContacts'][i];
+                let initial = initials[i];
+                let contactColors = task.assignedContactsColors[i]
+                assignedContactsContent.innerHTML += /*html*/`
+                <div>
+                    <div class="rendered-task-assigned-contact-container" style="background-color:${contactColors}">
+                            <span>${initial}</span>
+                    </div>
+                    <div>
+                        <span>${contact}</span>
+                    </div>
+                </div>`;
+                }
+
+            for (let i = 0; i < task['subtasks'].length; i++) {
+                let subtaskContent = document.getElementById('task-card-subtasks-container');
+                const subtask = task['subtasks'][i];
+                subtaskContent.innerHTML += /*html*/`
+                <div class="single-subtask-in-edit-slide-container">
+                    <div>
+                        <img src="/img/check-button.png">
+                    </div>
+                    <div>
+                        <span>${subtask}</span>
+                    </div>
+                </div>`;
+                
+            }
+
+}
+
+async function deleteTask(path = ""){
+    let response = await fetch(BASE_URL + path + ".json",{
+        method: "DELETE",
+    });
+    console.log("hans");
+  return responseToJson = await response.json();
+
+}
+
+ function deleteAnything(){
+   console.log("Hallo")
+
 }
 
 function addTask() {
@@ -577,7 +673,7 @@ async function postTask(path = "", data={}) {
         assignedContacts: JSON.stringify(assignedContactsNames),
         assignedContactsColors: JSON.stringify(assignedContactsColors),
         category: assignedCategory,
-        status: TaskStatus
+        status: statusOfTask
     };
 
     let response = await fetch(BASE_URL + path + ".json",{

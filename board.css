@@ -769,6 +769,7 @@ h1 {
     display: flex;
     flex-direction: column;
     gap: 24px;
+    cursor: pointer;
 }
 
 .category-container {
@@ -843,6 +844,231 @@ progress {
 .drag-area-highlight {
     background-color: rgba(0, 0, 0, 0.1);
 }
+
+@font-face {
+    font-family: 'Inter';
+    font-weight: 400;
+    src: url('/fonts/inter-v13-latin-regular.woff2') format('woff2'); 
+}
+
+@font-face {
+    font-family: 'Inter';
+    font-weight: 700;
+    src: url('/fonts/inter-v13-latin-700.woff2') format('woff2'); 
+}
+
+body{
+    margin: 0;
+    font-family: 'Inter';
+}
+
+.popup-background{
+    background-color: rgba(0, 0, 0, 0.4);
+    z-index: 999;
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.popup-content{
+    background-color: white;
+    max-width: 525px;
+    width: 36.5%;
+    max-height: 1024px;
+    border-radius: 30px;
+    padding: 48px 40px 48px 40px;
+    gap: 24px;
+    display: flex;
+    flex-direction: column;
+    font-size: 20px;
+}
+
+.edit-task-subheadline {
+    font-family: inter;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 24px;
+    color: #42526E;
+}
+
+.task-card-header{
+    display: flex;
+    justify-content: space-between;
+}
+
+.task-card-header span{
+    font-size: 23px;
+    font-weight: 400;
+    color: white;
+    background-color: #0038FF;
+    padding: 4px 24px 4px 24px;
+    border-radius: 8px;
+}
+
+.task-card-back-icon-boarder{
+    width: 32px;
+    height: 32px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    border-radius: 56px;
+}
+
+.task-card-back-icon-boarder:hover{
+    background-color: rgb(238,238,238);
+}
+
+
+.task-card-back-icon{
+    width: 24px;
+    height: 24px;
+}
+.task-card-title{
+    font-size: 61px;
+    font-weight: 700;
+}
+
+.task-card-date{
+    display: flex;
+    gap: 25px;
+}
+
+.task-card-priority{
+    display: flex;
+    gap: 25px;
+    align-items: baseline;
+}
+
+.task-card-priority-icon{
+    display: flex;
+    padding: 4px 18px 4px 18px;
+    border-radius: 10px;
+    gap: 10px;
+}
+
+.task-card-assigned{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    max-height: 200px;
+    overflow: auto;
+}
+
+.task-card-assigned-list div{
+    border-radius: 25px;
+    padding: 7px 16px 7px 16px;
+    display: flex;
+    align-items: center;
+    margin-bottom: 4px;
+}
+
+.task-card-subtasks{
+    max-height: 150px;
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.task-card-subtasks-list{
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    
+}
+
+.task-card-subtasks-list-element{
+    display: flex;
+    padding: 6px 16px 6px 16px;
+    gap: 16px;
+    border-radius: 10px;
+    cursor: pointer;
+    width: fit-content;
+}
+
+.task-card-subtasks-list-element:hover{
+    background: rgb(238,238,238);
+}
+
+.task-card-subtasks-list-element img{
+    width: 24px;
+    height: 24px;
+}
+
+.single-subtask-in-edit-slide-container {
+    display: flex;
+    padding: 6px 16px 6px 16px;
+    gap: 16px;
+    border-radius: 10px;
+    cursor: pointer;
+    width: fit-content;
+}
+
+.task-card-footer{
+    display: flex;
+    gap: 8px;
+    justify-content: flex-end;
+}
+
+.task-card-edit img,
+.task-card-delete img{
+    width: 24px;
+    height: 24px;
+}
+
+.task-card-edit,
+.task-card-delete{
+    display: flex;
+    gap: 8px;
+    width: fit-content;
+    cursor: pointer;
+}
+
+.task-card-edit:hover,
+.task-card-delete:hover{
+color: #29ABE2;
+}
+
+.task-card-separator{
+    height: 24px;
+    width: 1px;
+    background: #D1D1D1;
+}
+
+@media (max-width: 1200px){
+    .task-card-title{
+        font-size: 48px;
+    }
+}
+
+@media (max-width: 850px){
+    .popup-content{
+        width: 95%;
+    }
+}
+
+@media (max-width:550px){
+    .popup-content{
+        margin-left: 4%;
+        margin-right: 4%;
+    }
+}
+
+@media (max-width: 460px){
+    .popup-content{
+        font-size: 16px;
+    }
+    .task-card-title{
+        font-size: 31px;
+    }
+}
+
 
 @media screen and (min-width: 2500px) {
     .content {
