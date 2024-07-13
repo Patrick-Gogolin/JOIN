@@ -93,23 +93,6 @@ function renderTask() {
     }
 }
 
- async function editTask(i) {
-    let title = document.getElementById(`title${i}`);
-    title.innerHTML = "Contact Form & Imprint";
-    allTasks[i].title ="Contact Form & Imprint";
-    let subtasks = JSON.stringify(allTasks[i].subtasks);
-    let doneSubtasks = JSON.stringify(allTasks[i].doneSubtasks);
-    let contacts = JSON.stringify(allTasks[i].assignedContacts);
-    let colors = JSON.stringify(allTasks[i].assignedContactsColors);
-    allTasks[i].subtasks = subtasks;
-    allTasks[i].assignedContacts = contacts;
-    allTasks[i].assignedContactsColors = colors;
-    allTasks[i].doneSubtasks = doneSubtasks;
-
-    //await updateData(`/tasks/${taskKeys[i]}`, data, i)
-
-}
-
 function getInitialsOfFetchedData(namesArray) {
     return namesArray.map(name => {
         let nameParts = name.split(" ");

@@ -4,7 +4,7 @@ let assignCategoryContainer = false;
 let editMenuSubtaskIsOpen = false;
 let assignedCategory = "";
 let subtasks = [];
-let doneSubtasks = [];
+let doneSubtasks = ["Task 1 done"];
 let urgentActive = false;
 let mediumActive = false;
 let lowActive = false;
@@ -99,9 +99,16 @@ function renderEditTaskSlide(id) {
                         </div>
                     </div>
                     <div class="task-card-footer">
-                        <div class="task-card-delete"><img onclick="deleteTask('/tasks/${taskKeys[index]}')" src="/img/delete.png" alt="">Delete</div>
+                        <div onmouseover="changeAddSignToBlue('delete-task-grey', 'delete-task-blue')" onmouseout="changeAddSingToDefault('delete-task-grey', 'delete-task-blue')" onclick="deleteTaskFromDatabase('/tasks/${taskKeys[index]}')" class="task-card-delete">
+                            <img id="delete-task-grey" src="/img/delete.svg" alt="Trashbin">
+                            <img id="delete-task-blue" class="d-none" src="/img/delete-blue.svg" alt="Trashbin">
+                            <span>Delete</span>
+                        </div>
                         <div class="task-card-separator"></div>
-                        <div class="task-card-edit"><img src="/img/edit.png" alt="">Edit</div>
+                        <div onmouseover="changeAddSignToBlue('edit-task-grey', 'edit-task-blue')" onmouseout="changeAddSingToDefault('edit-task-grey', 'edit-task-blue')" class="task-card-edit">
+                            <img id="edit-task-grey" src="/img/edit.svg" alt="Pencil">
+                            <img id="edit-task-blue" class="d-none" src="/img/edit-blue.svg" alt="Pencil">
+                            <span>Edit</span>
                     </div>
                 </div>`;
             for (let i = 0; i < task['assignedContacts'].length; i++) {
@@ -123,31 +130,40 @@ function renderEditTaskSlide(id) {
             for (let i = 0; i < task['subtasks'].length; i++) {
                 let subtaskContent = document.getElementById('task-card-subtasks-container');
                 const subtask = task['subtasks'][i];
-                subtaskContent.innerHTML += /*html*/`
-                <div class="single-subtask-in-edit-slide-container">
-                    <div>
-                        <img src="/img/check-button.png">
-                    </div>
-                    <div>
-                        <span>${subtask}</span>
-                    </div>
-                </div>`;
+                let index = doneSubtasks.indexOf(subtask);
+                console.log(index);
+                if (index !== -1) {
+                    subtaskContent.innerHTML += /*html*/`
+                    <div class="single-subtask-in-edit-slide-container">
+                        <div>
+                            <img src="/img/filled-check-box.svg">
+                        </div>
+                        <div>
+                            <span>${subtask}</span>
+                        </div>
+                    </div>`; 
+                }
+                else {
+                    subtaskContent.innerHTML += /*html*/`
+                    <div class="single-subtask-in-edit-slide-container">
+                        <div>
+                            <img src="/img/empty-check-box.svg">
+                        </div>
+                        <div>
+                            <span>${subtask}</span>
+                        </div>
+                    </div>`; 
+                }
                 
             }
 
 }
 
-async function deleteTask(path = ""){
+async function deleteTaskFromDatabase(path = ""){
     let response = await fetch(BASE_URL + path + ".json",{
         method: "DELETE",
     });
-    console.log("hans");
   return responseToJson = await response.json();
-
-}
-
- function deleteAnything(){
-   console.log("Hallo")
 
 }
 
