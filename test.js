@@ -158,7 +158,7 @@ function newHeadline() {
     if(toDo.length === 0) {
         let content = document.getElementById('todo');
         content.innerHTML = /*html*/`
-         <div class="create-task-container">
+         <div class="nothing-to-do-nothing-done-container">
                         <span>No tasks To do</span>
                     </div>`;
         }
@@ -321,6 +321,14 @@ function newHeadline() {
             let done = allTasks.filter(t => t['status'] == 'done');
 
     document.getElementById('done').innerHTML = '';
+
+    if(done.length === 0) {
+        let content = document.getElementById('done');
+        content.innerHTML = /*html*/`
+         <div class="nothing-to-do-nothing-done-container">
+                        <span>No tasks Done</span>
+                    </div>`;
+        }
 
     for (let i = 0; i < done.length; i++) {
         let content = document.getElementById('done');

@@ -172,8 +172,11 @@ async function deleteTaskFromDatabase(path = ""){
 }
 
 async function addTask() {
+    let subtaskContent = document.getElementById('added-subtask-main-container');
     let title = document.getElementById('title');
+    let description = document.getElementById('description-of-task');
     let date = document.getElementById('date');
+    let contactsContent = document.getElementById('show-assigned-contacts');
     let category = document.getElementById('selected-task-headline');
     let selectContactsContainer = document.getElementById('select-contacts-container');
     let titleRequiredSpan = document.getElementById('title-required-span');
@@ -198,10 +201,28 @@ async function addTask() {
         await postTask('/tasks/')
         document.getElementById('task-successfull-created-container').classList.remove('d-none');
         setTimeout(async function() {
-            closeOverlayer()
+            closeOverlayer();
+            document.getElementById('task-successfull-created-container').classList.add('d-none');
+            resetAddTaskSlide(title, description, date, category, contactsContent, subtaskContent )
             await getTasks('/tasks');
         }, 900);
         }
+}
+
+function resetAddTaskSlide(title, description, date, category, contacts, subtasksContent) {
+    resetButtons();
+    title.value = "";
+    description.value = "";
+    date.value = "";
+    category.innerHTML = "Select task category";
+    contacts.innerHTML = "";
+    subtasksContent.innerHTML = "";
+    assignedCategory = "";
+    assignedContactsNames.length = 0;
+    assignedContactsInitials.length = 0;
+    assignedContactsId.length = 0;
+    assignedContactsColors.length = 0;
+    subtasks.length = 0;
 }
 
 function checkField(field, requiredSpan) {
@@ -230,7 +251,7 @@ function urgentPriority() {
         let urgentPrioSign = document.getElementById('urgent-prio-sign');
         urgentButton.classList.remove('urgent');
         urgentPrioSign.src = 'img/urgent-prio.svg';
-        priority.length = 0;
+        priority = "";
         console.log(priority);
         urgentActive = false;
     }
@@ -252,7 +273,7 @@ function mediumPriority() {
         let mediumPrioSign = document.getElementById('medium-prio-sign');
         mediumButton.classList.remove('medium');
         mediumPrioSign.src = 'img/medium-prio-orange.svg';
-        priority.length = 0;
+        priority = "";
         console.log(priority);
         mediumActive = false;
     }
@@ -274,7 +295,7 @@ function lowPriority() {
         let lowPrioSign = document.getElementById('low-prio-sign');
         lowButton.classList.remove('low');
         lowPrioSign.src = 'img/low-prio.svg';
-        priority.length = 0;
+        priority = "";
         console.log(priority);
         lowActive = false;
     }
