@@ -4,7 +4,7 @@ let assignCategoryContainer = false;
 let editMenuSubtaskIsOpen = false;
 let assignedCategory = "";
 let subtasks = [];
-let doneSubtasks = ["Task 1 done"];
+let doneSubtasks = [];
 let urgentActive = false;
 let mediumActive = false;
 let lowActive = false;
@@ -163,40 +163,54 @@ async function deleteTaskFromDatabase(path = ""){
     let response = await fetch(BASE_URL + path + ".json",{
         method: "DELETE",
     });
+    setTimeout(async function() {
+        closeEditTaskOverlay()
+        await getTasks('/tasks');
+    }, 300);
   return responseToJson = await response.json();
 
 }
 
-function addTask() {
+async function addTask() {
     let title = document.getElementById('title');
     let date = document.getElementById('date');
-    let category = document.getElementById('category');
+    let category = document.getElementById('selected-task-headline');
+    let selectContactsContainer = document.getElementById('select-contacts-container');
     let titleRequiredSpan = document.getElementById('title-required-span');
     let dateRequiredSpan = document.getElementById('date-required-span');
     let categoryRequiredSpan = document.getElementById('category-required-span');
+    
+    checkField(title, titleRequiredSpan)
+    
+    checkField(date, dateRequiredSpan)
 
-    let hasError = false;
+    if (category.innerHTML === "Select task category") {
+        selectContactsContainer.classList.add('this-field-required-border');
+        categoryRequiredSpan.classList.remove('d-none');
+    }
 
-    if (checkField(title, titleRequiredSpan)) {
-        hasError = true;
+    else {
+        selectContactsContainer.classList.remove('this-field-required-border');
+        categoryRequiredSpan.classList.add('d-none');
     }
-    if (checkField(date, dateRequiredSpan)) {
-        hasError = true;
-    }
-    if (checkField(category, categoryRequiredSpan)) {
-        hasError = true;
-    }
+
+    if (title.value !== "" && date.value !== "" && category.innerHTML !== "Select task category") {
+        await postTask('/tasks/')
+        document.getElementById('task-successfull-created-container').classList.remove('d-none');
+        setTimeout(async function() {
+            closeOverlayer()
+            await getTasks('/tasks');
+        }, 900);
+        }
 }
 
 function checkField(field, requiredSpan) {
     if (field.value === '') {
         field.classList.add('this-field-required-border');
         requiredSpan.classList.remove('d-none');
-        return true;
     } else {
         requiredSpan.classList.add('d-none');
         field.classList.remove('this-field-required-border')
-        return false;
     }
 }
 

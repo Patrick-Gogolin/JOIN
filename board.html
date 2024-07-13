@@ -21,7 +21,7 @@
 <body onload="getContacts('/contacts'); getTasks('/tasks');">
     <div w3-include-html="templates/header.html"></div>
     <div w3-include-html="templates/sidebar.html"></div>
-    <div class="content-center">
+    <section class="content-center">
         <div id="overlayer" class="overlayer d-none">
             <div class="add-task-slide">
                 <div onclick="closeOverlayer()" class="close-button-container">
@@ -45,7 +45,7 @@
                         </div>
                         <div class="assigned-to-input-container">
                             <span class="headline-input">Assigned to</span>
-                            <div class="select-contacts-container" id="">
+                            <div class="select-contacts-container">
                                 <input onkeyup="searchContacts()" id="search-contact-inputfield" type="text"
                                     placeholder="Select contacts to assign">
                                 <img onclick="openSelectContactsContainer()" src="img/arrow-drop-down-contacts.svg"
@@ -81,11 +81,13 @@
                         </div>
                         <div class="assigned-to-input-container">
                             <span class="headline-input">Category<span class="red-star-required">*</span></span>
-                            <div class="select-contacts-container">
+                            <div class="select-contacts-container" id="select-contacts-container">
                                 <span id="selected-task-headline">Select task category</span>
                                 <img onclick="openSelectCategoryContainer()" src="img/arrow-drop-down-contacts.svg"
                                     alt="">
                             </div>
+                            <span id="category-required-span" class="this-field-required-span d-none">This field is
+                                required</span>
                             <div id="choose-category-container" class="choose-category-container d-none">
                                 <div onclick="selectCategory('select-category-technical-task-span', 'selected-task-headline')" class="category-to-select-container" id="select-category-technical-task">
                                     <span id="select-category-technical-task-span">Technical Task</span>
@@ -125,10 +127,14 @@
                 </div>
                 <div class="clear-and-create-task-button-container">
                     <button onclick="closeOverlayer()" id="cancel-button" class="cancel-button">Cancel</button>
-                    <button id="post-task-button" onclick="postTask('/tasks/')" class="check-button">Create Task <img src="img/check.svg"
+                    <button id="post-task-button" onclick="addTask()" class="check-button">Create Task <img src="img/check.svg"
                             alt=""></button>
 
                 </div>
+            </div>
+            <div id="task-successfull-created-container" class="task-successfull-created-container d-none">
+                <p>Task added to board</p>
+                <img src="img/added-task.svg" alt="">
             </div>
 
         </div>
@@ -183,7 +189,7 @@
             </div>
 
         </section>
-    </div>
+    </section>
 </body>
 
 </html>

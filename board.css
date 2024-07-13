@@ -27,6 +27,26 @@ select {
     align-items: center;
 }
 
+.task-successfull-created-container {
+    z-index: 999;
+    width: 326px;
+    height: 74px;
+    border-radius: 20px;
+    background-color: #2A3647;
+    position: absolute;
+    transform: translate(-50%, 50%);
+    top: 50%;
+    left: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    color: white;
+    font-family: inter;
+    font-size: 20px;
+
+}
+
 .d-none {
     display: none !important;
 }
@@ -712,10 +732,22 @@ h1 {
     width: 252px;
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 18px;
     min-height: 100vh;
     background-color: #F6F7F8;
     border-radius: 24px;
+}
+
+.description-container {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: normal;
+    font-family: inter;
+    font-size: 16px;
+    color: #A8A8A8;
 }
 
 .create-task-container{
@@ -770,6 +802,14 @@ h1 {
     flex-direction: column;
     gap: 24px;
     cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: .3s ease-in-out;
+}
+
+.task-container:hover {
+    cursor: pointer;
+	transform: scale(1.05);
+
 }
 
 .category-container {
@@ -965,7 +1005,6 @@ body{
     padding: 7px 16px 7px 16px;
     display: flex;
     align-items: center;
-    margin-bottom: 4px;
 }
 
 .task-card-subtasks{

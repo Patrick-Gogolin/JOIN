@@ -13,6 +13,7 @@ let currentDraggedElement;
 
 
 async function getTasks(path = "") {
+    allTasks.length = 0;
     let response = await fetch(BASE_URL + path + ".json");
     let responseToJson = await response.json();;
     let keys = Object.keys(responseToJson); // erstellt ein Array, das alle Schlüssel eines Objekts enthält
