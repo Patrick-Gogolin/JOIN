@@ -51,9 +51,9 @@ function openAddTaskOverlayer(id) {
     else if(id === "feedback") {
      statusOfTask = "feedback"
     }
-    console.log(statusOfTask);
-     document.getElementById('overlayer').classList.remove('d-none');
-     document.body.style.overflow = 'hidden';
+
+    document.getElementById('overlayer').classList.remove('d-none');
+    document.body.style.overflow = 'hidden';
  }
 
  function closeOverlayer() {
@@ -348,7 +348,6 @@ function selectCategory (id, i) {
     console.log(assignedCategory);
 }
 
-// Problem: Was bei Guest Reundern (IfAbfrage?) Initials vom Active User generieren lassen und abbilden//
 function renderContacts() {
     let activeUserContainer = document.getElementById('active-user-container');
     let container = document.getElementById('select-contact-container');
@@ -420,10 +419,7 @@ function renderContacts() {
         </div>
     </div>`;
     }
- 
-
 }
-
 }
 
 function assignTaskToLoggedInUser(i) {
@@ -504,7 +500,6 @@ function renderAssignedContacts() {
         <div class="contact-name-initials-container" style="background-color: ${color}">
             <span class="user-initials-span">${initials}</span>
         </div>`;
-        
     }
 }
 
@@ -517,11 +512,8 @@ function getInitialsAssignedContactsId() {
             assignedContactsInitials.push(initial);
         }
     });
-    console.log(assignedContactsInitials);
 }
 
-
-// Hier weiter
 function searchContacts() {
     let search = document.getElementById('search-contact-inputfield').value.toLowerCase().trim();
     let content = document.getElementById('choose-contacts-container');
@@ -551,8 +543,6 @@ function searchContacts() {
     }
 }
 
-
-
 function getInitials() {
     let initials = userNames.map(name => {
         let nameParts = name.split(/[\s-]+/); // Split by space or hyphen
@@ -560,23 +550,17 @@ function getInitials() {
         userNamesInitials.push(initial);
         return initial;
     });
-    console.log(userNamesInitials);
 }
 
 function sortAlphabetically() {
-    // Erstelle ein Array von Objekten mit Namen und Initialen
     let combinedArray = userNames.map((name, index) => {
         return { name: name, initial: userNamesInitials[index], color: colors[index] };
     });
 
-    // Sortiere das kombinierte Array nach den Namen
-     let sortedCombinedArray = combinedArray.sort((a, b) => a.name.localeCompare(b.name));
-
-    // Extrahiere die sortierten Namen und Initialen in separate Arrays
+    let sortedCombinedArray = combinedArray.sort((a, b) => a.name.localeCompare(b.name));
     userNames = sortedCombinedArray.map(item => item.name);
     userNamesInitials = sortedCombinedArray.map(item => item.initial);
     colors = sortedCombinedArray.map(item => item.color);
-
 }
 
 function loadAndGetNameOfActiveUser() {
@@ -591,10 +575,10 @@ function loadAndGetNameOfActiveUser() {
         activeUserInitials = initials;
         console.log(activeUserInitials);
 
-        return user; // User zurückgeben
+        return user;
     } else {
         console.log("user not found");
-        return null; // Null zurückgeben, wenn kein Benutzer gefunden wird
+        return null;
     }
 }
 
@@ -624,7 +608,5 @@ async function postTask(path = "", data={}) {
         },
         body: JSON.stringify(data)
     });
-    console.log(response);
     return responseToJson = await response.json();
-
 }
