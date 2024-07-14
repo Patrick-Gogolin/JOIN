@@ -699,13 +699,13 @@ h1 {
 }
 
 .state-of-task-container {
-    width: 25%;
     display: flex;
     justify-content: space-between;
     font-family: inter;
     font-weight: 700;
     font-size: 20px;
     color: #42526E;
+    margin-bottom: 20px;
 
 }
 
