@@ -7,8 +7,8 @@ function initializePage() {
     initLoginUserName(); // Initialisiert und zeigt den Benutzernamen für die Login-Anzeige an
     updateGreetingText(); // Aktualisiert die Begrüßung (Guten Morgen/Tag/Abend)
     initUserName(); // Initialisiert den Benutzernamen und zeigt ihn an
-    updateDate(); // Aktualisiert das Datum
     updateTaskCounts(); // Aktualisiert die Task-Zähler
+    updateNextUrgentDeadline();
 }
 
 // Funktion zum Laden des Benutzernamens aus dem localStorage
@@ -212,19 +212,37 @@ async function updateTaskCounts() {
     }
 }
 
-// Funktion, um das aktuelle Datum im gewünschten Format zu formatieren
-function getCurrentDateFormatted() {
-    const options = { year: 'numeric', month: 'long', day: 'numeric' };
-    const currentDate = new Date().toLocaleDateString('en-US', options);
-    return currentDate;
-}
+async function updateNextUrgentDeadline() {
+    try {
+        const data = await fetchData();
+        if (!data) return;
 
-// Funktion, um das Datum im HTML zu aktualisieren
-function updateDate() {
-    const dateElement = document.getElementById('date');
-    if (dateElement) {
-        dateElement.textContent = getCurrentDateFormatted();
-    } else {
-        console.error('Element with id "date" not found.');
+        let nextDeadline = null;
+
+        // Durchsuche die Daten, um die nächste Deadline mit Priorität "Urgent" zu finden
+        for (const key in data) {
+            const task = data[key];
+            if (task.priority === 'Urgent') {
+                if (!nextDeadline || new Date(task.deadline) < new Date(nextDeadline.deadline)) {
+                    nextDeadline = task;
+                }
+            }
+        }
+
+        // Anzeige der nächsten Deadline im HTML
+        const dateElement = document.getElementById('date');
+        if (dateElement) {
+            if (nextDeadline) {
+                const formattedDate = new Date(nextDeadline.deadline).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+                dateElement.textContent = formattedDate;
+            } else {
+                dateElement.textContent = "Keine nächste Deadline gefunden.";
+            }
+        } else {
+            console.error('Element with id "date" not found.');
+        }
+
+    } catch (error) {
+        console.error('Error updating next urgent deadline:', error);
     }
 }
