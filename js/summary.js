@@ -1,13 +1,13 @@
 // Diese Funktion wird aufgerufen, um die Begrüßung und den Benutzernamen zu aktualisieren
-function init() {
+function initializePage() {
     hideContentForTwoSeconds(); // Versteckt den gesamten Inhalt für 2 Sekunden
     checkScreenWidthAndShowGreeting(); // Überprüft die Bildschirmbreite und zeigt die Begrüßung an
-    updateLoginGreetingText()
-    initLoginUserName()
+    updateLoginGreetingText(); // Aktualisiert den Grußtext für die Login-Anzeige
+    initLoginUserName(); // Initialisiert und zeigt den Benutzernamen für die Login-Anzeige an
     updateGreetingText(); // Aktualisiert die Begrüßung (Guten Morgen/Tag/Abend)
     initUserName(); // Initialisiert den Benutzernamen und zeigt ihn an
-    updateDate();
-    updateTaskCounts();
+    updateDate(); // Aktualisiert das Datum
+    updateTaskCounts(); // Aktualisiert die Task-Zähler
 }
 
 // Funktion zum Laden des Benutzernamens aus dem localStorage

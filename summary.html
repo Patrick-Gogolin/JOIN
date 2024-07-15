@@ -18,7 +18,7 @@
     <script src="templates/sidebar.js"></script>
 </head>
 
-<body onload="init()">
+<body onload="initializePage();">
     <div id="header" w3-include-html="templates/header.html"></div>
     <div id="mobile-header" w3-include-html="templates/mobile-header.html"></div>
     <div id="sidebar" w3-include-html="templates/sidebar.html"></div>
@@ -58,7 +58,7 @@
                                 </svg>
                             </div>
                             <div class="todo-txt-container">
-                                <span class="how-much-todos" id="todoCount">1</span>
+                                <span class="how-much-todos" id="todoCount"></span>
                                 <span class="todo-txt">To-do</span>
                             </div>
                         </a>
@@ -71,7 +71,7 @@
                                 </svg>
                             </div>
                             <div class="done-txt-container">
-                                <span class="how-much-done" id="doneCount">1</span>
+                                <span class="how-much-done" id="doneCount"></span>
                                 <span class="done-txt">Done</span>
                             </div>
                         </a>
@@ -83,7 +83,7 @@
                                 <img src="./img/urgency-arrow.png">
                             </div>
                             <div class="urgency-txt-container">
-                                <span class="urgency-quantity" id="urgencyCount">1</span>
+                                <span class="urgency-quantity" id="urgencyCount"></span>
                                 <span class="urgency-txt">Urgent</span>
                             </div>
                         </div>
@@ -91,28 +91,28 @@
                         </div>
                         <div class="date">
                             <div class="deadline-container">
-                                <span class="date" id="date">October 16, 2024</span>
+                                <span class="date" id="date"></span>
                                 <span class="deadline">Upcoming Deadline</span>
                             </div>
                         </div>
                     </a>
                     <div class="tasks">
                         <a href="./board.html" class="task-button-left">
-                            <span class="task-numbers" id="task-in-board">5</span>
+                            <span class="task-numbers" id="task-in-board"></span>
                             <div class="task-status">
                                 <span>Tasks In</span>
                                 <span>Board</span>
                             </div>
                         </a>
                         <a href="./board.html" class="task-button-middle">
-                            <span class="task-numbers" id="task-in-progress">2</span>
+                            <span class="task-numbers" id="task-in-progress"></span>
                             <div class="task-status">
                                 <span>Tasks In</span>
                                 <span>Progress</span>
                             </div>
                         </a>
                         <a href="./board.html" class="task-button-right">
-                            <span class="task-numbers" id="awaiting-feedback">2</span>
+                            <span class="task-numbers" id="awaiting-feedback"></span>
                             <div class="task-status">
                                 <span>Awaiting</span>
                                 <span>Feedback</span>
