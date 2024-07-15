@@ -77,6 +77,9 @@ select {
     bottom: 0;
     }
 }
+.headline-container {
+    padding: 64px 0 32px 74px;
+}
 
 .headline-container h1 {
     font-family: inter;
@@ -90,6 +93,7 @@ select {
     right: 32px;
     width: 32px;
     height: 32px;
+    cursor: pointer;
 }
 
 .input-for-task {

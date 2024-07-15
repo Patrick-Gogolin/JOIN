@@ -25,6 +25,7 @@ body {
     gap: 16px;
     border-radius: 16px;
     transition: background-color 0.3s;
+    cursor: pointer;
     /* background-color: #091931; muss später noch mit JS optimiert werden */
 }
 
