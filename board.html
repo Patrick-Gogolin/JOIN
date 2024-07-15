@@ -10,6 +10,8 @@
     <link rel="stylesheet" href="./templates/header.css">
     <link rel="stylesheet" href="templates/sidebar.css">
     <link rel="stylesheet" href="../fonts.css">
+    <link rel="stylesheet" href="templates/mobile-header.css">
+    <link rel="stylesheet" href="templates/mobile-sidebar.css">
     <script src="templates/include.js"></script>
     <script src="js/board.js"></script>
     <script src="js/add-task-template.js"></script>
@@ -22,6 +24,8 @@
 <body onload="getContacts('/contacts'); getTasks('/tasks');">
     <div w3-include-html="templates/header.html"></div>
     <div w3-include-html="templates/sidebar.html"></div>
+    <div w3-include-html="templates/mobile-header.html"></div>
+    <div w3-include-html="templates/mobile-sidebar.html"></div>
     <section class="content-center">
         <div id="overlayer" class="overlayer d-none">
             <div class="add-task-slide">
@@ -143,16 +147,17 @@
         </section>
         <section class="content">
             <div class="header-board-container">
-                <div class="headline-container">
+                <div id="headline-container" class="headline-container">
                     <h1>Board</h1>
                 </div>
                 <div class="search-and-add-task-container">
-                    <input type="text" name="" id="" placeholder="Find Task">
+                    <input class="search-input" type="text" name="" id="" placeholder="Find Task">
                     <button onclick="openAddTaskOverlayer('todo')">Add task +</button>
                 </div>
             </div>
+            
             <div class="rendered-tasks-container">
-                <div>
+                <div class="task-column">
                     <div class="state-of-task-container">
                         <span>To Do</span>
                         <img class="add-task-todo-img" id="add-task-todo-grey" onmouseover="changeAddSignToBlue('add-task-todo-grey', 'add-task-todo-blue')" src="img/plus-button.svg" alt="">
@@ -166,9 +171,9 @@
                         </div>
                     </div>
                 </div>
-                <div>
+                <div class="task-column">
                     <div class="state-of-task-container">
-                        <span>in progress</span>
+                        <span>In progress</span>
                         <img class="add-task-todo-img" id="add-task-progress-grey" onmouseover="changeAddSignToBlue('add-task-progress-grey', 'add-task-progress-blue')" src="img/plus-button.svg" alt="">
                         <img class="add-task-todo-img d-none" id="add-task-progress-blue" onclick="openAddTaskOverlayer('progress')" onmouseout="changeAddSingToDefault('add-task-progress-grey', 'add-task-progress-blue')" src="img/plus-button-blue.svg" alt="">
                     </div>
@@ -176,7 +181,7 @@
                     ondragleave="removeHighlight('progress')" ondragover="allowDrop(event); highlight('progress')">
                     </div>
                 </div>
-                <div>
+                <div class="task-column">
                     <div class="state-of-task-container">
                         <span>Await feedback</span>
                         <img class="add-task-todo-img" id="add-task-feedback-grey" onmouseover="changeAddSignToBlue('add-task-feedback-grey', 'add-task-feedback-blue' )" src="img/plus-button.svg" alt="">
@@ -186,7 +191,7 @@
                             ondragleave="removeHighlight('feedback')" ondragover="allowDrop(event); highlight('feedback')">
                     </div>
                 </div>
-                <div>
+                <div class="task-column">
                     <div class="state-of-task-container">
                         <span>Done</span>
                     </div>

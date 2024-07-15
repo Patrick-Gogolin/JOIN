@@ -655,7 +655,7 @@ h1 {
     align-items: center;
 }
 
-.search-and-add-task-container input {
+.search-input {
    background: url(img/searchfiedlpicture.svg);
    background-repeat: no-repeat;
    background-position: 250px;
@@ -1080,6 +1080,7 @@ color: #29ABE2;
     background: #D1D1D1;
 }
 
+
 @media (max-width: 1200px){
     .task-card-title{
         font-size: 48px;
@@ -1114,3 +1115,67 @@ color: #29ABE2;
         margin-left: 0px;
     }
 }
+
+
+@media screen and (max-width: 1485px) {
+    .rendered-tasks-container{
+        flex-direction: column;
+    }
+
+    .rendered-tasks-area-to-do, .rendered-tasks-area-in-progress, .rendered-tasks-area-await-feedback, .rendered-tasks-area-done {
+        flex-direction: row;
+        min-height: unset;
+        overflow-x: scroll;
+        width: 100%;
+        min-width: 252px;
+        scrollbar-width: none;
+    }
+
+    .task-column{
+        display: inline-flex; /* Prevent line break */
+        flex-direction: column;
+    }
+
+    .state-of-task-container {
+        width: 100%;
+    }
+
+    .task-container{
+        width: min-content;
+        margin-top: 6px;
+    }
+
+    .content{
+        width: calc(78.33% - 32px);
+    }
+
+}
+
+@media screen and (max-width: 1240px) {
+
+    .header-shadow{
+        display: none;
+    }
+
+    header{
+        display: none;
+    }
+
+    .sidebar-container{
+        display: none !important;
+    }
+
+    .mobile-header{
+        display: flex !important;
+    }
+
+    .mobile-sidebar-container{
+        display: flex !important;
+    }
+
+    .content{
+        margin-left: 0;
+    }
+
+}
+
