@@ -90,10 +90,12 @@
                             <span id="category-required-span" class="this-field-required-span d-none">This field is
                                 required</span>
                             <div id="choose-category-container" class="choose-category-container d-none">
-                                <div onclick="selectCategory('select-category-technical-task-span', 'selected-task-headline')" class="category-to-select-container" id="select-category-technical-task">
+                                <div onclick="selectCategory('select-category-technical-task-span', 'selected-task-headline')"
+                                    class="category-to-select-container" id="select-category-technical-task">
                                     <span id="select-category-technical-task-span">Technical Task</span>
                                 </div>
-                                <div onclick="selectCategory('select-category-user-story-span', 'selected-task-headline')" class="category-to-select-container" id="select-category-user-story">
+                                <div onclick="selectCategory('select-category-user-story-span', 'selected-task-headline')"
+                                    class="category-to-select-container" id="select-category-user-story">
                                     <span id="select-category-user-story-span">User Story</span>
                                 </div>
                             </div>
@@ -128,8 +130,8 @@
                 </div>
                 <div class="clear-and-create-task-button-container">
                     <button onclick="closeOverlayer()" id="cancel-button" class="cancel-button">Cancel</button>
-                    <button id="post-task-button" onclick="addTask()" class="check-button">Create Task <img src="img/check.svg"
-                            alt=""></button>
+                    <button id="post-task-button" onclick="addTask()" class="check-button">Create Task <img
+                            src="img/check.svg" alt=""></button>
 
                 </div>
             </div>
@@ -147,7 +149,7 @@
                     <h1>Board</h1>
                 </div>
                 <div class="search-and-add-task-container">
-                    <input type="text" name="" id="" placeholder="Find Task">
+                    <input type="text" name="" id="filterInput" placeholder="Find Task" onkeyup="filterTasks()">
                     <button onclick="openAddTaskOverlayer('todo')">Add task +</button>
                 </div>
             </div>
@@ -155,9 +157,14 @@
                 <div>
                     <div class="state-of-task-container">
                         <span>To Do</span>
-                        <img class="add-task-todo-img" id="add-task-todo-grey" onmouseover="changeAddSignToBlue('add-task-todo-grey', 'add-task-todo-blue')" src="img/plus-button.svg" alt="">
-                        <img class="add-task-todo-img d-none" id="add-task-todo-blue" onclick="openAddTaskOverlayer('todo')" onmouseout="changeAddSingToDefault('add-task-todo-grey', 'add-task-todo-blue')" src="img/plus-button-blue.svg" alt="">
-                    
+                        <img class="add-task-todo-img" id="add-task-todo-grey"
+                            onmouseover="changeAddSignToBlue('add-task-todo-grey', 'add-task-todo-blue')"
+                            src="img/plus-button.svg" alt="">
+                        <img class="add-task-todo-img d-none" id="add-task-todo-blue"
+                            onclick="openAddTaskOverlayer('todo')"
+                            onmouseout="changeAddSingToDefault('add-task-todo-grey', 'add-task-todo-blue')"
+                            src="img/plus-button-blue.svg" alt="">
+
                     </div>
                     <div id="todo" class="rendered-tasks-area-to-do drag-area" ondrop="moveTo('todo')"
                         ondragleave="removeHighlight('todo')" ondragover="allowDrop(event); highlight('todo')">
@@ -169,21 +176,31 @@
                 <div>
                     <div class="state-of-task-container">
                         <span>in progress</span>
-                        <img class="add-task-todo-img" id="add-task-progress-grey" onmouseover="changeAddSignToBlue('add-task-progress-grey', 'add-task-progress-blue')" src="img/plus-button.svg" alt="">
-                        <img class="add-task-todo-img d-none" id="add-task-progress-blue" onclick="openAddTaskOverlayer('progress')" onmouseout="changeAddSingToDefault('add-task-progress-grey', 'add-task-progress-blue')" src="img/plus-button-blue.svg" alt="">
+                        <img class="add-task-todo-img" id="add-task-progress-grey"
+                            onmouseover="changeAddSignToBlue('add-task-progress-grey', 'add-task-progress-blue')"
+                            src="img/plus-button.svg" alt="">
+                        <img class="add-task-todo-img d-none" id="add-task-progress-blue"
+                            onclick="openAddTaskOverlayer('progress')"
+                            onmouseout="changeAddSingToDefault('add-task-progress-grey', 'add-task-progress-blue')"
+                            src="img/plus-button-blue.svg" alt="">
                     </div>
                     <div id="progress" class="rendered-tasks-area-in-progress drag-area" ondrop="moveTo('progress')"
-                    ondragleave="removeHighlight('progress')" ondragover="allowDrop(event); highlight('progress')">
+                        ondragleave="removeHighlight('progress')" ondragover="allowDrop(event); highlight('progress')">
                     </div>
                 </div>
                 <div>
                     <div class="state-of-task-container">
                         <span>Await feedback</span>
-                        <img class="add-task-todo-img" id="add-task-feedback-grey" onmouseover="changeAddSignToBlue('add-task-feedback-grey', 'add-task-feedback-blue' )" src="img/plus-button.svg" alt="">
-                        <img class="add-task-todo-img d-none" id="add-task-feedback-blue" onclick="openAddTaskOverlayer('feedback')" onmouseout="changeAddSingToDefault('add-task-feedback-grey', 'add-task-feedback-blue')" src="img/plus-button-blue.svg" alt="">
+                        <img class="add-task-todo-img" id="add-task-feedback-grey"
+                            onmouseover="changeAddSignToBlue('add-task-feedback-grey', 'add-task-feedback-blue' )"
+                            src="img/plus-button.svg" alt="">
+                        <img class="add-task-todo-img d-none" id="add-task-feedback-blue"
+                            onclick="openAddTaskOverlayer('feedback')"
+                            onmouseout="changeAddSingToDefault('add-task-feedback-grey', 'add-task-feedback-blue')"
+                            src="img/plus-button-blue.svg" alt="">
                     </div>
                     <div id="feedback" class="rendered-tasks-area-await-feedback drag-area" ondrop="moveTo('feedback')"
-                            ondragleave="removeHighlight('feedback')" ondragover="allowDrop(event); highlight('feedback')">
+                        ondragleave="removeHighlight('feedback')" ondragover="allowDrop(event); highlight('feedback')">
                     </div>
                 </div>
                 <div>
@@ -191,7 +208,7 @@
                         <span>Done</span>
                     </div>
                     <div id="done" class="rendered-tasks-area-done drag-area" ondrop="moveTo('done')"
-                            ondragleave="removeHighlight('done')" ondragover="allowDrop(event); highlight('done')">
+                        ondragleave="removeHighlight('done')" ondragover="allowDrop(event); highlight('done')">
                     </div>
                 </div>
             </div>

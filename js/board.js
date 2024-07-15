@@ -405,3 +405,82 @@ function highlight(id) {
 function removeHighlight(id) {
     document.getElementById(id).classList.remove('drag-area-highlight');
 }
+
+function filterTasks() {
+    let input = document.getElementById('filterInput').value.toLowerCase();
+    let filteredTasks = allTasks.filter(task => task.title.toLowerCase().includes(input));
+
+    updateFilteredHTML(filteredTasks);
+}
+
+function updateFilteredHTML(filteredTasks) {
+    let todo = filteredTasks.filter(t => t['status'] == 'todo');
+    let progress = filteredTasks.filter(t => t['status'] == 'progress');
+    let feedback = filteredTasks.filter(t => t['status'] == 'feedback');
+    let done = filteredTasks.filter(t => t['status'] == 'done');
+
+    document.getElementById('todo').innerHTML = '';
+    document.getElementById('progress').innerHTML = '';
+    document.getElementById('feedback').innerHTML = '';
+    document.getElementById('done').innerHTML = '';
+
+    if (todo.length === 0) {
+        document.getElementById('todo').innerHTML = '<div class="nothing-to-do-nothing-done-container"><span>No tasks To do</span></div>';
+    }
+    if (done.length === 0) {
+        document.getElementById('done').innerHTML = '<div class="nothing-to-do-nothing-done-container"><span>No tasks Done</span></div>';
+    }
+
+    renderTasks(todo, 'todo');
+    renderTasks(progress, 'progress');
+    renderTasks(feedback, 'feedback');
+    renderTasks(done, 'done');
+}
+
+function renderTasks(tasks, status) {
+    for (let i = 0; i < tasks.length; i++) {
+        let content = document.getElementById(status);
+        let task = tasks[i];
+        let subtasks = task.subtasks.length;
+        let doneSubtasks = task.doneSubtasks.length;
+        let imageSrc = renderPriorityImage(task);
+        let initials = getInitialsOfFetchedData(task.assignedContacts);
+        let bgColor = task.category === "User Story" ? 'bg-blue' : 'bg-green';
+
+        content.innerHTML += `
+        <div onclick="renderDetailTaskSlide('${task.id}')" draggable="true" ondragstart="startDragging('${task.id}')" id="${task.id}" class="task-container">
+            <div class="category-container ${bgColor}">
+                <span class="category-span" id="category${i}">${task.category}</span>
+            </div>
+            <div class="title-container">
+                <span class="title-span" id="title${i}">${task.title}</span>
+            </div>
+            <div class="description-container">
+                <p id="description${i}">${task.description}</p> 
+            </div>
+            <div class="subtasks-container">
+                <label for="file">${doneSubtasks}/${subtasks} Subtasks</label>
+                <progress id="file" value=${doneSubtasks} max=${subtasks}> 1 </progress>
+            </div>
+            <div class="contacts-and-priority-container">
+                <div id="contacts-${status}-container${i}" class="contacts-container">
+                </div>
+                <div id="priority-container${i}" class="priority-container">
+                    <img src=${imageSrc} alt="">
+                </div>   
+            </div>
+        </div>`;
+
+        for (let x = 0; x < initials.length; x++) {
+            const initial = initials[x];
+            let contactColors = task.assignedContactsColors[x];
+            let contentForContacts = document.getElementById(`contacts-${status}-container${i}`);
+            contentForContacts.innerHTML += `
+            <div class="rendered-task-assigned-contact-container" style="background-color:${contactColors}">
+                <span>${initial}</span>
+            </div>`;
+        }
+    }
+
+    removeHighlight(status);
+}
