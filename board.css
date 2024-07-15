@@ -78,9 +78,9 @@ select {
     }
 }
 .headline-container {
-    padding: 64px 0 32px 74px;
+    margin-right: auto;
 }
-
+ 
 .headline-container h1 {
     font-family: inter;
     font-weight: 700;
@@ -651,6 +651,8 @@ h1 {
     justify-content: space-between;
     align-items: center;
     margin-bottom: 48px;
+    gap: 32px;
+    flex-wrap: wrap;
 }
 
 .search-and-add-task-container {
@@ -740,6 +742,14 @@ h1 {
     min-height: 100vh;
     background-color: #F6F7F8;
     border-radius: 24px;
+}
+
+.rendered-tasks-area-to-do.active,
+.rendered-tasks-area-in-progress.active,
+.rendered-tasks-area-await-feedback.active,
+.rendered-tasks-area-done.active{
+    cursor: grabbing;
+    cursor: -webkit-grabbing;
 }
 
 .description-container {
@@ -1084,6 +1094,11 @@ color: #29ABE2;
     background: #D1D1D1;
 }
 
+.plus-image-boarder{
+    display: none;
+}
+
+
 
 @media (max-width: 1200px){
     .task-card-title{
@@ -1122,6 +1137,7 @@ color: #29ABE2;
 
 
 @media screen and (max-width: 1485px) {
+
     .rendered-tasks-container{
         flex-direction: column;
     }
@@ -1147,10 +1163,11 @@ color: #29ABE2;
     .task-container{
         width: min-content;
         margin-top: 6px;
+        margin: 12px 0 12px 9px;
     }
 
     .content{
-        width: calc(78.33% - 32px);
+        width: calc(83.33% - 32px);
     }
 
 }
@@ -1179,7 +1196,63 @@ color: #29ABE2;
 
     .content{
         margin-left: 0;
+        padding: 0px 64px 140px 64px;
     }
 
+    .headline-container{
+        flex-wrap: wrap;
+    }
+
+    .input-container{
+        order: 1;
+        flex: 1 1 100%;
+    }
+
+    .search-input{
+        width: 100%;
+        background-position: 97%;
+    }
+
+}
+
+@media screen and (max-width: 906px) {
+    .content-center{
+        justify-content: flex-start;
+    }
+
+    .content{
+        width: calc(103.33% - 32px);
+    }
+}
+
+@media screen and (max-width: 540px) {
+    .search-and-add-task-container button{
+        display: none;
+    }
+    .plus-image-boarder{
+        width: 40px;
+        height: 40px;
+        background-color: #2A3647;
+        border-radius: 10px;
+        cursor: pointer;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .plus-image-boarder:hover {
+        background-color: #29ABE2;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .plus-image-boarder img{
+        width: 20px;
+        height: 20px;
+    }
+
+    .content{
+        padding: 0 16px 140px 16px;
+        width: 100%;
+    }
 }
 
