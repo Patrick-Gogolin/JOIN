@@ -1,11 +1,13 @@
 // Diese Funktion wird aufgerufen, um die Begrüßung und den Benutzernamen zu aktualisieren
-function updateGreeting() {
+function init() {
     hideContentForTwoSeconds(); // Versteckt den gesamten Inhalt für 2 Sekunden
     checkScreenWidthAndShowGreeting(); // Überprüft die Bildschirmbreite und zeigt die Begrüßung an
     updateLoginGreetingText()
     initLoginUserName()
     updateGreetingText(); // Aktualisiert die Begrüßung (Guten Morgen/Tag/Abend)
     initUserName(); // Initialisiert den Benutzernamen und zeigt ihn an
+    updateDate();
+    updateTaskCounts();
 }
 
 // Funktion zum Laden des Benutzernamens aus dem localStorage
@@ -13,7 +15,6 @@ function loadUserName() {
     let userAsText = localStorage.getItem('user');
     if (userAsText) {
         let user = JSON.parse(userAsText);
-        console.log("Loaded user:", user); // Debug-Ausgabe des geladenen Benutzers
         return user; // Rückgabe des Benutzers
     } else {
         console.log("User not found in localStorage");
@@ -140,4 +141,91 @@ function showContent() {
 // Funktion zum Anzeigen des Benutzernamens
 function showUserName(name, surname) {
     return `${name} ${surname}`; // Gibt den vollständigen Namen zurück
+}
+
+const BASE_URL = "https://remotestorage-c5224-default-rtdb.europe-west1.firebasedatabase.app/";
+
+// Funktion, um Daten von Firebase abzurufen
+async function fetchData() {
+    try {
+        const response = await fetch(`${BASE_URL}/tasks.json`);
+        if (!response.ok) {
+            throw new Error('Network response was not ok.');
+        }
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.error('Error fetching data:', error);
+        return null;
+    }
+}
+
+// Hilfsfunktion, um die Anzahl der Tasks nach Status zu zählen
+function countTasksByStatus(data, status) {
+    let count = 0;
+    for (const key in data) {
+        if (data[key].status === status) {
+            count++;
+        }
+    }
+    return count;
+}
+
+// Hilfsfunktion, um die Anzahl der Tasks nach Priorität zu zählen
+function countTasksByPriority(data, priority) {
+    let count = 0;
+    for (const key in data) {
+        if (data[key].priority === priority) {
+            count++;
+        }
+    }
+    return count;
+}
+
+// Funktion, um die Anzahl der Tasks zu aktualisieren und im HTML anzuzeigen
+async function updateTaskCounts() {
+    try {
+        const data = await fetchData();
+        if (!data) return;
+
+        // Zähle die Anzahl der Tasks nach Status
+        const todoCount = countTasksByStatus(data, 'todo');
+        const doneCount = countTasksByStatus(data, 'done');
+        const progressCount = countTasksByStatus(data, 'progress');
+        const feedbackCount = countTasksByStatus(data, 'feedback');
+
+        // Zähle die Anzahl der Tasks nach Priorität
+        const urgencyCount = countTasksByPriority(data, 'Urgent');
+
+        // Gesamtanzahl der Tasks
+        const totalCount = Object.keys(data).length;
+
+        // Anzeige der Anzahl im HTML
+        document.getElementById('todoCount').textContent = todoCount.toString();
+        document.getElementById('doneCount').textContent = doneCount.toString();
+        document.getElementById('urgencyCount').textContent = urgencyCount.toString();
+        document.getElementById('task-in-board').textContent = totalCount.toString();
+        document.getElementById('task-in-progress').textContent = progressCount.toString();
+        document.getElementById('awaiting-feedback').textContent = feedbackCount.toString();
+
+    } catch (error) {
+        console.error('Error updating task counts:', error);
+    }
+}
+
+// Funktion, um das aktuelle Datum im gewünschten Format zu formatieren
+function getCurrentDateFormatted() {
+    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+    const currentDate = new Date().toLocaleDateString('en-US', options);
+    return currentDate;
+}
+
+// Funktion, um das Datum im HTML zu aktualisieren
+function updateDate() {
+    const dateElement = document.getElementById('date');
+    if (dateElement) {
+        dateElement.textContent = getCurrentDateFormatted();
+    } else {
+        console.error('Element with id "date" not found.');
+    }
 }

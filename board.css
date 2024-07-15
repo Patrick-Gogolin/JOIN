@@ -93,6 +93,7 @@ select {
     right: 32px;
     width: 32px;
     height: 32px;
+    cursor: pointer;
 }
 
 .input-for-task {

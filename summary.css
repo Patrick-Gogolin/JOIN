@@ -72,6 +72,8 @@ body {
 }
 
 .todo {
+    text-decoration: none;
+    color: black;
     background-color: white;
     width: 50%;
     border-radius: 30px;
@@ -117,6 +119,8 @@ body {
 }
 
 .done {
+    text-decoration: none;
+    color: black;
     background-color: white;
     width: 50%;
     border-radius: 30px;
@@ -162,6 +166,8 @@ body {
 }
 
 .urgency {
+    text-decoration: none;
+    color: black;
     width: 100%;
     border-radius: 30px;
     background-color: white;
@@ -245,6 +251,8 @@ body {
 }
 
 .task-button-left {
+    text-decoration: none;
+    color: black;
     width: 33%;
     background-color: white;
     border-radius: 30px;
@@ -259,6 +267,8 @@ body {
 }
 
 .task-button-middle {
+    text-decoration: none;
+    color: black;
     width: 33%;
     background-color: white;
     border-radius: 30px;
@@ -273,6 +283,8 @@ body {
 }
 
 .task-button-right {
+    text-decoration: none;
+    color: black;
     width: 33%;
     background-color: white;
     border-radius: 30px;
