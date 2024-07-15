@@ -1,4 +1,5 @@
-// Diese Funktion wird aufgerufen, um die Begrüßung und den Benutzernamen zu aktualisieren
+const BASE_URL = "https://remotestorage-c5224-default-rtdb.europe-west1.firebasedatabase.app/";
+
 function initializePage() {
     hideContentForTwoSeconds(); // Versteckt den gesamten Inhalt für 2 Sekunden
     checkScreenWidthAndShowGreeting(); // Überprüft die Bildschirmbreite und zeigt die Begrüßung an
@@ -142,8 +143,6 @@ function showContent() {
 function showUserName(name, surname) {
     return `${name} ${surname}`; // Gibt den vollständigen Namen zurück
 }
-
-const BASE_URL = "https://remotestorage-c5224-default-rtdb.europe-west1.firebasedatabase.app/";
 
 // Funktion, um Daten von Firebase abzurufen
 async function fetchData() {
