@@ -89,3 +89,10 @@ aside {
     color: #00BEE8;
     font-weight: bold;
 }
+
+body#body-summary div#summary,
+body#body-add-task div#add-task,
+body#body-board div#board,
+body#body-contacts div#contacts{
+    background: #091931;
+}

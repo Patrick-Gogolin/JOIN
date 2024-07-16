@@ -942,8 +942,7 @@ body:has(.back_img_boarder:hover) .back_img_boarder img{
     }
 
     .cancel{
-        width: 82px;
-        height: 51px;
+        display: none;
     }
 
     .cancel img{
@@ -951,7 +950,7 @@ body:has(.back_img_boarder:hover) .back_img_boarder img{
     }
 
     .create{
-        width: 99px;
+        width: 202px;
     }
 
     .add-contact-form-buttons{
