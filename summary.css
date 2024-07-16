@@ -340,6 +340,7 @@ body {
     flex-direction: column;
     justify-content: center;
     gap: 56px;
+    margin-top: 80px;
 }
 
 
