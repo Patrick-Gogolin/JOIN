@@ -245,9 +245,14 @@ select {
 
 .contact-name-initials-container {
     padding: 12px;
+    width: 42px;
+    height: 42px;
     border-radius: 50%;
     border: 3px solid white;
+    display: flex;
     font-size: 12px;
+    justify-content: center;
+    align-items: center;
 }
 
 .user-initials-span {
