@@ -361,7 +361,7 @@ body{
 }
 
 .contact-info{
-    height: 100vh;
+    height: calc(100vh - 80px);
 }
 
 .animation{
@@ -798,6 +798,7 @@ body:has(.back_img_boarder:hover) .back_img_boarder img{
 
     .content{
         margin-left: 0;
+        margin-top: 80px;
     }
 
     .back-icon-boarder{

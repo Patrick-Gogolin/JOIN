@@ -352,7 +352,7 @@ h1 {
 
     .log-in-and-guest-button-container button {
         height: 51px;
-        width: 180px;
+        width: 150px;
         font-size: 16px;
 
     }
@@ -372,8 +372,10 @@ h1 {
     }
 
     .sign-up-container {
-        position: unset;
-        margin-top: 57.5px;
+        position: fixed;
+        bottom: 10%;
+        top: unset;
+        right: unset;
     }
 }
 
@@ -385,7 +387,7 @@ h1 {
 
 }
 
-@media (max-width:460px) {
+@media (max-width:490px) {
     .log-in-and-guest-button-container {
         width: 290px;
     }
@@ -408,7 +410,7 @@ h1 {
 
 }
 
-@media (max-height: 900px) {
+@media (max-height: 920px) {
     @keyframes resizeImg {
         0% {
             transform: translate(-50%, -50%);
@@ -424,7 +426,10 @@ h1 {
     }
 
     .sign-up-container {
-        margin-top: 10.7px;
+        position: fixed;
+        bottom: 10%;
+        top: unset;
+        right: unset;
     }
 
     .privacy-legal-notice-container {
@@ -482,8 +487,10 @@ h1 {
     }
 
     .sign-up-container {
-        position: unset;
-        margin-top: 10.7px;
+        position: fixed;
+        bottom: 10%;
+        top: unset;
+        right: unset;
     }
 }
 

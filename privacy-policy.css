@@ -56,7 +56,7 @@ p{
     justify-content: center;
     align-items: center;
     position: sticky;
-    right: 15%;
+    right: 10%;
 }
 
 .content_header img {
@@ -96,7 +96,7 @@ body:has(.img_boarder:hover) .content_header img {
     }
 
     .content {
-        margin: 48px 16px 104px 16px;
+        margin: 128px 16px 104px 16px;
     }
 }
 

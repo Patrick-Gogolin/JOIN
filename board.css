@@ -64,13 +64,6 @@ select {
     animation: slideInFromSide 150ms ease-in-out forwards;
 }
 
-.add-task-headlinde-container {
-    padding: 64px 0 32px 74px;
-    font-family: inter;
-    font-weight: 700;
-    font-size: 61px;
-}
-
 @keyframes slideInFromSide {
     0% {
         left: 100%; /* Start position off the right side of the viewport */
@@ -252,14 +245,9 @@ select {
 
 .contact-name-initials-container {
     padding: 12px;
-    width: 42px;
-    height: 42px;
     border-radius: 50%;
     border: 3px solid white;
-    display: flex;
     font-size: 12px;
-    justify-content: center;
-    align-items: center;
 }
 
 .user-initials-span {
@@ -1110,6 +1098,13 @@ color: #29ABE2;
     display: none;
 }
 
+.add-task-headline-container{
+    font-family: inter;
+    font-weight: 700;
+    font-size: 61px;
+    padding: 64px 74px 32px;
+}
+
 
 
 @media (max-width: 1200px){
@@ -1175,7 +1170,12 @@ color: #29ABE2;
     .task-container{
         width: min-content;
         margin-top: 6px;
-        margin: 12px 0 12px 9px;
+        margin-bottom: 6px;
+    }
+
+    .task-container:hover{
+        cursor: pointer;
+	    transform: none;
     }
 
     .content{

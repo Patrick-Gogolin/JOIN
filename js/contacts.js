@@ -357,6 +357,10 @@ function backToList(){
         document.getElementById('contact-list-responsive').style.display ="block";
         document.getElementById('contact-info').style.display = "none";
         document.getElementById('edit-more-options').style.display = "none";
+        document.querySelectorAll('.contact').forEach(element => {
+            element.style.backgroundColor = '';
+            element.style.color = '';
+        })
     };
     checkForMobileMode();
 }

@@ -59,7 +59,7 @@ h3{
     justify-content: center;
     align-items: center;
     position: fixed;
-    right: 15%;
+    right: 10%;
     
 }
 
@@ -115,4 +115,39 @@ body:has(.img_boarder:hover) .img_boarder img{
     margin-block-end: 1em;
 }
 
+@media screen and (max-width: 920px) {
+    header {
+        display: none;
+    }
 
+    .sidebar-container {
+        display: none;
+    }
+
+    .header-shadow {
+        display: none;
+    }
+
+    .mobile-header {
+        display: flex;
+    }
+
+    .mobile-sidebar-container {
+        display: flex;
+    }
+
+    .content {
+        margin: 128px 16px 104px 16px;
+    }
+}
+
+@media screen and (max-width: 570px) {
+    h1 {
+        font-size: 47px;
+    }
+
+    .img_boarder {
+        position: sticky;
+        right: 0%;
+    }
+}

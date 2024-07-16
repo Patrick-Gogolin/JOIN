@@ -4,21 +4,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Help</title>
-    <link rel="stylesheet" href="help.css">
     <link rel="stylesheet" href="templates/header.css">
+    <link rel="stylesheet" href="templates/mobile-header.css">
     <link rel="stylesheet" href="templates/sidebar.css">
+    <link rel="stylesheet" href="templates/mobile-sidebar.css">
+    <link rel="stylesheet" href="help.css">
     <script src="templates/include.js"></script>
     <script src="./templates/header.js"></script>
+    <script src="templates/sidebar.js"></script>
 </head>
 <body onload="includeHTML()">
     <div w3-include-html="templates/header.html"></div>
+    <div w3-include-html="templates/mobile-header.html"></div>
     <div w3-include-html="templates/sidebar.html"></div>
+    <div w3-include-html="templates/mobile-sidebar.html"></div>
     <section class="content">
         <div class="content_header">
         <h1 class="help">Help</h1>
-        <div class="img_boarder">
+        <a href="summary.html" class="img_boarder">
         <img src="/img/arrow-left-line.png" alt="">
-        </div>
+        </a>
         </div>
         <p>Welcome to the help page for <a href="">Join</a>, your guide to using our kanban project management tool. Here, we'll provide an overview of what <a href="">Join</a> is, how it can benefit you, and how to use it.</p>
         

@@ -68,7 +68,7 @@ a{
     justify-content: center;
     align-items: center;
     position: sticky;
-    right: 15%;
+    right: 10%;
     
 }
 
@@ -111,7 +111,7 @@ body:has(.img_boarder:hover) .img_boarder img{
     }
 
     .content {
-        margin: 48px 16px 24px 16px;
+        margin: 128px 16px 24px 16px;
         padding-bottom: 96px;
     }
 }
