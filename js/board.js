@@ -33,6 +33,11 @@ async function getTasks(path = "") {
 
     updateHTML();
 }
+// abändern
+function openEditTaskOverlayer2() {
+    document.getElementById('edit-task-popup').classList.remove('d-none');
+    document.body.style.overflow = 'hidden';
+}
 
 function openEditTaskOverlayer() {
     document.getElementById('edit-task-overlayer').classList.remove('d-none');
@@ -50,8 +55,9 @@ function renderDetailTaskSlide(id) {
     let task = allTasks[index];
     let imageSrc = renderPriorityImage(task);
     let initials = getInitialsOfFetchedData(task.assignedContacts);
+    let bgColor = task.category === "User Story" ? 'bg-blue' : 'bg-green';
     openEditTaskOverlayer();
-    content.innerHTML = renderDetailTaskSlideHtml(task, imageSrc, index);
+    content.innerHTML = renderDetailTaskSlideHtml(task, imageSrc, index, bgColor, id);
 
     forLoopContactsForDetailTaskSlide (task, initials)
 
