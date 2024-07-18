@@ -760,3 +760,9 @@ body {
         padding: 16px 0px;
     }
 }
+
+@media screen and (max-width: 350px) {
+    .log-in-greeting-name {
+        font-size: 38px;
+    }
+}
