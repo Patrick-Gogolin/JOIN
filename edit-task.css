@@ -1,0 +1,25 @@
+.popup-content-edit-task{
+    position: relative;
+    background-color: white;
+    max-width: 525px;
+    width: 36.5%;
+    max-height: 1024px;
+    border-radius: 30px;
+    padding: 48px 40px 48px 40px;
+    gap: 24px;
+    display: flex;
+    flex-direction: column;
+    font-size: 20px;
+}
+
+.close-overlayer-sign-edit-task {
+    position: absolute;
+    top: 30px;
+    right: 40px;
+    cursor: pointer;
+}
+
+.close-overlayer-sign-edit-task:hover{
+    background-color: rgb(238,238,238);
+    border-radius: 50%;
+}

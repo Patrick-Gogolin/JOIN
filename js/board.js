@@ -33,19 +33,14 @@ async function getTasks(path = "") {
 
     updateHTML();
 }
-// abändern
-function openEditTaskOverlayer2() {
-    document.getElementById('edit-task-popup').classList.remove('d-none');
+
+function openEditTaskOverlayer(id) {
+    document.getElementById(`${id}`).classList.remove('d-none');
     document.body.style.overflow = 'hidden';
 }
 
-function openEditTaskOverlayer() {
-    document.getElementById('edit-task-overlayer').classList.remove('d-none');
-    document.body.style.overflow = 'hidden';
-}
-
-function closeEditTaskOverlay() {
-    document.getElementById('edit-task-overlayer').classList.add('d-none');
+function closeEditTaskOverlay(id) {
+    document.getElementById(`${id}`).classList.add('d-none');
     document.body.style.overflow = 'auto';
 }
 
@@ -56,7 +51,7 @@ function renderDetailTaskSlide(id) {
     let imageSrc = renderPriorityImage(task);
     let initials = getInitialsOfFetchedData(task.assignedContacts);
     let bgColor = task.category === "User Story" ? 'bg-blue' : 'bg-green';
-    openEditTaskOverlayer();
+    openEditTaskOverlayer('edit-task-overlayer');
     content.innerHTML = renderDetailTaskSlideHtml(task, imageSrc, index, bgColor, id);
 
     forLoopContactsForDetailTaskSlide (task, initials)

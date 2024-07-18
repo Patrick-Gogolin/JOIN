@@ -6,7 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Board</title>
     <link rel="icon" type="image/x-icon" href="./img/join-logo-log-in-small.png">
-    <link rel="stylesheet" href="board.css">
+    <link rel="stylesheet" href="board.css">">
+    <link rel="stylesheet" href="edit-task.css">
     <link rel="stylesheet" href="./templates/header.css">
     <link rel="stylesheet" href="templates/sidebar.css">
     <link rel="stylesheet" href="../fonts.css">
@@ -77,9 +78,9 @@
                         <div class="priority-container">
                             <span class="headline-input">Prio</span>
                             <div class="priority-button-container">
-                                <button onclick="urgentPriority()" id="urgent-button" class="urgent-button">Urgent <img
+                                <button onclick="urgentPriority('urgent-button', 'urgent-prio-sign')" id="urgent-button" class="urgent-button">Urgent <img
                                         id="urgent-prio-sign" src="img/urgent-prio.svg" alt=""></button>
-                                <button onclick="mediumPriority()" id="medium-button" class="medium-button">Medium <img
+                                <button onclick="mediumPriority('medium-button', 'medium-prio-sign')" id="medium-button" class="medium-button">Medium <img
                                         id="medium-prio-sign" src="img/medium-prio-orange.svg" alt=""></button>
                                 <button onclick="lowPriority()" id="low-button" class="low-button">Low <img
                                         id="low-prio-sign" src="img/low-prio.svg" alt=""></button>

@@ -2,7 +2,7 @@ function renderDetailTaskSlideHtml(task, imageSrc, index, bgColor, id) {
     return /*html*/`
     <div class="popup-content">
                     <div class="task-card-header">
-                        <span class=${bgColor}>${task.category}</span><div onclick="closeEditTaskOverlay()" class="task-card-back-icon-boarder"><img class="task-card-back-icon" src="/img/x.png" alt=""></div>
+                        <span class=${bgColor}>${task.category}</span><div onclick="closeEditTaskOverlay('edit-task-overlayer')" class="task-card-back-icon-boarder"><img class="task-card-back-icon" src="/img/x.png" alt=""></div>
                     </div>
                     <div class="task-card-title">${task.title}</div>
                     <div class="task-card-description">${task.description}</div>
@@ -23,7 +23,7 @@ function renderDetailTaskSlideHtml(task, imageSrc, index, bgColor, id) {
                             <span>Delete</span>
                         </div>
                         <div class="task-card-separator"></div>
-                        <div onclick = "editTask('${id}')" onmouseover="changeAddSignToBlue('edit-task-grey', 'edit-task-blue')" onmouseout="changeAddSingToDefault('edit-task-grey', 'edit-task-blue')" class="task-card-edit">
+                        <div onclick = "OpenEditTaskWindow('${id}')" onmouseover="changeAddSignToBlue('edit-task-grey', 'edit-task-blue')" onmouseout="changeAddSingToDefault('edit-task-grey', 'edit-task-blue')" class="task-card-edit">
                             <img id="edit-task-grey" src="/img/edit.svg" alt="Pencil">
                             <img id="edit-task-blue" class="d-none" src="/img/edit-blue.svg" alt="Pencil">
                             <span>Edit</span>
