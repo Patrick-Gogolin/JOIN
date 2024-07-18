@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Board</title>
+    <link rel="icon" type="image/x-icon" href="./img/join-logo-log-in-small.png">
+    <link rel="stylesheet" href="add-task.css">
+    <link rel="stylesheet" href="./templates/header.css">
+    <link rel="stylesheet" href="templates/sidebar.css">
+    <link rel="stylesheet" href="../fonts.css">
+    <link rel="stylesheet" href="templates/mobile-header.css">
+    <link rel="stylesheet" href="templates/mobile-sidebar.css">
+    <script src="templates/include.js"></script>
+    <script src="js/board.js"></script>
+    <script src="js/add-task-template.js"></script>
+    <script src="./templates/header.js"></script>
+    <script src="templates/add-task.js"></script>
+    <script src="js/board-template.js"></script>
+    <script src="templates/sidebar.js"></script>
+    <script src="js/edit-task.js"></script>
+</head>
+
+<body id="body-add-task" onload="getContacts('/contacts'); getTasks('/tasks');">
+    <div w3-include-html="templates/header.html"></div>
+    <div w3-include-html="templates/sidebar.html"></div>
+    <div w3-include-html="templates/mobile-header.html"></div>
+    <div w3-include-html="templates/mobile-sidebar.html"></div>
+    <div class="add-task-slide">
+        <div class="add-task-headlinde-container">
+            <h1>Add Task</h1>
+        </div>
+        <div class="input-for-task">
+            <div class="left-side-input">
+                <div class="title-input-container">
+                    <span class="headline-input">Title<span class="red-star-required">*</span></span>
+                    <input id="title" type="text" placeholder="Enter a Title" required>
+                    <span id="title-required-span" class="this-field-required-span d-none">This field is
+                        required</span>
+                </div>
+                <div class="description-input-container">
+                    <span class="headline-input">Description</span>
+                    <textarea id="description-of-task" class="task-description-textarea" name="" id=""
+                        placeholder="Enter a Description"></textarea>
+                </div>
+                <div class="assigned-to-input-container">
+                    <span class="headline-input">Assigned to</span>
+                    <div class="select-contacts-container">
+                        <input onkeyup="searchContacts()" id="search-contact-inputfield" type="text"
+                            placeholder="Select contacts to assign">
+                        <img onclick="openSelectContactsContainer()" src="img/arrow-drop-down-contacts.svg" alt="">
+                    </div>
+                    <div id="choose-contacts-container" class="choose-contacts-container d-none">
+                        <div id="active-user-container" class="d-none">
+                        </div>
+                        <div class="contacts-to-select-container" id="select-contact-container">
+                        </div>
+                    </div>
+                </div>
+                <div id="show-assigned-contacts" class="show-assigned-contacts">
+                </div>
+            </div>
+            <div class="right-side-input">
+                <div class="date-container">
+                    <span class="headline-input">Due Date<span class="red-star-required">*</span></span>
+                    <input id="date" type="date" required>
+                    <span id="date-required-span" class="this-field-required-span d-none">This field is
+                        required</span>
+                </div>
+                <div class="priority-container">
+                    <span class="headline-input">Prio</span>
+                    <div class="priority-button-container">
+                        <button onclick="urgentPriority()" id="urgent-button" class="urgent-button">Urgent <img
+                                id="urgent-prio-sign" src="img/urgent-prio.svg" alt=""></button>
+                        <button onclick="mediumPriority()" id="medium-button" class="medium-button">Medium <img
+                                id="medium-prio-sign" src="img/medium-prio-orange.svg" alt=""></button>
+                        <button onclick="lowPriority()" id="low-button" class="low-button">Low <img id="low-prio-sign"
+                                src="img/low-prio.svg" alt=""></button>
+                    </div>
+                </div>
+                <div class="assigned-to-input-container">
+                    <span class="headline-input">Category<span class="red-star-required">*</span></span>
+                    <div class="select-contacts-container" id="select-contacts-container">
+                        <span id="selected-task-headline">Select task category</span>
+                        <img onclick="openSelectCategoryContainer()" src="img/arrow-drop-down-contacts.svg" alt="">
+                    </div>
+                    <span id="category-required-span" class="this-field-required-span d-none">This field is
+                        required</span>
+                    <div id="choose-category-container" class="choose-category-container d-none">
+                        <div onclick="selectCategory('select-category-technical-task-span', 'selected-task-headline')"
+                            class="category-to-select-container" id="select-category-technical-task">
+                            <span id="select-category-technical-task-span">Technical Task</span>
+                        </div>
+                        <div onclick="selectCategory('select-category-user-story-span', 'selected-task-headline')"
+                            class="category-to-select-container" id="select-category-user-story">
+                            <span id="select-category-user-story-span">User Story</span>
+                        </div>
+                    </div>
+                    <span id="category-required-span" class="this-field-required-span d-none">This field is
+                        required</span>
+                </div>
+                <div class="subtask-area-container">
+                    <div class="add-subtask-container">
+                        <span class="headline-input">Subtask</span>
+                        <div class="add-subtask-input-container">
+                            <input id="add-subtask-input-container-inputfield" oninput="changeIcons()" type="text"
+                                placeholder="Add new subtask">
+                            <div id="add-subtask-svg-container" class="add-subtask-svg-container">
+                                <img id="add-subtask-svg" class="add-subtask-svg" src="img/addsubtask.svg" alt="">
+                            </div>
+                            <div id="cancel-or-confirm-subtask-container"
+                                class="cancel-or-confirm-subtask-container d-none">
+                                <img onclick="clearSubtask()" src="img/cancel.svg" alt="">
+                                <div class="seperator"></div>
+                                <img onclick="addSubtask()" src="img/check-grey.svg" alt="">
+                            </div>
+                        </div>
+                    </div>
+                    <div id="added-subtask-main-container" class="added-subtask-main-container">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="button-container">
+            <div class="required-reminder-container">
+                <span><span class="red-star-required">*</span>This field is required</span>
+            </div>
+            <div class="clear-and-create-task-button-container">
+                <button onclick="closeOverlayer()" id="cancel-button" class="cancel-button">Cancel</button>
+                <button id="post-task-button" onclick="addTask()" class="check-button">Create Task <img
+                        src="img/check.svg" alt=""></button>
+
+            </div>
+        </div>
+
+    </div>
+    <div id="task-successfull-created-container" class="task-successfull-created-container d-none">
+        <p>Task added to board</p>
+        <img src="img/added-task.svg" alt="">
+    </div>
+
+    </div>
+</body>
+
+</html>
