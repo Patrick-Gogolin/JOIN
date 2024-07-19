@@ -125,11 +125,11 @@ function checkField(field, requiredSpan) {
     }
 }
 
-function urgentPriority(id, idPicture) {
+function urgentPriority() {
     if (!urgentActive) {
-        resetButtons('urgent-button', 'urgent-prio-sign', 'medium-button', 'medium-prio-sign', 'low-button', 'low-prio-sign');
-        let urgentButton = document.getElementById(`${id}`);
-        let urgentPrioSign = document.getElementById(`${idPicture}`);
+        resetButtons();
+        let urgentButton = document.getElementById('urgent-button');
+        let urgentPrioSign = document.getElementById('urgent-prio-sign');
         let taskPriority = urgentButton.innerText;
         urgentButton.classList.add('urgent');
         urgentPrioSign.src = 'img/urgent-prio-white.svg';
@@ -137,8 +137,8 @@ function urgentPriority(id, idPicture) {
         console.log(priority);
         urgentActive = true;
     } else {
-        let urgentButton = document.getElementById(`${id}`);
-        let urgentPrioSign = document.getElementById(`${idPicture}`);
+        let urgentButton = document.getElementById('urgent-button');
+        let urgentPrioSign = document.getElementById('urgent-prio-sign');
         urgentButton.classList.remove('urgent');
         urgentPrioSign.src = 'img/urgent-prio.svg';
         priority = "";
@@ -147,11 +147,11 @@ function urgentPriority(id, idPicture) {
     }
 }
 
-function mediumPriority(id, idPicture) {
+function mediumPriority() {
     if (!mediumActive) {
-        resetButtons('urgent-button', 'urgent-prio-sign', 'medium-button', 'medium-prio-sign', 'low-button', 'low-prio-sign');
-        let mediumButton = document.getElementById(`${id}`);
-        let mediumPrioSign = document.getElementById(`${idPicture}`);
+        resetButtons();
+        let mediumButton = document.getElementById('medium-button');
+        let mediumPrioSign = document.getElementById('medium-prio-sign');
         let taskPriority = mediumButton.innerText;
         mediumButton.classList.add('medium');
         mediumPrioSign.src = 'img/medium-prio.svg';
@@ -159,8 +159,8 @@ function mediumPriority(id, idPicture) {
         console.log(priority);
         mediumActive = true;
     } else {
-        let mediumButton = document.getElementById(`${id}`);
-        let mediumPrioSign = document.getElementById(`${idPicture}`);
+        let mediumButton = document.getElementById('medium-button');
+        let mediumPrioSign = document.getElementById('medium-prio-sign');
         mediumButton.classList.remove('medium');
         mediumPrioSign.src = 'img/medium-prio-orange.svg';
         priority = "";
@@ -171,7 +171,7 @@ function mediumPriority(id, idPicture) {
 
 function lowPriority() {
     if (!lowActive) {
-        resetButtons('urgent-button', 'urgent-prio-sign', 'medium-button', 'medium-prio-sign', 'low-button', 'low-prio-sign');
+        resetButtons();
         let lowButton = document.getElementById('low-button');
         let lowPrioSign = document.getElementById('low-prio-sign');
         let taskPriority = lowButton.innerText;
@@ -191,22 +191,22 @@ function lowPriority() {
     }
 }
 
-function resetButtons(urgentId, urgentPictureId, mediumId, mediumPictureId, lowId, lowPictureId) {
+function resetButtons() {
     priority = "";
-    let urgentButton = document.getElementById(`${urgentId}`);
-    let urgentPrioSign = document.getElementById(`${urgentPictureId}`);
+    let urgentButton = document.getElementById('urgent-button');
+    let urgentPrioSign = document.getElementById('urgent-prio-sign');
     urgentButton.classList.remove('urgent');
     urgentPrioSign.src = 'img/urgent-prio.svg';
     urgentActive = false;
 
-    let mediumButton = document.getElementById(`${mediumId}`);
-    let mediumPrioSign = document.getElementById(`${mediumPictureId}`);
+    let mediumButton = document.getElementById('medium-button');
+    let mediumPrioSign = document.getElementById('medium-prio-sign');
     mediumButton.classList.remove('medium');
     mediumPrioSign.src = 'img/medium-prio-orange.svg';
     mediumActive = false;
 
-    let lowButton = document.getElementById(`${lowId}`);
-    let lowPrioSign = document.getElementById(`${lowPictureId}`);
+    let lowButton = document.getElementById('low-button');
+    let lowPrioSign = document.getElementById('low-prio-sign');
     lowButton.classList.remove('low');
     lowPrioSign.src = 'img/low-prio.svg';
     lowActive = false;

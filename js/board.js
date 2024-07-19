@@ -1,7 +1,6 @@
 const BASE_URL = "https://remotestorage-c5224-default-rtdb.europe-west1.firebasedatabase.app/"
 let allTasks = [];
 let taskKeys = null;
-let emptyTask = null;
 let currentDraggedElement;
 let statusOfTask = null;
 
@@ -89,7 +88,7 @@ async function deleteTaskFromDatabase(path = ""){
         method: "DELETE",
     });
     setTimeout(async function() {
-        closeEditTaskOverlay()
+        closeEditTaskOverlay('edit-task-overlayer')
         await getTasks('/tasks');
     }, 300);
   return responseToJson = await response.json();
