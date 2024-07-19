@@ -166,7 +166,7 @@ body{
 
 .popup-right{
     position: relative;
-    width: 100%;
+    width: 55%;
     display: flex;
     align-items: center;
     justify-content: center
@@ -222,8 +222,8 @@ body{
 }
 
 .edit-contact-logo{
-    margin-left: 12%;
-    margin-right: 9%;
+    margin-left: 7%;
+    align-self: center;
     width: 120px;
     height: 120px;
     display: flex;
@@ -238,10 +238,9 @@ body{
 }
 
 .form{
-    margin-right: 48px;
     display: flex;
     flex-direction: column;
-    width: 54%;
+
 }
 
 .form input::placeholder{
@@ -786,6 +785,11 @@ body:has(.back_img_boarder:hover) .back_img_boarder img{
 
     .nobody{
         margin-bottom: 35px;
+        margin-left: 0;
+        margin-right: 0;
+        position: absolute;
+        left: calc((100% - 120px) / 2);
+        top: calc((93% - 120px) / 2);
     }
 
     .sidebar-container{
@@ -904,6 +908,7 @@ body:has(.back_img_boarder:hover) .back_img_boarder img{
         height: 82vh;
         width: 50vw;
         position: relative;
+        align-items: center;
     }
 
     .popup-left{
@@ -920,7 +925,8 @@ body:has(.back_img_boarder:hover) .back_img_boarder img{
         flex-direction: column;
         overflow: auto;
         position: absolute;
-        bottom: 7%;
+        bottom: 15%;
+        width: 90%;
     }
 
     .form{
@@ -938,7 +944,11 @@ body:has(.back_img_boarder:hover) .back_img_boarder img{
 
     .edit-contact-logo{
         margin: 0;
+        margin-left: 0 !important;
         margin-bottom: 35px;
+        position: absolute;
+        left: calc((100% - 120px) / 2);
+        top: calc((93% - 120px) / 2);
     }
 
     .cancel{
@@ -998,7 +1008,7 @@ body:has(.back_img_boarder:hover) .back_img_boarder img{
     }
 
     .popup-content{
-        width: 80%;
+        width: 93%;
     }
 
     .form input{
@@ -1042,10 +1052,12 @@ body:has(.back_img_boarder:hover) .back_img_boarder img{
 
     .popup-content{
         width: 98%;
+        margin-left: 8px;
+        margin-right: 8px;
     }
 }
 
-@media (max-height: 800px) {
+@media (max-height: 950px) {
     .popup-right{
         bottom: 2%;
     }
@@ -1073,6 +1085,8 @@ body:has(.back_img_boarder:hover) .back_img_boarder img{
         width: 80px;
         height: 80px;
         margin-bottom: 11px;
+        left: calc((100% - 80px) / 2);
+        top: calc((93% - 80px) / 2);
     }
 
     .popup-left h1{
@@ -1097,3 +1111,11 @@ body:has(.back_img_boarder:hover) .back_img_boarder img{
         margin-bottom: 15px;
     }
 }
+
+
+@media (max-width: 1300px) {
+    .edit-contact-logo{
+        margin-left: 3%;
+    }
+}
+

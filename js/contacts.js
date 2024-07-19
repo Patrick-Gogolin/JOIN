@@ -208,9 +208,9 @@ function getEditContactTemplate(eachContact){
                 <h1>Edit contact</h1>
                 <div class="blue-line"></div>
             </div>
+            <div id="contact-logo-${eachContact}" class="edit-contact-logo">${initials}</div>
             <div class="popup-right">
                 <div onclick="closePopup()" class="back-icon-boarder"><img class="back-icon" src="img/x.png" alt=""></div>
-                <div id="contact-logo-${eachContact}" class="edit-contact-logo">${initials}</div>
                 <form class="form" onsubmit="submitEditContactForm(event, '${eachContact.id}'); return false;">
                     <input id="editName" class="add-contact-input-name" placeholder="Name" type="text" required>
                     <input id="editMail" class="add-contact-input-mail" placeholder="Email" type="email" required>
