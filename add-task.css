@@ -2,16 +2,30 @@
     margin-left: 328px;
 }
 
+.add-task-headlinde-container {
+    padding: 110px 0px 48px 96px;
+}
+
+.add-task-headlinde-container h1 {
+    font-family: Inter;
+    font-size: 61px;
+    font-weight: 700;
+    text-align: left;
+
+}
+
 .input-for-task {
-    padding: 0px 96px 0px 96px; /* Unified padding for consistency */
+    gap: 48px;
+    padding: 0px 96px 0px 96px;
     display: flex;
     justify-content: space-between;
 }
 
 .button-container {
     display: flex;
-    padding: 150px 96px 0px 96px;
+    padding: 150px 96px 32px 96px;
     justify-content: space-between;
+    align-items: end;
 }
 
 .close-button-container {
@@ -23,14 +37,10 @@
     cursor: pointer;
 }
 
-.add-task-headline-container {
-
-}
-
 .left-side-input {
     display: flex;
     flex-direction: column;
-    gap: 24px;
+    gap: 16px;
 }
 
 .title-input-container,
@@ -47,7 +57,8 @@
 }
 
 body {
-    font-family: 'Inter', sans-serif; /* Added sans-serif fallback */
+    font-family: 'Inter', sans-serif;
+    /* Added sans-serif fallback */
     background-color: #F6F7F8;
 }
 
@@ -94,7 +105,8 @@ select {
 
 @keyframes slideInFromSide {
     0% {
-        left: 100%; /* Start position off the right side of the viewport */
+        left: 100%;
+        /* Start position off the right side of the viewport */
     }
 
     100% {
@@ -123,18 +135,6 @@ select {
     width: 32px;
     height: 32px;
     cursor: pointer;
-}
-
-.input-for-task {
-    padding: 0px 74px 0px 74px;
-    display: flex;
-    justify-content: space-between;
-}
-
-.left-side-input {
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
 }
 
 .title-input-container,
@@ -171,6 +171,7 @@ select {
     font-weight: 200;
     font-size: 20px;
     cursor: pointer;
+    resize: none;
 }
 
 .description-input-container textarea:focus,
@@ -194,6 +195,7 @@ select {
     align-items: center;
     justify-content: space-between;
     z-index: 3;
+    background-color: white;
 }
 
 .select-contacts-container input {
@@ -569,7 +571,7 @@ select {
     background-color: hsl(0, 0%, 95%);
 }
 
-.subtask-area-container{
+.subtask-area-container {
     display: flex;
     flex-direction: column;
     gap: 8px;
@@ -593,17 +595,18 @@ select {
     border-radius: 10px;
     border: 1px solid #D1D1D1;
     cursor: pointer;
+    background-color: white;
 }
 
 .add-subtask-input-container input {
-   border: none;
-   outline: none;
-   height: 35px;
-   width: 390px;
-   padding: 12px 16px 12px 16px;
-   font-family: inter;
-   font-weight: 200;
-   font-size: 20px;
+    border: none;
+    outline: none;
+    height: 35px;
+    width: 390px;
+    padding: 12px 16px 12px 16px;
+    font-family: inter;
+    font-weight: 200;
+    font-size: 20px;
 }
 
 .add-subtask-input-container:hover {
@@ -649,7 +652,7 @@ select {
 
 ul {
     padding-left: 20px;
-  }
+}
 
 .list-element {
     font-family: inter;
@@ -697,7 +700,7 @@ ul {
     font-size: 16px;
     border: none;
     width: 300px;
-    
+
 }
 
 .this-field-required-span {
@@ -705,7 +708,8 @@ ul {
 }
 
 .this-field-required-border {
-    border: 1px solid red !important;;
+    border: 1px solid red !important;
+    ;
 }
 
 @media (max-width: 1440px) {
@@ -723,4 +727,58 @@ ul {
         top: 660px;
         text-align: center;
     }
+}
+
+.popup-background {
+    background-color: rgba(0, 0, 0, 0.4);
+    z-index: 999;
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.popup-content {
+    background-color: white;
+    max-width: 525px;
+    width: 36.5%;
+    max-height: 1024px;
+    border-radius: 30px;
+    padding: 48px 40px 48px 40px;
+    gap: 24px;
+    display: flex;
+    flex-direction: column;
+    font-size: 20px;
+}
+
+.task-successfull-created-container {
+    z-index: 999;
+    width: 326px;
+    height: 74px;
+    border-radius: 20px;
+    background-color: #2A3647;
+    position: absolute;
+    transform: translate(-50%, 50%);
+    top: 50%;
+    left: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    color: white;
+    font-family: inter;
+    font-size: 20px;
+}
+
+.d-none {
+    display: none !important;
+}
+
+.seperator {
+    border: 1px solid #D1D1D1;
+    height: 425px;
 }
