@@ -234,3 +234,4 @@ function openSelectContactsContainerEditTask() {
         assignedContacts.classList.remove('d-none');
     }
 }
+// Weiter mit dem render der Assigned Contacts in der empty Task
