@@ -6,6 +6,15 @@ let isSelected = false;
 window.addEventListener('resize', checkForMobileMode);
 window.addEventListener('load', checkForMobileMode);
 
+window.addEventListener('load', () => {
+    const elements = document.querySelectorAll('.animation');
+    elements.forEach((element, index) => {
+        setTimeout(() => {
+            element.classList.add('animate');
+        }, index * 500); // Verzögerung zwischen den Animationen
+    });
+});
+
 async function onloadFunc(){
     isSelected = false;
     let contactResponse = await loadContacts("contacts");
@@ -273,7 +282,7 @@ function getContactsInitials(eachContact){
     let nameparts = fullname.split(" ");
     let initials = "";
     if (nameparts.length > 1) {
-        initials = nameparts[0].charAt(0).toUpperCase() + nameparts[1].charAt(0).toUpperCase();
+        initials = nameparts[0].charAt(0).toUpperCase() + nameparts[nameparts.length - 1].charAt(0).toUpperCase();
     } else if (nameparts.length === 1){
         initials = nameparts[0].charAt(0).toUpperCase();
     }
