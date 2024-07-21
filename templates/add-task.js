@@ -404,7 +404,7 @@ function renderContacts() {
             const color = colors[i];
             const userName = userNames[i];
             const userNameInitial = userNamesInitials[i];
-             let checkBoxContacts = renderCheckBox(i);
+            let checkBoxContacts = renderCheckBox(i);
             let bgColor = assignedContactsId.indexOf(i) !== -1 ? 'bg-navy' : 'bg-white'
             container.innerHTML += /*html*/`
      <div id="${i}" onclick="assignTaskToContact(${i})"  class="single-contact-container ${bgColor}">
@@ -597,6 +597,7 @@ async function postTask(path = "", data={}) {
         doneSubtasks: JSON.stringify(doneSubtasks),
         assignedContacts: JSON.stringify(assignedContactsNames),
         assignedContactsColors: JSON.stringify(assignedContactsColors),
+        assignedContactsId: JSON.stringify(assignedContactsId),
         category: assignedCategory,
         status: statusOfTask
     };

@@ -24,12 +24,13 @@ async function getTasks(path = "") {
             doneSubtasks: JSON.parse(task['doneSubtasks']),
             assignedContacts: JSON.parse(task['assignedContacts']),
             assignedContactsColors: JSON.parse(task['assignedContactsColors']),
+            assignedContactsId: JSON.parse(task['assignedContactsId']),
             category: task['category'],
             status: task['status']
         };
         allTasks.push(data);
     }
-
+    
     updateHTML();
 }
 
@@ -281,10 +282,12 @@ async function moveTo(status) {
     let doneSubtasks = JSON.stringify(allTasks[index].doneSubtasks);
     let contacts = JSON.stringify(allTasks[index].assignedContacts);
     let colors = JSON.stringify(allTasks[index].assignedContactsColors);
+    let ids = JSON.stringify(allTasks[index].assignedContactsId);
     allTasks[index].subtasks = subtasks;
     allTasks[index].assignedContacts = contacts;
     allTasks[index].assignedContactsColors = colors;
     allTasks[index].doneSubtasks = doneSubtasks;
+    allTasks[index].assignedContactsId = ids;
     await updateData(`/tasks/${taskKeys[index]}`, data, index);
     allTasks.length = 0;
     await getTasks('/tasks');

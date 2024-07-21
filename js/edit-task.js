@@ -2,6 +2,8 @@ let emptyTask = null;
 let urgentActiveEditTask = false;
 let mediumActiveEditTask = false;
 let lowActiveEditTask = false;
+let assignOptionsContactsContainerEditTask = false;
+let assignedContactsInitialsEditTask = [];
 
 function OpenEditTaskWindow(id) {
     closeEditTaskOverlay('edit-task-overlayer');
@@ -65,7 +67,7 @@ function OpenEditTaskWindow(id) {
             <div id="choose-contacts-container-edit-task" class="choose-contacts-container d-none">
                 <div id="active-user-container-edit-task" class="d-none">
                 </div>
-                <div class="contacts-to-select-container" id="select-contact-container">
+                <div class="contacts-to-select-container" id="select-contact-container-edit-task">
                 </div>
             </div>
         </div>
@@ -90,6 +92,8 @@ function OpenEditTaskWindow(id) {
             </div>
         </div>
     </div>`;
+
+    renderAssignedContactsEditTask();
 }
 
 function getPrioritySvgPaths(priority) {
@@ -220,18 +224,156 @@ function selectCategoryEditTask(id, i) {
 
 function openSelectContactsContainerEditTask() {
     let container = document.getElementById('choose-contacts-container-edit-task');
-    let assignedContacts = document.getElementById('show-assigned-contacts');
-    if (assignOptionsContactsContainer === false) {
+    let assignedContacts = document.getElementById('show-assigned-contacts-edit-task');
+    if (assignOptionsContactsContainerEditTask === false) {
         container.classList.remove('d-none');
-        assignOptionsContactsContainer = true;
-        renderContacts();
+        assignOptionsContactsContainerEditTask = true;
+        renderContactsEditTask();
         assignedContacts.classList.add('d-none')
     }
     else {
         container.classList.add('d-none');
-        assignOptionsContactsContainer = false;
-        renderAssignedContacts();
+        assignOptionsContactsContainerEditTask = false;
+        renderAssignedContactsEditTask();
         assignedContacts.classList.remove('d-none');
     }
 }
 // Weiter mit dem render der Assigned Contacts in der empty Task
+
+function renderContactsEditTask() {
+    let activeUserContainer = document.getElementById('active-user-container-edit-task');
+    let container = document.getElementById('select-contact-container-edit-task');
+    activeUserContainer.innerHTML = "";
+    container.innerHTML = "";
+
+    if (activeUser != "") {
+        activeUserContainer.classList.remove('d-none');
+        let activeUserUpdated = activeUser.join(" ");
+        let activeUserInitialsUpdated = [activeUserInitials.join("")];
+        for (let y = 0; y < 1; y++) {
+            const activeUserName = activeUserUpdated;
+            let checkBox = renderCheckBoxEditTask(activeUserUpdated);
+            let bgColor = emptyTask.assignedContacts.indexOf(activeUserUpdated) !== -1 ? 'bg-navy' : 'bg-white';
+            activeUserContainer.innerHTML = /*html*/`
+            <div id="logged-in-user-edit-task" onclick="assignTaskToLoggedInUser('logged-in-user')" class="single-contact-container ${bgColor}">
+                <div class="single-contact-name-container">
+                    <div class="contact-name-initials-container" style="background-color: ${colorForActiveUser[0]};">
+                        <span class="user-initials-span">${activeUserInitialsUpdated}</span>
+                    </div>
+                    <span id="logged-in-user-name-edit-task">${activeUserName}</span><span>(You)</span>
+                </div>
+                <div>
+                    <img id="checkbox-active-user-edit-task" src=${checkBox} alt="Checkbox">
+                </div>
+            </div>`;
+    
+            for (let i = 0; i < contacts.length; i++) {
+                const color = colors[i];
+                const userName = userNames[i];
+                const userNameInitial = userNamesInitials[i];
+                let checkBoxContacts = renderCheckBoxEditTask(userName);
+                let bgColor = emptyTask.assignedContacts.indexOf(userName) !== -1 ? 'bg-navy' : 'bg-white'
+                container.innerHTML += /*html*/`
+        <div id="${i}" onclick="assignTaskToContactEditTask(${i})"  class="single-contact-container ${bgColor}">
+            <div class="single-contact-name-container">
+                <div class="contact-name-initials-container" style="background-color: ${color};">
+                    <span class="user-initials-span">${userNameInitial}</span>
+                </div>
+                <span id="assigned-contact-name-edit-task${i}">${userName}</span>
+            </div>
+            <div>
+                <img id="checkbox-edit-task${i}" src=${checkBoxContacts} alt="Checkbox">
+            </div>
+        </div>`;
+    
+            }
+        }
+    }
+    else {
+    
+        for (let i = 0; i < contacts.length; i++) {
+            const color = colors[i];
+            const userName = userNames[i];
+            const userNameInitial = userNamesInitials[i];
+            let checkBoxContacts = renderCheckBoxEditTask(userName);
+            let bgColor = emptyTask.assignedContacts.indexOf(userName) !== -1 ? 'bg-navy' : 'bg-white'
+            container.innerHTML += /*html*/`
+     <div id="${i}" onclick="assignTaskToContact(${i})"  class="single-contact-container ${bgColor}">
+        <div class="single-contact-name-container">
+            <div class="contact-name-initials-container" style="background-color: ${color};">
+                <span class="user-initials-span">${userNameInitial}</span>
+            </div>
+            <span id="assigned-contact-name-edit-task${i}">${userName}</span>
+        </div>
+        <div>
+            <img id="checkbox-edit-task${i}" src=${checkBoxContacts} alt="Checkbox">
+        </div>
+    </div>`;
+    }
+}
+}
+
+function renderAssignedContactsEditTask() {
+    getInitialsAssignedContactsIdEditTask();
+    console.log(assignedContactsInitialsEditTask);
+    let assignedContactsContainer = document.getElementById('show-assigned-contacts-edit-task');
+    assignedContactsContainer.innerHTML = "";
+    for (let i = 0; i < assignedContactsInitialsEditTask.length; i++) {
+        const initials = assignedContactsInitialsEditTask[i];
+        const color = emptyTask.assignedContactsColors[i];
+        assignedContactsContainer.innerHTML += /*html*/`
+        <div class="contact-name-initials-container" style="background-color: ${color}">
+            <span class="user-initials-span">${initials}</span>
+        </div>`;
+    }
+}
+
+function getInitialsAssignedContactsIdEditTask() {
+    assignedContactsInitialsEditTask.length = 0;
+    let initials = emptyTask.assignedContacts.map(name => {
+        let nameParts = name.split(/[\s-]+/);
+        let initial = nameParts.map(part => part.charAt(0).toUpperCase()).join("");
+        assignedContactsInitialsEditTask.push(initial);
+    });
+}
+
+function renderCheckBoxEditTask(id) {
+    if(emptyTask.assignedContacts.length === 0) {
+        return "img/empty-check-box.svg";
+    }
+    else if(emptyTask.assignedContacts.indexOf(id) !== -1) {
+        return "img/filled-check-box-white.svg"
+    }
+    else {
+        return "img/empty-check-box.svg";
+    }
+}
+
+function assignTaskToContactEditTask(i) {
+    let container = document.getElementById(i);
+    let contactName = document.getElementById(`assigned-contact-name-edit-task${i}`).innerHTML;
+    let index = emptyTask.assignedContacts.indexOf(contactName);
+    console.log(index);
+    let checkbox = document.getElementById(`checkbox-edit-task${i}`);
+    if (index === -1) {
+        container.classList.add('bg-navy');
+        emptyTask.assignedContactsColors.push(colors[i]);
+        console.log(emptyTask);
+        assignedContactsId.push(i);
+        assignedContactsNames.push(contactName)
+        console.log(assignedContactsId);
+        console.log(assignedContactsNames);
+        console.log(assignedContactsColors);
+        checkbox.src = "img/filled-check-box-white.svg"
+    }
+    else {
+        container.classList.remove('bg-navy');
+        assignedContactsColors.splice(index,1);
+        assignedContactsNames.splice(index, 1);
+        assignedContactsId.splice(index, 1);
+        console.log(assignedContactsId);
+        console.log(assignedContactsNames);
+        console.log(assignedContactsColors);
+        checkbox.src = "img/empty-check-box.svg";
+    }
+}
