@@ -19,7 +19,7 @@ function OpenEditTaskWindow(id) {
     console.log(emptyTask);
     content.innerHTML = /*html*/`
     <div class="popup-content-edit-task">
-        <img onclick="closeEditTaskOverlay('edit-task-popup')" class="close-overlayer-sign-edit-task" src="/img/x.png" alt="Cross">
+        <img onclick="closeEditTaskOverlay('edit-task-popup')" class="close-overlayer-sign-edit-task" src="/img/cancel.svg" alt="Cross">
         <div class="title-input-container">
                 <span class="headline-input">Title<span class="red-star-required">*</span></span>
                 <input id="title-edit-task" onblur="newTitle()" type="text" value="${task.title}" required>

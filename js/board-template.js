@@ -2,7 +2,7 @@ function renderDetailTaskSlideHtml(task, imageSrc, index, bgColor, id) {
     return /*html*/`
     <div class="popup-content">
                     <div class="task-card-header">
-                        <span class=${bgColor}>${task.category}</span><div onclick="closeEditTaskOverlay('edit-task-overlayer')" class="task-card-back-icon-boarder"><img class="task-card-back-icon" src="/img/x.png" alt=""></div>
+                        <span class=${bgColor}>${task.category}</span><div onclick="closeEditTaskOverlay('edit-task-overlayer')" class="task-card-back-icon-boarder"><img class="task-card-back-icon" src="/img/cancel.svg" alt=""></div>
                     </div>
                     <div class="task-card-title">${task.title}</div>
                     <div class="task-card-description">${task.description}</div>
