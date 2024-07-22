@@ -93,7 +93,7 @@ function OpenEditTaskWindow(id) {
             </div>
         </div>
         <div class="update-task-button-container">
-            <button onclick= "updateTask()">Ok <img src="img/check.svg" alt=""></button>
+            <button onclick= "updateTask('/tasks/${taskKeys[index]}')">Ok <img src="img/check.svg" alt=""></button>
         </div>
     </div>`;
 
@@ -592,8 +592,35 @@ function newDate() {
     console.log(emptyTask);
 }
 
-function updateTask() {
+async function updateTask(path = "", data={}) {
     let index = taskKeys.indexOf(emptyTask.id);
     allTasks[index] = emptyTask;
+    let key = taskKeys[index];
     console.log(allTasks);
-}
+    
+    data = {
+        id: "",
+        title: emptyTask['title'],
+        description: emptyTask['description'],
+        deadline: emptyTask['deadline'],
+        priority: emptyTask['priority'],
+        subtasks: JSON.stringify(emptyTask['subtasks']),
+        doneSubtasks: JSON.stringify(emptyTask['doneSubtasks']),
+        assignedContacts: JSON.stringify(emptyTask['assignedContacts']),
+        assignedContactsColors: JSON.stringify(emptyTask['assignedContactsColors']),
+        assignedContactsId: JSON.stringify(emptyTask['assignedContactsId']),
+        category: emptyTask['category'],
+        status: emptyTask['status']
+    };
+    let response = await fetch(BASE_URL + path + ".json",{
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data)
+    });
+    updateHTML();
+    closeEditTaskOverlay('edit-task-popup');
+    renderDetailTaskSlide(key);
+  return responseToJson = await response.json();
+  }

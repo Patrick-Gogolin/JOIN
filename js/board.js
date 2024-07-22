@@ -52,6 +52,7 @@ function renderDetailTaskSlide(id) {
     let initials = getInitialsOfFetchedData(task.assignedContacts);
     let bgColor = task.category === "User Story" ? 'bg-blue' : 'bg-green';
     openEditTaskOverlayer('edit-task-overlayer');
+    console.log(task);
     content.innerHTML = renderDetailTaskSlideHtml(task, imageSrc, index, bgColor, id);
 
     forLoopContactsForDetailTaskSlide (task, initials)
@@ -73,7 +74,7 @@ function forLoopSubtasksForDetailTaskSlide(task) {
     for (let i = 0; i < task['subtasks'].length; i++) {
         let subtaskContent = document.getElementById('task-card-subtasks-container');
         let subtask = task['subtasks'][i];
-        let index = doneSubtasks.indexOf(subtask);
+        let index = task['doneSubtasks'].indexOf(subtask);
         console.log(index);
         if (index !== -1) {
             subtaskContent.innerHTML += renderDetailTaskSlideDoneSubtasksHtml(subtask);

@@ -382,7 +382,6 @@ select {
     font-family: inter;
     font-weight: 200;
     font-size: 20px;
-    cursor: pointer;
 }
 
 .date-container input:hover {
@@ -1061,7 +1060,6 @@ body{
     padding: 6px 16px 6px 16px;
     gap: 16px;
     border-radius: 10px;
-    cursor: pointer;
     width: fit-content;
 }
 
