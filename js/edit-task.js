@@ -126,7 +126,6 @@ function urgentPriorityEditTask() {
         urgentButton.classList.add('urgent');
         urgentPrioSign.src = 'img/urgent-prio-white.svg';
         emptyTask.priority = taskPriority;
-        console.log(emptyTask);
         urgentActiveEditTask = true;
     } else {
         let urgentButton = document.getElementById('urgent-button-edit-task');
@@ -134,7 +133,6 @@ function urgentPriorityEditTask() {
         urgentButton.classList.remove('urgent');
         urgentPrioSign.src = 'img/urgent-prio.svg';
         emptyTask.priority = "";
-        console.log(emptyTask);
         urgentActiveEditTask = false;
     }
 }
@@ -148,7 +146,6 @@ function mediumPriorityEditTask() {
         urgentButton.classList.add('medium');
         urgentPrioSign.src = 'img/urgent-prio-white.svg';
         emptyTask.priority = taskPriority;
-        console.log(emptyTask);
         mediumActiveEditTask = true;
     } else {
         let urgentButton = document.getElementById('medium-button-edit-task');
@@ -156,7 +153,6 @@ function mediumPriorityEditTask() {
         urgentButton.classList.remove('medium');
         urgentPrioSign.src = 'img/urgent-prio.svg';
         emptyTask.priority = "";
-        console.log(emptyTask);
         mediumActiveEditTask = false;
     }
 }
@@ -170,7 +166,6 @@ function lowPriorityEditTask() {
         urgentButton.classList.add('low');
         urgentPrioSign.src = 'img/urgent-prio-white.svg';
         emptyTask.priority = taskPriority;
-        console.log(emptyTask);
         lowActiveEditTask = true;
     } else {
         let urgentButton = document.getElementById('low-button-edit-task');
@@ -178,25 +173,34 @@ function lowPriorityEditTask() {
         urgentButton.classList.remove('low');
         urgentPrioSign.src = 'img/urgent-prio.svg';
         emptyTask.priority = "";
-        console.log(emptyTask);
         lowActiveEditTask = false;
     }
 }
 
 function resetButtonsEditTask() {
     emptyTask.Priority = "";
+    resetUrgentButtonEditTask();
+    resetMediumButtonEditTask();
+    resetLowButtonEditTask();
+}
+
+function resetUrgentButtonEditTask() {
     let urgentButton = document.getElementById('urgent-button-edit-task');
     let urgentPrioSign = document.getElementById('urgent-prio-sign-edit-task');
     urgentButton.classList.remove('urgent');
     urgentPrioSign.src = 'img/urgent-prio.svg';
     urgentActiveEditTask = false;
+}
 
+function resetMediumButtonEditTask() {
     let mediumButton = document.getElementById('medium-button-edit-task');
     let mediumPrioSign = document.getElementById('medium-prio-sign-edit-task');
     mediumButton.classList.remove('medium');
     mediumPrioSign.src = 'img/medium-prio-orange.svg';
     mediumActiveEditTask = false;
+}
 
+function resetLowButtonEditTask() {
     let lowButton = document.getElementById('low-button-edit-task');
     let lowPrioSign = document.getElementById('low-prio-sign-edit-task');
     lowButton.classList.remove('low');
@@ -363,14 +367,12 @@ function assignTaskToLoggedInUserEditTask(i) {
         container.classList.add('bg-navy');
         emptyTask.assignedContactsColors.push(colorForActiveUser[0]);
         emptyTask.assignedContacts.push(loggedInUserName);
-        console.log(emptyTask);
         checkbox.src = "img/filled-check-box-white.svg"
     }
     else {
         container.classList.remove('bg-navy');
         emptyTask.assignedContacts.splice(index,1);
         emptyTask.assignedContactsColors.splice(index, 1);
-        console.log(emptyTask);
         checkbox.src = "img/empty-check-box.svg"
     }
 }
@@ -385,14 +387,12 @@ function assignTaskToContactEditTask(i) {
         container.classList.add('bg-navy');
         emptyTask.assignedContactsColors.push(colors[i]);
         emptyTask.assignedContacts.push(contactName);
-        console.log(emptyTask);
         checkbox.src = "img/filled-check-box-white.svg"
     }
     else {
         container.classList.remove('bg-navy');
         emptyTask.assignedContacts.splice(index,1);
         emptyTask.assignedContactsColors.splice(index, 1);
-        console.log(emptyTask);
         checkbox.src = "img/empty-check-box.svg";
     }
 }
@@ -480,7 +480,6 @@ function editTaskInEditTask(i) {
     let task = document.getElementById(`edit-task-input-edit-task${i}`);
     emptyTask.subtasks.splice(i, 1, task.value);
     renderSubtasksFromEditTask();
-    console.log(emptyTask);
     editMenuSubtaskIsOpenInEditTask = false;
 }
 
@@ -571,7 +570,6 @@ function changeSubtaskStatus(i) {
             emptyTask.doneSubtasks.splice(index, 1);
         }
     }
-    console.log(emptyTask);
 }
 
 function newTitle() {
