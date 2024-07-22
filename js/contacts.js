@@ -6,14 +6,6 @@ let isSelected = false;
 window.addEventListener('resize', checkForMobileMode);
 window.addEventListener('load', checkForMobileMode);
 
-window.addEventListener('load', () => {
-    const elements = document.querySelectorAll('.animation');
-    elements.forEach((element, index) => {
-        setTimeout(() => {
-            element.classList.add('animate');
-        }, index * 500); // Verzögerung zwischen den Animationen
-    });
-});
 
 async function onloadFunc(){
     isSelected = false;
@@ -219,13 +211,13 @@ function getEditContactTemplate(eachContact){
             </div>
             <div id="contact-logo-${eachContact}" class="edit-contact-logo">${initials}</div>
             <div class="popup-right">
-                <div onclick="closePopup()" class="back-icon-boarder"><img class="back-icon" src="img/x.png" alt=""></div>
+                <div onclick="closePopup()" class="back-icon-boarder"><img class="back-icon" src="img/x.svg" alt=""></div>
                 <form class="form" onsubmit="submitEditContactForm(event, '${eachContact.id}'); return false;">
                     <input id="editName" class="add-contact-input-name" placeholder="Name" type="text" required>
                     <input id="editMail" class="add-contact-input-mail" placeholder="Email" type="email" required>
                     <input id="editPhone" class="add-contact-input-tel" placeholder="Phone" type="tel" required>
                     <div class="add-contact-form-buttons">
-                    <button type="button" class="cancel" onclick= "closePopup()">Delete<img src="img/x.png" alt=""></button>
+                    <button type="button" class="cancel" onclick= "closePopup()">Delete<img src="img/x.svg" alt=""></button>
                     <button type="submit" class="create">Save<img src="img/check.png" alt=""></button>
                     </div>
                 </form>
@@ -377,7 +369,7 @@ function backToList(){
 function showMobileHeader(){
     let header = document.getElementById('contact-header');
     let mobileHeader = document.getElementById('contact-mobile-header');
-    if (window.innerWidth <= 1100){
+    if (window.innerWidth <= 1220){
         header.classList.add("d-none");
         mobileHeader.style.display = 'flex';
     } else {
@@ -394,9 +386,8 @@ function showContactInfo(eachContact){
         element.style.backgroundColor = '';
         element.style.color = '';
     })
-    document.getElementById(`contact-list-element-${eachContact.id}`).style.backgroundColor = "#2A3647";
+    document.getElementById(`contact-list-element-${eachContact.id}`).style.background = "#2A3647";
     document.getElementById(`contact-list-element-${eachContact.id}`).style.color = "white";
-    document.getElementById(`contact-list-element-${eachContact.id}`).scrollIntoView();
     showInfo(eachContact); 
 }
 
@@ -423,7 +414,7 @@ function getEachContactInfo(eachContact){
                 <span>Better with a team</span>
                 <div class="contact-info-header-separator-mobile"></div>
     </div>
-                <div id="animation-header" class="contact-data animation">
+                <div id="animation-header" class="contact-data">
                 <div id="contact-data-logo" class="contact-data-logo" style="background:${actualBgColor};">${initials}</div>
                 <div class="contact-data-name"><span>${contactName}</span> 
                         <div class="contact-data-icon">
@@ -432,11 +423,11 @@ function getEachContactInfo(eachContact){
                         </div>
                 </div>
                 </div>
-                <h2 id="animation-title" class="animation">Contact Information</h2>
-                <h3 id="animation-email-title" class="animation">Email</h3>
-                <a id="animation-email" href="" class="animation">${contactEmail}</a>
-                <h3 id="animation-phone-title" class="animation" >Phone</h3>
-                <p id="animation-phone" class="tel-number animation" >${contactPhone}</p>
+                <h2 id="animation-title">Contact Information</h2>
+                <h3 id="animation-email-title">Email</h3>
+                <a id="animation-email" href="">${contactEmail}</a>
+                <h3 id="animation-phone-title">Phone</h3>
+                <p id="animation-phone" class="tel-number" >${contactPhone}</p>
                 </div>
                 <div onclick='openEditOptions(); doNotClose(event)' id="edit-more-options" class="more_img_boarder">
                     <img src="/img/more_vert.png" alt="">

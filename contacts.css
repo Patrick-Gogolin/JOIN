@@ -99,10 +99,28 @@ body{
     font-family: 'Inter';
     margin: 0;
     overflow-x: hidden;
+    overflow-y: hidden;
+
 }
 
 .d-none{
     display: none !important;
+}
+
+header{
+    background-color: white;
+    width: 100%;
+    max-width: 1920px;
+    height: 96px;
+    box-sizing: border-box;
+    padding: 20px 40px 20px 348px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 auto;
+    position: fixed;
+    top: 0;
+    box-shadow: 0px 4px 4px 0px #0000001A;
 }
 
 
@@ -214,12 +232,12 @@ body{
 }
 
 .nobody{
-    margin-left: 12%;
-    margin-right: 9%;
+    margin-left: 7%;
     width: 120px;
     height: 120px;
     border-radius: 50%;
     flex: none;
+    align-self: center;
 }
 
 .edit-contact-logo{
@@ -247,6 +265,8 @@ body{
 .form input::placeholder{
     color: #D1D1D1;
 }
+
+
 
 .form img{
     width: 24px;
@@ -304,6 +324,10 @@ body{
     outline: none;
 }
 
+.form input:focus{
+    border: solid 1px #29ABE2;
+}
+
 .add-contact-form-buttons{
     display: flex;
 }
@@ -328,6 +352,18 @@ body{
     height: 24px;
 }
 
+.cancel:hover{
+    color: #29ABE2;
+    border-color: #29ABE2;
+    box-shadow: 0px 4px 4px 0px #00000040;
+
+}
+
+body:has(.cancel:hover) .cancel img{
+    filter: drop-shadow(0px 1000px 0 #29ABE2);
+    transform: translateY(-1000px);
+}
+
 .create{
     cursor: pointer;
     width: 214px;
@@ -342,6 +378,13 @@ body{
     gap: 4px;
 }
 
+.create:hover{
+    background: #29ABE2;
+    border: #29ABE2;
+    box-shadow: 0px 4px 4px 0px #00000040;
+
+}
+
 .create img{
     width: 24px;
     height: 24px;
@@ -349,6 +392,7 @@ body{
 
 .content{
     margin-left: 232px;
+    margin-top: 93px;
     display: flex;
     height: 100%;
 }
@@ -365,7 +409,7 @@ body{
 }
 
 .animation{
-    animation: slideMe 0.5s;
+    animation: slideMe 0.3s;
 }
 
 .animation-close{
@@ -403,6 +447,8 @@ body{
 
 .add-contact:hover{
     background-color: rgb(42,170,226);
+    box-shadow: 0px 4px 4px 0px #00000040;
+
 }
 
 .abc-separator{
@@ -724,11 +770,6 @@ body:has(.back_img_boarder:hover) .back_img_boarder img{
 }
 
 @media (min-width:1220px) {
-
-    body{
-        overflow-y: hidden;
-    }
-
     .contact-info-header-separator-mobile{
         display: none;
     }
@@ -745,6 +786,7 @@ body:has(.back_img_boarder:hover) .back_img_boarder img{
 @media (min-width:800px){
     .contact-list{
         max-width: 452px;
+        min-width: 452px;
     }
 }
 
@@ -781,12 +823,12 @@ body:has(.back_img_boarder:hover) .back_img_boarder img{
 
 @media (max-width: 1220px) {
 
-    body{
-        overflow-y: hidden
-    };
-
     .mobile-header{
-        display: flex;
+        display: flex !important;
+    }
+
+    header{
+        display: none !important;
     }
 
     .opened-contact-list{
@@ -812,6 +854,7 @@ body:has(.back_img_boarder:hover) .back_img_boarder img{
 
     .content{
         margin-left: 0;
+        margin-top: 80px;
     }
 
     .back-icon-boarder{
@@ -987,9 +1030,6 @@ body:has(.back_img_boarder:hover) .back_img_boarder img{
 }
 
 @media (max-width: 900px) {
-.contact-list{
-    min-width: 0 !important;
-}
 
 .contact-info{
     width: 48%;
