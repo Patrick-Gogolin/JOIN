@@ -324,6 +324,12 @@ function updateFilteredHTML(filteredTasks) {
     if (todo.length === 0) {
         document.getElementById('todo').innerHTML = '<div class="nothing-to-do-nothing-done-container"><span>No tasks To do</span></div>';
     }
+    if (progress.length === 0) {
+        document.getElementById('progress').innerHTML = '<div class="nothing-to-do-nothing-done-container"><span>No tasks in progress</span></div>';
+    }
+    if (feedback.length === 0) {
+        document.getElementById('feedback').innerHTML = '<div class="nothing-to-do-nothing-done-container"><span>No tasks awaiting feedback</span></div>';
+    }
     if (done.length === 0) {
         document.getElementById('done').innerHTML = '<div class="nothing-to-do-nothing-done-container"><span>No tasks Done</span></div>';
     }
