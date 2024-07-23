@@ -409,11 +409,11 @@ body:has(.cancel:hover) .cancel img{
 }
 
 .animation{
-    animation: slideMe 0.3s;
+    animation: slideMe 0.125s;
 }
 
 .animation-close{
-    animation: slideOut 0.5s;
+    animation: slideOut 0.125s;
 }
 
 .add-contact{
@@ -686,7 +686,7 @@ body:has(.delete:hover) .delete img{
     display: none;
     justify-content: center;
     align-items: center;
-    animation: 300ms move-in;
+    animation: 125ms move-in;
 }
 
 .more_options_icon{
@@ -766,7 +766,7 @@ body:has(.back_img_boarder:hover) .back_img_boarder img{
     font-size: 20px;
     bottom: 28%;
     left: calc((100% - 316px) / 2);
-    animation: climb-up 1000ms;
+    animation: climb-up 100ms;
 }
 
 @media (min-width:1220px) {

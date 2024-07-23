@@ -76,13 +76,15 @@ aside {
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
-    align-items: center;
+    width: 100%;
 }
 
 .legals a {
     font-size: 16px;
     color:  #CDCDCD;
     text-decoration: none;
+    padding: 8px;
+    text-align: center;
 }
 
 .legals a:hover {
@@ -93,6 +95,8 @@ aside {
 body#body-summary div#summary,
 body#body-add-task div#add-task,
 body#body-board div#board,
-body#body-contacts div#contacts{
+body#body-contacts div#contacts,
+body#body-privacy a#privacy,
+body#body-legal a#legal{
     background: #091931;
 }

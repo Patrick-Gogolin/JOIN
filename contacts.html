@@ -39,7 +39,7 @@
                 <form class="form" onsubmit="postContacts('/contacts'); return false;">
                     <input id="name" class="add-contact-input-name" placeholder="Name" type="text" required>
                     <input id="mail" class="add-contact-input-mail" placeholder="Email" type="email" required>
-                    <input id="phone" class="add-contact-input-tel" placeholder="Phone" type="tel" required>
+                    <input type="tel" id="phone" class="add-contact-input-tel" placeholder="Phone (+00 00 000 0000)" pattern="+[0-9]{2} [0-9]{2} [0-9]{3} [0-9]{4}" required>
                     <div class="add-contact-form-buttons">
                     <button onclick="closePopup()" type="button" class="cancel">Cancel <img src="img/x.svg" alt=""></button>
                     <button type="submit" class="create"> Create contact <img src="img/check.png" alt=""></button>
