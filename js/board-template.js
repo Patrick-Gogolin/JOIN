@@ -111,7 +111,7 @@ function renderAssignedContactsInToDo(initial, contactColors) {
 function renderEmptyTasksInToInProgressHtml() {
     return /*html*/`
     <div class="nothing-to-do-nothing-done-container">
-        <span>No tasks in Progress</span>
+        <span>No tasks in progress</span>
     </div>`;
 }
 
@@ -151,7 +151,7 @@ function renderAssignedContactsInProgress(initial, contactColors) {
  function renderEmptyTasksInToAwaitFeedbackHtml() {
     return /*html*/`
     <div class="nothing-to-do-nothing-done-container">
-        <span>No tasks waiting for Feedback</span>
+        <span>No tasks awaiting feedback</span>
     </div>`;
 }
 
