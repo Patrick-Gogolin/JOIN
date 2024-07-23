@@ -165,7 +165,7 @@
             
             <div class="rendered-tasks-container">
                 <div class="task-column">
-                    <div class="state-of-task-container">
+                    <div class="state-of-task-container" id="todo-mb">
                         <span>To Do</span>
                         <img class="add-task-todo-img" id="add-task-todo-grey"
                             onmouseover="changeAddSignToBlue('add-task-todo-grey', 'add-task-todo-blue')"
@@ -184,7 +184,7 @@
                     </div>
                 </div>
                 <div class="task-column">
-                    <div class="state-of-task-container">
+                    <div class="state-of-task-container" id="progress-mb">
                         <span>In progress</span>
                         <img class="add-task-todo-img" id="add-task-progress-grey"
                             onmouseover="changeAddSignToBlue('add-task-progress-grey', 'add-task-progress-blue')"
@@ -199,7 +199,7 @@
                     </div>
                 </div>
                 <div class="task-column">
-                    <div class="state-of-task-container">
+                    <div class="state-of-task-container" id="feedback-mb">
                         <span>Await feedback</span>
                         <img class="add-task-todo-img" id="add-task-feedback-grey"
                             onmouseover="changeAddSignToBlue('add-task-feedback-grey', 'add-task-feedback-blue' )"
@@ -214,7 +214,7 @@
                     </div>
                 </div>
                 <div class="task-column">
-                    <div class="state-of-task-container">
+                    <div class="state-of-task-container" id="done-mb">
                         <span>Done</span>
                     </div>
                     <div id="done" class="rendered-tasks-area-done drag-area" ondrop="moveTo('done')"

@@ -14,7 +14,7 @@ async function getTasks(path = "") {
     for (let i = 0; i < keys.length; i++) {
         const key = keys[i];
         const task = responseToJson[key];
-         data = {
+        data = {
             id: key,
             title: task['title'],
             description: task['description'],
@@ -30,7 +30,7 @@ async function getTasks(path = "") {
         };
         allTasks.push(data);
     }
-    
+
     updateHTML();
 }
 
@@ -55,7 +55,7 @@ function renderDetailTaskSlide(id) {
     console.log(task);
     content.innerHTML = renderDetailTaskSlideHtml(task, imageSrc, index, bgColor, id);
 
-    forLoopContactsForDetailTaskSlide (task, initials)
+    forLoopContactsForDetailTaskSlide(task, initials)
 
     forLoopSubtasksForDetailTaskSlide(task)
 }
@@ -63,11 +63,11 @@ function renderDetailTaskSlide(id) {
 function forLoopContactsForDetailTaskSlide(task, initials,) {
     for (let i = 0; i < task['assignedContacts'].length; i++) {
         let assignedContactsContent = document.getElementById('assigned-contacts-edit-task-container');
-        let contact= task['assignedContacts'][i];
+        let contact = task['assignedContacts'][i];
         let initial = initials[i];
         let contactColors = task.assignedContactsColors[i]
         assignedContactsContent.innerHTML += renderDetailTaskSlideContactsHtml(initial, contact, contactColors);
-        }
+    }
 }
 
 function forLoopSubtasksForDetailTaskSlide(task) {
@@ -85,15 +85,15 @@ function forLoopSubtasksForDetailTaskSlide(task) {
     }
 }
 
-async function deleteTaskFromDatabase(path = ""){
-    let response = await fetch(BASE_URL + path + ".json",{
+async function deleteTaskFromDatabase(path = "") {
+    let response = await fetch(BASE_URL + path + ".json", {
         method: "DELETE",
     });
-    setTimeout(async function() {
+    setTimeout(async function () {
         closeEditTaskOverlay('edit-task-overlayer')
         await getTasks('/tasks');
     }, 300);
-  return responseToJson = await response.json();
+    return responseToJson = await response.json();
 
 }
 
@@ -120,28 +120,28 @@ function getInitialsOfFetchedData(namesArray) {
 }
 
 function renderPriorityImage(task) {
-    if(task.priority === "Urgent") {
+    if (task.priority === "Urgent") {
         return 'img/urgent-prio.svg';
     }
-    else if(task.priority === "Medium" ) {
+    else if (task.priority === "Medium") {
         return 'img/medium-prio-orange.svg';
     }
-    else if(task.priority === "Low") {
+    else if (task.priority === "Low") {
         return 'img/low-prio.svg';
     }
 
 }
 
-async function updateData(path = "", data={}, i) {
+async function updateData(path = "", data = {}, i) {
     data = allTasks[i];
-    let response = await fetch(BASE_URL + path + ".json",{
+    let response = await fetch(BASE_URL + path + ".json", {
         method: "PUT",
         headers: {
             "Content-Type": "application/json",
         },
         body: JSON.stringify(data)
     });
-  return responseToJson = await response.json();
+    return responseToJson = await response.json();
 
 }
 
@@ -154,7 +154,7 @@ function updateHTML() {
     document.getElementById('progress').innerHTML = '';
     document.getElementById('feedback').innerHTML = '';
     document.getElementById('done').innerHTML = '';
-    
+
     renderContentIfAreaIsEmpty(toDo, inProgress, awaitFeedback, done);
     renderIntoTaskAreaToDo(toDo);
     renderIntoTaskAreaProgress(inProgress);
@@ -163,22 +163,22 @@ function updateHTML() {
 }
 
 function renderContentIfAreaIsEmpty(toDo, inProgress, awaitFeedback, done) {
-    if(toDo.length === 0) {
+    if (toDo.length === 0) {
         let content = document.getElementById('todo');
         content.innerHTML = renderEmptyTasksInToDoHtml()
     }
 
-    if(inProgress.length === 0) {
+    if (inProgress.length === 0) {
         let content = document.getElementById('progress');
         content.innerHTML = renderEmptyTasksInToInProgressHtml()
     }
 
-    if(awaitFeedback.length === 0) {
+    if (awaitFeedback.length === 0) {
         let content = document.getElementById('feedback');
         content.innerHTML = renderEmptyTasksInToAwaitFeedbackHtml();
     }
-        
-    if(done.length === 0) {
+
+    if (done.length === 0) {
         let content = document.getElementById('done');
         content.innerHTML = renderEmptyTasksInToDoneHtml();
     }
@@ -187,43 +187,43 @@ function renderContentIfAreaIsEmpty(toDo, inProgress, awaitFeedback, done) {
 function renderIntoTaskAreaToDo(toDo) {
     for (let i = 0; i < toDo.length; i++) {
         let content = document.getElementById('todo');
-        let task =toDo[i];
+        let task = toDo[i];
         let subtasks = task.subtasks.length;
         let doneSubtasks = task.doneSubtasks.length;
         let imageSrc = renderPriorityImage(task);
         let initials = getInitialsOfFetchedData(task.assignedContacts);
         let bgColor = task.category === "User Story" ? 'bg-blue' : 'bg-green';
-        content.innerHTML +=  renderTasksInToDoHtml(task, bgColor, subtasks, doneSubtasks, imageSrc, i);
-        
-            for (let x = 0; x < initials.length; x++) {
-                const initial = initials[x];
-                let contactColors = task.assignedContactsColors[x]
-                let contentForContacts = document.getElementById(`contacts-todo-container${i}`)
-                contentForContacts.innerHTML += renderAssignedContactsInToDo(initial, contactColors);
-                }
-            }
-            removeHighlight('todo');
+        content.innerHTML += renderTasksInToDoHtml(task, bgColor, subtasks, doneSubtasks, imageSrc, i);
+
+        for (let x = 0; x < initials.length; x++) {
+            const initial = initials[x];
+            let contactColors = task.assignedContactsColors[x]
+            let contentForContacts = document.getElementById(`contacts-todo-container${i}`)
+            contentForContacts.innerHTML += renderAssignedContactsInToDo(initial, contactColors);
+        }
+    }
+    removeHighlight('todo');
 }
 
 function renderIntoTaskAreaProgress(inProgress) {
     for (let i = 0; i < inProgress.length; i++) {
         let content = document.getElementById('progress');
-        let task =inProgress[i];
+        let task = inProgress[i];
         let subtasks = task.subtasks.length;
         let doneSubtasks = task.doneSubtasks.length;
         let imageSrc = renderPriorityImage(task);
         let initials = getInitialsOfFetchedData(task.assignedContacts);
         let bgColor = task.category === "User Story" ? 'bg-blue' : 'bg-green';
-        content.innerHTML +=  renderTasksInProgressHtml(task, bgColor, subtasks, doneSubtasks, imageSrc, i);
-        
-            for (let x = 0; x < initials.length; x++) {
-                const initial = initials[x];
-                let contactColors = task.assignedContactsColors[x]
-                let contentForContacts = document.getElementById(`contacts-progress-container${i}`)
-                contentForContacts.innerHTML += renderAssignedContactsInProgress(initial, contactColors);
-                }
-            }
-            removeHighlight('progress');
+        content.innerHTML += renderTasksInProgressHtml(task, bgColor, subtasks, doneSubtasks, imageSrc, i);
+
+        for (let x = 0; x < initials.length; x++) {
+            const initial = initials[x];
+            let contactColors = task.assignedContactsColors[x]
+            let contentForContacts = document.getElementById(`contacts-progress-container${i}`)
+            contentForContacts.innerHTML += renderAssignedContactsInProgress(initial, contactColors);
+        }
+    }
+    removeHighlight('progress');
 }
 
 function renderIntoTaskFeedback(awaitFeedback) {
@@ -235,16 +235,16 @@ function renderIntoTaskFeedback(awaitFeedback) {
         let imageSrc = renderPriorityImage(task);
         let initials = getInitialsOfFetchedData(task.assignedContacts);
         let bgColor = task.category === "User Story" ? 'bg-blue' : 'bg-green';
-        content.innerHTML +=  renderTasksInFeedbackHtml(task, bgColor, subtasks, doneSubtasks, imageSrc, i);
-        
-            for (let x = 0; x < initials.length; x++) {
-                const initial = initials[x];
-                let contactColors = task.assignedContactsColors[x]
-                let contentForContacts = document.getElementById(`contacts-feedback-container${i}`)
-                contentForContacts.innerHTML += renderAssignedContactsInFeedback(initial, contactColors);
-                }
-            }
-            removeHighlight('feedback');
+        content.innerHTML += renderTasksInFeedbackHtml(task, bgColor, subtasks, doneSubtasks, imageSrc, i);
+
+        for (let x = 0; x < initials.length; x++) {
+            const initial = initials[x];
+            let contactColors = task.assignedContactsColors[x]
+            let contentForContacts = document.getElementById(`contacts-feedback-container${i}`)
+            contentForContacts.innerHTML += renderAssignedContactsInFeedback(initial, contactColors);
+        }
+    }
+    removeHighlight('feedback');
 }
 
 function renderIntoTaskDone(done) {
@@ -256,16 +256,16 @@ function renderIntoTaskDone(done) {
         let imageSrc = renderPriorityImage(task);
         let initials = getInitialsOfFetchedData(task.assignedContacts);
         let bgColor = task.category === "User Story" ? 'bg-blue' : 'bg-green';
-        content.innerHTML +=  renderTasksInDoneHtml(task, bgColor, subtasks, doneSubtasks, imageSrc, i);
-        
-            for (let x = 0; x < initials.length; x++) {
-                const initial = initials[x];
-                let contactColors = task.assignedContactsColors[x]
-                let contentForContacts = document.getElementById(`contacts-done-container${i}`)
-                contentForContacts.innerHTML += renderAssignedContactsInDone(initial, contactColors);
-                }
-            }
-            removeHighlight('done');
+        content.innerHTML += renderTasksInDoneHtml(task, bgColor, subtasks, doneSubtasks, imageSrc, i);
+
+        for (let x = 0; x < initials.length; x++) {
+            const initial = initials[x];
+            let contactColors = task.assignedContactsColors[x]
+            let contentForContacts = document.getElementById(`contacts-done-container${i}`)
+            contentForContacts.innerHTML += renderAssignedContactsInDone(initial, contactColors);
+        }
+    }
+    removeHighlight('done');
 }
 
 function startDragging(id) {
@@ -390,7 +390,7 @@ function renderTasks(tasks, status) {
 
 function enableDrawing() {
     const sliders = document.querySelectorAll('.rendered-tasks-area-to-do, .rendered-tasks-area-in-progress, .rendered-tasks-area-await-feedback, .rendered-tasks-area-done');
-    
+
     sliders.forEach(slider => {
         let isDown = false;
         let startX;
@@ -423,3 +423,139 @@ function enableDrawing() {
         });
     });
 }
+
+
+//--------------------------------------------------------Mobile-Drag-and-Drop---------------------------------------------------------//
+
+// let draggableTask = document.querySelectorAll(".task-container");
+
+// let draggableToDo = document.querySelector('#todo');
+// let draggableProgress = document.querySelector('#progress');
+// let draggableFeedback = document.querySelector('#feedback');
+// let draggableDone = document.querySelector('#done');
+
+// let toDoPos = draggableToDo.getBoundingClientRect();
+// let progressPos = draggableProgress.getBoundingClientRect();
+// let feedbackPos = draggableFeedback.getBoundingClientRect();
+// let donePos = draggableDone.getBoundingClientRect();
+
+// task.forEach(addStart);
+
+// function addStart(elem) {
+//     elem.addEventListener("touchstart", e => {
+
+//         let startX = e.changedTouches[0].clientX;
+//         let startY = e.changedTouches[0].clientY;
+
+//         elem.addEventListener("touchmove", eve => {
+//             eve.preventDefault();
+
+//             let nextX = eve.changedTouches[0].clientX;
+//             let nextY = eve.changedTouches[0].clientY;
+
+//             elem.style.left = nextX - startX + "px";
+//             elem.style.top = nextY - startY + "px";
+//             elem.style.zIndex = 10;
+//         });
+
+//         elem.addEventListener("touchend", eve => {
+//             if (elem.getBoundingClientRect().top
+//                 > progressPos.top) {
+//                 if (!progressPos.contains(elem)) {
+//                     progress.appendChild(elem);
+//                 }
+//             }
+//             else if (elem.getBoundingClientRect().bottom
+//                 < toDoPos.bottom) {
+//                 if (!todo.contains(elem)) {
+//                     todo.appendChild(elem);
+//                 }
+//             }
+//         });
+
+//         elem.style.left = 0 + "px";
+//         elem.style.top = 0 + "px";
+
+//     });
+// }
+
+
+document.addEventListener('DOMContentLoaded', () => {
+    console.log('DOM fully loaded and parsed');
+    
+    let draggableTask = document.querySelectorAll(".task-container");
+
+    let draggableToDo = document.querySelector('#todo-mb');
+    let draggableProgress = document.querySelector('#progress-mb');
+    let draggableFeedback = document.querySelector('#feedback-mb');
+    let draggableDone = document.querySelector('#done-mb');
+
+    // Überprüfen, ob die Elemente vorhanden sind
+    if (draggableToDo && draggableProgress && draggableFeedback && draggableDone) {
+        console.log('All draggable elements found');
+        
+        draggableTask.forEach(addStart);
+
+        function addStart(elem) {
+            elem.addEventListener("touchstart", e => {
+                e.preventDefault(); // Verhindert Standardaktionen wie Scrollen
+
+                let startX = e.changedTouches[0].clientX;
+                let startY = e.changedTouches[0].clientY;
+
+                elem.style.position = "absolute"; // Sicherstellen, dass das Element verschiebbar ist
+                elem.style.zIndex = 10;
+
+                const handleTouchMove = eve => {
+                    eve.preventDefault();
+                    let nextX = eve.changedTouches[0].clientX;
+                    let nextY = eve.changedTouches[0].clientY;
+
+                    elem.style.left = `${nextX - startX}px`;
+                    elem.style.top = `${nextY - startY}px`;
+                };
+
+                const handleTouchEnd = eve => {
+                    // Hole die aktuellen Positionen der Container erneut
+                    let toDoPos = draggableToDo.getBoundingClientRect();
+                    let progressPos = draggableProgress.getBoundingClientRect();
+                    let feedbackPos = draggableFeedback.getBoundingClientRect();
+                    let donePos = draggableDone.getBoundingClientRect();
+
+                    let elemRect = elem.getBoundingClientRect();
+
+                    if (elemRect.top >= progressPos.top && elemRect.bottom <= progressPos.bottom) {
+                        if (!draggableProgress.contains(elem)) {
+                            draggableProgress.appendChild(elem);
+                        }
+                    } else if (elemRect.top >= feedbackPos.top && elemRect.bottom <= feedbackPos.bottom) {
+                        if (!draggableFeedback.contains(elem)) {
+                            draggableFeedback.appendChild(elem);
+                        }
+                    } else if (elemRect.top >= donePos.top && elemRect.bottom <= donePos.bottom) {
+                        if (!draggableDone.contains(elem)) {
+                            draggableDone.appendChild(elem);
+                        }
+                    } else if (elemRect.top >= toDoPos.top && elemRect.bottom <= toDoPos.bottom) {
+                        if (!draggableToDo.contains(elem)) {
+                            draggableToDo.appendChild(elem);
+                        }
+                    }
+
+                    // Setze die Position des Elements zurück
+                    elem.style.left = "0px";
+                    elem.style.top = "0px";
+                    
+                    // Entferne Event Listener nach dem Drag
+                    elem.removeEventListener("touchmove", handleTouchMove);
+                    elem.removeEventListener("touchend", handleTouchEnd);
+                };
+
+                elem.addEventListener("touchmove", handleTouchMove, { passive: false });
+                elem.addEventListener("touchend", handleTouchEnd, { passive: false });
+            });
+        }
+    } else {
+        console.error('Ein oder mehrere der benötigten Elemente wurden nicht gefunden.');
+    }
+});
