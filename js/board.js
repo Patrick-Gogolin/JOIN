@@ -45,7 +45,7 @@ function closeEditTaskOverlay(id) {
 }
 
 function renderDetailTaskSlide(id) {
-    content = document.getElementById('edit-task-overlayer');
+    let content = document.getElementById('edit-task-overlayer');
     let index = taskKeys.indexOf(id);
     let task = allTasks[index];
     let imageSrc = renderPriorityImage(task);
@@ -54,6 +54,7 @@ function renderDetailTaskSlide(id) {
     openEditTaskOverlayer('edit-task-overlayer');
     console.log(task);
     content.innerHTML = renderDetailTaskSlideHtml(task, imageSrc, index, bgColor, id);
+
 
     forLoopContactsForDetailTaskSlide(task, initials)
 
@@ -128,6 +129,9 @@ function renderPriorityImage(task) {
     }
     else if (task.priority === "Low") {
         return 'img/low-prio.svg';
+    }
+    else {
+        return null;
     }
 
 }
