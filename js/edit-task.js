@@ -562,12 +562,7 @@ function newDate() {
 }
 
 async function updateTask(path = "", data={}) {
-    let index = taskKeys.indexOf(emptyTask.id);
-    allTasks[index] = emptyTask;
-    let key = taskKeys[index];
-    console.log(allTasks);
-    
-    data = {
+   data = {
         id: "",
         title: emptyTask['title'],
         description: emptyTask['description'],
@@ -588,7 +583,6 @@ async function updateTask(path = "", data={}) {
         },
         body: JSON.stringify(data)
     });
-    renderDetailTaskSlide(key);
   return responseToJson = await response.json();
   }
 
@@ -597,6 +591,10 @@ async function updateTask(path = "", data={}) {
     let date = document.getElementById('date-edit-task');
     let titleRequiredSpan = document.getElementById('title-required-span-edit-task');
     let dateRequiredSpan = document.getElementById('date-required-span-edit-task');
+    let indexOfTaskKeys = taskKeys.indexOf(emptyTask.id);
+    allTasks[indexOfTaskKeys] = emptyTask;
+    let key = taskKeys[indexOfTaskKeys];
+    console.log(allTasks);
 
     checkField(title, titleRequiredSpan);
     checkField(date, dateRequiredSpan);
@@ -605,5 +603,6 @@ async function updateTask(path = "", data={}) {
         await updateTask(`/tasks/${taskKeys[index]}`)
         closeEditTaskOverlay('edit-task-popup');
         updateHTML();
+        renderDetailTaskSlide(key);
     }
 }
