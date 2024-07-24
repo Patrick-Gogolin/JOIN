@@ -44,7 +44,7 @@ function OpenEditTaskWindow(id) {
         <div class="assigned-to-input-container">
             <span class="headline-input">Assigned to</span>
             <div class="select-contacts-container">
-                <input onkeyup="searchContacts()" id="search-contact-inputfield" type="text" placeholder="Select contacts to assign">
+                <input onkeyup="searchContactsEditTask()" id="search-contact-inputfield-edit-task" type="text" placeholder="Select contacts to assign">
                 <img onclick="openSelectContactsContainerEditTask()" src="img/arrow-drop-down-contacts.svg" alt="">
             </div>
             <div id="choose-contacts-container-edit-task" class="choose-contacts-container d-none">
@@ -291,6 +291,65 @@ function renderContactsEditTask() {
     </div>`;
     }
 }
+}
+
+function searchContactsEditTask() {
+    let search = document.getElementById('search-contact-inputfield-edit-task').value.toLowerCase().trim();
+    let content = document.getElementById('select-contact-container-edit-task');
+    let activeUserContainer = document.getElementById('active-user-container-edit-task');
+    content.innerHTML = '';
+
+    if (activeUser.length > 0) { 
+        let activeUserUpdated = activeUser.join(" ");
+        let activeUserInitialsUpdated = activeUserInitials.join("");
+        let checkBox = renderCheckBoxEditTask(activeUserUpdated);
+        let bgColor = emptyTask.assignedContacts.indexOf(activeUserUpdated) !== -1 ? 'bg-navy' : 'bg-white';
+        let color = colorForActiveUser;
+
+        if (activeUserUpdated.toLowerCase().includes(search)) {
+            activeUserContainer.classList.remove('d-none');
+            activeUserContainer.innerHTML = /*html*/`
+            <div id="logged-in-user" onclick="assignTaskToLoggedInUser('logged-in-user')" class="single-contact-container ${bgColor}">
+                <div class="single-contact-name-container">
+                    <div class="contact-name-initials-container" style="background-color: ${color};">
+                        <span class="user-initials-span">${activeUserInitialsUpdated}</span>
+                    </div>
+                    <span id="logged-in-user-name">${activeUserUpdated}</span><span>(You)</span>
+                </div>
+                <div>
+                    <img id="checkbox-active-user" src=${checkBox} alt="Checkbox">
+                </div>
+            </div>`;
+        } else {
+            activeUserContainer.innerHTML = '';
+        }
+    } else {
+        activeUserContainer.classList.add('d-none');
+    }
+
+    for (let i = 0; i < contacts.length; i++) {
+        const color = colors[i];
+        const userName = userNames[i];
+        const userNameLowerCase = userName.toLowerCase();
+        const userNameInitial = userNamesInitials[i];
+        let checkBoxContacts = renderCheckBoxEditTask(userName);
+        let bgColor = emptyTask.assignedContacts.indexOf(userName) !== -1 ? 'bg-navy' : 'bg-white'
+
+        if (userNameLowerCase.includes(search)) {
+        content.innerHTML += /*html*/`
+<div id="${i}" onclick="assignTaskToContactEditTask(${i})"  class="single-contact-container ${bgColor}">
+    <div class="single-contact-name-container">
+        <div class="contact-name-initials-container" style="background-color: ${color};">
+            <span class="user-initials-span">${userNameInitial}</span>
+        </div>
+        <span id="assigned-contact-name-edit-task${i}">${userName}</span>
+    </div>
+    <div>
+        <img id="checkbox-edit-task${i}" src=${checkBoxContacts} alt="Checkbox">
+    </div>
+</div>`;
+        }
+    }
 }
 
 function renderAssignedContactsEditTask() {
