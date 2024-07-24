@@ -993,7 +993,7 @@ body{
 .task-card-title{
     font-size: 61px;
     font-weight: 700;
-    word-break: break-all;
+    word-break: break-word;
 }
 
 .task-card-date{
