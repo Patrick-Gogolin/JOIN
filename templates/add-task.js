@@ -532,19 +532,49 @@ function getInitialsAssignedContactsId() {
 
 function searchContacts() {
     let search = document.getElementById('search-contact-inputfield').value.toLowerCase().trim();
-    let content = document.getElementById('choose-contacts-container');
+    let content = document.getElementById('select-contact-container');
+    let activeUserContainer = document.getElementById('active-user-container');
     content.innerHTML = '';
+
+    if (activeUser.length > 0) { 
+        let activeUserUpdated = activeUser.join(" ");
+        let activeUserInitialsUpdated = activeUserInitials.join("");
+        let checkBox = renderCheckBox("logged-in-user");
+        let bgColor = assignedContactsId.includes('logged-in-user') ? 'bg-navy' : 'bg-white';
+        let color = colorForActiveUser;
+
+        if (activeUserUpdated.toLowerCase().includes(search)) {
+            activeUserContainer.classList.remove('d-none');
+            activeUserContainer.innerHTML = /*html*/`
+            <div id="logged-in-user" onclick="assignTaskToLoggedInUser('logged-in-user')" class="single-contact-container ${bgColor}">
+                <div class="single-contact-name-container">
+                    <div class="contact-name-initials-container" style="background-color: ${color};">
+                        <span class="user-initials-span">${activeUserInitialsUpdated}</span>
+                    </div>
+                    <span id="logged-in-user-name">${activeUserUpdated}</span><span>(You)</span>
+                </div>
+                <div>
+                    <img id="checkbox-active-user" src=${checkBox} alt="Checkbox">
+                </div>
+            </div>`;
+        } else {
+            activeUserContainer.innerHTML = '';
+        }
+    } else {
+        activeUserContainer.classList.add('d-none');
+    }
 
     for (let i = 0; i < userNames.length; i++) {
         let checkBox = renderCheckBox(i);
         const userName = userNames[i];
-        const userNameLowerCase = userNames[i].toLowerCase();
+        const userNameLowerCase = userName.toLowerCase();
         const color = colors[i];
         const userNameInitial = userNamesInitials[i];
+        let bgColor = assignedContactsId.includes(i) ? 'bg-navy' : 'bg-white';
 
         if (userNameLowerCase.includes(search)) {
             content.innerHTML += /*html*/`
-            <div id="${i}"onclick="assignTaskToContact(${i})" class="single-contact-container">
+            <div id="${i}" onclick="assignTaskToContact(${i})" class="single-contact-container ${bgColor}">
                 <div class="single-contact-name-container">
                     <div class="contact-name-initials-container" style="background-color: ${color};">
                         <span class="user-initials-span">${userNameInitial}</span>
@@ -552,12 +582,13 @@ function searchContacts() {
                     <span id="assigned-contact-name${i}">${userName}</span>
                 </div>
                 <div>
-                    <img id="checkbox-active-user" src=${checkBox} alt="Checkbox">
+                    <img id="checkbox${i}" src=${checkBox} alt="Checkbox">
                 </div>
             </div>`;
         }
     }
 }
+
 
 function getInitials() {
     let initials = userNames.map(name => {
