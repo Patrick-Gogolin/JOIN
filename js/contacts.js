@@ -388,6 +388,7 @@ function showContactInfo(eachContact){
     })
     document.getElementById(`contact-list-element-${eachContact.id}`).style.background = "#2A3647";
     document.getElementById(`contact-list-element-${eachContact.id}`).style.color = "white";
+    document.getElementById(`contact-list-element-${eachContact.id}`).scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     showInfo(eachContact); 
 }
 

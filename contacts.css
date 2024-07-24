@@ -443,6 +443,7 @@ body:has(.cancel:hover) .cancel img{
     justify-content: center;
     align-items: center;
     margin-bottom: 112px;
+    margin-top: 20px;
 }
 
 .add-contact:hover{

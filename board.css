@@ -182,6 +182,7 @@ select {
    font-family: inter;
    font-weight: 200;
    font-size: 20px;
+   width: 100%;
 }
 
 .choose-contacts-container {
@@ -245,6 +246,11 @@ select {
 
 .contact-name-initials-container {
     padding: 12px;
+    width: 44px;
+    height: 44px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     border-radius: 50%;
     border: 3px solid white;
     font-size: 12px;
@@ -1290,9 +1296,7 @@ color: #29ABE2;
         display: none;
     }
 
-    .add-task-headline-container{
-        margin-left: -88px;
-    }
+  
 }
 
 @media screen and (max-width:508px) {
@@ -1320,6 +1324,19 @@ color: #29ABE2;
     .add-task-bottom{
         gap: 30px;
     }
+
+    .add-subtask-container input{
+        width: 260px;
+    }
+
+    .choose-contacts-container,
+    .choose-category-container{
+        scrollbar-width: none;
+    }
+
+    .add-task-headline-container{
+        margin-left: -88px;
+    }
 }
 
 @media screen and (max-width: 435px) {
@@ -1339,6 +1356,8 @@ color: #29ABE2;
     .add-task-bottom{
         gap: 20px;
     }
+
+  
 }
 
 @media screen and (max-width: 906px) {
@@ -1355,5 +1374,17 @@ color: #29ABE2;
     .content{
         padding: 0 16px 140px 16px;
         width: 100%;
+    }
+}
+
+@media screen and (max-height: 900px) {
+    .add-task-slide{
+        height: 95vh;
+        overflow: scroll;
+        scrollbar-width: none;
+    }
+
+    .clear-and-create-task-button-container{
+        padding-bottom: 20px;
     }
 }
