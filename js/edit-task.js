@@ -75,7 +75,7 @@ function OpenEditTaskWindow(id) {
             </div>
         </div>
         <div class="update-task-button-container">
-            <button onclick= "finalUpdateTask()">Ok <img src="img/check.svg" alt=""></button>
+            <button onclick= "finalUpdateTask(${index})">Ok <img src="img/check.svg" alt=""></button>
         </div>
     </div>`;
 
@@ -588,7 +588,6 @@ async function updateTask(path = "", data={}) {
         },
         body: JSON.stringify(data)
     });
-    updateHTML();
     renderDetailTaskSlide(key);
   return responseToJson = await response.json();
   }
@@ -604,8 +603,7 @@ async function updateTask(path = "", data={}) {
 
     if (title.value !== "" && date.value !== "") {
         await updateTask(`/tasks/${taskKeys[index]}`)
-        setTimeout(async function() {
-            closeEditTaskOverlay('edit-task-popup');
-        }, 125);
-        }
+        closeEditTaskOverlay('edit-task-popup');
+        updateHTML();
+    }
 }
