@@ -12,7 +12,6 @@ function OpenEditTaskWindow(id) {
     let content = document.getElementById('edit-task-popup');
     let index = taskKeys.indexOf(id);
     let task = allTasks[index];
-    let category = task.category;
     emptyTask = JSON.parse(JSON.stringify(task));
     let {urgentClass, mediumClass, lowClass} = getPriorityClasses(task.priority);
     let {urgentClassSvg, mediumClassSvg, lowClassSvg} = getPrioritySvgPaths(task.priority);
@@ -76,7 +75,7 @@ function OpenEditTaskWindow(id) {
             </div>
         </div>
         <div class="update-task-button-container">
-            <button onclick= "updateTask('/tasks/${taskKeys[index]}')">Ok <img src="img/check.svg" alt=""></button>
+            <button onclick= "finalUpdateTask()">Ok <img src="img/check.svg" alt=""></button>
         </div>
     </div>`;
 
@@ -590,7 +589,23 @@ async function updateTask(path = "", data={}) {
         body: JSON.stringify(data)
     });
     updateHTML();
-    closeEditTaskOverlay('edit-task-popup');
     renderDetailTaskSlide(key);
   return responseToJson = await response.json();
   }
+
+ async function finalUpdateTask(index) {
+    let title = document.getElementById('title-edit-task');
+    let date = document.getElementById('date-edit-task');
+    let titleRequiredSpan = document.getElementById('title-required-span-edit-task');
+    let dateRequiredSpan = document.getElementById('date-required-span-edit-task');
+
+    checkField(title, titleRequiredSpan);
+    checkField(date, dateRequiredSpan);
+
+    if (title.value !== "" && date.value !== "") {
+        await updateTask(`/tasks/${taskKeys[index]}`)
+        setTimeout(async function() {
+            closeEditTaskOverlay('edit-task-popup');
+        }, 125);
+        }
+}

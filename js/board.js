@@ -55,7 +55,6 @@ function renderDetailTaskSlide(id) {
     console.log(task);
     content.innerHTML = renderDetailTaskSlideHtml(task, imageSrc, index, bgColor, id);
 
-
     forLoopContactsForDetailTaskSlide(task, initials)
 
     forLoopSubtasksForDetailTaskSlide(task)
