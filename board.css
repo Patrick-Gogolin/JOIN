@@ -1105,8 +1105,6 @@ color: #29ABE2;
     padding: 64px 74px 32px;
 }
 
-
-
 @media (max-width: 1200px){
     .task-card-title{
         font-size: 48px;
@@ -1249,10 +1247,98 @@ color: #29ABE2;
         background-position: 97%;
     }
 
+    .add-task-slide{
+        overflow: scroll;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        scrollbar-width: none;
+        margin: 0 16px 0;
+    }
+
+    .input-for-task{
+        flex-direction: column;
+    }
+
+    .add-task-headline-container{
+        margin-left: -160px;
+    padding-top: 64px;
+    padding-bottom: 32px;
+    }
+
+    .add-task-bottom{
+        display: flex;
+        align-items: center;
+        gap: 50px;
+        padding-top: 10px;
+        padding-bottom: 16px;
+    }
+
+    .required-reminder-container{
+        position: unset;
+    }
+
+    .clear-and-create-task-button-container{
+        position: unset;
+    }
+
+}
 
 
-    
+@media screen and (max-width:630px) {
+    .cancel-button{
+        display: none;
+    }
 
+    .add-task-headline-container{
+        margin-left: -88px;
+    }
+}
+
+@media screen and (max-width:508px) {
+    .add-task-headline-container h1 {
+        font-size: 47px;
+    }
+
+    .title-input-container input,
+    .description-input-container textarea,
+    .date-container input,
+    .assigned-to-input-container select,
+    .add-subtask-input-container,
+    .single-subtask-container,
+    .select-contacts-container{
+        width: 300px;
+    }
+
+
+    .priority-button-container {
+        flex-direction: column;
+        gap: 8px;
+        width: 295px
+    }
+
+    .add-task-bottom{
+        gap: 30px;
+    }
+}
+
+@media screen and (max-width: 435px) {
+    .add-task-slide{
+        margin:  0 8px 0;
+    }
+
+    .check-button{
+        width: 153px;
+    }
+
+    .required-reminder-container{
+        text-align: start;
+        width: min-content;
+    }
+
+    .add-task-bottom{
+        gap: 20px;
+    }
 }
 
 @media screen and (max-width: 906px) {
