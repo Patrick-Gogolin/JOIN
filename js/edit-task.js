@@ -297,7 +297,20 @@ function searchContactsEditTask() {
     let search = document.getElementById('search-contact-inputfield-edit-task').value.toLowerCase().trim();
     let content = document.getElementById('select-contact-container-edit-task');
     let activeUserContainer = document.getElementById('active-user-container-edit-task');
+    let container = document.getElementById('choose-contacts-container-edit-task');
+    let assignedContacts = document.getElementById('show-assigned-contacts-edit-task');
     content.innerHTML = '';
+
+    if(search.length > 0) {
+        container.classList.remove('d-none');
+        assignOptionsContactsContainerEditTask = true;
+        assignedContacts.classList.add('d-none');
+    }
+    else {
+        container.classList.add('d-none');
+        assignOptionsContactsContainerEditTask = false;
+        assignedContacts.classList.remove('d-none');
+    }
 
     if (activeUser.length > 0) { 
         let activeUserUpdated = activeUser.join(" ");

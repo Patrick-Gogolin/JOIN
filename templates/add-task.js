@@ -534,7 +534,20 @@ function searchContacts() {
     let search = document.getElementById('search-contact-inputfield').value.toLowerCase().trim();
     let content = document.getElementById('select-contact-container');
     let activeUserContainer = document.getElementById('active-user-container');
+    let container = document.getElementById('choose-contacts-container');
+    let assignedContacts = document.getElementById('show-assigned-contacts');
     content.innerHTML = '';
+
+    if(search.length > 0) {
+        container.classList.remove('d-none');
+        assignOptionsContactsContainer = true;
+        assignedContacts.classList.add('d-none');
+    }
+    else {
+        container.classList.add('d-none');
+        assignOptionsContactsContainer = false;
+        assignedContacts.classList.remove('d-none');
+    }
 
     if (activeUser.length > 0) { 
         let activeUserUpdated = activeUser.join(" ");
