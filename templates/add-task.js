@@ -243,6 +243,22 @@ function addSubtask() {
     editMenuSubtaskIsOpen = false;
 }
 
+document.addEventListener('DOMContentLoaded', (event) => {
+    let inputField = document.getElementById('add-subtask-input-container-inputfield');
+    
+    if (inputField) {
+        inputField.addEventListener('keyup', function(event) {
+            if (event.key === 'Enter') {
+                event.stopPropagation();
+                addSubtask();
+            }
+        });
+    } else {
+        console.error('Element mit ID "add-subtask-input-container-inputfield" wurde nicht gefunden.');
+    }
+});
+
+
 function renderSubtasks() {
     let content = document.getElementById('added-subtask-main-container');
     content.innerHTML = "";

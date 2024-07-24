@@ -80,8 +80,21 @@ function OpenEditTaskWindow(id) {
         </div>
     </div>`;
 
+    eventListenerForSubtaskInputField('add-subtask-input-container-inputfield-edit-task')
     renderAssignedContactsEditTask();
     renderSubtasksFromEditTask();
+}
+
+function eventListenerForSubtaskInputField(id) {
+    let inputField = document.getElementById(id);
+    if (inputField) {
+        inputField.addEventListener('keyup', function(event) {
+            if (event.key === 'Enter') {
+                event.stopPropagation();
+                addSubtaskEditTask();
+            }
+        });
+    }
 }
 
 function getPrioritySvgPaths(priority) {
