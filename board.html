@@ -23,7 +23,7 @@
     <script src="js/edit-task.js"></script>
 </head>
 
-<body id="body-board" onload="getContacts('/contacts'); getTasks('/tasks');">
+<body id="body-board" onload="getContacts('/contacts'); getTasks('/tasks'); someFunction();">
     <div w3-include-html="templates/header.html"></div>
     <div w3-include-html="templates/sidebar.html"></div>
     <div w3-include-html="templates/mobile-header.html"></div>
@@ -165,8 +165,8 @@
             </div>
             
             <div class="rendered-tasks-container">
-                <div class="task-column">
-                    <div class="state-of-task-container" id="todo-mb">
+                <div class="task-column" id="todo-mb">
+                    <div class="state-of-task-container">
                         <span>To Do</span>
                         <img class="add-task-todo-img" id="add-task-todo-grey"
                             onmouseover="changeAddSignToBlue('add-task-todo-grey', 'add-task-todo-blue')"
@@ -184,8 +184,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="task-column">
-                    <div class="state-of-task-container" id="progress-mb">
+                <div class="task-column" id="progress-mb">
+                    <div class="state-of-task-container">
                         <span>In progress</span>
                         <img class="add-task-todo-img" id="add-task-progress-grey"
                             onmouseover="changeAddSignToBlue('add-task-progress-grey', 'add-task-progress-blue')"
@@ -199,8 +199,8 @@
                         ondragleave="removeHighlight('progress')" ondragover="allowDrop(event); highlight('progress')" onmouseover="enableDrawing()">
                     </div>
                 </div>
-                <div class="task-column">
-                    <div class="state-of-task-container" id="feedback-mb">
+                <div class="task-column" id="feedback-mb">
+                    <div class="state-of-task-container">
                         <span>Await feedback</span>
                         <img class="add-task-todo-img" id="add-task-feedback-grey"
                             onmouseover="changeAddSignToBlue('add-task-feedback-grey', 'add-task-feedback-blue' )"
@@ -214,8 +214,8 @@
                         ondragleave="removeHighlight('feedback')" ondragover="allowDrop(event); highlight('feedback')" onmouseover="enableDrawing()">
                     </div>
                 </div>
-                <div class="task-column">
-                    <div class="state-of-task-container" id="done-mb">
+                <div class="task-column" id="done-mb">
+                    <div class="state-of-task-container">
                         <span>Done</span>
                     </div>
                     <div id="done" class="rendered-tasks-area-done drag-area" ondrop="moveTo('done')"
