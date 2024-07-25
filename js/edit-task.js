@@ -478,7 +478,7 @@ function hoverExitFunctionEditTask(i) {
 function OpenEditTaskInEditTask(i) {
     let content = document.getElementById(`single-subtask-container-edit-task${i}`);
     let listValue = document.getElementById(`list-content-edit-task${i}`).innerHTML;
-    let currentSubtask = listValue;
+    currentSubtask = listValue;
     console.log(currentSubtask);
 
     if (editMenuSubtaskIsOpenInEditTask === false) {
@@ -498,18 +498,19 @@ function OpenEditTaskInEditTask(i) {
 }
 
 function editTaskInEditTask(i) {
-    let task = document.getElementById(`edit-task-input-edit-task${i}`);
-    let prove = emptyTask.doneSubtasks.indexOf(currentSubtask);
+    let taskElement = document.getElementById(`edit-task-input-edit-task${i}`);
+    let newValue = taskElement.value;
 
-    if (prove !== -1 ) {
-        emptyTask.subtasks.splice(i, 1, task.value);
-        emptyTask.doneSubtasks.splice(i, 1, task.value);
-        currentSubtask = null;
+    let doneIndex = emptyTask.doneSubtasks.indexOf(currentSubtask);
+
+    if (doneIndex !== -1) {
+        emptyTask.subtasks.splice(i, 1, newValue);
+        emptyTask.doneSubtasks.splice(doneIndex, 1, newValue);
+    } else {
+        emptyTask.subtasks.splice(i, 1, newValue);
     }
-    else {
-        emptyTask.subtasks.splice(i, 1, task.value);
-        currentSubtask = null;
-    }
+    currentSubtask = null;
+
     console.log(emptyTask);
     renderSubtasksFromEditTask();
     editMenuSubtaskIsOpenInEditTask = false;
