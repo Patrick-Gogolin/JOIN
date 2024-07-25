@@ -5,6 +5,7 @@ let lowActiveEditTask = false;
 let assignOptionsContactsContainerEditTask = false;
 let assignedContactsInitialsEditTask = [];
 let editMenuSubtaskIsOpenInEditTask = false;
+let currentSubtask = null;
 
 function OpenEditTaskWindow(id) {
     closeEditTaskOverlay('edit-task-overlayer');
@@ -477,6 +478,8 @@ function hoverExitFunctionEditTask(i) {
 function OpenEditTaskInEditTask(i) {
     let content = document.getElementById(`single-subtask-container-edit-task${i}`);
     let listValue = document.getElementById(`list-content-edit-task${i}`).innerHTML;
+    let currentSubtask = listValue;
+    console.log(currentSubtask);
 
     if (editMenuSubtaskIsOpenInEditTask === false) {
         content.classList.remove('bg-grey-hover');
@@ -496,12 +499,16 @@ function OpenEditTaskInEditTask(i) {
 
 function editTaskInEditTask(i) {
     let task = document.getElementById(`edit-task-input-edit-task${i}`);
-    emptyTask.subtasks.splice(i, 1, task.value);
-    // Check if the subtask is already in the doneSubtasks list
-    let doneIndex = emptyTask.doneSubtasks.indexOf(emptyTask.subtasks[i]);
-    if (doneIndex !== -1) {
-        // If found, update the doneSubtasks list with the new value
-        emptyTask.doneSubtasks.splice(doneIndex, 1, task.value);
+    let prove = emptyTask.doneSubtasks.indexOf(currentSubtask);
+
+    if (prove !== -1 ) {
+        emptyTask.subtasks.splice(i, 1, task.value);
+        emptyTask.doneSubtasks.splice(i, 1, task.value);
+        currentSubtask = null;
+    }
+    else {
+        emptyTask.subtasks.splice(i, 1, task.value);
+        currentSubtask = null;
     }
     console.log(emptyTask);
     renderSubtasksFromEditTask();
@@ -519,6 +526,7 @@ function deleteOpenEditTaskInEditTask(i) {
 function deleteTaskInEditTask(i) {
     if (editMenuSubtaskIsOpenInEditTask === false) {
         emptyTask.subtasks.splice(i, 1);
+        emptyTask.doneSubtasks.splice(i, 1);
         renderSubtasksFromEditTask();
     }
 }
