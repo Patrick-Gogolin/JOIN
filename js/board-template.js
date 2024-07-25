@@ -43,26 +43,26 @@ function renderDetailTaskSlideContactsHtml(initial, contact, contactColors) {
     </div>`;
 }
 
-function renderDetailTaskSlideDoneSubtasksHtml(subtask) {
+function renderDetailTaskSlideDoneSubtasksHtml(subtask, i) {
     return /*html*/`
      <div class="single-subtask-in-edit-slide-container">
+     <div onclick="changeSubtaskStatusEditTask(${i})" class="checkbox-subtask">
+        <img id="checkbox-subtask-edit-task-clickable${i}" src="/img/filled-check-box.svg" alt="">
+    </div>
         <div>
-            <img src="/img/filled-check-box.svg">
-        </div>
-        <div>
-            <span>${subtask}</span>
+            <span id="subtask-of-edit-task${i}">${subtask}</span>
         </div>
     </div>`; 
 }
 
-function renderDetailTaskSlideNotDoneSubtasksHtml(subtask) {
+function renderDetailTaskSlideNotDoneSubtasksHtml(subtask, i) {
     return /*html*/`
      <div class="single-subtask-in-edit-slide-container">
+     <div onclick="changeSubtaskStatusEditTask(${i})" class="checkbox-subtask">
+        <img id="checkbox-subtask-edit-task-clickable${i}" src="/img/empty-check-box.svg" alt="">
+    </div>
         <div>
-            <img src="/img/empty-check-box.svg">
-        </div>
-        <div>
-            <span>${subtask}</span>
+            <span id="subtask-of-edit-task${i}">${subtask}</span>
         </div>
     </div>`; 
 }

@@ -48,6 +48,8 @@ function renderDetailTaskSlide(id) {
     let content = document.getElementById('edit-task-overlayer');
     let index = taskKeys.indexOf(id);
     let task = allTasks[index];
+    emptyTask = JSON.parse(JSON.stringify(task));
+    console.log(emptyTask);
     let imageSrc = renderPriorityImage(task);
     let initials = getInitialsOfFetchedData(task.assignedContacts);
     let bgColor = task.category === "User Story" ? 'bg-blue' : 'bg-green';
@@ -77,10 +79,37 @@ function forLoopSubtasksForDetailTaskSlide(task) {
         let index = task['doneSubtasks'].indexOf(subtask);
         console.log(index);
         if (index !== -1) {
-            subtaskContent.innerHTML += renderDetailTaskSlideDoneSubtasksHtml(subtask);
+            subtaskContent.innerHTML += renderDetailTaskSlideDoneSubtasksHtml(subtask, i);
         }
         else {
-            subtaskContent.innerHTML += renderDetailTaskSlideNotDoneSubtasksHtml(subtask);
+            subtaskContent.innerHTML += renderDetailTaskSlideNotDoneSubtasksHtml(subtask, i);
+        }
+    }
+}
+
+async function changeSubtaskStatusEditTask(i) {
+    let subtask = document.getElementById(`subtask-of-edit-task${i}`).innerHTML;
+    let checkBoxClickable = document.getElementById(`checkbox-subtask-edit-task-clickable${i}`);
+    let indexOfTaskKeys = taskKeys.indexOf(emptyTask.id);
+    allTasks[indexOfTaskKeys] = emptyTask;
+    
+    let emptyCheckBoxSrc = "img/empty-check-box.svg";
+    let filledCheckBoxSrc = "img/filled-check-box.svg";
+    
+    if (checkBoxClickable.src.endsWith(emptyCheckBoxSrc)) {
+        checkBoxClickable.src = filledCheckBoxSrc;
+        emptyTask.doneSubtasks.push(subtask);
+        console.log(emptyTask);
+        await updateTask(`/tasks/${allTasks[indexOfTaskKeys].id}`);
+        updateHTML();
+    } else {
+        checkBoxClickable.src = emptyCheckBoxSrc;
+        let index = emptyTask.doneSubtasks.indexOf(subtask);
+        if (index !== -1) {
+            emptyTask.doneSubtasks.splice(index, 1);
+            console.log(emptyTask);
+            await updateTask(`/tasks/${allTasks[indexOfTaskKeys].id}`);
+            updateHTML();
         }
     }
 }

@@ -446,56 +446,31 @@ function renderSubtasksFromEditTask() {
     content.innerHTML = "";
     for (let i = 0; i < subtasks.length; i++) {
         const subtask = subtasks[i];
-        let index = emptyTask.doneSubtasks.indexOf(subtask)
-        if(index === -1) {
             content.innerHTML += /*html*/`
             <div id="single-subtask-container-edit-task${i}" class="single-subtask-container bg-grey-hover" onmouseout="hoverExitFunctionEditTask(${i})" onmouseover="hoverFunctionEditTask(${i})">
                 <ul>
                     <li id="list-content-edit-task${i}" class="list-element">${subtask}</li>
                 </ul>
-                <div class="checkbox-subtask"><img id="checkbox-subtask-edit-task${i}" src="/img/empty-check-box.svg" alt=""></div>
                 <div id="edit-delete-created-subtask-container-edit-task${i}" class="edit-delete-created-subtask-container d-none">
                     <img id="single-subtask-edit-edit-task${i}" class="edit-sign" onclick="OpenEditTaskInEditTask(${i})" src="img/edit.svg" alt="">
                     <div class="seperator"></div>
                     <img id="single-subtask-delete-edit-task${i}" class="delete-sign" onclick="deleteTaskInEditTask(${i})" src="img/delete.svg" alt="">
-                    <div onclick="changeSubtaskStatus(${i})" class="checkbox-subtask"><img id="checkbox-subtask-edit-task-clickable${i}" src="/img/empty-check-box.svg" alt=""></div>
                 </div>
             </div>`;
-        }
-        else {
-            content.innerHTML += /*html*/`
-            <div id="single-subtask-container-edit-task${i}" class="single-subtask-container bg-grey-hover" onmouseout="hoverExitFunctionEditTask(${i})" onmouseover="hoverFunctionEditTask(${i})">
-                <ul>
-                    <li id="list-content-edit-task${i}" class="list-element">${subtask}</li>
-                </ul>
-                <div class="checkbox-subtask"><img id="checkbox-subtask-edit-task${i}" src="/img/filled-check-box.svg" alt=""></div>
-                <div id="edit-delete-created-subtask-container-edit-task${i}" class="edit-delete-created-subtask-container d-none">
-                    <img id="single-subtask-edit-edit-task${i}" class="edit-sign" onclick="OpenEditTaskInEditTask(${i})" src="img/edit.svg" alt="">
-                    <div class="seperator"></div>
-                    <img id="single-subtask-delete-edit-task${i}" class="delete-sign" onclick="deleteTaskInEditTask(${i})" src="img/delete.svg" alt="">
-                    <div onclick="changeSubtaskStatus(${i})" class="checkbox-subtask"><img id="checkbox-subtask-edit-task-clickable${i}" src="/img/filled-check-box.svg" alt=""></div>
-                </div>
-            </div>`;
-        }
-        
-    }
+            }
 }
 
 function hoverFunctionEditTask(i) {
     let editContainer = document.getElementById(`edit-delete-created-subtask-container-edit-task${i}`);
-    let checkBox = document.getElementById(`checkbox-subtask-edit-task${i}`)
     if (editContainer) {
         editContainer.classList.remove('d-none');
-        checkBox.classList.add('d-none');
     }
 }
 
 function hoverExitFunctionEditTask(i) {
     let editContainer = document.getElementById(`edit-delete-created-subtask-container-edit-task${i}`);
-    let checkBox = document.getElementById(`checkbox-subtask-edit-task${i}`)
     if (editContainer) {
         editContainer.classList.add('d-none');
-        checkBox.classList.remove('d-none');
     }
 }
 
@@ -522,12 +497,21 @@ function OpenEditTaskInEditTask(i) {
 function editTaskInEditTask(i) {
     let task = document.getElementById(`edit-task-input-edit-task${i}`);
     emptyTask.subtasks.splice(i, 1, task.value);
+    // Check if the subtask is already in the doneSubtasks list
+    let doneIndex = emptyTask.doneSubtasks.indexOf(emptyTask.subtasks[i]);
+    if (doneIndex !== -1) {
+        // If found, update the doneSubtasks list with the new value
+        emptyTask.doneSubtasks.splice(doneIndex, 1, task.value);
+    }
+    console.log(emptyTask);
     renderSubtasksFromEditTask();
     editMenuSubtaskIsOpenInEditTask = false;
 }
 
 function deleteOpenEditTaskInEditTask(i) {
     emptyTask.subtasks.splice(i, 1);
+    emptyTask.doneSubtasks.splice(i, 1);
+    console.log(emptyTask);
     renderSubtasksFromEditTask();
     editMenuSubtaskIsOpenInEditTask = false;
 }
@@ -578,12 +562,10 @@ function addSubtaskEditTask() {
             <ul>
                 <li id="list-content-edit-task${i}" class="list-element">${subtask}</li>
             </ul>
-            <div class="checkbox-subtask"><img id="checkbox-subtask-edit-task${i}" src="/img/empty-check-box.svg" alt=""></div>
             <div id="edit-delete-created-subtask-container-edit-task${i}" class="edit-delete-created-subtask-container d-none">
                 <img id="single-subtask-edit-edit-task${i}" class="edit-sign" onclick="OpenEditTaskInEditTask(${i})" src="img/edit.svg" alt="">
                 <div class="seperator"></div>
                 <img id="single-subtask-delete-edit-task${i}" class="delete-sign" onclick="deleteTaskInEditTask(${i})" src="img/delete.svg" alt="">
-                <div onclick="changeSubtaskStatus(${i})" class="checkbox-subtask"><img id="checkbox-subtask-edit-task-clickable${i}" src="/img/empty-check-box.svg" alt=""></div>
             </div>
         </div>`;
     }
@@ -591,28 +573,6 @@ function addSubtaskEditTask() {
     addSignContainer.classList.remove('d-none');
     cancelAndConfirm.classList.add('d-none');
     editMenuSubtaskIsOpenInEditTask = false;
-}
-
-function changeSubtaskStatus(i) {
-    let subtask = document.getElementById(`list-content-edit-task${i}`).innerHTML;
-    let checkBox = document.getElementById(`checkbox-subtask-edit-task${i}`);
-    let checkBoxClickable = document.getElementById(`checkbox-subtask-edit-task-clickable${i}`);
-    
-    let emptyCheckBoxSrc = "img/empty-check-box.svg";
-    let filledCheckBoxSrc = "img/filled-check-box.svg";
-    
-    if (checkBoxClickable.src.endsWith(emptyCheckBoxSrc)) {
-        checkBoxClickable.src = filledCheckBoxSrc;
-        checkBox.src = filledCheckBoxSrc;
-        emptyTask.doneSubtasks.push(subtask);
-    } else {
-        checkBoxClickable.src = emptyCheckBoxSrc;
-        checkBox.src = emptyCheckBoxSrc;
-        let index = emptyTask.doneSubtasks.indexOf(subtask);
-        if (index !== -1) {
-            emptyTask.doneSubtasks.splice(index, 1);
-        }
-    }
 }
 
 function newTitle() {
