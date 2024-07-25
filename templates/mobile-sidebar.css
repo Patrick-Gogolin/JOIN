@@ -5,7 +5,7 @@ body {
 .mobile-sidebar-container {
     background-color: #2A3647;
     height: 80px;
-    width: -webkit-fill-available;
+    width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
