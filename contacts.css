@@ -399,7 +399,7 @@ body:has(.cancel:hover) .cancel img{
 
 .contact-list{
     background-color: white;
-    overflow-y: scroll;
+    overflow-y: auto;
     width: 38%;
     max-height: 100vh;
 }

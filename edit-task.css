@@ -2,7 +2,8 @@
     position: relative;
     background-color: white;
     max-width: 525px;
-    width: 36.5%;
+    width: 525px;
+    height: 90vh;
     max-height: 1024px;
     border-radius: 30px;
     padding: 48px 40px 48px 40px;
@@ -11,6 +12,7 @@
     flex-direction: column;
     font-size: 20px;
     overflow: auto;
+    scrollbar-width: none;
 }
 
 .close-overlayer-sign-edit-task {
@@ -61,4 +63,47 @@
 
 .checkbox-subtask {
     cursor: pointer;
+}
+
+@media screen and (max-height:1100px) {
+    .popup-content-edit-task{
+        height: 76vh;
+    }
+    
+}
+
+@media screen and (max-width:580px) {
+    .popup-content-edit-task{
+        margin-left: 16px;
+        margin-right: 16px;
+    }
+}
+
+@media screen and (max-width:550px) {
+    .popup-content-edit-task{
+        align-items: center;
+    }
+}
+
+@media screen and (max-width:360px) {
+    .headline-input{
+        font-size: 18px;
+    }
+
+    .title-input-container input,
+    .description-input-container textarea,
+    .date-container input,
+    .assigned-to-input-container select,
+    .add-subtask-input-container,
+    .single-subtask-container,
+    .select-contacts-container,
+    .priority-button-container,
+    .show-assigned-contacts{
+        width: 280px;
+        font-size: 18px;
+    }
+
+    .add-subtask-container input{
+        width: 238px;
+    }
 }

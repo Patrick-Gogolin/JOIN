@@ -19,6 +19,7 @@ async function onloadFunc(){
             }
         )   
     }
+    addUserToContact();
     sortContactsAlphabetically();
     await loadContacts('/contacts');
     checkForMobileMode();
@@ -45,6 +46,7 @@ async function loadContacts(path=""){
     let contactListElement = document.getElementById('contact-list');
     contactListElement.innerHTML = "";
     let currentInitial = "";
+    
     for (let index = 0; index < contacts.length; index++) {
         let eachContact = contacts[index];
         let contactInitial = eachContact.contact.name.charAt(0).toUpperCase();
@@ -58,6 +60,29 @@ async function loadContacts(path=""){
     }
     return responseToJson = await response.json(); 
 }
+
+function addUserToContact(){
+    let user = JSON.parse(localStorage.getItem("user"));
+    let userEmail = user.email;
+    let userName = user.name + " " + user.surname;
+    console.log(user);
+    console.log(userEmail);
+    console.log(userName);
+    if (userEmail !== null){
+    contacts.push(
+        {
+            id: "user",
+            contact : {
+                color: "rgb(41,171,226)",
+                email: userEmail,
+                name: userName,
+                phone: ""
+            },
+        }
+    )
+    }
+}
+
 
 function showUserFeedback(){
     let feedback = document.getElementById('user-feedback');
@@ -388,9 +413,11 @@ function showContactInfo(eachContact){
     })
     document.getElementById(`contact-list-element-${eachContact.id}`).style.background = "#2A3647";
     document.getElementById(`contact-list-element-${eachContact.id}`).style.color = "white";
-    document.getElementById(`contact-list-element-${eachContact.id}`).scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     showInfo(eachContact); 
 }
+
+
+
 
 
 function showInfo(eachContact){

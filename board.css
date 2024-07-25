@@ -942,12 +942,15 @@ body{
     max-width: 525px;
     width: 36.5%;
     max-height: 1024px;
+    height: 80vh;
     border-radius: 30px;
     padding: 48px 40px 48px 40px;
     gap: 24px;
     display: flex;
     flex-direction: column;
     font-size: 20px;
+    overflow: scroll;
+    scrollbar-width: none;
 }
 
 .edit-task-subheadline {
@@ -1018,6 +1021,7 @@ body{
     display: flex;
     flex-direction: column;
     gap: 8px;
+    min-height: 200px;
     max-height: 200px;
     overflow: auto;
 }
@@ -1030,6 +1034,7 @@ body{
 }
 
 .task-card-subtasks{
+    min-height: 150px;
     max-height: 150px;
     overflow: auto;
     display: flex;
@@ -1300,7 +1305,7 @@ color: #29ABE2;
   
 }
 
-@media screen and (max-width:508px) {
+@media screen and (max-width:550px) {
     .add-task-headline-container h1 {
         font-size: 47px;
     }

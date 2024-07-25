@@ -1,5 +1,5 @@
 .add-task-slide {
-    margin-left: 328px;
+    margin-left: 232px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -187,6 +187,7 @@ select {
 .assigned-to-input-container {
     display: flex;
     flex-direction: column;
+    position: relative;
 }
 
 .select-contacts-container {
@@ -224,6 +225,9 @@ select {
     display: flex;
     flex-direction: column;
     gap: 4px;
+    position: absolute;
+    top: 76px;
+    width: 100%;
 }
 
 .contacts-to-select-container {
@@ -274,9 +278,14 @@ select {
 
 .contact-name-initials-container {
     padding: 12px;
+    width: 44px;
+    height: 44px;
     border-radius: 50%;
     border: 3px solid white;
     font-size: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .user-initials-span {
@@ -563,6 +572,9 @@ select {
     border-radius: 10px;
     z-index: 2;
     transform: translateY(0px);
+    position: absolute;
+    top: 76px;
+    width: 100%;
 }
 
 .category-to-select-container {
@@ -789,7 +801,7 @@ ul {
     height: 425px;
 }
 
-@media screen and (max-width: 1360px) {
+@media screen and (max-width: 1404px) {
     header{
         display: none !important;
     }
@@ -916,6 +928,16 @@ ul {
     .input-for-task{
         padding-left: 8px;
         padding-right: 8px;
+    }
+}
+
+@media screen and (max-height:1055px) {
+    .button-container{
+        padding-bottom: 112px;
+    }
+
+    html{
+        scrollbar-width: none;
     }
 }
 
