@@ -389,7 +389,7 @@ function renderContacts() {
     activeUserContainer.innerHTML = "";
     container.innerHTML = "";
 
-    if (activeUser != "") {
+    if (activeUser != "" && activeUser[0] != "Guest" ) {
         activeUserContainer.classList.remove('d-none');
         let activeUserUpdated = [activeUser.join(" ")];
         let activeUserInitialsUpdated = [activeUserInitials.join("")];
