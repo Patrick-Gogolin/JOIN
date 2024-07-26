@@ -20,9 +20,10 @@
     <script src="js/board-template.js"></script>
     <script src="templates/sidebar.js"></script>
     <script src="js/edit-task.js"></script>
+    <script src="/add-task-main.js"></script>
 </head>
 
-<body id="body-add-task" onload="getContacts('/contacts'); getTasks('/tasks');">
+<body id="body-add-task" onload="getContacts('/contacts');">
     <div w3-include-html="templates/header.html"></div>
     <div w3-include-html="templates/sidebar.html"></div>
     <div w3-include-html="templates/mobile-header.html"></div>
@@ -62,7 +63,7 @@
                 </div>
             </div>
 
-            <div class="seperator"></div>
+            <div class="main-seperator"></div>
 
             <div class="right-side-input">
                 <div class="date-container">
@@ -130,15 +131,15 @@
                 <span><span class="red-star-required">*</span>This field is required</span>
             </div>
             <div class="clear-and-create-task-button-container">
-                <button onclick="closeOverlayer()" id="cancel-button" class="cancel-button">Clear</button>
-                <button id="post-task-button" onclick="addTask()" class="check-button">Create Task <img
+                <button onclick="clearAddTaskMasque()" id="clear-button" class="cancel-button">Clear</button>
+                <button id="post-task-button" onclick="addTaskMain()" class="check-button">Create Task <img
                         src="img/check.svg" alt=""></button>
 
             </div>
         </div>
 
     </div>
-    <div id="task-successfull-created-container" class="task-successfull-created-container d-none">
+    <div id="task-successfull-created-container" class="task-successfull-created-container-slide-in-from-bottom d-none">
         <p>Task added to board</p>
         <img src="img/added-task.svg" alt="">
     </div>

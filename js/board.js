@@ -2,7 +2,6 @@ const BASE_URL = "https://remotestorage-c5224-default-rtdb.europe-west1.firebase
 let allTasks = [];
 let taskKeys = null;
 let currentDraggedElement;
-let statusOfTask = null;
 
 async function getTasks(path = "") {
     allTasks.length = 0;

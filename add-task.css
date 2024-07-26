@@ -104,6 +104,26 @@ select {
     font-size: 20px;
 }
 
+.task-successfull-created-container-slide-in-from-bottom {
+    z-index: 999;
+    width: 326px;
+    height: 74px;
+    border-radius: 20px;
+    background-color: #2A3647;
+    position: fixed;
+    transform: translate(-50%, 100%);
+    left: 50%;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    color: white;
+    font-family: 'Inter', sans-serif;
+    font-size: 20px;
+    animation: slideInFromBottom 125ms ease-in-out forwards;
+}
+
 .d-none {
     display: none !important;
 }
@@ -111,7 +131,6 @@ select {
 @keyframes slideInFromSide {
     0% {
         left: 100%;
-        /* Start position off the right side of the viewport */
     }
 
     100% {
@@ -120,6 +139,18 @@ select {
         left: 0;
         right: 0;
         bottom: 0;
+    }
+}
+
+@keyframes slideInFromBottom {
+    0% {
+        transform: translate(-50%, 100%);
+    }
+
+    100% {
+        transform: translate(-50%, -50%);
+        top: 50%;
+        left: 50%;
     }
 }
 
@@ -796,7 +827,7 @@ ul {
     display: none !important;
 }
 
-.seperator {
+.main-seperator {
     border: 1px solid #D1D1D1;
     height: 425px;
 }

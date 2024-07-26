@@ -20,6 +20,7 @@ let assignedContactsNames = [];
 let assignedContactsInitials = [];
 let assignedContactsId = [];
 let assignedContactsColors =[];
+let statusOfTask = null;
 
 async function getContacts(path = "") {
     let response = await fetch(BASE_URL + path + ".json");
@@ -57,8 +58,20 @@ function openAddTaskOverlayer(id) {
  }
 
  function closeOverlayer() {
+    let subtaskContent = document.getElementById('added-subtask-main-container');
+    let title = document.getElementById('title');
+    let description = document.getElementById('description-of-task');
+    let date = document.getElementById('date');
+    let contactsContent = document.getElementById('show-assigned-contacts');
+    let category = document.getElementById('selected-task-headline');
+    let addSubtaskInputfield = document.getElementById('add-subtask-input-container-inputfield');
+    let content = document.getElementById('add-subtask-svg-container');
+    let cancelAndConfirm = document.getElementById('cancel-or-confirm-subtask-container');
+    content.classList.remove('d-none');
+    cancelAndConfirm.classList.add('d-none');
     document.getElementById('overlayer').classList.add('d-none');
     document.body.style.overflow = 'auto';
+    resetAddTaskSlide(title, description, date, category, contactsContent, subtaskContent, addSubtaskInputfield);
 }
 
 async function addTask() {
@@ -72,10 +85,14 @@ async function addTask() {
     let titleRequiredSpan = document.getElementById('title-required-span');
     let dateRequiredSpan = document.getElementById('date-required-span');
     let categoryRequiredSpan = document.getElementById('category-required-span');
+    let addSubtaskInputfield = document.getElementById('add-subtask-input-container-inputfield');
+    let content = document.getElementById('add-subtask-svg-container');
+    let cancelAndConfirm = document.getElementById('cancel-or-confirm-subtask-container');
+    content.classList.remove('d-none');
+    cancelAndConfirm.classList.add('d-none');
     
-    checkField(title, titleRequiredSpan)
-    
-    checkField(date, dateRequiredSpan)
+    checkField(title, titleRequiredSpan);
+    checkField(date, dateRequiredSpan);
 
     if (category.innerHTML === "Select task category") {
         selectContactsContainer.classList.add('this-field-required-border');
@@ -93,13 +110,13 @@ async function addTask() {
         setTimeout(async function() {
             closeOverlayer();
             document.getElementById('task-successfull-created-container').classList.add('d-none');
-            resetAddTaskSlide(title, description, date, category, contactsContent, subtaskContent )
+            resetAddTaskSlide(title, description, date, category, contactsContent, subtaskContent, addSubtaskInputfield )
             await getTasks('/tasks');
         }, 900);
         }
 }
 
-function resetAddTaskSlide(title, description, date, category, contacts, subtasksContent) {
+function resetAddTaskSlide(title, description, date, category, contacts, subtasksContent, addSubtaskInputfield) {
     resetButtons();
     title.value = "";
     description.value = "";
@@ -107,6 +124,7 @@ function resetAddTaskSlide(title, description, date, category, contacts, subtask
     category.innerHTML = "Select task category";
     contacts.innerHTML = "";
     subtasksContent.innerHTML = "";
+    addSubtaskInputfield.value = "";
     assignedCategory = "";
     assignedContactsNames.length = 0;
     assignedContactsInitials.length = 0;
@@ -547,6 +565,7 @@ function searchContacts() {
         container.classList.add('d-none');
         assignOptionsContactsContainer = false;
         assignedContacts.classList.remove('d-none');
+        renderAssignedContacts();
     }
 
     if (activeUser.length > 0) { 
