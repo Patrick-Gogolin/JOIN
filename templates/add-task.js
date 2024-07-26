@@ -43,7 +43,7 @@ async function getContacts(path = "") {
 }
 
 function openAddTaskOverlayer(id) {
-    if( id === "todo") {
+    if(id === "todo") {
      statusOfTask = "todo"
     }
     else if(id === "progress") {
@@ -144,85 +144,86 @@ function checkField(field, requiredSpan) {
 }
 
 function urgentPriority() {
+    let urgentButton = document.getElementById('urgent-button');
+    let urgentPrioSign = document.getElementById('urgent-prio-sign');
+
     if (!urgentActive) {
         resetButtons();
-        let urgentButton = document.getElementById('urgent-button');
-        let urgentPrioSign = document.getElementById('urgent-prio-sign');
-        let taskPriority = urgentButton.innerText;
         urgentButton.classList.add('urgent');
         urgentPrioSign.src = 'img/urgent-prio-white.svg';
-        priority = taskPriority;
-        console.log(priority);
-        urgentActive = true;
+        priority = urgentButton.innerText;
     } else {
-        let urgentButton = document.getElementById('urgent-button');
-        let urgentPrioSign = document.getElementById('urgent-prio-sign');
         urgentButton.classList.remove('urgent');
         urgentPrioSign.src = 'img/urgent-prio.svg';
         priority = "";
-        console.log(priority);
-        urgentActive = false;
     }
+
+    urgentActive = !urgentActive;
+    console.log(priority);
 }
 
 function mediumPriority() {
+    let mediumButton = document.getElementById('medium-button');
+    let mediumPrioSign = document.getElementById('medium-prio-sign');
+
     if (!mediumActive) {
         resetButtons();
-        let mediumButton = document.getElementById('medium-button');
-        let mediumPrioSign = document.getElementById('medium-prio-sign');
-        let taskPriority = mediumButton.innerText;
         mediumButton.classList.add('medium');
         mediumPrioSign.src = 'img/medium-prio.svg';
-        priority = taskPriority;
-        console.log(priority);
-        mediumActive = true;
+        priority = mediumButton.innerText;
     } else {
-        let mediumButton = document.getElementById('medium-button');
-        let mediumPrioSign = document.getElementById('medium-prio-sign');
         mediumButton.classList.remove('medium');
         mediumPrioSign.src = 'img/medium-prio-orange.svg';
         priority = "";
-        console.log(priority);
-        mediumActive = false;
     }
+
+    mediumActive = !mediumActive;
+    console.log(priority);
 }
 
 function lowPriority() {
+    let lowButton = document.getElementById('low-button');
+    let lowPrioSign = document.getElementById('low-prio-sign');
+
     if (!lowActive) {
         resetButtons();
-        let lowButton = document.getElementById('low-button');
-        let lowPrioSign = document.getElementById('low-prio-sign');
-        let taskPriority = lowButton.innerText;
         lowButton.classList.add('low');
         lowPrioSign.src = 'img/low-prio-white.svg';
-        priority = taskPriority;
-        console.log(priority);
-        lowActive = true;
+        priority = lowButton.innerText;
     } else {
-        let lowButton = document.getElementById('low-button');
-        let lowPrioSign = document.getElementById('low-prio-sign');
         lowButton.classList.remove('low');
         lowPrioSign.src = 'img/low-prio.svg';
         priority = "";
-        console.log(priority);
-        lowActive = false;
     }
+
+    lowActive = !lowActive;
+    console.log(priority);
 }
 
 function resetButtons() {
     priority = "";
+    resetUrgentButton();
+    resetMediumButton();
+    resetLowButton();
+}
+
+function resetUrgentButton() {
     let urgentButton = document.getElementById('urgent-button');
     let urgentPrioSign = document.getElementById('urgent-prio-sign');
     urgentButton.classList.remove('urgent');
     urgentPrioSign.src = 'img/urgent-prio.svg';
     urgentActive = false;
+}
 
+function resetMediumButton() {
     let mediumButton = document.getElementById('medium-button');
     let mediumPrioSign = document.getElementById('medium-prio-sign');
     mediumButton.classList.remove('medium');
     mediumPrioSign.src = 'img/medium-prio-orange.svg';
     mediumActive = false;
+}
 
+function resetLowButton() {
     let lowButton = document.getElementById('low-button');
     let lowPrioSign = document.getElementById('low-prio-sign');
     lowButton.classList.remove('low');
@@ -310,32 +311,32 @@ function hoverExitFunction(i) {
     }
 }
 
-function OpenEditTask(i) {
+function openEditSubtaskMenu(i) {
     let content = document.getElementById(`single-subtask-container${i}`);
     let listValue = document.getElementById(`list-content${i}`).innerHTML;
 
     if (editMenuSubtaskIsOpen === false) {
         content.classList.remove('bg-grey-hover');
         content.classList.add('blue-underline');
-        content.innerHTML = renderOpenEditHtml(i, listValue);
+        content.innerHTML = renderEditSubtaskHtml(i, listValue);
         editMenuSubtaskIsOpen = true;
     }
 }
 
-function editTask(i) {
+function editSubtask(i) {
     let task = document.getElementById(`edit-task-input${i}`);
     subtasks.splice(i, 1, task.value);
     renderSubtasks();
     editMenuSubtaskIsOpen = false;
 }
 
-function deleteOpenEditTask(i) {
+function deleteSubtaskInEditSubtaskMenu(i) {
     subtasks.splice(i, 1);
     renderSubtasks();
     editMenuSubtaskIsOpen = false;
 }
 
-function deleteTask(i) {
+function deleteSubtask(i) {
     if (editMenuSubtaskIsOpen === false) {
         subtasks.splice(i, 1);
         renderSubtasks();
@@ -371,7 +372,7 @@ function openSelectCategoryContainer() {
     }
 }
 
-function selectCategory (id, i) {
+function selectCategory(id, i) {
     let container = document.getElementById('choose-category-container');
     category = document.getElementById(id).innerHTML;
     categoryHeadline = document.getElementById(i);
@@ -394,66 +395,34 @@ function renderContacts() {
         let activeUserInitialsUpdated = [activeUserInitials.join("")];
 
         for (let y = 0; y < activeUserUpdated.length; y++) {
-            const activeUserName = activeUserUpdated[y];
-            let checkBox = renderCheckBox("logged-in-user");
-            let bgColor = assignedContactsId.indexOf('logged-in-user') !== -1 ? 'bg-navy' : 'bg-white';
-            activeUserContainer.innerHTML = /*html*/`
-            <div id="logged-in-user" onclick="assignTaskToLoggedInUser('logged-in-user')" class="single-contact-container ${bgColor}">
-                <div class="single-contact-name-container">
-                    <div class="contact-name-initials-container" style="background-color: ${colorForActiveUser[y]};">
-                        <span class="user-initials-span">${activeUserInitialsUpdated}</span>
-                    </div>
-                    <span id="logged-in-user-name">${activeUserName}</span><span>(You)</span>
-                </div>
-                <div>
-                    <img id="checkbox-active-user" src=${checkBox} alt="Checkbox">
-                </div>
-            </div>`;
+            renderActiveUser(y, activeUserUpdated, activeUserContainer, activeUserInitialsUpdated);
     
             for (let i = 0; i < contacts.length; i++) {
-                const color = colors[i];
-                const userName = userNames[i];
-                const userNameInitial = userNamesInitials[i];
-                let checkBoxContacts = renderCheckBox(i);
-                let bgColor = assignedContactsId.indexOf(i) !== -1 ? 'bg-navy' : 'bg-white'
-                container.innerHTML += /*html*/`
-        <div id="${i}" onclick="assignTaskToContact(${i})"  class="single-contact-container ${bgColor}">
-            <div class="single-contact-name-container">
-                <div class="contact-name-initials-container" style="background-color: ${color};">
-                    <span class="user-initials-span">${userNameInitial}</span>
-                </div>
-                <span id="assigned-contact-name${i}">${userName}</span>
-            </div>
-            <div>
-                <img id="checkbox${i}" src=${checkBoxContacts} alt="Checkbox">
-            </div>
-        </div>`;
-    
+                renderSingleContact(i, container);
             }
         }
     }
     else {
-    
         for (let i = 0; i < contacts.length; i++) {
-            const color = colors[i];
-            const userName = userNames[i];
-            const userNameInitial = userNamesInitials[i];
-            let checkBoxContacts = renderCheckBox(i);
-            let bgColor = assignedContactsId.indexOf(i) !== -1 ? 'bg-navy' : 'bg-white'
-            container.innerHTML += /*html*/`
-     <div id="${i}" onclick="assignTaskToContact(${i})"  class="single-contact-container ${bgColor}">
-        <div class="single-contact-name-container">
-            <div class="contact-name-initials-container" style="background-color: ${color};">
-                <span class="user-initials-span">${userNameInitial}</span>
-            </div>
-            <span id="assigned-contact-name${i}">${userName}</span>
-        </div>
-        <div>
-            <img id="checkbox${i}" src=${checkBoxContacts} alt="Checkbox">
-        </div>
-    </div>`;
+            renderSingleContact(i, container);
+        }
     }
 }
+
+function renderActiveUser(y, activeUserUpdated, activeUserContainer, activeUserInitialsUpdated) {
+    const activeUserName = activeUserUpdated[y];
+    let checkBox = renderCheckBox("logged-in-user");
+    let bgColor = assignedContactsId.indexOf('logged-in-user') !== -1 ? 'bg-navy' : 'bg-white';
+    activeUserContainer.innerHTML = renderActiveUserHtml(activeUserName, activeUserInitialsUpdated, y, checkBox, bgColor, colorForActiveUser);
+}
+
+function renderSingleContact(index, container) {
+    const color = colors[index];
+    const userName = userNames[index];
+    const userNameInitial = userNamesInitials[index];
+    let checkBoxContacts = renderCheckBox(index);
+    let bgColor = assignedContactsId.indexOf(index) !== -1 ? 'bg-navy' : 'bg-white';
+    container.innerHTML += renderContactsHtml(color, userName, userNameInitial, bgColor, checkBoxContacts, index);
 }
 
 function assignTaskToLoggedInUser(i) {
@@ -466,9 +435,6 @@ function assignTaskToLoggedInUser(i) {
         assignedContactsColors.push(colorForActiveUser[0]);
         assignedContactsId.push(i);
         assignedContactsNames.push(loggedInUserName)
-        console.log(assignedContactsId);
-        console.log(assignedContactsNames);
-        console.log(assignedContactsColors);
         checkbox.src = "img/filled-check-box-white.svg"
     }
     else {
@@ -476,9 +442,6 @@ function assignTaskToLoggedInUser(i) {
         assignedContactsColors.splice(index,1);
         assignedContactsNames.splice(index, 1);
         assignedContactsId.splice(index, 1);
-        console.log(assignedContactsId);
-        console.log(assignedContactsNames);
-        console.log(assignedContactsColors);
         checkbox.src = "img/empty-check-box.svg"
     }
 }
@@ -493,9 +456,6 @@ function assignTaskToContact(i) {
         assignedContactsColors.push(colors[i]);
         assignedContactsId.push(i);
         assignedContactsNames.push(contactName)
-        console.log(assignedContactsId);
-        console.log(assignedContactsNames);
-        console.log(assignedContactsColors);
         checkbox.src = "img/filled-check-box-white.svg"
     }
     else {
@@ -503,9 +463,6 @@ function assignTaskToContact(i) {
         assignedContactsColors.splice(index,1);
         assignedContactsNames.splice(index, 1);
         assignedContactsId.splice(index, 1);
-        console.log(assignedContactsId);
-        console.log(assignedContactsNames);
-        console.log(assignedContactsColors);
         checkbox.src = "img/empty-check-box.svg";
     }
 }
@@ -530,17 +487,14 @@ function renderAssignedContacts() {
     for (let i = 0; i < assignedContactsInitials.length; i++) {
         const initials = assignedContactsInitials[i];
         const color = assignedContactsColors[i];
-        assignedContactsContainer.innerHTML += /*html*/`
-        <div class="contact-name-initials-container" style="background-color: ${color}">
-            <span class="user-initials-span">${initials}</span>
-        </div>`;
+        assignedContactsContainer.innerHTML += renderAssignedContactsHtml(color, initials);
     }
 }
 
 function getInitialsAssignedContactsId() {
         assignedContactsInitials.length = 0;
     let initials = assignedContactsNames.map(name => {
-        let nameParts = name.split(/[\s-]+/); // Split by space or hyphen
+        let nameParts = name.split(/[\s-]+/);
         let initial = nameParts.map(part => part.charAt(0).toUpperCase()).join("");
         if(assignedContactsInitials.indexOf(initial) === -1) {
             assignedContactsInitials.push(initial);
