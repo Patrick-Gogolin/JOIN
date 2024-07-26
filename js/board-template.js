@@ -4,6 +4,7 @@ function renderDetailTaskSlideHtml(task, imageSrc, index, bgColor, id) {
                     <div class="task-card-header">
                         <span class=${bgColor}>${task.category}</span><div onclick="closeEditTaskOverlay('edit-task-overlayer')" class="task-card-back-icon-boarder"><img class="task-card-back-icon" src="/img/cancel.svg" alt=""></div>
                     </div>
+                    <div class="task-card-content">
                     <div class="task-card-title">${task.title}</div>
                     <div class="task-card-description">${task.description}</div>
                     <div class="task-card-date"><span class="edit-task-subheadline">Due date:</span><div>${task.deadline}</div></div>
@@ -15,6 +16,7 @@ function renderDetailTaskSlideHtml(task, imageSrc, index, bgColor, id) {
                     <div class="task-card-subtasks"><span class="edit-task-subheadline">Subtasks</span>
                         <div id="task-card-subtasks-container" class="task-card-subtasks-list">
                         </div>
+                    </div>
                     </div>
                     <div class="task-card-footer">
                         <div onmouseover="changeAddSignToBlue('delete-task-grey', 'delete-task-blue')" onmouseout="changeAddSingToDefault('delete-task-grey', 'delete-task-blue')" onclick="deleteTaskFromDatabase('/tasks/${taskKeys[index]}')" class="task-card-delete">

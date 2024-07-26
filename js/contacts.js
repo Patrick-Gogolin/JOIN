@@ -68,7 +68,7 @@ function addUserToContact(){
     console.log(user);
     console.log(userEmail);
     console.log(userName);
-    if (userEmail !== null){
+    if (user.name !== "Guest"){
     contacts.push(
         {
             id: "user",

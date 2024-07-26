@@ -49,7 +49,7 @@ function checkLogInData(isValidUser){
 }
 
 function guestLogIn() {
-    let guestUser = {email: "", name: "Guest", password: "", surname: "User"};
+    let guestUser = {email: "", name: "Guest", password: "", surname: " "};
     localStorage.setItem("user", JSON.stringify(guestUser));
     console.log(guestUser);
     window.location.href = 'summary.html';
