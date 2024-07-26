@@ -522,7 +522,7 @@ function searchContacts() {
         renderAssignedContacts();
     }
 
-    if (activeUser.length > 0) { 
+    if (activeUser.length > 0 && activeUser[0] != "Guest") { 
         let activeUserUpdated = activeUser.join(" ");
         let activeUserInitialsUpdated = activeUserInitials.join("");
         let checkBox = renderCheckBox("logged-in-user");
