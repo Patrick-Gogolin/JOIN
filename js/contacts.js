@@ -4,6 +4,7 @@ let contacts = [];
 let isSelected = false;
 let contactsKeys = null;
 let affectedTaskIndices = [];
+let affectedTaskIndexArray = [];
 
 window.addEventListener('resize', checkForMobileMode);
 window.addEventListener('load', checkForMobileMode);
@@ -23,7 +24,6 @@ async function onloadFunc(){
             }
         )   
     }
-    addUserToContact();
     sortContactsAlphabetically();
     await loadContacts('/contacts');
     checkForMobileMode();
@@ -93,28 +93,6 @@ async function loadContacts(path=""){
     return responseToJson = await response.json(); 
 }
 
-function addUserToContact(){
-    let user = JSON.parse(localStorage.getItem("user"));
-    let userEmail = user.email;
-    let userName = user.name + " " + user.surname;
-    console.log(user);
-    console.log(userEmail);
-    console.log(userName);
-    if (user.name !== "Guest"){
-    contacts.push(
-        {
-            id: "user",
-            contact : {
-                color: "rgb(41,171,226)",
-                email: userEmail,
-                name: userName,
-                phone: ""
-            },
-        }
-    )
-    }
-}
-
 
 function showUserFeedback(){
     let feedback = document.getElementById('user-feedback');
@@ -175,6 +153,7 @@ async function postContacts(path="", data={}){
 async function deleteContacts(contactID){
     let index = contactsKeys.indexOf(contactID);
     let contactName = contacts[index].contact.name;
+    removeContactFromTasks(allTasks, contactName);
     closeEditOptions();
     let response = await fetch(BASE_URL + `contacts/${contactID}.json`, {
         method: "DELETE",
@@ -194,10 +173,10 @@ async function deleteContacts(contactID){
     <span>Better with a team</span>
     <div class="contact-info-header-separator-mobile"></div>
     </div>`;
-    removeContactFromTasks(allTasks, contactName);
     for (let i = 0; i < affectedTaskIndices.length; i++) {
         const task = affectedTaskIndices[i];
-        await updateTaskAfterDeleteContact(`/tasks/${task}`);
+        const taskIndex = affectedTaskIndexArray[i];
+        await updateTaskAfterDeleteContact(`/tasks/${task}`, taskIndex);
     }
     return await response.json();
 }
@@ -216,27 +195,29 @@ function removeContactFromTasks(tasksArray, contactName) {
 
             // Speichern der Indexposition der betroffenen Aufgabe
             affectedTaskIndices.push(tasksArray[taskIndex].id);
+            affectedTaskIndexArray.push(taskIndex);
         }
     });
     console.log(allTasks);
     console.log(affectedTaskIndices);
+    console.log(affectedTaskIndexArray);
     return affectedTaskIndices;
 }
 
-async function updateTaskAfterDeleteContact(path = "", data={}) {
+async function updateTaskAfterDeleteContact(path = "", data={}, i) {
     data = {
          id: "",
-         title: allTasks['title'],
-         description: allTasks['description'],
-         deadline: allTasks['deadline'],
-         priority: allTasks['priority'],
-         subtasks: JSON.stringify(allTasks['subtasks']),
-         doneSubtasks: JSON.stringify(allTasks['doneSubtasks']),
-         assignedContacts: JSON.stringify(allTasks['assignedContacts']),
-         assignedContactsColors: JSON.stringify(allTasks['assignedContactsColors']),
-         assignedContactsId: JSON.stringify(allTasks['assignedContactsId']),
-         category: allTasks['category'],
-         status: allTasks['status']
+         title: allTasks[affectedTaskIndexArray[i]]['title', i],
+         description: allTasks[affectedTaskIndexArray[i]]['description'],
+         deadline: allTasks[affectedTaskIndexArray[i]]['deadline'],
+         priority: allTasks[affectedTaskIndexArray[i]]['priority'],
+         subtasks: JSON.stringify(allTasks[affectedTaskIndexArray[i]]['subtasks']),
+         doneSubtasks: JSON.stringify(allTasks[affectedTaskIndexArray[i]]['doneSubtasks']),
+         assignedContacts: JSON.stringify(allTasks[affectedTaskIndexArray[i]]['assignedContacts']),
+         assignedContactsColors: JSON.stringify(allTasks[affectedTaskIndexArray[i]]['assignedContactsColors']),
+         assignedContactsId: JSON.stringify(allTasks[affectedTaskIndexArray[i]]['assignedContactsId']),
+         category: allTasks[affectedTaskIndexArray[i]]['category'],
+         status: allTasks[affectedTaskIndexArray[i]]['status']
      };
      let response = await fetch(BASE_URL + path + ".json",{
          method: "PUT",
