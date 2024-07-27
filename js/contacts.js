@@ -1,7 +1,9 @@
-const BASE_URL = "https://remotestorage-c5224-default-rtdb.europe-west1.firebasedatabase.app/";
+
 
 let contacts = [];
 let isSelected = false;
+let contactsKeys = null;
+let affectedTaskIndices = [];
 
 window.addEventListener('resize', checkForMobileMode);
 window.addEventListener('load', checkForMobileMode);
@@ -11,6 +13,8 @@ async function onloadFunc(){
     isSelected = false;
     let contactResponse = await loadContacts("contacts");
     let contactKeysArray = Object.keys(contactResponse);
+    contactsKeys = Object.keys(contactResponse);
+    console.log(contactsKeys);
     for (let index = 0; index < contactKeysArray.length; index++) {
         contacts.push(
             {
@@ -23,7 +27,35 @@ async function onloadFunc(){
     sortContactsAlphabetically();
     await loadContacts('/contacts');
     checkForMobileMode();
-}   
+}
+
+async function getTasksForContactsPage(path = "") {
+    allTasks.length = 0;
+    let response = await fetch(BASE_URL + path + ".json");
+    let responseToJson = await response.json();;
+    let keys = Object.keys(responseToJson);
+    taskKeys = keys;
+
+    for (let i = 0; i < keys.length; i++) {
+        const key = keys[i];
+        const task = responseToJson[key];
+        data = {
+            id: key,
+            title: task['title'],
+            description: task['description'],
+            deadline: task['deadline'],
+            priority: task['priority'],
+            subtasks: JSON.parse(task['subtasks']),
+            doneSubtasks: JSON.parse(task['doneSubtasks']),
+            assignedContacts: JSON.parse(task['assignedContacts']),
+            assignedContactsColors: JSON.parse(task['assignedContactsColors']),
+            assignedContactsId: JSON.parse(task['assignedContactsId']),
+            category: task['category'],
+            status: task['status']
+        };
+        allTasks.push(data);
+    }
+}
 
 
 function sortContactsAlphabetically() {
@@ -141,6 +173,8 @@ async function postContacts(path="", data={}){
 
 
 async function deleteContacts(contactID){
+    let index = contactsKeys.indexOf(contactID);
+    let contactName = contacts[index].contact.name;
     closeEditOptions();
     let response = await fetch(BASE_URL + `contacts/${contactID}.json`, {
         method: "DELETE",
@@ -160,8 +194,59 @@ async function deleteContacts(contactID){
     <span>Better with a team</span>
     <div class="contact-info-header-separator-mobile"></div>
     </div>`;
+    removeContactFromTasks(allTasks, contactName);
+    for (let i = 0; i < affectedTaskIndices.length; i++) {
+        const task = affectedTaskIndices[i];
+        await updateTaskAfterDeleteContact(`/tasks/${task}`);
+    }
     return await response.json();
 }
+
+function removeContactFromTasks(tasksArray, contactName) {
+
+    tasksArray.forEach((task, taskIndex) => {
+        // Index des Kontakts im assignedContacts Array finden
+        const index = task.assignedContacts.indexOf(contactName);
+
+        // Wenn der Kontakt gefunden wurde, entferne ihn und die entsprechenden Daten
+        if (index !== -1) {
+            task.assignedContacts.splice(index, 1);
+            task.assignedContactsColors.splice(index, 1);
+            task.assignedContactsId.splice(index, 1);
+
+            // Speichern der Indexposition der betroffenen Aufgabe
+            affectedTaskIndices.push(tasksArray[taskIndex].id);
+        }
+    });
+    console.log(allTasks);
+    console.log(affectedTaskIndices);
+    return affectedTaskIndices;
+}
+
+async function updateTaskAfterDeleteContact(path = "", data={}) {
+    data = {
+         id: "",
+         title: allTasks['title'],
+         description: allTasks['description'],
+         deadline: allTasks['deadline'],
+         priority: allTasks['priority'],
+         subtasks: JSON.stringify(allTasks['subtasks']),
+         doneSubtasks: JSON.stringify(allTasks['doneSubtasks']),
+         assignedContacts: JSON.stringify(allTasks['assignedContacts']),
+         assignedContactsColors: JSON.stringify(allTasks['assignedContactsColors']),
+         assignedContactsId: JSON.stringify(allTasks['assignedContactsId']),
+         category: allTasks['category'],
+         status: allTasks['status']
+     };
+     let response = await fetch(BASE_URL + path + ".json",{
+         method: "PUT",
+         headers: {
+             "Content-Type": "application/json",
+         },
+         body: JSON.stringify(data)
+     });
+   return responseToJson = await response.json();
+   }
 
 
 function removeContactFromArray(contactID){

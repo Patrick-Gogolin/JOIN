@@ -15,8 +15,9 @@
     <script src="/templates/sidebar.js"></script>
     <script src="./js/contacts.js"></script>
     <script src="./templates/header.js"></script>
+    <script src="js/board.js"></script>
 </head>
-<body id="body-contacts" onload="onloadFunc()">
+<body id="body-contacts" onload="onloadFunc(); getTasksForContactsPage('/tasks')">
     <div id="contact-header" w3-include-html="templates/header.html"></div>
     <div id="contact-mobile-header" w3-include-html="templates/mobile-header.html"></div>
     <div class="sidebar" w3-include-html="templates/sidebar.html"></div>
