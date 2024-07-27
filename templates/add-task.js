@@ -496,9 +496,7 @@ function getInitialsAssignedContactsId() {
     let initials = assignedContactsNames.map(name => {
         let nameParts = name.split(/[\s-]+/);
         let initial = nameParts.map(part => part.charAt(0).toUpperCase()).join("");
-        if(assignedContactsInitials.indexOf(initial) === -1) {
-            assignedContactsInitials.push(initial);
-        }
+         assignedContactsInitials.push(initial);
     });
 }
 
