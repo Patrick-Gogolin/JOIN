@@ -26,6 +26,7 @@ async function onloadFunc(){
     addUserToContact();
     sortContactsAlphabetically();
     await loadContacts('/contacts');
+    showUserInContacts();
     checkForMobileMode();
 }
 
@@ -37,7 +38,7 @@ function addUserToContact(){
     console.log(userEmail);
     console.log(userName);
     if (user.name !== "Guest"){
-        activeUserInContacts=
+        activeUserInContacts =
         {
             id: "user",
             contact : {
@@ -50,6 +51,23 @@ function addUserToContact(){
     }
     console.log(activeUserInContacts);
 }
+
+function showUserInContacts(){
+    let userElementInContacts = document.getElementById('user-contact');
+    let userName = activeUserInContacts.contact.name;
+    let userEmail = activeUserInContacts.contact.email;
+    let userColor = activeUserInContacts.contact.color;
+    let userInitials = getContactsInitials(activeUserInContacts);
+
+    userElementInContacts.innerHTML = `<div id="contact-list-element-${activeUserInContacts.id}" class="contact user-contact-element" onclick='showContactInfo(${JSON.stringify(activeUserInContacts)})'>
+    <div class="contact-logo" style="background-color: ${userColor};" >${userInitials}</div>
+    <div class="contact-name">
+     <p>${userName} <span><small>(YOU)</small></span></p>
+     <a href="">${userEmail}</a>
+    </div>
+    </div>`
+}
+
 
 async function getTasksForContactsPage(path = "") {
     allTasks.length = 0;
@@ -107,9 +125,9 @@ function sortContactsAlphabetically() {
 async function loadContacts(path=""){
     let response = await fetch(BASE_URL + path + ".json");
     let contactListElement = document.getElementById('contact-list');
-    contactListElement.innerHTML = "";
+    contactListElement.innerHTML = `<div class="user-contact" id="user-contact"></div>`;
     let currentInitial = "";
-    
+
     for (let index = 0; index < contacts.length; index++) {
         let eachContact = contacts[index];
         let contactInitial = eachContact.contact.name.charAt(0).toUpperCase();
@@ -297,6 +315,7 @@ function submitEditContactForm(event, contactID){
         document.getElementById('edit-contact-popup').classList.add('d-none');
         loadContacts();
         showContactInfo(contacts[index]);
+        deleteContacts(user);
         }).catch(error => {
         console.error('Error updating contact:', error);
     });

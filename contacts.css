@@ -465,6 +465,17 @@ body:has(.cancel:hover) .cancel img{
     margin-top: 5px;
 }
 
+.user-contact{
+    width: 82%;
+    max-width: 352px;
+    display: flex;
+    align-items: center;
+}
+
+.user-contact-element{
+    width: 100% !important;
+}
+
 .contact{
     cursor: pointer;
     margin-top: 15px;
