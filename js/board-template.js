@@ -82,7 +82,7 @@ function renderTasksInToDoHtml(task, bgColor, subtasks, doneSubtasks, imageSrc, 
         <div class="category-container">
             <div class="category-span ${bgColor}" id="category${i}">${task.category}</div>
             <div class="task-up-and-down">
-                <img onclick="event.stopPropagation(); nextStatus(${task.id})" src="./img/down_icon.png" alt="">
+                <img onclick="event.stopPropagation(); nextStatus('${task.id}')" src="./img/down_icon.png" alt="">
             </div>
         </div>
         <div class="title-container">
@@ -126,8 +126,8 @@ function renderTasksInProgressHtml(task, bgColor, subtasks, doneSubtasks, imageS
         <div class="category-container">
             <div class="category-span ${bgColor}" id="category${i}">${task.category}</div>
             <div class="task-up-and-down">
-                <img onclick="event.stopPropagation(); previousStatus(${task.id})" src="./img/up_icon.png" alt="">
-                <img onclick="event.stopPropagation(); nextStatus(${task.id})" src="./img/down_icon.png" alt="">
+                <img onclick="event.stopPropagation(); previousStatus('${task.id}')" src="./img/up_icon.png" alt="">
+                <img onclick="event.stopPropagation(); nextStatus('${task.id}')" src="./img/down_icon.png" alt="">
             </div>
         </div>
         <div class="title-container">
@@ -170,8 +170,8 @@ function renderAssignedContactsInProgress(initial, contactColors) {
         <div class="category-container">
             <div class="category-span ${bgColor}" id="category${i}">${task.category}</div>
             <div class="task-up-and-down">
-                <img onclick="event.stopPropagation(); previousStatus(${task.id})" src="./img/up_icon.png" alt="">
-                <img onclick="event.stopPropagation(); nextStatus(${task.id})" src="./img/down_icon.png" alt="">
+                <img onclick="event.stopPropagation(); previousStatus('${task.id}')" src="./img/up_icon.png" alt="">
+                <img onclick="event.stopPropagation(); nextStatus('${task.id}')" src="./img/down_icon.png" alt="">
         </div>
         </div>
         <div class="title-container">
@@ -214,7 +214,7 @@ function renderTasksInDoneHtml(task, bgColor, subtasks, doneSubtasks, imageSrc, 
         <div class="category-container">
             <div class="category-span ${bgColor}" id="category${i}">${task.category}</div>
             <div class="task-up-and-down">
-                <img onclick="event.stopPropagation(); previousStatus(${task.id})" src="./img/up_icon.png" alt="">
+                <img onclick="event.stopPropagation(); previousStatus('${task.id}')" src="./img/up_icon.png" alt="">
             </div>
         </div>
         <div class="title-container">
