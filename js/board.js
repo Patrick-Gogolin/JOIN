@@ -381,13 +381,13 @@ function renderTasks(tasks, status) {
         let initials = getInitialsOfFetchedData(task.assignedContacts);
         let bgColor = task.category === "User Story" ? 'bg-blue' : 'bg-green';
 
-        content.innerHTML += `
+        content.innerHTML += /*html*/` 
         <div onclick="renderDetailTaskSlide('${task.id}')" draggable="true" ondragstart="startDragging('${task.id}')" id="${task.id}" class="task-container">
         <div class="category-container">
             <div class="category-span ${bgColor}" id="category${i}">${task.category}</div>
             <div class="task-up-and-down">
-                    <img onclick="event.stopPropagation(); previousStatus(${task.id})" src="./img/up_icon.png" alt="">
-                    <img onclick="event.stopPropagation(); nextStatus(${task.id})" src="./img/down_icon.png" alt="">
+                    <img onclick="event.stopPropagation(); previousStatus('${task.id}')" src="./img/up_icon.png" alt="">
+                    <img onclick="event.stopPropagation(); nextStatus('${task.id}')" src="./img/down_icon.png" alt="">
             </div>
         </div>
             <div class="title-container">
@@ -414,7 +414,7 @@ function renderTasks(tasks, status) {
             const initial = initials[x];
             let contactColors = task.assignedContactsColors[x];
             let contentForContacts = document.getElementById(`contacts-${status}-container${i}`);
-            contentForContacts.innerHTML += `
+            contentForContacts.innerHTML += /*html*/ `
             <div class="rendered-task-assigned-contact-container" style="background-color:${contactColors}">
                 <span>${initial}</span>
             </div>`;
