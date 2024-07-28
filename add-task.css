@@ -858,6 +858,9 @@ ul {
 
 
 @media screen and (max-width: 1170px){
+    .main-seperator{
+        display: none;
+    }
     .cancel-button{
         display: none;
     }
@@ -893,6 +896,7 @@ ul {
         background: #F6F7F8;
         width: 100%;
         left: calc((100% - 443px) / 2);
+        z-index: 50;
     }
 }
 
@@ -951,9 +955,13 @@ ul {
     }
 
     .priority-button-container {
-        flex-direction: column;
         gap: 8px;
         width: 295px
+    }
+
+    .priority-button-container button{
+        width: 33%;
+        font-size: 16px;
     }
 
     .input-for-task{
@@ -963,12 +971,15 @@ ul {
 }
 
 @media screen and (max-height:1055px) {
-    .button-container{
-        padding-bottom: 112px;
-    }
 
     html{
         scrollbar-width: none;
+    }
+}
+
+@media screen and (max-height:680px) {
+    .button-container{
+        padding-bottom: 20px;
     }
 }
 

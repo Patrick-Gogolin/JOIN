@@ -7,19 +7,25 @@
     max-height: 1024px;
     border-radius: 30px;
     padding: 48px 40px 48px 40px;
-    gap: 24px;
     display: flex;
     flex-direction: column;
     font-size: 20px;
-    overflow: auto;
-    scrollbar-width: none;
 }
 
 .close-overlayer-sign-edit-task {
-    position: absolute;
-    top: 30px;
-    right: 40px;
     cursor: pointer;
+    height: 24px;
+    width: 24px;
+    align-self: flex-end;
+    
+}
+
+.edit-task-content{
+    overflow: auto;
+    scrollbar-width: none;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
 }
 
 .close-overlayer-sign-edit-task:hover{
@@ -35,6 +41,7 @@
 .update-task-button-container {
     display: flex;
     justify-content: end;
+    padding-top: 16px;
 
 }
 .update-task-button-container button {

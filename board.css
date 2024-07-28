@@ -715,6 +715,7 @@ h1 {
     gap: 32px;
 }
 
+
 .state-of-task-container {
     display: flex;
     justify-content: space-between;
@@ -722,7 +723,13 @@ h1 {
     font-weight: 700;
     font-size: 20px;
     color: #42526E;
-    margin-bottom: 20px;
+    padding-bottom: 20px;
+    position: sticky;
+    position:-webkit-sticky;
+    top: 0;
+    z-index: 10;
+    background: rgb(246,247,248);
+    width: 270px;
 
 }
 
@@ -739,6 +746,8 @@ h1 {
 .rendered-tasks-container {
     display: flex;
     gap: 32px;
+    overflow: scroll;
+    scrollbar-width: none;
 
 }
 
@@ -753,9 +762,9 @@ h1 {
     height: calc(100vh - 355px);
     background-color: #F6F7F8;
     border-radius: 24px;
-    overflow-y: scroll;
-    overflow-x: hidden;
-    scrollbar-width: none;
+    overflow: visible;
+    align-self: center;
+    
 }
 
 .rendered-tasks-area-to-do.active,
@@ -972,6 +981,7 @@ body{
 
 .task-card-content{
     overflow-y: scroll;
+    scrollbar-width: none;
     gap: 24px;
     display: flex;
     flex-direction: column;
@@ -1042,7 +1052,6 @@ body{
     display: flex;
     flex-direction: column;
     gap: 8px;
-    overflow: auto;
     max-height: 200px;
     height: fit-content;
     
@@ -1053,6 +1062,10 @@ body{
     padding: 7px 16px 7px 16px;
     display: flex;
     align-items: center;
+}
+
+.task-card-assigned-list{
+    overflow: auto;
 }
 
 .task-card-subtasks{
@@ -1142,6 +1155,11 @@ color: #29ABE2;
     padding: 64px 74px 32px;
 }
 
+.task-column{
+    display: flex;
+    flex-direction: column;
+}
+
 @media (max-width: 1200px){
     .task-card-title{
         font-size: 48px;
@@ -1182,7 +1200,7 @@ color: #29ABE2;
 }
 
 
-@media screen and (max-width: 1485px) {
+@media screen and (max-width: 1536px) {
 
     .rendered-tasks-container{
         flex-direction: column;
@@ -1359,9 +1377,13 @@ color: #29ABE2;
 
 
     .priority-button-container {
-        flex-direction: column;
         gap: 8px;
         width: 295px
+    }
+
+    .priority-button-container button {
+        width: 33%;
+        font-size: 16px;
     }
 
     .add-task-bottom{
@@ -1441,3 +1463,30 @@ color: #29ABE2;
         height:calc(100vh - 400px);
     }
 }
+
+@media screen and (max-width:1000px) {
+    .task-card-assigned:has(.task-card-assigned-list div){
+        min-height: 200px;
+    }
+    
+}
+
+@media screen and (max-height:680px) {
+    .header-board-container{
+        margin-bottom: 36px;
+    }
+
+    .headline-container h1{
+        font-size: 47px;
+    }
+
+    .rendered-tasks-container{
+        height: calc(100vh - 375px);
+    }
+
+    .task-card-footer{
+        bottom: 25px;
+    }
+
+}
+    

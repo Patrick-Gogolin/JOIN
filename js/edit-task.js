@@ -20,6 +20,7 @@ function OpenEditTaskWindow(id) {
     content.innerHTML = /*html*/`
     <div class="popup-content-edit-task">
         <img onclick="closeEditTaskOverlay('edit-task-popup')" class="close-overlayer-sign-edit-task" src="/img/cancel.svg" alt="Cross">
+        <div class="edit-task-content">
         <div class="title-input-container">
                 <span class="headline-input">Title<span class="red-star-required">*</span></span>
                 <input id="title-edit-task" onblur="newTitle()" type="text" value="${task.title}" required>
@@ -74,6 +75,7 @@ function OpenEditTaskWindow(id) {
             </div>
             <div id="added-subtask-main-container-edit-task" class="added-subtask-main-container">
             </div>
+        </div>
         </div>
         <div class="update-task-button-container">
             <button onclick= "finalUpdateTask(${index})">Ok <img src="img/check.svg" alt=""></button>

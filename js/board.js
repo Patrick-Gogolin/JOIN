@@ -40,7 +40,7 @@ function openEditTaskOverlayer(id) {
 
 function closeEditTaskOverlay(id) {
     document.getElementById(`${id}`).classList.add('d-none');
-    document.body.style.overflow = 'auto';
+    document.body.style.overflow = 'hidden';
 }
 
 function renderDetailTaskSlide(id) {
