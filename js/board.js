@@ -371,58 +371,58 @@ function updateFilteredHTML(filteredTasks) {
     renderTasks(done, 'done');
 }
 
-// function renderTasks(tasks, status) {
-//     for (let i = 0; i < tasks.length; i++) {
-//         let content = document.getElementById(status);
-//         let task = tasks[i];
-//         let subtasks = task.subtasks.length;
-//         let doneSubtasks = task.doneSubtasks.length;
-//         let imageSrc = renderPriorityImage(task);
-//         let initials = getInitialsOfFetchedData(task.assignedContacts);
-//         let bgColor = task.category === "User Story" ? 'bg-blue' : 'bg-green';
+function renderTasks(tasks, status) {
+    for (let i = 0; i < tasks.length; i++) {
+        let content = document.getElementById(status);
+        let task = tasks[i];
+        let subtasks = task.subtasks.length;
+        let doneSubtasks = task.doneSubtasks.length;
+        let imageSrc = renderPriorityImage(task);
+        let initials = getInitialsOfFetchedData(task.assignedContacts);
+        let bgColor = task.category === "User Story" ? 'bg-blue' : 'bg-green';
 
-//         content.innerHTML += `
-//         <div onclick="renderDetailTaskSlide('${task.id}')" draggable="true" ondragstart="startDragging('${task.id}')" id="${task.id}" class="task-container">
-//         <div class="category-container">
-//             <div class="category-span ${bgColor}" id="category${i}">${task.category}</div>
-//             <div class="task-up-and-down">
-//                     <img src="./img/up_icon.png" alt="">
-//                     <img src="./img/down_icon.png" alt="">
-//             </div>
-//         </div>
-//             <div class="title-container">
-//                 <span class="title-span" id="title${i}">${task.title}</span>
+        content.innerHTML += `
+        <div onclick="renderDetailTaskSlide('${task.id}')" draggable="true" ondragstart="startDragging('${task.id}')" id="${task.id}" class="task-container">
+        <div class="category-container">
+            <div class="category-span ${bgColor}" id="category${i}">${task.category}</div>
+            <div class="task-up-and-down">
+                    <img onclick="event.stopPropagation(); previousStatus(${task.id})" src="./img/up_icon.png" alt="">
+                    <img onclick="event.stopPropagation(); nextStatus(${task.id})" src="./img/down_icon.png" alt="">
+            </div>
+        </div>
+            <div class="title-container">
+                <span class="title-span" id="title${i}">${task.title}</span>
 
-//             </div>
-//             <div class="description-container">
-//                 <p id="description${i}">${task.description}</p> 
-//             </div>
-//             <div class="subtasks-container">
-//                 <label for="file">${doneSubtasks}/${subtasks} Subtasks</label>
-//                 <progress id="file" value=${doneSubtasks} max=${subtasks}> 1 </progress>
-//             </div>
-//             <div class="contacts-and-priority-container">
-//                 <div id="contacts-${status}-container${i}" class="contacts-container">
-//                 </div>
-//                 <div id="priority-container${i}" class="priority-container">
-//                     <img src=${imageSrc} alt="">
-//                 </div>   
-//             </div>
-//         </div>`;
+            </div>
+            <div class="description-container">
+                <p id="description${i}">${task.description}</p> 
+            </div>
+            <div class="subtasks-container">
+                <label for="file">${doneSubtasks}/${subtasks} Subtasks</label>
+                <progress id="file" value=${doneSubtasks} max=${subtasks}> 1 </progress>
+            </div>
+            <div class="contacts-and-priority-container">
+                <div id="contacts-${status}-container${i}" class="contacts-container">
+                </div>
+                <div id="priority-container${i}" class="priority-container">
+                    <img src=${imageSrc} alt="">
+                </div>   
+            </div>
+        </div>`;
 
-//         for (let x = 0; x < initials.length; x++) {
-//             const initial = initials[x];
-//             let contactColors = task.assignedContactsColors[x];
-//             let contentForContacts = document.getElementById(`contacts-${status}-container${i}`);
-//             contentForContacts.innerHTML += `
-//             <div class="rendered-task-assigned-contact-container" style="background-color:${contactColors}">
-//                 <span>${initial}</span>
-//             </div>`;
-//         }
-//     }
+        for (let x = 0; x < initials.length; x++) {
+            const initial = initials[x];
+            let contactColors = task.assignedContactsColors[x];
+            let contentForContacts = document.getElementById(`contacts-${status}-container${i}`);
+            contentForContacts.innerHTML += `
+            <div class="rendered-task-assigned-contact-container" style="background-color:${contactColors}">
+                <span>${initial}</span>
+            </div>`;
+        }
+    }
 
-//     removeHighlight(status);
-// }
+    removeHighlight(status);
+}
 
 function enableDrawing() {
     const sliders = document.querySelectorAll('.rendered-tasks-area-to-do, .rendered-tasks-area-in-progress, .rendered-tasks-area-await-feedback, .rendered-tasks-area-done');
@@ -458,4 +458,36 @@ function enableDrawing() {
             console.log(walk);
         });
     });
+}
+
+let taskStatuses = ["todo", "progress", "feedback", "done"];
+
+function nextStatus(taskId) {
+    const task = allTasks.find(t => t.id === taskId);
+    if (task) {
+        const currentIndex = taskStatuses.indexOf(task.status);
+        if (currentIndex < taskStatuses.length - 1) {
+            task.status = taskStatuses[currentIndex + 1];
+            updateTask(`/tasks/${task.id}`, task).then(() => {
+                updateHTML();
+            });
+        }
+    } else {
+        console.error(`Task with id ${taskId} not found`);
+    }
+}
+
+function previousStatus(taskId) {
+    const task = allTasks.find(t => t.id === taskId);
+    if (task) {
+        const currentIndex = taskStatuses.indexOf(task.status);
+        if (currentIndex > 0) {
+            task.status = taskStatuses[currentIndex - 1];
+            updateTask(`/tasks/${task.id}`, task).then(() => {
+                updateHTML();
+            });
+        }
+    } else {
+        console.error(`Task with id ${taskId} not found`);
+    }
 }
