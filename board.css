@@ -1202,6 +1202,17 @@ color: #29ABE2;
     }
 }
 
+@media screen and (min-width:1536px) {
+    .state-of-task-container{
+        position: fixed;
+        top: 290px;
+    }
+
+    .rendered-tasks-area-to-do, .rendered-tasks-area-in-progress, .rendered-tasks-area-await-feedback, .rendered-tasks-area-done {
+     margin-top: 45px;
+    }
+    
+}
 
 @media screen and (max-width: 1536px) {
 
