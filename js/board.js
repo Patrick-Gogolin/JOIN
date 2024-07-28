@@ -386,8 +386,12 @@ function renderTasks(tasks, status) {
         <div class="category-container">
             <div class="category-span ${bgColor}" id="category${i}">${task.category}</div>
             <div class="task-up-and-down">
+                    <div>
                     <img onclick="event.stopPropagation(); previousStatus('${task.id}')" src="./img/up_icon.png" alt="">
+                    </div>
+                    <div>
                     <img onclick="event.stopPropagation(); nextStatus('${task.id}')" src="./img/down_icon.png" alt="">
+                    </div>
             </div>
         </div>
             <div class="title-container">

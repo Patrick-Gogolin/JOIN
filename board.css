@@ -31,6 +31,16 @@ select {
     display: flex;
     justify-content: center;
     align-items: center;
+    z-index: 99;
+}
+
+.task-up-and-down div{
+    width: 32px;
+    height: 32px;
+}
+.task-up-and-down img{
+    width: 24px;
+    height: 24px;
 }
 
 .task-successfull-created-container {
