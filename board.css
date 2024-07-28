@@ -1466,3 +1466,30 @@ color: #29ABE2;
         height:calc(100vh - 400px);
     }
 }
+
+@media screen and (max-width:1000px) {
+    .task-card-assigned:has(.task-card-assigned-list div){
+        min-height: 200px;
+    }
+    
+}
+
+@media screen and (max-height:680px) {
+    .header-board-container{
+        margin-bottom: 36px;
+    }
+
+    .headline-container h1{
+        font-size: 47px;
+    }
+
+    .rendered-tasks-container{
+        height: calc(100vh - 360px);
+    }
+
+    .task-card-footer{
+        bottom: 25px;
+    }
+
+}
+   
