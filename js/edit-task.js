@@ -353,7 +353,7 @@ function searchContactsEditTask() {
 
         if (userNameLowerCase.includes(search)) {
         content.innerHTML += /*html*/`
-<div id="${i}" onclick="assignTaskToContactEditTask(${i})"  class="single-contact-container ${bgColor}">
+<div id="assign-contact-to-task${i}" onclick="assignTaskToContactEditTask(${i})"  class="single-contact-container ${bgColor}">
     <div class="single-contact-name-container">
         <div class="contact-name-initials-container" style="background-color: ${color};">
             <span class="user-initials-span">${userNameInitial}</span>
