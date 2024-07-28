@@ -842,12 +842,15 @@ h1 {
 }
 
 .category-container {
-    padding: 4px 16px 4px 16px;
-    border-radius: 8px;
-    width: fit-content;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .category-span {
+    padding: 4px 16px 4px 16px;
+    border-radius: 8px;
+    width: fit-content;
     font-family: inter;
     font-size: 16px;
     color: white;
@@ -1141,6 +1144,7 @@ color: #29ABE2;
     font-size: 61px;
     padding: 64px 74px 32px;
 }
+
 
 @media (max-width: 1200px){
     .task-card-title{
@@ -1440,4 +1444,8 @@ color: #29ABE2;
     .rendered-tasks-container{
         height:calc(100vh - 400px);
     }
+}
+
+.task-up-and-down img {
+    width: 24px;
 }

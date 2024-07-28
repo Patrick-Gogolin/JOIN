@@ -371,53 +371,58 @@ function updateFilteredHTML(filteredTasks) {
     renderTasks(done, 'done');
 }
 
-function renderTasks(tasks, status) {
-    for (let i = 0; i < tasks.length; i++) {
-        let content = document.getElementById(status);
-        let task = tasks[i];
-        let subtasks = task.subtasks.length;
-        let doneSubtasks = task.doneSubtasks.length;
-        let imageSrc = renderPriorityImage(task);
-        let initials = getInitialsOfFetchedData(task.assignedContacts);
-        let bgColor = task.category === "User Story" ? 'bg-blue' : 'bg-green';
+// function renderTasks(tasks, status) {
+//     for (let i = 0; i < tasks.length; i++) {
+//         let content = document.getElementById(status);
+//         let task = tasks[i];
+//         let subtasks = task.subtasks.length;
+//         let doneSubtasks = task.doneSubtasks.length;
+//         let imageSrc = renderPriorityImage(task);
+//         let initials = getInitialsOfFetchedData(task.assignedContacts);
+//         let bgColor = task.category === "User Story" ? 'bg-blue' : 'bg-green';
 
-        content.innerHTML += `
-        <div onclick="renderDetailTaskSlide('${task.id}')" draggable="true" ondragstart="startDragging('${task.id}')" id="${task.id}" class="task-container">
-            <div class="category-container ${bgColor}">
-                <span class="category-span" id="category${i}">${task.category}</span>
-            </div>
-            <div class="title-container">
-                <span class="title-span" id="title${i}">${task.title}</span>
-            </div>
-            <div class="description-container">
-                <p id="description${i}">${task.description}</p> 
-            </div>
-            <div class="subtasks-container">
-                <label for="file">${doneSubtasks}/${subtasks} Subtasks</label>
-                <progress id="file" value=${doneSubtasks} max=${subtasks}> 1 </progress>
-            </div>
-            <div class="contacts-and-priority-container">
-                <div id="contacts-${status}-container${i}" class="contacts-container">
-                </div>
-                <div id="priority-container${i}" class="priority-container">
-                    <img src=${imageSrc} alt="">
-                </div>   
-            </div>
-        </div>`;
+//         content.innerHTML += `
+//         <div onclick="renderDetailTaskSlide('${task.id}')" draggable="true" ondragstart="startDragging('${task.id}')" id="${task.id}" class="task-container">
+//         <div class="category-container">
+//             <div class="category-span ${bgColor}" id="category${i}">${task.category}</div>
+//             <div class="task-up-and-down">
+//                     <img src="./img/up_icon.png" alt="">
+//                     <img src="./img/down_icon.png" alt="">
+//             </div>
+//         </div>
+//             <div class="title-container">
+//                 <span class="title-span" id="title${i}">${task.title}</span>
 
-        for (let x = 0; x < initials.length; x++) {
-            const initial = initials[x];
-            let contactColors = task.assignedContactsColors[x];
-            let contentForContacts = document.getElementById(`contacts-${status}-container${i}`);
-            contentForContacts.innerHTML += `
-            <div class="rendered-task-assigned-contact-container" style="background-color:${contactColors}">
-                <span>${initial}</span>
-            </div>`;
-        }
-    }
+//             </div>
+//             <div class="description-container">
+//                 <p id="description${i}">${task.description}</p> 
+//             </div>
+//             <div class="subtasks-container">
+//                 <label for="file">${doneSubtasks}/${subtasks} Subtasks</label>
+//                 <progress id="file" value=${doneSubtasks} max=${subtasks}> 1 </progress>
+//             </div>
+//             <div class="contacts-and-priority-container">
+//                 <div id="contacts-${status}-container${i}" class="contacts-container">
+//                 </div>
+//                 <div id="priority-container${i}" class="priority-container">
+//                     <img src=${imageSrc} alt="">
+//                 </div>   
+//             </div>
+//         </div>`;
 
-    removeHighlight(status);
-}
+//         for (let x = 0; x < initials.length; x++) {
+//             const initial = initials[x];
+//             let contactColors = task.assignedContactsColors[x];
+//             let contentForContacts = document.getElementById(`contacts-${status}-container${i}`);
+//             contentForContacts.innerHTML += `
+//             <div class="rendered-task-assigned-contact-container" style="background-color:${contactColors}">
+//                 <span>${initial}</span>
+//             </div>`;
+//         }
+//     }
+
+//     removeHighlight(status);
+// }
 
 function enableDrawing() {
     const sliders = document.querySelectorAll('.rendered-tasks-area-to-do, .rendered-tasks-area-in-progress, .rendered-tasks-area-await-feedback, .rendered-tasks-area-done');
@@ -511,82 +516,82 @@ function enableDrawing() {
 // }
 
 
-document.addEventListener('DOMContentLoaded', () => {
-    console.log('DOM fully loaded and parsed');
+// document.addEventListener('DOMContentLoaded', () => {
+//     console.log('DOM fully loaded and parsed');
     
-    let draggableTask = document.querySelectorAll(".task-container");
+//     let draggableTask = document.querySelectorAll(".task-container");
 
-    let draggableToDo = document.querySelector('#todo-mb');
-    let draggableProgress = document.querySelector('#progress-mb');
-    let draggableFeedback = document.querySelector('#feedback-mb');
-    let draggableDone = document.querySelector('#done-mb');
+//     let draggableToDo = document.querySelector('#todo-mb');
+//     let draggableProgress = document.querySelector('#progress-mb');
+//     let draggableFeedback = document.querySelector('#feedback-mb');
+//     let draggableDone = document.querySelector('#done-mb');
 
-    // Überprüfen, ob die Elemente vorhanden sind
-    if (draggableToDo && draggableProgress && draggableFeedback && draggableDone) {
-        console.log('All draggable elements found');
+//     // Überprüfen, ob die Elemente vorhanden sind
+//     if (draggableToDo && draggableProgress && draggableFeedback && draggableDone) {
+//         console.log('All draggable elements found');
         
-        draggableTask.forEach(addStart);
+//         draggableTask.forEach(addStart);
 
-        function addStart(elem) {
-            elem.addEventListener("touchstart", e => {
-                e.preventDefault(); // Verhindert Standardaktionen wie Scrollen
+//         function addStart(elem) {
+//             elem.addEventListener("touchstart", e => {
+//                 e.preventDefault(); // Verhindert Standardaktionen wie Scrollen
 
-                let startX = e.changedTouches[0].clientX;
-                let startY = e.changedTouches[0].clientY;
+//                 let startX = e.changedTouches[0].clientX;
+//                 let startY = e.changedTouches[0].clientY;
 
-                elem.style.position = "absolute"; // Sicherstellen, dass das Element verschiebbar ist
-                elem.style.zIndex = 10;
+//                 elem.style.position = "absolute"; // Sicherstellen, dass das Element verschiebbar ist
+//                 elem.style.zIndex = 10;
 
-                const handleTouchMove = eve => {
-                    eve.preventDefault();
-                    let nextX = eve.changedTouches[0].clientX;
-                    let nextY = eve.changedTouches[0].clientY;
+//                 const handleTouchMove = eve => {
+//                     eve.preventDefault();
+//                     let nextX = eve.changedTouches[0].clientX;
+//                     let nextY = eve.changedTouches[0].clientY;
 
-                    elem.style.left = `${nextX - startX}px`;
-                    elem.style.top = `${nextY - startY}px`;
-                };
+//                     elem.style.left = `${nextX - startX}px`;
+//                     elem.style.top = `${nextY - startY}px`;
+//                 };
 
-                const handleTouchEnd = eve => {
-                    // Hole die aktuellen Positionen der Container erneut
-                    let toDoPos = draggableToDo.getBoundingClientRect();
-                    let progressPos = draggableProgress.getBoundingClientRect();
-                    let feedbackPos = draggableFeedback.getBoundingClientRect();
-                    let donePos = draggableDone.getBoundingClientRect();
+//                 const handleTouchEnd = eve => {
+//                     // Hole die aktuellen Positionen der Container erneut
+//                     let toDoPos = draggableToDo.getBoundingClientRect();
+//                     let progressPos = draggableProgress.getBoundingClientRect();
+//                     let feedbackPos = draggableFeedback.getBoundingClientRect();
+//                     let donePos = draggableDone.getBoundingClientRect();
 
-                    let elemRect = elem.getBoundingClientRect();
+//                     let elemRect = elem.getBoundingClientRect();
 
-                    if (elemRect.top >= progressPos.top && elemRect.bottom <= progressPos.bottom) {
-                        if (!draggableProgress.contains(elem)) {
-                            draggableProgress.appendChild(elem);
-                        }
-                    } else if (elemRect.top >= feedbackPos.top && elemRect.bottom <= feedbackPos.bottom) {
-                        if (!draggableFeedback.contains(elem)) {
-                            draggableFeedback.appendChild(elem);
-                        }
-                    } else if (elemRect.top >= donePos.top && elemRect.bottom <= donePos.bottom) {
-                        if (!draggableDone.contains(elem)) {
-                            draggableDone.appendChild(elem);
-                        }
-                    } else if (elemRect.top >= toDoPos.top && elemRect.bottom <= toDoPos.bottom) {
-                        if (!draggableToDo.contains(elem)) {
-                            draggableToDo.appendChild(elem);
-                        }
-                    }
+//                     if (elemRect.top >= progressPos.top && elemRect.bottom <= progressPos.bottom) {
+//                         if (!draggableProgress.contains(elem)) {
+//                             draggableProgress.appendChild(elem);
+//                         }
+//                     } else if (elemRect.top >= feedbackPos.top && elemRect.bottom <= feedbackPos.bottom) {
+//                         if (!draggableFeedback.contains(elem)) {
+//                             draggableFeedback.appendChild(elem);
+//                         }
+//                     } else if (elemRect.top >= donePos.top && elemRect.bottom <= donePos.bottom) {
+//                         if (!draggableDone.contains(elem)) {
+//                             draggableDone.appendChild(elem);
+//                         }
+//                     } else if (elemRect.top >= toDoPos.top && elemRect.bottom <= toDoPos.bottom) {
+//                         if (!draggableToDo.contains(elem)) {
+//                             draggableToDo.appendChild(elem);
+//                         }
+//                     }
 
-                    // Setze die Position des Elements zurück
-                    elem.style.left = "0px";
-                    elem.style.top = "0px";
+//                     // Setze die Position des Elements zurück
+//                     elem.style.left = "0px";
+//                     elem.style.top = "0px";
                     
-                    // Entferne Event Listener nach dem Drag
-                    elem.removeEventListener("touchmove", handleTouchMove);
-                    elem.removeEventListener("touchend", handleTouchEnd);
-                };
+//                     // Entferne Event Listener nach dem Drag
+//                     elem.removeEventListener("touchmove", handleTouchMove);
+//                     elem.removeEventListener("touchend", handleTouchEnd);
+//                 };
 
-                elem.addEventListener("touchmove", handleTouchMove, { passive: false });
-                elem.addEventListener("touchend", handleTouchEnd, { passive: false });
-            });
-        }
-    } else {
-        console.error('Ein oder mehrere der benötigten Elemente wurden nicht gefunden.');
-    }
-});
+//                 elem.addEventListener("touchmove", handleTouchMove, { passive: false });
+//                 elem.addEventListener("touchend", handleTouchEnd, { passive: false });
+//             });
+//         }
+//     } else {
+//         console.error('Ein oder mehrere der benötigten Elemente wurden nicht gefunden.');
+//     }
+// });
