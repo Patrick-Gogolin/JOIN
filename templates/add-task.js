@@ -110,7 +110,7 @@ async function addTask() {
         setTimeout(async function() {
             closeOverlayer();
             document.getElementById('task-successfull-created-container').classList.add('d-none');
-            resetAddTaskSlide(title, description, date, category, contactsContent, subtaskContent, addSubtaskInputfield )
+            resetAddTaskSlide(title, description, date, category, contactsContent, subtaskContent, addSubtaskInputfield);
             await getTasks('/tasks');
         }, 900);
         }

@@ -1,9 +1,9 @@
-
-
 let contacts = [];
 let isSelected = false;
 let contactsKeys = null;
 let affectedTaskIndices = [];
+let affectedTaskIndexArray = [];
+let activeUserInContacts = null;
 
 window.addEventListener('resize', checkForMobileMode);
 window.addEventListener('load', checkForMobileMode);
@@ -27,6 +27,28 @@ async function onloadFunc(){
     sortContactsAlphabetically();
     await loadContacts('/contacts');
     checkForMobileMode();
+}
+
+function addUserToContact(){
+    let user = JSON.parse(localStorage.getItem("user"));
+    let userEmail = user.email;
+    let userName = user.name + " " + user.surname;
+    console.log(user);
+    console.log(userEmail);
+    console.log(userName);
+    if (user.name !== "Guest"){
+        activeUserInContacts=
+        {
+            id: "user",
+            contact : {
+                color: "rgb(41,171,226)",
+                email: userEmail,
+                name: userName,
+                phone: ""
+            },
+        }
+    }
+    console.log(activeUserInContacts);
 }
 
 async function getTasksForContactsPage(path = "") {
@@ -59,9 +81,15 @@ async function getTasksForContactsPage(path = "") {
 
 
 function sortContactsAlphabetically() {
-    contacts.sort((a, b) => {
-        const nameA = a.contact.name.toUpperCase();
-        const nameB = b.contact.name.toUpperCase(); 
+    let combinedArray = contacts.map((contact, index) => {
+        return { 
+            contact: contact, 
+            key: contactsKeys[index] 
+        };
+    });
+    combinedArray.sort((a, b) => {
+        const nameA = a.contact.contact.name.toUpperCase();
+        const nameB = b.contact.contact.name.toUpperCase();
         if (nameA < nameB) {
             return -1;
         }
@@ -70,8 +98,11 @@ function sortContactsAlphabetically() {
         }
         return 0;
     });
+    contacts = combinedArray.map(item => item.contact);
+    contactsKeys = combinedArray.map(item => item.key);
+    console.log(contacts);
+    console.log(contactsKeys);
 }
-
 
 async function loadContacts(path=""){
     let response = await fetch(BASE_URL + path + ".json");
@@ -91,28 +122,6 @@ async function loadContacts(path=""){
         random_bg_color(eachContact);
     }
     return responseToJson = await response.json(); 
-}
-
-function addUserToContact(){
-    let user = JSON.parse(localStorage.getItem("user"));
-    let userEmail = user.email;
-    let userName = user.name + " " + user.surname;
-    console.log(user);
-    console.log(userEmail);
-    console.log(userName);
-    if (user.name !== "Guest"){
-    contacts.push(
-        {
-            id: "user",
-            contact : {
-                color: "rgb(41,171,226)",
-                email: userEmail,
-                name: userName,
-                phone: ""
-            },
-        }
-    )
-    }
 }
 
 
@@ -175,6 +184,7 @@ async function postContacts(path="", data={}){
 async function deleteContacts(contactID){
     let index = contactsKeys.indexOf(contactID);
     let contactName = contacts[index].contact.name;
+    removeContactFromTasks(allTasks, contactName);
     closeEditOptions();
     let response = await fetch(BASE_URL + `contacts/${contactID}.json`, {
         method: "DELETE",
@@ -194,10 +204,10 @@ async function deleteContacts(contactID){
     <span>Better with a team</span>
     <div class="contact-info-header-separator-mobile"></div>
     </div>`;
-    removeContactFromTasks(allTasks, contactName);
     for (let i = 0; i < affectedTaskIndices.length; i++) {
         const task = affectedTaskIndices[i];
-        await updateTaskAfterDeleteContact(`/tasks/${task}`);
+        const taskIndex = affectedTaskIndexArray[i];
+        await updateTaskAfterDeleteContact(`/tasks/${task}`,data, taskIndex);
     }
     return await response.json();
 }
@@ -205,38 +215,36 @@ async function deleteContacts(contactID){
 function removeContactFromTasks(tasksArray, contactName) {
 
     tasksArray.forEach((task, taskIndex) => {
-        // Index des Kontakts im assignedContacts Array finden
         const index = task.assignedContacts.indexOf(contactName);
 
-        // Wenn der Kontakt gefunden wurde, entferne ihn und die entsprechenden Daten
         if (index !== -1) {
             task.assignedContacts.splice(index, 1);
             task.assignedContactsColors.splice(index, 1);
             task.assignedContactsId.splice(index, 1);
-
-            // Speichern der Indexposition der betroffenen Aufgabe
             affectedTaskIndices.push(tasksArray[taskIndex].id);
+            affectedTaskIndexArray.push(taskIndex);
         }
     });
     console.log(allTasks);
     console.log(affectedTaskIndices);
+    console.log(affectedTaskIndexArray);
     return affectedTaskIndices;
 }
 
-async function updateTaskAfterDeleteContact(path = "", data={}) {
+async function updateTaskAfterDeleteContact(path = "", data={}, i) {
     data = {
          id: "",
-         title: allTasks['title'],
-         description: allTasks['description'],
-         deadline: allTasks['deadline'],
-         priority: allTasks['priority'],
-         subtasks: JSON.stringify(allTasks['subtasks']),
-         doneSubtasks: JSON.stringify(allTasks['doneSubtasks']),
-         assignedContacts: JSON.stringify(allTasks['assignedContacts']),
-         assignedContactsColors: JSON.stringify(allTasks['assignedContactsColors']),
-         assignedContactsId: JSON.stringify(allTasks['assignedContactsId']),
-         category: allTasks['category'],
-         status: allTasks['status']
+         title: allTasks[i]['title'],
+         description: allTasks[i]['description'],
+         deadline: allTasks[i]['deadline'],
+         priority: allTasks[i]['priority'],
+         subtasks: JSON.stringify(allTasks[i]['subtasks']),
+         doneSubtasks: JSON.stringify(allTasks[i]['doneSubtasks']),
+         assignedContacts: JSON.stringify(allTasks[i]['assignedContacts']),
+         assignedContactsColors: JSON.stringify(allTasks[i]['assignedContactsColors']),
+         assignedContactsId: JSON.stringify(allTasks[i]['assignedContactsId']),
+         category: allTasks[i]['category'],
+         status: allTasks[i]['status']
      };
      let response = await fetch(BASE_URL + path + ".json",{
          method: "PUT",

@@ -381,13 +381,18 @@ function renderTasks(tasks, status) {
         let initials = getInitialsOfFetchedData(task.assignedContacts);
         let bgColor = task.category === "User Story" ? 'bg-blue' : 'bg-green';
 
-        content.innerHTML += `
+        content.innerHTML += /*html*/` 
         <div onclick="renderDetailTaskSlide('${task.id}')" draggable="true" ondragstart="startDragging('${task.id}')" id="${task.id}" class="task-container">
-            <div class="category-container ${bgColor}">
-                <span class="category-span" id="category${i}">${task.category}</span>
+        <div class="category-container">
+            <div class="category-span ${bgColor}" id="category${i}">${task.category}</div>
+            <div class="task-up-and-down">
+                    <img onclick="event.stopPropagation(); previousStatus('${task.id}')" src="./img/up_icon.png" alt="">
+                    <img onclick="event.stopPropagation(); nextStatus('${task.id}')" src="./img/down_icon.png" alt="">
             </div>
+        </div>
             <div class="title-container">
                 <span class="title-span" id="title${i}">${task.title}</span>
+
             </div>
             <div class="description-container">
                 <p id="description${i}">${task.description}</p> 
@@ -409,7 +414,7 @@ function renderTasks(tasks, status) {
             const initial = initials[x];
             let contactColors = task.assignedContactsColors[x];
             let contentForContacts = document.getElementById(`contacts-${status}-container${i}`);
-            contentForContacts.innerHTML += `
+            contentForContacts.innerHTML += /*html*/ `
             <div class="rendered-task-assigned-contact-container" style="background-color:${contactColors}">
                 <span>${initial}</span>
             </div>`;
@@ -455,138 +460,34 @@ function enableDrawing() {
     });
 }
 
+let taskStatuses = ["todo", "progress", "feedback", "done"];
 
-//--------------------------------------------------------Mobile-Drag-and-Drop---------------------------------------------------------//
-
-// let draggableTask = document.querySelectorAll(".task-container");
-
-// let draggableToDo = document.querySelector('#todo');
-// let draggableProgress = document.querySelector('#progress');
-// let draggableFeedback = document.querySelector('#feedback');
-// let draggableDone = document.querySelector('#done');
-
-// let toDoPos = draggableToDo.getBoundingClientRect();
-// let progressPos = draggableProgress.getBoundingClientRect();
-// let feedbackPos = draggableFeedback.getBoundingClientRect();
-// let donePos = draggableDone.getBoundingClientRect();
-
-// task.forEach(addStart);
-
-// function addStart(elem) {
-//     elem.addEventListener("touchstart", e => {
-
-//         let startX = e.changedTouches[0].clientX;
-//         let startY = e.changedTouches[0].clientY;
-
-//         elem.addEventListener("touchmove", eve => {
-//             eve.preventDefault();
-
-//             let nextX = eve.changedTouches[0].clientX;
-//             let nextY = eve.changedTouches[0].clientY;
-
-//             elem.style.left = nextX - startX + "px";
-//             elem.style.top = nextY - startY + "px";
-//             elem.style.zIndex = 10;
-//         });
-
-//         elem.addEventListener("touchend", eve => {
-//             if (elem.getBoundingClientRect().top
-//                 > progressPos.top) {
-//                 if (!progressPos.contains(elem)) {
-//                     progress.appendChild(elem);
-//                 }
-//             }
-//             else if (elem.getBoundingClientRect().bottom
-//                 < toDoPos.bottom) {
-//                 if (!todo.contains(elem)) {
-//                     todo.appendChild(elem);
-//                 }
-//             }
-//         });
-
-//         elem.style.left = 0 + "px";
-//         elem.style.top = 0 + "px";
-
-//     });
-// }
-
-
-document.addEventListener('DOMContentLoaded', () => {
-    console.log('DOM fully loaded and parsed');
-    
-    let draggableTask = document.querySelectorAll(".task-container");
-
-    let draggableToDo = document.querySelector('#todo-mb');
-    let draggableProgress = document.querySelector('#progress-mb');
-    let draggableFeedback = document.querySelector('#feedback-mb');
-    let draggableDone = document.querySelector('#done-mb');
-
-    // Überprüfen, ob die Elemente vorhanden sind
-    if (draggableToDo && draggableProgress && draggableFeedback && draggableDone) {
-        console.log('All draggable elements found');
-        
-        draggableTask.forEach(addStart);
-
-        function addStart(elem) {
-            elem.addEventListener("touchstart", e => {
-                e.preventDefault(); // Verhindert Standardaktionen wie Scrollen
-
-                let startX = e.changedTouches[0].clientX;
-                let startY = e.changedTouches[0].clientY;
-
-                elem.style.position = "absolute"; // Sicherstellen, dass das Element verschiebbar ist
-                elem.style.zIndex = 10;
-
-                const handleTouchMove = eve => {
-                    eve.preventDefault();
-                    let nextX = eve.changedTouches[0].clientX;
-                    let nextY = eve.changedTouches[0].clientY;
-
-                    elem.style.left = `${nextX - startX}px`;
-                    elem.style.top = `${nextY - startY}px`;
-                };
-
-                const handleTouchEnd = eve => {
-                    // Hole die aktuellen Positionen der Container erneut
-                    let toDoPos = draggableToDo.getBoundingClientRect();
-                    let progressPos = draggableProgress.getBoundingClientRect();
-                    let feedbackPos = draggableFeedback.getBoundingClientRect();
-                    let donePos = draggableDone.getBoundingClientRect();
-
-                    let elemRect = elem.getBoundingClientRect();
-
-                    if (elemRect.top >= progressPos.top && elemRect.bottom <= progressPos.bottom) {
-                        if (!draggableProgress.contains(elem)) {
-                            draggableProgress.appendChild(elem);
-                        }
-                    } else if (elemRect.top >= feedbackPos.top && elemRect.bottom <= feedbackPos.bottom) {
-                        if (!draggableFeedback.contains(elem)) {
-                            draggableFeedback.appendChild(elem);
-                        }
-                    } else if (elemRect.top >= donePos.top && elemRect.bottom <= donePos.bottom) {
-                        if (!draggableDone.contains(elem)) {
-                            draggableDone.appendChild(elem);
-                        }
-                    } else if (elemRect.top >= toDoPos.top && elemRect.bottom <= toDoPos.bottom) {
-                        if (!draggableToDo.contains(elem)) {
-                            draggableToDo.appendChild(elem);
-                        }
-                    }
-
-                    // Setze die Position des Elements zurück
-                    elem.style.left = "0px";
-                    elem.style.top = "0px";
-                    
-                    // Entferne Event Listener nach dem Drag
-                    elem.removeEventListener("touchmove", handleTouchMove);
-                    elem.removeEventListener("touchend", handleTouchEnd);
-                };
-
-                elem.addEventListener("touchmove", handleTouchMove, { passive: false });
-                elem.addEventListener("touchend", handleTouchEnd, { passive: false });
+function nextStatus(taskId) {
+    const task = allTasks.find(t => t.id === taskId);
+    if (task) {
+        const currentIndex = taskStatuses.indexOf(task.status);
+        if (currentIndex < taskStatuses.length - 1) {
+            task.status = taskStatuses[currentIndex + 1];
+            updateTask(`/tasks/${task.id}`, task).then(() => {
+                updateHTML();
             });
         }
     } else {
-        console.error('Ein oder mehrere der benötigten Elemente wurden nicht gefunden.');
+        console.error(`Task with id ${taskId} not found`);
     }
-});
+}
+
+function previousStatus(taskId) {
+    const task = allTasks.find(t => t.id === taskId);
+    if (task) {
+        const currentIndex = taskStatuses.indexOf(task.status);
+        if (currentIndex > 0) {
+            task.status = taskStatuses[currentIndex - 1];
+            updateTask(`/tasks/${task.id}`, task).then(() => {
+                updateHTML();
+            });
+        }
+    } else {
+        console.error(`Task with id ${taskId} not found`);
+    }
+}

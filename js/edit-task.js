@@ -257,7 +257,7 @@ function renderContactsEditTask() {
                 let checkBoxContacts = renderCheckBoxEditTask(userName);
                 let bgColor = emptyTask.assignedContacts.indexOf(userName) !== -1 ? 'bg-navy' : 'bg-white'
                 container.innerHTML += /*html*/`
-        <div id="${i}" onclick="assignTaskToContactEditTask(${i})"  class="single-contact-container ${bgColor}">
+        <div id="assign-contact-to-task${i}" onclick="assignTaskToContactEditTask(${i})"  class="single-contact-container ${bgColor}">
             <div class="single-contact-name-container">
                 <div class="contact-name-initials-container" style="background-color: ${color};">
                     <span class="user-initials-span">${userNameInitial}</span>
@@ -281,7 +281,7 @@ function renderContactsEditTask() {
             let checkBoxContacts = renderCheckBoxEditTask(userName);
             let bgColor = emptyTask.assignedContacts.indexOf(userName) !== -1 ? 'bg-navy' : 'bg-white'
             container.innerHTML += /*html*/`
-     <div id="${i}" onclick="assignTaskToContactEditTask(${i})"  class="single-contact-container ${bgColor}">
+     <div id="assign-contact-to-task${i}" onclick="assignTaskToContactEditTask(${i})"  class="single-contact-container ${bgColor}">
         <div class="single-contact-name-container">
             <div class="contact-name-initials-container" style="background-color: ${color};">
                 <span class="user-initials-span">${userNameInitial}</span>
@@ -424,7 +424,7 @@ function assignTaskToLoggedInUserEditTask(i) {
 }
 
 function assignTaskToContactEditTask(i) {
-    let container = document.getElementById(i);
+    let container = document.getElementById(`assign-contact-to-task${i}`);
     let contactName = document.getElementById(`assigned-contact-name-edit-task${i}`).innerHTML;
     let index = emptyTask.assignedContacts.indexOf(contactName);
     console.log(index);
