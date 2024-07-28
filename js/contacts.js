@@ -1,10 +1,9 @@
-
-
 let contacts = [];
 let isSelected = false;
 let contactsKeys = null;
 let affectedTaskIndices = [];
 let affectedTaskIndexArray = [];
+let activeUserInContacts = null;
 
 window.addEventListener('resize', checkForMobileMode);
 window.addEventListener('load', checkForMobileMode);
@@ -24,9 +23,32 @@ async function onloadFunc(){
             }
         )   
     }
+    addUserToContact();
     sortContactsAlphabetically();
     await loadContacts('/contacts');
     checkForMobileMode();
+}
+
+function addUserToContact(){
+    let user = JSON.parse(localStorage.getItem("user"));
+    let userEmail = user.email;
+    let userName = user.name + " " + user.surname;
+    console.log(user);
+    console.log(userEmail);
+    console.log(userName);
+    if (user.name !== "Guest"){
+        activeUserInContacts=
+        {
+            id: "user",
+            contact : {
+                color: "rgb(41,171,226)",
+                email: userEmail,
+                name: userName,
+                phone: ""
+            },
+        }
+    }
+    console.log(activeUserInContacts);
 }
 
 async function getTasksForContactsPage(path = "") {
@@ -59,15 +81,12 @@ async function getTasksForContactsPage(path = "") {
 
 
 function sortContactsAlphabetically() {
-    // Kombiniere contacts und contactsKeys zu einem Array von Objekten
     let combinedArray = contacts.map((contact, index) => {
         return { 
             contact: contact, 
             key: contactsKeys[index] 
         };
     });
-
-    // Sortiere das kombinierte Array alphabetisch nach dem Namen des Kontakts
     combinedArray.sort((a, b) => {
         const nameA = a.contact.contact.name.toUpperCase();
         const nameB = b.contact.contact.name.toUpperCase();
@@ -79,8 +98,6 @@ function sortContactsAlphabetically() {
         }
         return 0;
     });
-
-    // Extrahiere die sortierten Kontakte und Keys zurück in die ursprünglichen Arrays
     contacts = combinedArray.map(item => item.contact);
     contactsKeys = combinedArray.map(item => item.key);
     console.log(contacts);
@@ -198,16 +215,12 @@ async function deleteContacts(contactID){
 function removeContactFromTasks(tasksArray, contactName) {
 
     tasksArray.forEach((task, taskIndex) => {
-        // Index des Kontakts im assignedContacts Array finden
         const index = task.assignedContacts.indexOf(contactName);
 
-        // Wenn der Kontakt gefunden wurde, entferne ihn und die entsprechenden Daten
         if (index !== -1) {
             task.assignedContacts.splice(index, 1);
             task.assignedContactsColors.splice(index, 1);
             task.assignedContactsId.splice(index, 1);
-
-            // Speichern der Indexposition der betroffenen Aufgabe
             affectedTaskIndices.push(tasksArray[taskIndex].id);
             affectedTaskIndexArray.push(taskIndex);
         }
