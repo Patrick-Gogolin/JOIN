@@ -466,32 +466,30 @@ function enableDrawing() {
 
 let taskStatuses = ["todo", "progress", "feedback", "done"];
 
-function nextStatus(taskId) {
+async function nextStatus(taskId) {
     const taskIndex = allTasks.findIndex(t => t.id === taskId);
     if (taskIndex !== -1) {
         const task = allTasks[taskIndex];
         const currentIndex = taskStatuses.indexOf(task.status);
         if (currentIndex < taskStatuses.length - 1) {
             task.status = taskStatuses[currentIndex + 1];
-            updateTaskWithArrow(`/tasks/${task.id}`, data, task).then(() => {
-                updateHTML();
-            });
+            await updateTaskWithArrow(`/tasks/${task.id}`, data, task);
+            updateHTML();
         }
     } else {
         console.error(`Task with id ${taskId} not found`);
     }
 }
 
-function previousStatus(taskId) {
+async function previousStatus(taskId) {
     const taskIndex = allTasks.findIndex(t => t.id === taskId);
     if (taskIndex !== -1) {
         const task = allTasks[taskIndex];
         const currentIndex = taskStatuses.indexOf(task.status);
         if (currentIndex > 0) {
             task.status = taskStatuses[currentIndex - 1];
-            updateTaskWithArrow(`/tasks/${task.id}`, data, task).then(() => {
-                updateHTML();
-            });
+            await updateTaskWithArrow(`/tasks/${task.id}`, data, task);
+            updateHTML();
         }
     } else {
         console.error(`Task with id ${taskId} not found`);
