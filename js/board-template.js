@@ -244,3 +244,41 @@ function renderAssignedContactsInDone(initial, contactColors) {
         <span>${initial}
     </div>`;
     }
+
+function renderTasksHtml(task, bgColor, doneSubtasks, subtasks, i, status, imageSrc, currentStatusToDo, currentStatusDone) {
+    return /*html*/`
+    <div onclick="renderDetailTaskSlide('${task.id}')" draggable="true" ondragstart="startDragging('${task.id}')" id="${task.id}" class="task-container">
+        <div class="category-container">
+            <div class="category-span ${bgColor}" id="category${i}">${task.category}</div>
+            <div class="task-up-and-down">
+                    <img class= ${currentStatusToDo} onclick="event.stopPropagation(); previousStatus('${task.id}')" src="./img/up_icon.png" alt="">
+                    <img class= ${currentStatusDone} onclick="event.stopPropagation(); nextStatus('${task.id}')" src="./img/down_icon.png" alt="">
+            </div>
+        </div>
+            <div class="title-container">
+                <span class="title-span" id="title${i}">${task.title}</span>
+
+            </div>
+            <div class="description-container">
+                <p id="description${i}">${task.description}</p> 
+            </div>
+            <div class="subtasks-container">
+                <label for="file">${doneSubtasks}/${subtasks} Subtasks</label>
+                <progress id="file" value=${doneSubtasks} max=${subtasks}> 1 </progress>
+            </div>
+            <div class="contacts-and-priority-container">
+                <div id="contacts-${status}-container${i}" class="contacts-container">
+                </div>
+                <div id="priority-container${i}" class="priority-container">
+                    <img src=${imageSrc} alt="">
+                </div>   
+            </div>
+    </div>`;
+}
+
+function assignedContactContainerHtml(initial, contactColors) {
+    return /*html*/`
+    <div class="rendered-task-assigned-contact-container" style="background-color:${contactColors}">
+        <span>${initial}</span>
+    </div>`;
+}

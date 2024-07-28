@@ -187,10 +187,10 @@ function updateHTML() {
     document.getElementById('done').innerHTML = '';
 
     renderContentIfAreaIsEmpty(toDo, inProgress, awaitFeedback, done);
-    renderIntoTaskAreaToDo(toDo);
-    renderIntoTaskAreaProgress(inProgress);
-    renderIntoTaskFeedback(awaitFeedback)
-    renderIntoTaskDone(done);
+    renderTasks(toDo, 'todo');
+    renderTasks(inProgress, 'progress');
+    renderTasks(awaitFeedback, 'feedback');
+    renderTasks(done, 'done');
 }
 
 function renderContentIfAreaIsEmpty(toDo, inProgress, awaitFeedback, done) {
@@ -213,90 +213,6 @@ function renderContentIfAreaIsEmpty(toDo, inProgress, awaitFeedback, done) {
         let content = document.getElementById('done');
         content.innerHTML = renderEmptyTasksInToDoneHtml();
     }
-}
-
-function renderIntoTaskAreaToDo(toDo) {
-    for (let i = 0; i < toDo.length; i++) {
-        let content = document.getElementById('todo');
-        let task = toDo[i];
-        let subtasks = task.subtasks.length;
-        let doneSubtasks = task.doneSubtasks.length;
-        let imageSrc = renderPriorityImage(task);
-        let initials = getInitialsOfFetchedData(task.assignedContacts);
-        let bgColor = task.category === "User Story" ? 'bg-blue' : 'bg-green';
-        content.innerHTML += renderTasksInToDoHtml(task, bgColor, subtasks, doneSubtasks, imageSrc, i);
-
-        for (let x = 0; x < initials.length; x++) {
-            const initial = initials[x];
-            let contactColors = task.assignedContactsColors[x]
-            let contentForContacts = document.getElementById(`contacts-todo-container${i}`)
-            contentForContacts.innerHTML += renderAssignedContactsInToDo(initial, contactColors);
-        }
-    }
-    removeHighlight('todo');
-}
-
-function renderIntoTaskAreaProgress(inProgress) {
-    for (let i = 0; i < inProgress.length; i++) {
-        let content = document.getElementById('progress');
-        let task = inProgress[i];
-        let subtasks = task.subtasks.length;
-        let doneSubtasks = task.doneSubtasks.length;
-        let imageSrc = renderPriorityImage(task);
-        let initials = getInitialsOfFetchedData(task.assignedContacts);
-        let bgColor = task.category === "User Story" ? 'bg-blue' : 'bg-green';
-        content.innerHTML += renderTasksInProgressHtml(task, bgColor, subtasks, doneSubtasks, imageSrc, i);
-
-        for (let x = 0; x < initials.length; x++) {
-            const initial = initials[x];
-            let contactColors = task.assignedContactsColors[x]
-            let contentForContacts = document.getElementById(`contacts-progress-container${i}`)
-            contentForContacts.innerHTML += renderAssignedContactsInProgress(initial, contactColors);
-        }
-    }
-    removeHighlight('progress');
-}
-
-function renderIntoTaskFeedback(awaitFeedback) {
-    for (let i = 0; i < awaitFeedback.length; i++) {
-        let content = document.getElementById('feedback');
-        let task = awaitFeedback[i];
-        let subtasks = task.subtasks.length;
-        let doneSubtasks = task.doneSubtasks.length;
-        let imageSrc = renderPriorityImage(task);
-        let initials = getInitialsOfFetchedData(task.assignedContacts);
-        let bgColor = task.category === "User Story" ? 'bg-blue' : 'bg-green';
-        content.innerHTML += renderTasksInFeedbackHtml(task, bgColor, subtasks, doneSubtasks, imageSrc, i);
-
-        for (let x = 0; x < initials.length; x++) {
-            const initial = initials[x];
-            let contactColors = task.assignedContactsColors[x]
-            let contentForContacts = document.getElementById(`contacts-feedback-container${i}`)
-            contentForContacts.innerHTML += renderAssignedContactsInFeedback(initial, contactColors);
-        }
-    }
-    removeHighlight('feedback');
-}
-
-function renderIntoTaskDone(done) {
-    for (let i = 0; i < done.length; i++) {
-        let content = document.getElementById('done');
-        let task = done[i];
-        let subtasks = task.subtasks.length;
-        let doneSubtasks = task.doneSubtasks.length;
-        let imageSrc = renderPriorityImage(task);
-        let initials = getInitialsOfFetchedData(task.assignedContacts);
-        let bgColor = task.category === "User Story" ? 'bg-blue' : 'bg-green';
-        content.innerHTML += renderTasksInDoneHtml(task, bgColor, subtasks, doneSubtasks, imageSrc, i);
-
-        for (let x = 0; x < initials.length; x++) {
-            const initial = initials[x];
-            let contactColors = task.assignedContactsColors[x]
-            let contentForContacts = document.getElementById(`contacts-done-container${i}`)
-            contentForContacts.innerHTML += renderAssignedContactsInDone(initial, contactColors);
-        }
-    }
-    removeHighlight('done');
 }
 
 function startDragging(id) {
@@ -352,18 +268,7 @@ function updateFilteredHTML(filteredTasks) {
     document.getElementById('feedback').innerHTML = '';
     document.getElementById('done').innerHTML = '';
 
-    if (todo.length === 0) {
-        document.getElementById('todo').innerHTML = '<div class="nothing-to-do-nothing-done-container"><span>No tasks To do</span></div>';
-    }
-    if (progress.length === 0) {
-        document.getElementById('progress').innerHTML = '<div class="nothing-to-do-nothing-done-container"><span>No tasks in progress</span></div>';
-    }
-    if (feedback.length === 0) {
-        document.getElementById('feedback').innerHTML = '<div class="nothing-to-do-nothing-done-container"><span>No tasks awaiting feedback</span></div>';
-    }
-    if (done.length === 0) {
-        document.getElementById('done').innerHTML = '<div class="nothing-to-do-nothing-done-container"><span>No tasks Done</span></div>';
-    }
+    renderContentIfAreaIsEmpty(todo, progress, feedback, done);
 
     renderTasks(todo, 'todo');
     renderTasks(progress, 'progress');
@@ -380,48 +285,22 @@ function renderTasks(tasks, status) {
         let imageSrc = renderPriorityImage(task);
         let initials = getInitialsOfFetchedData(task.assignedContacts);
         let bgColor = task.category === "User Story" ? 'bg-blue' : 'bg-green';
+        let currentStatusToDo = status === "todo" ? "d-none" : "d-block";
+        let currentStatusDone = status === "done" ? "d-none" : "d-block";
+        content.innerHTML += renderTasksHtml(task, bgColor, doneSubtasks, subtasks, i, status, imageSrc, currentStatusToDo, currentStatusDone);
 
-        content.innerHTML += /*html*/` 
-        <div onclick="renderDetailTaskSlide('${task.id}')" draggable="true" ondragstart="startDragging('${task.id}')" id="${task.id}" class="task-container">
-        <div class="category-container">
-            <div class="category-span ${bgColor}" id="category${i}">${task.category}</div>
-            <div class="task-up-and-down">
-                    <img onclick="event.stopPropagation(); previousStatus('${task.id}')" src="./img/up_icon.png" alt="">
-                    <img onclick="event.stopPropagation(); nextStatus('${task.id}')" src="./img/down_icon.png" alt="">
-            </div>
-        </div>
-            <div class="title-container">
-                <span class="title-span" id="title${i}">${task.title}</span>
-
-            </div>
-            <div class="description-container">
-                <p id="description${i}">${task.description}</p> 
-            </div>
-            <div class="subtasks-container">
-                <label for="file">${doneSubtasks}/${subtasks} Subtasks</label>
-                <progress id="file" value=${doneSubtasks} max=${subtasks}> 1 </progress>
-            </div>
-            <div class="contacts-and-priority-container">
-                <div id="contacts-${status}-container${i}" class="contacts-container">
-                </div>
-                <div id="priority-container${i}" class="priority-container">
-                    <img src=${imageSrc} alt="">
-                </div>   
-            </div>
-        </div>`;
-
-        for (let x = 0; x < initials.length; x++) {
-            const initial = initials[x];
-            let contactColors = task.assignedContactsColors[x];
-            let contentForContacts = document.getElementById(`contacts-${status}-container${i}`);
-            contentForContacts.innerHTML += /*html*/ `
-            <div class="rendered-task-assigned-contact-container" style="background-color:${contactColors}">
-                <span>${initial}</span>
-            </div>`;
-        }
+        renderAssignedContactsInTaskCard(status, i, task, initials);
     }
-
     removeHighlight(status);
+}
+
+function renderAssignedContactsInTaskCard(status, i, task, initials) {
+    for (let x = 0; x < initials.length; x++) {
+        const initial = initials[x];
+        let contactColors = task.assignedContactsColors[x];
+        let contentForContacts = document.getElementById(`contacts-${status}-container${i}`);
+        contentForContacts.innerHTML += assignedContactContainerHtml(initial, contactColors);
+    }
 }
 
 function enableDrawing() {
