@@ -463,12 +463,13 @@ function enableDrawing() {
 let taskStatuses = ["todo", "progress", "feedback", "done"];
 
 function nextStatus(taskId) {
-    const task = allTasks.find(t => t.id === taskId);
-    if (task) {
+    const taskIndex = allTasks.findIndex(t => t.id === taskId);
+    if (taskIndex !== -1) {
+        const task = allTasks[taskIndex];
         const currentIndex = taskStatuses.indexOf(task.status);
         if (currentIndex < taskStatuses.length - 1) {
             task.status = taskStatuses[currentIndex + 1];
-            updateTask(`/tasks/${task.id}`, task).then(() => {
+            updateTaskWithArrow(`/tasks/${task.id}`, data, task).then(() => {
                 updateHTML();
             });
         }
@@ -478,12 +479,13 @@ function nextStatus(taskId) {
 }
 
 function previousStatus(taskId) {
-    const task = allTasks.find(t => t.id === taskId);
-    if (task) {
+    const taskIndex = allTasks.findIndex(t => t.id === taskId);
+    if (taskIndex !== -1) {
+        const task = allTasks[taskIndex];
         const currentIndex = taskStatuses.indexOf(task.status);
         if (currentIndex > 0) {
             task.status = taskStatuses[currentIndex - 1];
-            updateTask(`/tasks/${task.id}`, task).then(() => {
+            updateTaskWithArrow(`/tasks/${task.id}`, data, task).then(() => {
                 updateHTML();
             });
         }
@@ -491,3 +493,28 @@ function previousStatus(taskId) {
         console.error(`Task with id ${taskId} not found`);
     }
 }
+
+async function updateTaskWithArrow(path = "", data={}, task) {
+    data = {
+         id: "",
+         title: task['title'],
+         description: task['description'],
+         deadline: task['deadline'],
+         priority: task['priority'],
+         subtasks: JSON.stringify(task['subtasks']),
+         doneSubtasks: JSON.stringify(task['doneSubtasks']),
+         assignedContacts: JSON.stringify(task['assignedContacts']),
+         assignedContactsColors: JSON.stringify(task['assignedContactsColors']),
+         assignedContactsId: JSON.stringify(task['assignedContactsId']),
+         category: task['category'],
+         status: task['status']
+     };
+     let response = await fetch(BASE_URL + path + ".json",{
+         method: "PUT",
+         headers: {
+             "Content-Type": "application/json",
+         },
+         body: JSON.stringify(data)
+     });
+   return responseToJson = await response.json();
+   }
