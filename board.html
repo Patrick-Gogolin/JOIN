@@ -30,7 +30,7 @@
     <div w3-include-html="templates/mobile-sidebar.html"></div>
     <section class="content-center">
         <div id="overlayer" class="overlayer d-none">
-            <div class="add-task-slide">
+            <div id="add-task-slide" class="add-task-slide">
                 <div onclick="closeOverlayer()" class="close-button-container">
                     <img src="img/close.svg" alt="">
                 </div>
@@ -55,7 +55,7 @@
                             <div class="select-contacts-container">
                                 <input onkeyup="searchContacts()" id="search-contact-inputfield" type="text"
                                     placeholder="Select contacts to assign">
-                                <img onclick="openSelectContactsContainer()" src="img/arrow-drop-down-contacts.svg"
+                                <img onclick="openSelectContactsContainer(event)" src="img/arrow-drop-down-contacts.svg"
                                     alt="">
                             </div>
                             <div id="choose-contacts-container" class="choose-contacts-container d-none">

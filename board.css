@@ -185,11 +185,9 @@ select {
     font-size: 20px;
     border: 1px solid #D1D1D1;
     border-radius: 10px;
-    padding: 12px 16px 12px 16px;
     height: 48px;
     display: flex;
     align-items: center;
-    justify-content: space-between;
     z-index: 3;
 }
 
@@ -200,7 +198,8 @@ select {
    font-family: inter;
    font-weight: 200;
    font-size: 20px;
-   width: 100%;
+   width: 390px;
+   padding: 12px 16px 12px 16px;
 }
 
 .choose-contacts-container {
@@ -558,6 +557,10 @@ select {
     border-color: #29ABE2;
 }
 
+.add-subtask-svg-container {
+    display: flex;
+}
+
 .add-subtask-svg:hover {
     background-color: hsl(0, 0%, 95%);
     border-radius: 10px;
@@ -776,7 +779,10 @@ h1 {
     border-radius: 24px;
     overflow: visible;
     align-self: center;
-    
+}
+
+.rendered-tasks-area-done {
+    margin-bottom: 50px;
 }
 
 .rendered-tasks-area-to-do.active,
@@ -1410,14 +1416,34 @@ color: #29ABE2;
     .priority-button-container button {
         width: 33%;
         font-size: 16px;
+        padding: 12px 6px 12px 6px;
     }
 
     .add-task-bottom{
         gap: 30px;
     }
 
+    .add-subtask-input-container,
+    .select-contacts-container {
+        position: relative;
+    }
+
     .add-subtask-container input{
-        width: 260px;
+        width: 225px;
+    }
+
+    .select-contacts-container input {
+        width: 270px;
+    }
+
+    .choose-contacts-container{
+        width: 300px;
+    }
+
+    .add-subtask-svg-container,
+    .arrow-drop-down  {
+        position: absolute;
+        right: 10px;
     }
 
     .choose-contacts-container,

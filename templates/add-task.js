@@ -350,7 +350,7 @@ function openSelectContactsContainer() {
         container.classList.remove('d-none');
         assignOptionsContactsContainer = true;
         renderContacts();
-        assignedContacts.classList.add('d-none')
+        assignedContacts.classList.add('d-none');
     }
     else {
         container.classList.add('d-none');
