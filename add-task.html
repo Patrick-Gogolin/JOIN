@@ -23,7 +23,7 @@
     <script src="/add-task-main.js"></script>
 </head>
 
-<body id="body-add-task" onload="getContacts('/contacts');">
+<body id="body-add-task" onload="getContacts('/contacts'); checkUserAndRedirect()">
     <div w3-include-html="templates/header.html"></div>
     <div w3-include-html="templates/sidebar.html"></div>
     <div w3-include-html="templates/mobile-header.html"></div>

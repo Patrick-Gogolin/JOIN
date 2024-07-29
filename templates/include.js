@@ -13,6 +13,15 @@ async function includeHTML() {
 }
 }
 
+function checkUserAndRedirect() {
+    let userKey = 'user';
+    let user = localStorage.getItem(userKey);
+    
+    if (!user) {
+        window.location.href = 'index.html';
+    }
+}
+
 function load() {
     let userAsText = localStorage.getItem('user');
     if (userAsText) {
