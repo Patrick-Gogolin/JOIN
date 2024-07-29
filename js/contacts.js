@@ -30,6 +30,7 @@ async function onloadFunc(){
     checkForMobileMode();
 }
 
+
 function addUserToContact(){
     let user = JSON.parse(localStorage.getItem("user"));
     let userEmail = user.email;
@@ -51,6 +52,7 @@ function addUserToContact(){
     }
     console.log(activeUserInContacts);
 }
+
 
 function showUserInContacts(){
     let userElementInContacts = document.getElementById('user-contact');
@@ -124,6 +126,7 @@ function sortContactsAlphabetically() {
     console.log(contactsKeys);
 }
 
+
 async function loadContacts(path=""){
     let response = await fetch(BASE_URL + path + ".json");
     let contactListElement = document.getElementById('contact-list');
@@ -165,6 +168,7 @@ function showUserFeedback(){
     };
 }
 
+
 async function postContacts(path="", data={}){
     let name = document.getElementById('name');
     let email = document.getElementById('mail');
@@ -202,7 +206,6 @@ async function postContacts(path="", data={}){
 }
 
 
-
 async function deleteContacts(contactID){
     let index = contactsKeys.indexOf(contactID);
     let contactName = contacts[index].contact.name;
@@ -234,6 +237,7 @@ async function deleteContacts(contactID){
     return await response.json();
 }
 
+
 function removeContactFromTasks(tasksArray, contactName) {
 
     tasksArray.forEach((task, taskIndex) => {
@@ -252,6 +256,7 @@ function removeContactFromTasks(tasksArray, contactName) {
     console.log(affectedTaskIndexArray);
     return affectedTaskIndices;
 }
+
 
 async function updateTaskAfterDeleteOrUpdatedContact(path = "", data={}, i) {
     data = {
@@ -276,7 +281,7 @@ async function updateTaskAfterDeleteOrUpdatedContact(path = "", data={}, i) {
          body: JSON.stringify(data)
      });
    return responseToJson = await response.json();
-   }
+}
 
 
 function removeContactFromArray(contactID){
@@ -297,8 +302,8 @@ function editContact(eachContact){
     document.getElementById(`contact-logo-${eachContact}`).style.backgroundColor = eachContact.contact.color; 
     document.getElementById('edit-contact-popup-content').classList.add("animation");
     document.getElementById('edit-contact-popup-content').classList.remove("animation-close");
-   
 }
+
 
 function editUserAsContact(){
     let user = JSON.parse(localStorage.getItem("user"));
@@ -315,6 +320,7 @@ function editUserAsContact(){
     document.getElementById('edit-user-popup-content').classList.add("animation");
     document.getElementById('edit-user-popup-content').classList.remove("animation-close");
 }
+
 
 function getEditUserTemplate(){
     let initials = getContactsInitials(eachContact);
@@ -341,8 +347,21 @@ function getEditUserTemplate(){
         </div>`;
 }
 
-function submitEditUserForm(){
 
+function submitEditUserForm(){
+    let name = document.getElementById('editName').value;
+    let email = document.getElementById('editMail').value;
+    let phone = document.getElementById('editPhone').value;
+    let userData = {
+        name : name,
+        email : email,
+        phone : phone,
+    };
+    
+    localStorage.setItem('user', JSON.stringify(userData));
+    document.getElementById('edit-user-popup').classList.add('d-none');
+    loadContacts();
+    showContactInfo(JSON.stringify(userData));
 }
 
 
@@ -379,6 +398,7 @@ async function submitEditContactForm(event, contactID){
         await updateTaskAfterDeleteOrUpdatedContact(`/tasks/${task}`,data, taskIndex);
     }
 }
+
 
 function updateContactNameFromTasks(tasksArray, contactName) {
     let newNameOfContact = document.getElementById('editName').value;
@@ -505,7 +525,6 @@ function getABCSeparatorTemplate(letter){
 }
 
 
-
 function checkForMobileMode(){
     showMobileHeader();
     giveAnimations();
@@ -526,6 +545,7 @@ function checkForMobileMode(){
         contactInfo.style.width = "48%";
     };
 }
+
 
 function giveAnimations(){
 
@@ -550,6 +570,7 @@ function giveAnimations(){
     })
 }
 
+
 function userFeedbackSlideIn(){
     let feedback = document.getElementById('user-feedback');
         feedback.style.animation = "slide-from-right 1000ms";
@@ -563,8 +584,6 @@ function userFeedbackSlideIn(){
             feedback.classList.add("d-none");
         }, 2900);
     }
-
-
 
 
 function backToList(){
@@ -581,6 +600,7 @@ function backToList(){
     };
     checkForMobileMode();
 }
+
 
 function showMobileHeader(){
     let header = document.getElementById('contact-header');
@@ -606,9 +626,6 @@ function showContactInfo(eachContact){
     document.getElementById(`contact-list-element-${eachContact.id}`).style.color = "white";
     showInfo(eachContact); 
 }
-
-
-
 
 
 function showInfo(eachContact){
