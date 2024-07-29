@@ -47,7 +47,9 @@ function OpenEditTaskWindow(id) {
             <span class="headline-input">Assigned to</span>
             <div class="select-contacts-container">
                 <input onkeyup="searchContactsEditTask()" id="search-contact-inputfield-edit-task" type="text" placeholder="Select contacts to assign">
-                <img class="arrow-drop-down" onclick="openSelectContactsContainerEditTask()" src="img/arrow-drop-down-contacts.svg" alt="">
+                <div class="arrow-drop-down">
+                    <img onclick="openSelectContactsContainerEditTask(event)" src="img/arrow-drop-down-contacts.svg"alt="">
+                </div>
             </div>
             <div id="choose-contacts-container-edit-task" class="choose-contacts-container d-none">
                 <div id="active-user-container-edit-task" class="d-none">
