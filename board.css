@@ -1224,6 +1224,9 @@ color: #29ABE2;
      margin-top: 45px;
     }
     
+    .task-up-and-down{
+        display: none;
+    }
 }
 
 @media screen and (max-width: 1536px) {

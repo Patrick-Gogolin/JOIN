@@ -315,7 +315,7 @@ function submitEditContactForm(event, contactID){
         document.getElementById('edit-contact-popup').classList.add('d-none');
         loadContacts();
         showContactInfo(contacts[index]);
-        deleteContacts(user);
+        deleteContacts();
         }).catch(error => {
         console.error('Error updating contact:', error);
     });
