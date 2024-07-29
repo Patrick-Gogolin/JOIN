@@ -187,6 +187,7 @@ async function postContacts(path="", data={}){
         id: newContact.name,
         contact: data,
     });
+    contactsKeys.push(newContact.name);
     sortContactsAlphabetically();
     await loadContacts();
     name.value = "";
@@ -227,7 +228,7 @@ async function deleteContacts(contactID){
     for (let i = 0; i < affectedTaskIndices.length; i++) {
         const task = affectedTaskIndices[i];
         const taskIndex = affectedTaskIndexArray[i];
-        await updateTaskAfterDeleteContact(`/tasks/${task}`,data, taskIndex);
+        await updateTaskAfterDeleteOrUpdatedContact(`/tasks/${task}`,data, taskIndex);
     }
     return await response.json();
 }
@@ -251,7 +252,7 @@ function removeContactFromTasks(tasksArray, contactName) {
     return affectedTaskIndices;
 }
 
-async function updateTaskAfterDeleteContact(path = "", data={}, i) {
+async function updateTaskAfterDeleteOrUpdatedContact(path = "", data={}, i) {
     data = {
          id: "",
          title: allTasks[i]['title'],
@@ -299,15 +300,21 @@ function editContact(eachContact){
 }
 
 
-function submitEditContactForm(event, contactID){
+async function submitEditContactForm(event, contactID){
+    let index = contactsKeys.indexOf(contactID);
+    let contactName = contacts[index].contact.name;
+    updateContactNameFromTasks(allTasks, contactName);
     event.preventDefault();
     let name = document.getElementById('editName').value;
     let email = document.getElementById('editMail').value;
     let phone = document.getElementById('editPhone').value;
+    let indexOfContact = contacts.findIndex(obj => obj.id === contactID);
+    let color = contacts[indexOfContact].contact.color;
     let updatedContact = {
         name : name,
         email : email,
-        phone : phone
+        phone : phone,
+        color : color
     };
     putContacts(`contacts/${contactID}`, updatedContact).then(() => {
         const index = contacts.findIndex(contact => contact.id === contactID);
@@ -320,6 +327,31 @@ function submitEditContactForm(event, contactID){
         }).catch(error => {
         console.error('Error updating contact:', error);
     });
+    for (let i = 0; i < affectedTaskIndices.length; i++) {
+        const task = affectedTaskIndices[i];
+        const taskIndex = affectedTaskIndexArray[i];
+        await updateTaskAfterDeleteOrUpdatedContact(`/tasks/${task}`,data, taskIndex);
+    }
+}
+
+function updateContactNameFromTasks(tasksArray, contactName) {
+    let newNameOfContact = document.getElementById('editName').value;
+    affectedTaskIndices.length = 0;
+    affectedTaskIndexArray.length = 0;
+
+    tasksArray.forEach((task, taskIndex) => {
+        const index = task.assignedContacts.indexOf(contactName);
+
+        if (index !== -1) {
+            task.assignedContacts.splice(index, 1, newNameOfContact);
+            affectedTaskIndices.push(tasksArray[taskIndex].id);
+            affectedTaskIndexArray.push(taskIndex);
+        }
+    });
+    console.log(allTasks);
+    console.log(affectedTaskIndices);
+    console.log(affectedTaskIndexArray);
+    return affectedTaskIndices;
 }
 
 
