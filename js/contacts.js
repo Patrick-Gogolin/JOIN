@@ -8,6 +8,7 @@ let activeUserInContacts = null;
 window.addEventListener('resize', checkForMobileMode);
 window.addEventListener('load', checkForMobileMode);
 
+
 async function onloadFunc(){
     isSelected = false;
     let contactResponse = await loadContacts("contacts");
@@ -53,7 +54,7 @@ function addUserToContact(){
 
 function showUserInContacts(){
     let userElementInContacts = document.getElementById('user-contact');
-    if (activeUserInContacts !== null) {
+if (activeUserInContacts !== null) {
     let userName = activeUserInContacts.contact.name;
     let userEmail = activeUserInContacts.contact.email;
     let userColor = activeUserInContacts.contact.color;
@@ -66,7 +67,7 @@ function showUserInContacts(){
      <a href="">${userEmail}</a>
     </div>
     </div>`
-    }
+}
 }
 
 
@@ -296,6 +297,51 @@ function editContact(eachContact){
     document.getElementById('edit-contact-popup-content').classList.add("animation");
     document.getElementById('edit-contact-popup-content').classList.remove("animation-close");
    
+}
+
+function editUserAsContact(){
+    let user = JSON.parse(localStorage.getItem("user"));
+    let userEmail = user.email;
+    let userName = user.name + " " + user.surname;
+    let userPhone = user.phone;
+    
+    document.getElementById('edit-user-popup').classList.remove("d-none");
+    document.getElementById('edit-user-popup').innerHTML = getEditUserTemplate();
+    document.getElementById('editName').value = userName;
+    document.getElementById('editMail').value = userEmail;
+    document.getElementById('editPhone').value = userPhone;
+    document.getElementById(`user-logo`).style.backgroundColor = "rgb(41,171,226)"; 
+    document.getElementById('edit-user-popup-content').classList.add("animation");
+    document.getElementById('edit-user-popup-content').classList.remove("animation-close");
+}
+
+function getEditUserTemplate(){
+    let initials = getContactsInitials(eachContact);
+    return `<div id="edit-user-popup-content" class="popup-content animation" onclick="doNotClose(event)">
+            <div class="popup-left">
+                <div onclick="closePopup()" class="back-icon-white-boarder"><img class="back-icon-white" src="img/close_white.png" alt=""></div>
+                <img class="join-logo" src="/img/capa_2.png" alt="">
+                <h1>Edit contact</h1>
+                <div class="blue-line"></div>
+            </div>
+            <div id="user-logo" class="edit-contact-logo">${initials}</div>
+            <div class="popup-right">
+                <div onclick="closePopup()" class="back-icon-boarder"><img class="back-icon" src="img/x.svg" alt=""></div>
+                <form class="form" onsubmit="submitEditUserForm()'); return false;">
+                    <input id="editName" class="add-contact-input-name" placeholder="Name" type="text" required>
+                    <input id="editMail" class="add-contact-input-mail" placeholder="Email" type="email" required>
+                    <input id="editPhone" class="add-contact-input-tel" placeholder="Phone" type="tel" required>
+                    <div class="add-contact-form-buttons">
+                    <button type="button" class="cancel" onclick= "closePopup()">Delete<img src="img/x.svg" alt=""></button>
+                    <button type="submit" class="create">Save<img src="img/check.png" alt=""></button>
+                    </div>
+                </form>
+            </div>
+        </div>`;
+}
+
+function submitEditUserForm(){
+
 }
 
 
