@@ -118,9 +118,6 @@ header{
     justify-content: space-between;
     align-items: center;
     margin: 0 auto;
-    position: fixed;
-    top: 0;
-    box-shadow: 0px 4px 4px 0px #0000001A;
 }
 
 
@@ -392,7 +389,6 @@ body:has(.cancel:hover) .cancel img{
 
 .content{
     margin-left: 232px;
-    margin-top: 93px;
     display: flex;
     height: 100%;
 }

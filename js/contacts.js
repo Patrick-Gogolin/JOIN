@@ -138,6 +138,7 @@ async function loadContacts(path=""){
        contactListElement.innerHTML += getContactListTemplate(eachContact);
         getContactsInitials(eachContact);
         random_bg_color(eachContact);
+        showUserInContacts();
     }
     return responseToJson = await response.json(); 
 }
@@ -315,7 +316,6 @@ function submitEditContactForm(event, contactID){
         document.getElementById('edit-contact-popup').classList.add('d-none');
         loadContacts();
         showContactInfo(contacts[index]);
-        deleteContacts();
         }).catch(error => {
         console.error('Error updating contact:', error);
     });
