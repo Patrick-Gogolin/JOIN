@@ -15,7 +15,7 @@
     <script src="./js/summary.js"></script>
     <script src="templates/sidebar.js"></script>
 </head>
-<body onload="includeHTML()" id="body-privacy">
+<body id="body-privacy" onload="includeHTML(); checkUserAndRedirect()">
     <div w3-include-html="templates/header.html"></div>
     <div w3-include-html="templates/mobile-header.html"></div>
     <div w3-include-html="templates/sidebar.html"></div>

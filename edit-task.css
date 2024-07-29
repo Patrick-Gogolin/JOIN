@@ -121,6 +121,11 @@
 
     .add-subtask-container input{
         width: 210px;
+        font-size: 19px;
+    }
+
+    .select-contacts-container input {
+        font-size: 19px;
     }
 
     .choose-contacts-container{

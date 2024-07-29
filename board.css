@@ -1419,8 +1419,17 @@ color: #29ABE2;
         gap: 30px;
     }
 
+    .add-subtask-input-container {
+        position: relative;
+    }
+
     .add-subtask-container input{
-        width: 260px;
+        width: 225px;
+    }
+
+    .add-subtask-svg-container {
+        position: absolute;
+        right: 14px;
     }
 
     .choose-contacts-container,

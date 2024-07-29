@@ -8,7 +8,6 @@ let activeUserInContacts = null;
 window.addEventListener('resize', checkForMobileMode);
 window.addEventListener('load', checkForMobileMode);
 
-
 async function onloadFunc(){
     isSelected = false;
     let contactResponse = await loadContacts("contacts");
@@ -54,6 +53,7 @@ function addUserToContact(){
 
 function showUserInContacts(){
     let userElementInContacts = document.getElementById('user-contact');
+    if (activeUserInContacts !== null) {
     let userName = activeUserInContacts.contact.name;
     let userEmail = activeUserInContacts.contact.email;
     let userColor = activeUserInContacts.contact.color;
@@ -66,6 +66,7 @@ function showUserInContacts(){
      <a href="">${userEmail}</a>
     </div>
     </div>`
+    }
 }
 
 

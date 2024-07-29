@@ -58,3 +58,12 @@ function guestLogIn() {
 function handleFormSubmit(event) {
     event.preventDefault();
 }
+
+function checkUserAndRedirect() {
+    let userKey = 'user';
+    let user = localStorage.getItem(userKey);
+    
+    if (!user) {
+        window.location.href = 'index.html';
+    }
+}
