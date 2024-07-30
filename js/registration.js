@@ -6,6 +6,7 @@ async function postData(path = "", data={}) {
     let confirmPassword = document.getElementById('confirm-password');
     let name = document.getElementById('first-name');
     let surname = document.getElementById('last-name');
+    let phoneNumber = "";
 
     if(password.value === confirmPassword.value ) {
 
@@ -13,7 +14,8 @@ async function postData(path = "", data={}) {
         email: email.value,
         password: password.value,
         name: name.value,
-        surname: surname.value
+        surname: surname.value,
+        phone: phoneNumber
     };
 
     let response = await fetch(BASE_URL + path + ".json",{
