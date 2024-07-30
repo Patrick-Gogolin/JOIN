@@ -772,7 +772,14 @@ ul {
     font-size: 16px;
     border: none;
     width: 300px;
+}
 
+.edit-subtask-inputfield-add-task-main {
+    font-family: inter;
+    font-size: 16px;
+    border: none;
+    width: 300px;
+    background-color: rgb(246,247,248);
 }
 
 .this-field-required-span {
