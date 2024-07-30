@@ -315,6 +315,7 @@ function searchContactsEditTask() {
         container.classList.add('d-none');
         assignOptionsContactsContainerEditTask = false;
         assignedContacts.classList.remove('d-none');
+        renderAssignedContactsEditTask();
     }
 
     if (activeUser.length > 0) { 
@@ -327,15 +328,15 @@ function searchContactsEditTask() {
         if (activeUserUpdated.toLowerCase().includes(search)) {
             activeUserContainer.classList.remove('d-none');
             activeUserContainer.innerHTML = /*html*/`
-            <div id="logged-in-user" onclick="assignTaskToLoggedInUser('logged-in-user')" class="single-contact-container ${bgColor}">
+            <div id="logged-in-user-edit-task" onclick="assignTaskToLoggedInUserEditTask('logged-in-user-edit-task')" class="single-contact-container ${bgColor}">
                 <div class="single-contact-name-container">
                     <div class="contact-name-initials-container" style="background-color: ${color};">
                         <span class="user-initials-span">${activeUserInitialsUpdated}</span>
                     </div>
-                    <span id="logged-in-user-name">${activeUserUpdated}</span><span>(You)</span>
+                    <span id="logged-in-user-name-edit-task">${activeUserUpdated}</span><span>(You)</span>
                 </div>
                 <div>
-                    <img id="checkbox-active-user" src=${checkBox} alt="Checkbox">
+                    <img id="checkbox-active-user-edit-task" src=${checkBox} alt="Checkbox">
                 </div>
             </div>`;
         } else {
