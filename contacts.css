@@ -1164,6 +1164,22 @@ body:has(.back_img_boarder:hover) .back_img_boarder img{
     .form input{
         margin-bottom: 15px;
     }
+
+    .popup-left h1{
+        font-size: 42px;
+    }
+
+    .popup-left h3{
+        font-size: 19px;
+    }
+
+    .nobody{
+        width: 50px;
+        height: 50px;
+        margin-bottom: 11px;
+        left: calc((100% - 50px) / 2);
+        top: calc((93% - 80px) / 2);
+    }
 }
 
 
