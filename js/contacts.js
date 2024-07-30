@@ -239,6 +239,8 @@ async function deleteContacts(contactID){
 
 
 function removeContactFromTasks(tasksArray, contactName) {
+    affectedTaskIndices.length = 0;
+    affectedTaskIndexArray.length = 0;
 
     tasksArray.forEach((task, taskIndex) => {
         const index = task.assignedContacts.indexOf(contactName);
