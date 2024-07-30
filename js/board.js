@@ -398,8 +398,19 @@ async function updateTaskWithArrow(path = "", data={}, task) {
 
    //Listen to orientation change
 window.addEventListener('orientationchange', doOnOrientationChange);
-   //Deactivate Landscape Modus
+window.addEventListener("resize", doOnOrientationChange);
+
+function isMobileDevice() {
+    const mobileMaxWidth = 430; // Diese Zahl kann je nach Ihren Anforderungen angepasst werden
+    return window.innerWidth <= mobileMaxWidth;
+}
+
 function doOnOrientationChange() {
+
+    if (!isMobileDevice()) {
+        return;
+    }
+
     let orientation = screen.orientation || screen.mozOrientation || screen.msOrientation;
 
     if (orientation) {

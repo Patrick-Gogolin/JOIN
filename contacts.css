@@ -103,6 +103,24 @@ body{
 
 }
 
+.d-none{
+    display: none !important;
+}
+
+header{
+    background-color: white;
+    width: 100%;
+    max-width: 1920px;
+    height: 96px;
+    box-sizing: border-box;
+    padding: 20px 40px 20px 348px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 auto;
+}
+
+
 #landscape{
     position: absolute;
     top: 0px;
@@ -124,23 +142,6 @@ body{
    text-align: center;
    display: inline-block;
    width: 100%;
-}
-
-.d-none{
-    display: none !important;
-}
-
-header{
-    background-color: white;
-    width: 100%;
-    max-width: 1920px;
-    height: 96px;
-    box-sizing: border-box;
-    padding: 20px 40px 20px 348px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin: 0 auto;
 }
 
 

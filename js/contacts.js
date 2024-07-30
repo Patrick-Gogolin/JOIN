@@ -9,36 +9,7 @@ window.addEventListener('resize', checkForMobileMode);
 window.addEventListener('load', checkForMobileMode);
 //Listen to orientation change
 window.addEventListener('orientationchange', doOnOrientationChange);
-
-function doOnOrientationChange() {
-    let orientation = screen.orientation || screen.mozOrientation || screen.msOrientation;
-
-    if (orientation) {
-        switch(orientation.type) {
-            case 'landscape-primary':
-            case 'landscape-secondary':
-                document.getElementById("landscape").style.display = "block";
-                break;
-            case 'portrait-primary':
-            case 'portrait-secondary':
-            default:
-                document.getElementById("landscape").style.display = "none";
-                break;
-        }
-    } else {
-        // Fallback for browsers that do not support screen.orientation
-        const angle = window.orientation;
-        if (angle === 90 || angle === -90) {
-            document.getElementById("landscape").style.display = "block";
-        } else {
-            document.getElementById("landscape").style.display = "none";
-        }
-    }
-}
-
-
-      
-
+window.addEventListener("resize", doOnOrientationChange);
 
 async function onloadFunc(){
     isSelected = false;
@@ -453,7 +424,6 @@ function updateContactNameFromTasks(tasksArray, contactName) {
     return affectedTaskIndices;
 }
 
-
 async function putContacts(path="", data={}){
     let response = await fetch(BASE_URL + path + ".json",{
         method: "PUT",
@@ -734,4 +704,38 @@ function closeEditOptions(){
     setTimeout(() => {
         document.getElementById('edit-more-options-list').style.display = "none";
     }, 300);
+}
+
+function isMobileDevice() {
+    const mobileMaxWidth = 430; // Diese Zahl kann je nach Ihren Anforderungen angepasst werden
+    const mobileMaxHeight = 600;
+    return window.innerHeight <= mobileMaxHeight && window.innerWidth <= mobileMaxWidth;
+}
+
+function doOnOrientationChange() {
+    if (!isMobileDevice()) {
+        return;
+    }
+    let orientation = screen.orientation || screen.mozOrientation || screen.msOrientation;
+    if (orientation) {
+        switch(orientation.type) {
+            case 'landscape-primary':
+            case 'landscape-secondary':
+                document.getElementById("landscape").style.display = "block";
+                break;
+            case 'portrait-primary':
+            case 'portrait-secondary':
+            default:
+                document.getElementById("landscape").style.display = "none";
+                break;
+        }
+    } else {
+        // Fallback for browsers that do not support screen.orientation
+        const angle = window.orientation;
+        if (angle === 90 || angle === -90) {
+            document.getElementById("landscape").style.display = "block";
+        } else {
+            document.getElementById("landscape").style.display = "none";
+        }
+    }
 }

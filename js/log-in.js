@@ -2,7 +2,8 @@ const BASE_URL = "https://remotestorage-c5224-default-rtdb.europe-west1.firebase
 
 
 //Listen to orientation change
-window.addEventListener('orientationchange', doOnOrientationChange);
+window.addEventListener("orientationchange", doOnOrientationChange);
+window.addEventListener("resize", doOnOrientationChange);
 
 document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('login-button').addEventListener('click', function() {
@@ -40,7 +41,17 @@ async function logIn(path = "") {
         checkLogInData(isValidUser);
 }
 
+function isMobileDevice() {
+    const mobileMaxWidth = 430; // Diese Zahl kann je nach Ihren Anforderungen angepasst werden
+    return window.innerWidth <= mobileMaxWidth;
+}
+
 function doOnOrientationChange() {
+
+    if (!isMobileDevice()) {
+        return;
+    }
+
     let orientation = screen.orientation || screen.mozOrientation || screen.msOrientation;
 
     if (orientation) {

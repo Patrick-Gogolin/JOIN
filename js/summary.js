@@ -249,9 +249,18 @@ async function updateNextUrgentDeadline() {
 
 //Listen to orientation change
 window.addEventListener('orientationchange', doOnOrientationChange);
+window.addEventListener('resize', doOnOrientationChange);
 
-//Deactivate Landscape Modus
+function isMobileDevice() {
+    const mobileMaxWidth = 430; // Diese Zahl kann je nach Ihren Anforderungen angepasst werden
+    return window.innerWidth <= mobileMaxWidth;
+}
+
 function doOnOrientationChange() {
+
+    if (!isMobileDevice()) {
+        return;
+    }
     let orientation = screen.orientation || screen.mozOrientation || screen.msOrientation;
 
     if (orientation) {
