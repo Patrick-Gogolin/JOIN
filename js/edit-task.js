@@ -318,7 +318,7 @@ function searchContactsEditTask() {
         renderAssignedContactsEditTask();
     }
 
-    if (activeUser.length > 0) { 
+    if (activeUser.length > 0 && activeUser[0] != "Guest") { 
         let activeUserUpdated = activeUser.join(" ");
         let activeUserInitialsUpdated = activeUserInitials.join("");
         let checkBox = renderCheckBoxEditTask(activeUserUpdated);
