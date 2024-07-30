@@ -4,6 +4,7 @@ let contactsKeys = null;
 let affectedTaskIndices = [];
 let affectedTaskIndexArray = [];
 let activeUserInContacts = null;
+const user = JSON.parse(localStorage.getItem("user"));
 
 window.addEventListener('resize', checkForMobileMode);
 window.addEventListener('load', checkForMobileMode);
@@ -34,9 +35,10 @@ async function onloadFunc(){
 
 
 function addUserToContact(){
-    let user = JSON.parse(localStorage.getItem("user"));
+    
     let userEmail = user.email;
     let userName = user.name + " " + user.surname;
+    let userPhone = user.phone;
     console.log(user);
     console.log(userEmail);
     console.log(userName);
@@ -48,7 +50,7 @@ function addUserToContact(){
                 color: "rgb(41,171,226)",
                 email: userEmail,
                 name: userName,
-                phone: ""
+                phone: userPhone
             },
         }
     }
@@ -64,7 +66,7 @@ if (activeUserInContacts !== null) {
     let userColor = activeUserInContacts.contact.color;
     let userInitials = getContactsInitials(activeUserInContacts);
 
-    userElementInContacts.innerHTML = `<div id="contact-list-element-${activeUserInContacts.id}" class="contact user-contact-element" onclick='showContactInfo(${JSON.stringify(activeUserInContacts)})'>
+    userElementInContacts.innerHTML = `<div id="contact-list-element-${activeUserInContacts.id}" class="contact user-contact-element" onclick='showUserContactInfo()'>
     <div class="contact-logo" style="background-color: ${userColor};" >${userInitials}</div>
     <div class="contact-name">
      <p>${userName} <span><small>(YOU)</small></span></p>
@@ -310,7 +312,6 @@ function editContact(eachContact){
 
 
 function editUserAsContact(){
-    let user = JSON.parse(localStorage.getItem("user"));
     let userEmail = user.email;
     let userName = user.name + " " + user.surname;
     let userPhone = user.phone;
@@ -327,7 +328,7 @@ function editUserAsContact(){
 
 
 function getEditUserTemplate(){
-    let initials = getContactsInitials(eachContact);
+    let initials = getUserInitials();
     return `<div id="edit-user-popup-content" class="popup-content animation" onclick="doNotClose(event)">
             <div class="popup-left">
                 <div onclick="closePopup()" class="back-icon-white-boarder"><img class="back-icon-white" src="img/close_white.png" alt=""></div>
@@ -338,7 +339,7 @@ function getEditUserTemplate(){
             <div id="user-logo" class="edit-contact-logo">${initials}</div>
             <div class="popup-right">
                 <div onclick="closePopup()" class="back-icon-boarder"><img class="back-icon" src="img/x.svg" alt=""></div>
-                <form class="form" onsubmit="submitEditUserForm()'); return false;">
+                <form class="form" onsubmit="submitEditUserForm(); return false;">
                     <input id="editName" class="add-contact-input-name" placeholder="Name" type="text" required>
                     <input id="editMail" class="add-contact-input-mail" placeholder="Email" type="email" required>
                     <input id="editPhone" class="add-contact-input-tel" placeholder="Phone" type="tel" required>
@@ -353,19 +354,24 @@ function getEditUserTemplate(){
 
 
 function submitEditUserForm(){
-    let name = document.getElementById('editName').value;
+    let fullName = document.getElementById('editName').value;
+    let nameParts = fullName.split(' ');
+    let name = nameParts[0];
+    let surname = nameParts.slice(1).join(' ');
     let email = document.getElementById('editMail').value;
     let phone = document.getElementById('editPhone').value;
-    let userData = {
-        name : name,
-        email : email,
-        phone : phone,
-    };
+    let user = JSON.parse(localStorage.getItem('user'));
+
+    user.name = name;
+    user.surname = surname;
+    user.email = email;
+    user.phone = phone
     
-    localStorage.setItem('user', JSON.stringify(userData));
+    localStorage.setItem('user', JSON.stringify(user));
     document.getElementById('edit-user-popup').classList.add('d-none');
     loadContacts();
-    showContactInfo(JSON.stringify(userData));
+    checkUserAndRedirect();
+    addUserToContact();
 }
 
 
@@ -486,6 +492,13 @@ function closePopup(){
         document.getElementById('edit-contact-popup').classList.add("d-none");
     }, 300);   
     }
+     if (document.getElementById('edit-user-popup-content') != null){
+    document.getElementById('edit-user-popup-content').classList.remove("animation")
+    document.getElementById('edit-user-popup-content').classList.add("animation-close");
+    setTimeout(() => {
+        document.getElementById('edit-user-popup').classList.add("d-none");
+    }, 200);   
+    }
 }
 
 
@@ -511,6 +524,17 @@ function getContactListTemplate(eachContact){
 function getContactsInitials(eachContact){
     let fullname = eachContact.contact.name;
     let nameparts = fullname.split(" ");
+    let initials = "";
+    if (nameparts.length > 1) {
+        initials = nameparts[0].charAt(0).toUpperCase() + nameparts[nameparts.length - 1].charAt(0).toUpperCase();
+    } else if (nameparts.length === 1){
+        initials = nameparts[0].charAt(0).toUpperCase();
+    }
+    return initials;
+}
+
+function getUserInitials(){
+    let nameparts = [user.name, user.surname];
     let initials = "";
     if (nameparts.length > 1) {
         initials = nameparts[0].charAt(0).toUpperCase() + nameparts[nameparts.length - 1].charAt(0).toUpperCase();
@@ -630,9 +654,26 @@ function showContactInfo(eachContact){
     showInfo(eachContact); 
 }
 
+function showUserContactInfo(user){
+    isSelected = true;
+    checkForMobileMode();
+    document.querySelectorAll('.contact').forEach(element => {
+        element.style.backgroundColor = '';
+        element.style.color = '';
+    })
+    document.getElementById(`contact-list-element-user`).style.background = "#2A3647";
+    document.getElementById(`contact-list-element-user`).style.color = "white";
+    showUserInfo(user); 
+}
+
 
 function showInfo(eachContact){
     document.getElementById('contact-info').innerHTML = getEachContactInfo(eachContact);
+    giveAnimations();
+}
+
+function showUserInfo(user){
+    document.getElementById('contact-info').innerHTML = getUserContactInfo(user);
     giveAnimations();
 }
 
@@ -675,6 +716,46 @@ function getEachContactInfo(eachContact){
                 <div class="more_options_icon" >
                             <div onclick='editContact(${JSON.stringify(eachContact)})' class="edit" style="margin-bottom: 15px;"><img src="/img/edit.png" alt="" ><p>Edit</p></div>
                             <div onclick="deleteContacts('${eachContact.id}')" class="delete"><img src="/img/delete.png" alt=""><p>Delete</p></div>
+                        </div></div>`
+                ;
+}
+
+function getUserContactInfo(){
+
+    let initials = getUserInitials();
+    let contactName = user.name + " " + user.surname;
+    let contactEmail = user.email;
+    let contactPhone = user.phone;
+    return `
+    <div class="contact-info-header">
+                <div onclick="backToList()" class="back_img_boarder">
+                    <img src="/img/arrow-left-line.png" alt="">
+                </div>
+                <h1>Contacts</h1>
+                <div class="contact-info-header-separator"></div>
+                <span>Better with a team</span>
+                <div class="contact-info-header-separator-mobile"></div>
+    </div>
+                <div id="animation-header" class="contact-data">
+                <div id="contact-data-logo" class="contact-data-logo" style="background-color: rgb(41, 171, 226);">${initials}</div>
+                <div class="contact-data-name"><span>${contactName}</span> 
+                        <div class="contact-data-icon">
+                            <div onclick='editUserAsContact()' class="edit"><img src="/img/edit.png" alt=""><p>Edit</p></div>
+                        </div>
+                </div>
+                </div>
+                <h2 id="animation-title">Contact Information</h2>
+                <h3 id="animation-email-title">Email</h3>
+                <a id="animation-email" href="">${contactEmail}</a>
+                <h3 id="animation-phone-title">Phone</h3>
+                <p id="animation-phone" class="tel-number" >${contactPhone}</p>
+                </div>
+                <div onclick='openEditOptions(); doNotClose(event)' id="edit-more-options" class="more_img_boarder">
+                    <img src="/img/more_vert.png" alt="">
+                </div>
+                <div onclick="doNotClose(event)" id="edit-more-options-list" class="more_options">
+                <div class="more_options_icon" >
+                            <div onclick='editUserAsContact()' class="edit" style="margin-bottom: 15px;"><img src="/img/edit.png" alt="" ><p>Edit</p></div>
                         </div></div>`
                 ;
 }
