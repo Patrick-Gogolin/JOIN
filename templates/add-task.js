@@ -272,8 +272,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 addSubtask();
             }
         });
-    } else {
-        console.error('Element mit ID "add-subtask-input-container-inputfield" wurde nicht gefunden.');
     }
 });
 
