@@ -15,7 +15,38 @@
     <script src="./js/summary.js"></script>
     <script src="templates/sidebar.js"></script>
 </head>
-<body id="body-privacy" onload="includeHTML(); checkUserAndRedirect()">
+<script>
+//Listen to orientation change
+window.addEventListener('orientationchange', doOnOrientationChange);
+
+function doOnOrientationChange() {
+    let orientation = screen.orientation || screen.mozOrientation || screen.msOrientation;
+
+    if (orientation) {
+        switch(orientation.type) {
+            case 'landscape-primary':
+            case 'landscape-secondary':
+                document.getElementById("landscape").style.display = "block";
+                break;
+            case 'portrait-primary':
+            case 'portrait-secondary':
+            default:
+                document.getElementById("landscape").style.display = "none";
+                break;
+        }
+    } else {
+        // Fallback for browsers that do not support screen.orientation
+        const angle = window.orientation;
+        if (angle === 90 || angle === -90) {
+            document.getElementById("landscape").style.display = "block";
+        } else {
+            document.getElementById("landscape").style.display = "none";
+        }
+    }
+}
+</script>
+<body id="body-privacy" onload="includeHTML(); checkUserAndRedirect(); doOnOrientationChange()">
+    <div id="landscape"><div>Rotate Device to Portrait</div></div>
     <div w3-include-html="templates/header.html"></div>
     <div w3-include-html="templates/mobile-header.html"></div>
     <div w3-include-html="templates/sidebar.html"></div>

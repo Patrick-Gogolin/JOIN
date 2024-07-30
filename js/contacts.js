@@ -7,6 +7,37 @@ let activeUserInContacts = null;
 
 window.addEventListener('resize', checkForMobileMode);
 window.addEventListener('load', checkForMobileMode);
+//Listen to orientation change
+window.addEventListener('orientationchange', doOnOrientationChange);
+
+function doOnOrientationChange() {
+    let orientation = screen.orientation || screen.mozOrientation || screen.msOrientation;
+
+    if (orientation) {
+        switch(orientation.type) {
+            case 'landscape-primary':
+            case 'landscape-secondary':
+                document.getElementById("landscape").style.display = "block";
+                break;
+            case 'portrait-primary':
+            case 'portrait-secondary':
+            default:
+                document.getElementById("landscape").style.display = "none";
+                break;
+        }
+    } else {
+        // Fallback for browsers that do not support screen.orientation
+        const angle = window.orientation;
+        if (angle === 90 || angle === -90) {
+            document.getElementById("landscape").style.display = "block";
+        } else {
+            document.getElementById("landscape").style.display = "none";
+        }
+    }
+}
+
+
+      
 
 
 async function onloadFunc(){

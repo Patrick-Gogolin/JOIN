@@ -1,5 +1,8 @@
 const BASE_URL = "https://remotestorage-c5224-default-rtdb.europe-west1.firebasedatabase.app/"
 
+//Listen to orientation change
+window.addEventListener('orientationchange', doOnOrientationChange);
+
 async function postData(path = "", data={}) {
     let email = document.getElementById('email');
     let password = document.getElementById('password');
@@ -40,4 +43,30 @@ else{
 
 function successfullLogin() {
     document.getElementById('overlayer-successful-login').classList.remove('d-none');
+}
+
+function doOnOrientationChange() {
+    let orientation = screen.orientation || screen.mozOrientation || screen.msOrientation;
+
+    if (orientation) {
+        switch(orientation.type) {
+            case 'landscape-primary':
+            case 'landscape-secondary':
+                document.getElementById("landscape").style.display = "block";
+                break;
+            case 'portrait-primary':
+            case 'portrait-secondary':
+            default:
+                document.getElementById("landscape").style.display = "none";
+                break;
+        }
+    } else {
+        // Fallback for browsers that do not support screen.orientation
+        const angle = window.orientation;
+        if (angle === 90 || angle === -90) {
+            document.getElementById("landscape").style.display = "block";
+        } else {
+            document.getElementById("landscape").style.display = "none";
+        }
+    }
 }

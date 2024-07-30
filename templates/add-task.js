@@ -642,3 +642,32 @@ async function postTask(path = "", data={}) {
     });
     return responseToJson = await response.json();
 }
+
+//Listen to orientation change
+window.addEventListener('orientationchange', doOnOrientationChange);
+//Deactivate Landscape Modus
+function doOnOrientationChange() {
+    let orientation = screen.orientation || screen.mozOrientation || screen.msOrientation;
+
+    if (orientation) {
+        switch(orientation.type) {
+            case 'landscape-primary':
+            case 'landscape-secondary':
+                document.getElementById("landscape").style.display = "block";
+                break;
+            case 'portrait-primary':
+            case 'portrait-secondary':
+            default:
+                document.getElementById("landscape").style.display = "none";
+                break;
+        }
+    } else {
+        // Fallback for browsers that do not support screen.orientation
+        const angle = window.orientation;
+        if (angle === 90 || angle === -90) {
+            document.getElementById("landscape").style.display = "block";
+        } else {
+            document.getElementById("landscape").style.display = "none";
+        }
+    }
+}

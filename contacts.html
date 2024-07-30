@@ -17,7 +17,8 @@
     <script src="./templates/header.js"></script>
     <script src="js/board.js"></script>
 </head>
-<body id="body-contacts" onload="onloadFunc(); getTasksForContactsPage('/tasks'); checkUserAndRedirect();">
+<body id="body-contacts" onload="onloadFunc(); getTasksForContactsPage('/tasks'); checkUserAndRedirect(); doOnOrientationChange()">
+    <div id="landscape"><div>Rotate Device to Portrait</div></div>
     <div id="contact-header" w3-include-html="templates/header.html"></div>
     <div id="contact-mobile-header" w3-include-html="templates/mobile-header.html"></div>
     <div class="sidebar" w3-include-html="templates/sidebar.html"></div>

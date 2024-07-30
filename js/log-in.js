@@ -1,5 +1,9 @@
 const BASE_URL = "https://remotestorage-c5224-default-rtdb.europe-west1.firebasedatabase.app/"
 
+
+//Listen to orientation change
+window.addEventListener('orientationchange', doOnOrientationChange);
+
 document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('login-button').addEventListener('click', function() {
         logIn('/users');
@@ -34,6 +38,32 @@ async function logIn(path = "") {
         }
     }
         checkLogInData(isValidUser);
+}
+
+function doOnOrientationChange() {
+    let orientation = screen.orientation || screen.mozOrientation || screen.msOrientation;
+
+    if (orientation) {
+        switch(orientation.type) {
+            case 'landscape-primary':
+            case 'landscape-secondary':
+                document.getElementById("landscape").style.display = "block";
+                break;
+            case 'portrait-primary':
+            case 'portrait-secondary':
+            default:
+                document.getElementById("landscape").style.display = "none";
+                break;
+        }
+    } else {
+        // Fallback for browsers that do not support screen.orientation
+        const angle = window.orientation;
+        if (angle === 90 || angle === -90) {
+            document.getElementById("landscape").style.display = "block";
+        } else {
+            document.getElementById("landscape").style.display = "none";
+        }
+    }
 }
 
 function checkLogInData(isValidUser){
