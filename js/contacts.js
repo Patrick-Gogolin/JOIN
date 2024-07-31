@@ -39,6 +39,7 @@ function addUserToContact(){
     let userEmail = user.email;
     let userName = user.name + " " + user.surname;
     let userPhone = user.phone;
+    let userId = user.id
     console.log(user);
     console.log(userEmail);
     console.log(userName);
@@ -50,7 +51,8 @@ function addUserToContact(){
                 color: "rgb(41,171,226)",
                 email: userEmail,
                 name: userName,
-                phone: userPhone
+                phone: userPhone,
+                id : userId
             },
         }
     }
@@ -150,6 +152,11 @@ async function loadContacts(path=""){
         showUserInContacts();
     }
     return responseToJson = await response.json(); 
+}
+
+async function loadUser(path="") {
+    let response = await fetch(BASE_URL + path + ".json")
+
 }
 
 

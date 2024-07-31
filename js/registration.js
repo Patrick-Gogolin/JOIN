@@ -11,10 +11,12 @@ async function postData(path = "", data={}) {
     let name = document.getElementById('first-name');
     let surname = document.getElementById('last-name');
     let phoneNumber = "";
+    let id = "";
 
     if(password.value === confirmPassword.value ) {
 
     data = {
+        id: id,
         email: email.value,
         password: password.value,
         name: name.value,
