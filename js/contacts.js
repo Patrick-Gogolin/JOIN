@@ -4,6 +4,7 @@ let contactsKeys = null;
 let affectedTaskIndices = [];
 let affectedTaskIndexArray = [];
 let activeUserInContacts = null;
+let activeUserInContactsForUpdate = null;
 const user = JSON.parse(localStorage.getItem("user"));
 
 window.addEventListener('resize', checkForMobileMode);
@@ -29,6 +30,7 @@ async function onloadFunc(){
     addUserToContact();
     sortContactsAlphabetically();
     await loadContacts('/contacts');
+    await loadUser('/users');
     showUserInContacts();
     checkForMobileMode();
 }
@@ -46,13 +48,12 @@ function addUserToContact(){
     if (user.name !== "Guest"){
         activeUserInContacts =
         {
-            id: "user",
+            id: userId,
             contact : {
                 color: "rgb(41,171,226)",
                 email: userEmail,
                 name: userName,
                 phone: userPhone,
-                id : userId
             },
         }
     }
@@ -68,7 +69,7 @@ if (activeUserInContacts !== null) {
     let userColor = activeUserInContacts.contact.color;
     let userInitials = getContactsInitials(activeUserInContacts);
 
-    userElementInContacts.innerHTML = `<div id="contact-list-element-${activeUserInContacts.id}" class="contact user-contact-element" onclick='showUserContactInfo()'>
+    userElementInContacts.innerHTML = `<div id="contact-list-element-${activeUserInContacts.id}" class="contact user-contact-element" onclick="showUserContactInfo()">
     <div class="contact-logo" style="background-color: ${userColor};" >${userInitials}</div>
     <div class="contact-name">
      <p>${userName} <span><small>(YOU)</small></span></p>
@@ -82,7 +83,7 @@ if (activeUserInContacts !== null) {
 async function getTasksForContactsPage(path = "") {
     allTasks.length = 0;
     let response = await fetch(BASE_URL + path + ".json");
-    let responseToJson = await response.json();;
+    let responseToJson = await response.json();
     let keys = Object.keys(responseToJson);
     taskKeys = keys;
 
@@ -155,9 +156,34 @@ async function loadContacts(path=""){
 }
 
 async function loadUser(path="") {
-    let response = await fetch(BASE_URL + path + ".json")
+    let userEmail = user.email;
+    let userName = user.name + " " + user.surname;
+    let userPhone = user.phone;
+    let response = await fetch(BASE_URL + path + ".json");
+    let responseToJson = await response.json();
+    console.log(responseToJson);
+    let keys = Object.keys(responseToJson);
 
-}
+    for (let i = 0; i < keys.length; i++) {
+        const key = keys[i];
+        const userData = responseToJson[key];
+
+
+        if(userData.name === user.name && userData.email === user.email && user.name !== "Guest"){
+            activeUserInContacts =
+                {
+                    id: key,
+                    contact : {
+                    color: "rgb(41,171,226)",
+                    email: userEmail,
+                    name: userName,
+                    phone: userPhone,
+                    },
+                }
+            }
+            console.log(activeUserInContacts);
+        }
+    }
 
 
 function showUserFeedback(){
@@ -346,7 +372,7 @@ function getEditUserTemplate(){
             <div id="user-logo" class="edit-contact-logo">${initials}</div>
             <div class="popup-right">
                 <div onclick="closePopup()" class="back-icon-boarder"><img class="back-icon" src="img/x.svg" alt=""></div>
-                <form class="form" onsubmit="submitEditUserForm(); return false;">
+                <form class="form" onsubmit="submitEditUserForm('${activeUserInContacts.id}'); return false;">
                     <input id="editName" class="add-contact-input-name" placeholder="Name" type="text" required>
                     <input id="editMail" class="add-contact-input-mail" placeholder="Email" type="email" required>
                     <input id="editPhone" class="add-contact-input-tel" placeholder="Phone" type="tel" required>
@@ -360,26 +386,48 @@ function getEditUserTemplate(){
 }
 
 
-function submitEditUserForm(){
+async function submitEditUserForm(){
     let fullName = document.getElementById('editName').value;
     let nameParts = fullName.split(' ');
     let name = nameParts[0];
     let surname = nameParts.slice(1).join(' ');
     let email = document.getElementById('editMail').value;
     let phone = document.getElementById('editPhone').value;
+    let id = activeUserInContacts.id
+    let password = activeUserInContacts.contact.password;
     let user = JSON.parse(localStorage.getItem('user'));
 
     user.name = name;
     user.surname = surname;
     user.email = email;
-    user.phone = phone
+    user.phone = phone;
+    user.id = id;
+    user.password = password;
     
     localStorage.setItem('user', JSON.stringify(user));
     document.getElementById('edit-user-popup').classList.add('d-none');
+    await updateUser(`/users/${activeUserInContacts.id}`);
     loadContacts();
     checkUserAndRedirect();
     addUserToContact();
 }
+
+async function updateUser(path = "", data={}) {
+    data = {
+         id: activeUserInContacts.id,
+         name: activeUserInContacts.contact.name,
+         email: activeUserInContacts.contact.email,
+         phone: activeUserInContacts.contact.phone,
+     };
+     let response = await fetch(BASE_URL + path + ".json",{
+         method: "PUT",
+         headers: {
+             "Content-Type": "application/json",
+         },
+         body: JSON.stringify(data)
+     });
+   return responseToJson = await response.json();
+   }
 
 
 async function submitEditContactForm(event, contactID){
@@ -668,8 +716,8 @@ function showUserContactInfo(user){
         element.style.backgroundColor = '';
         element.style.color = '';
     })
-    document.getElementById(`contact-list-element-user`).style.background = "#2A3647";
-    document.getElementById(`contact-list-element-user`).style.color = "white";
+    document.getElementById(`contact-list-element-${activeUserInContacts.id}`).style.background = "#2A3647";
+    document.getElementById(`contact-list-element-${activeUserInContacts.id}`).style.color = "white";
     showUserInfo(user); 
 }
 
