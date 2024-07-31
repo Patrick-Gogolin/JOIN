@@ -373,7 +373,7 @@ function getEditUserTemplate(){
             <div class="popup-right">
                 <div onclick="closePopup()" class="back-icon-boarder"><img class="back-icon" src="img/x.svg" alt=""></div>
                 <form class="form" onsubmit="submitEditUserForm('${activeUserInContacts.id}'); return false;">
-                    <input id="editName" class="add-contact-input-name" placeholder="Name" type="text" required>
+                    <input id="editName" class="add-contact-input-name" placeholder="Vor und Nachname" type="text" required>
                     <input id="editMail" class="add-contact-input-mail" placeholder="Email" type="email" required>
                     <input id="editPhone" class="add-contact-input-tel" placeholder="Phone" type="tel" required>
                     <div class="add-contact-form-buttons">
@@ -513,7 +513,7 @@ function getEditContactTemplate(eachContact){
             <div class="popup-right">
                 <div onclick="closePopup()" class="back-icon-boarder"><img class="back-icon" src="img/x.svg" alt=""></div>
                 <form class="form" onsubmit="submitEditContactForm(event, '${eachContact.id}'); return false;">
-                    <input id="editName" class="add-contact-input-name" placeholder="Name" type="text" required>
+                    <input id="editName" class="add-contact-input-name" placeholder="Vor und Nachname" type="text" required>
                     <input id="editMail" class="add-contact-input-mail" placeholder="Email" type="email" required>
                     <input id="editPhone" class="add-contact-input-tel" placeholder="Phone" type="tel" required>
                     <div class="add-contact-form-buttons">
