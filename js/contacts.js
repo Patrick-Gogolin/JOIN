@@ -383,6 +383,8 @@ function getEditUserTemplate(){
 
 
 async function submitEditUserForm(){
+    let contactName = activeUserInContacts.contact.name;
+    updateContactNameFromTasks(allTasks, contactName, 'editNameUser');
     let fullName = document.getElementById('editNameUser').value;
     let nameParts = fullName.split(' ');
     let name = nameParts[0];
@@ -416,6 +418,11 @@ async function submitEditUserForm(){
     showUserInContacts();
     checkUserAndRedirect();
     init(); // Funktion zum aktualisieren der Initialien im Header, bei Überarbeitung noch umbenennen !
+    for (let i = 0; i < affectedTaskIndices.length; i++) {
+        const task = affectedTaskIndices[i];
+        const taskIndex = affectedTaskIndexArray[i];
+        await updateTaskAfterDeleteOrUpdatedContact(`/tasks/${task}`,data, taskIndex);
+    }
 }
 
 async function updateUser(path = "", data={}) {
@@ -433,7 +440,7 @@ async function updateUser(path = "", data={}) {
 async function submitEditContactForm(event, contactID){
     let index = contactsKeys.indexOf(contactID);
     let contactName = contacts[index].contact.name;
-    updateContactNameFromTasks(allTasks, contactName);
+    updateContactNameFromTasks(allTasks, contactName, 'editName');
     event.preventDefault();
     let name = document.getElementById('editName').value;
     let email = document.getElementById('editMail').value;
@@ -465,8 +472,8 @@ async function submitEditContactForm(event, contactID){
 }
 
 
-function updateContactNameFromTasks(tasksArray, contactName) {
-    let newNameOfContact = document.getElementById('editName').value;
+function updateContactNameFromTasks(tasksArray, contactName, id) {
+    let newNameOfContact = document.getElementById(id).value;
     affectedTaskIndices.length = 0;
     affectedTaskIndexArray.length = 0;
 
