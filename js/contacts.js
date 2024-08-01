@@ -9,9 +9,7 @@ const user = JSON.parse(localStorage.getItem("user"));
 
 window.addEventListener('resize', checkForMobileMode);
 window.addEventListener('load', checkForMobileMode);
-//Listen to orientation change
-window.addEventListener('orientationchange', doOnOrientationChange);
-window.addEventListener("resize", doOnOrientationChange);
+
 
 async function onloadFunc(){
     isSelected = false;
@@ -842,36 +840,40 @@ function closeEditOptions(){
     }, 300);
 }
 
-function isMobileDevice() {
-    const mobileMaxWidth = 430; // Diese Zahl kann je nach Ihren Anforderungen angepasst werden
-    const mobileMaxHeight = 600;
-    return window.innerHeight <= mobileMaxHeight && window.innerWidth <= mobileMaxWidth;
-}
-
-function doOnOrientationChange() {
-    if (!isMobileDevice()) {
-        return;
+document.addEventListener('DOMContentLoaded', function() {
+    // Set default mobile width and height thresholds
+    const mobileWidthPortrait = 768;  // Width threshold for mobile portrait mode
+    const mobileHeightPortrait = 1024; // Height threshold for mobile portrait mode
+  
+    const mobileWidthLandscape = 1024; // Width threshold for mobile landscape mode
+    const mobileHeightLandscape = 768; // Height threshold for mobile landscape mode
+  
+    // Define a maximum width to distinguish between mobile and desktop
+    const maxMobileWidth = 932;  // This should be the upper limit for mobile devices
+  
+    // Function to check orientation and display the warning if needed
+    function checkOrientation() {
+      const isLandscape = window.innerWidth > window.innerHeight;
+  
+      // Check if the screen width is less than or equal to the maxMobileWidth
+      const isMobile = window.innerWidth <= maxMobileWidth;
+  
+      // Conditions for showing the warning
+      const isMobilePortrait = isMobile && window.innerWidth <= mobileWidthPortrait && window.innerHeight <= mobileHeightPortrait;
+      const isMobileLandscape = isMobile && window.innerWidth <= mobileWidthLandscape && window.innerHeight <= mobileHeightLandscape;
+  
+      // Show the warning if the device is in landscape mode and fits mobile dimensions
+      if (isLandscape && (isMobilePortrait || isMobileLandscape)) {
+        document.getElementById('landscape-warning').classList.add('visible');
+      } else {
+        document.getElementById('landscape-warning').classList.remove('visible');
+      }
     }
-    let orientation = screen.orientation || screen.mozOrientation || screen.msOrientation;
-    if (orientation) {
-        switch(orientation.type) {
-            case 'landscape-primary':
-            case 'landscape-secondary':
-                document.getElementById("landscape").style.display = "block";
-                break;
-            case 'portrait-primary':
-            case 'portrait-secondary':
-            default:
-                document.getElementById("landscape").style.display = "none";
-                break;
-        }
-    } else {
-        // Fallback for browsers that do not support screen.orientation
-        const angle = window.orientation;
-        if (angle === 90 || angle === -90) {
-            document.getElementById("landscape").style.display = "block";
-        } else {
-            document.getElementById("landscape").style.display = "none";
-        }
-    }
-}
+  
+    // Initial check
+    checkOrientation();
+  
+    // Check orientation on resize/orientation change
+    window.addEventListener('resize', checkOrientation);
+    window.addEventListener('orientationchange', checkOrientation);
+  });

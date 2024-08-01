@@ -18,7 +18,9 @@
     <script src="js/board.js"></script>
 </head>
 <body id="body-contacts" onload="onloadFunc(); getTasksForContactsPage('/tasks'); checkUserAndRedirect()">
-    <div id="landscape"><div>Rotate Device to Portrait</div></div>
+    <div id="landscape-warning" class="hidden">
+        Please turn your device to Portrait Mode.
+      </div>
     <div id="contact-header" w3-include-html="templates/header.html"></div>
     <div id="contact-mobile-header" w3-include-html="templates/mobile-header.html"></div>
     <div class="sidebar" w3-include-html="templates/sidebar.html"></div>

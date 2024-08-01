@@ -23,8 +23,10 @@
     <script src="js/edit-task.js"></script>
 </head>
 
-<body id="body-board" onload="getContacts('/contacts'); getTasks('/tasks'); checkUserAndRedirect(); doOnOrientationChange()">
-    <div id="landscape"><div>Rotate Device to Portrait</div></div>
+<body id="body-board" onload="getContacts('/contacts'); getTasks('/tasks'); checkUserAndRedirect()">
+    <div id="landscape-warning" class="hidden">
+        Please turn your device to Portrait Mode.
+      </div>
     <div w3-include-html="templates/header.html"></div>
     <div w3-include-html="templates/sidebar.html"></div>
     <div w3-include-html="templates/mobile-header.html"></div>
