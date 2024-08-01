@@ -4,7 +4,6 @@ let contactsKeys = null;
 let affectedTaskIndices = [];
 let affectedTaskIndexArray = [];
 let activeUserInContacts = null;
-let activeUserInContactsForUpdate = null;
 const user = JSON.parse(localStorage.getItem("user"));
 
 window.addEventListener('resize', checkForMobileMode);
@@ -40,9 +39,6 @@ function addUserToContact(){
     let userName = user.name + " " + user.surname;
     let userPhone = user.phone;
     let userId = user.id
-    console.log(user);
-    console.log(userEmail);
-    console.log(userName);
     if (user.name !== "Guest"){
         activeUserInContacts =
         {
@@ -157,6 +153,7 @@ async function loadUser(path="") {
     let userEmail = user.email;
     let userName = user.name + " " + user.surname;
     let userPhone = user.phone;
+    let password = user.password
     let response = await fetch(BASE_URL + path + ".json");
     let responseToJson = await response.json();
     console.log(responseToJson);
@@ -173,9 +170,10 @@ async function loadUser(path="") {
                     id: key,
                     contact : {
                     color: "rgb(41,171,226)",
-                    email: userEmail,
+                    email: userData.email,
                     name: userName,
-                    phone: userPhone,
+                    phone: userData.phone,
+                    password: password
                     },
                 }
             }
@@ -349,9 +347,9 @@ function editUserAsContact(){
     
     document.getElementById('edit-user-popup').classList.remove("d-none");
     document.getElementById('edit-user-popup').innerHTML = getEditUserTemplate();
-    document.getElementById('editName').value = userName;
-    document.getElementById('editMail').value = userEmail;
-    document.getElementById('editPhone').value = userPhone;
+    document.getElementById('editNameUser').value = userName;
+    document.getElementById('editMailUser').value = userEmail;
+    document.getElementById('editPhoneUser').value = userPhone;
     document.getElementById(`user-logo`).style.backgroundColor = "rgb(41,171,226)"; 
     document.getElementById('edit-user-popup-content').classList.add("animation");
     document.getElementById('edit-user-popup-content').classList.remove("animation-close");
@@ -371,11 +369,11 @@ function getEditUserTemplate(){
             <div class="popup-right">
                 <div onclick="closePopup()" class="back-icon-boarder"><img class="back-icon" src="img/x.svg" alt=""></div>
                 <form class="form" onsubmit="submitEditUserForm('${activeUserInContacts.id}'); return false;">
-                    <input id="editName" class="add-contact-input-name" placeholder="Vor und Nachname" type="text" required>
-                    <input id="editMail" class="add-contact-input-mail" placeholder="Email" type="email" required>
-                    <input id="editPhone" class="add-contact-input-tel" placeholder="Phone" type="tel" required>
+                    <input id="editNameUser" class="add-contact-input-name" placeholder="Vor und Nachname" type="text" required>
+                    <input id="editMailUser" class="add-contact-input-mail" placeholder="Email" type="email" required>
+                    <input id="editPhoneUser" class="add-contact-input-tel" placeholder="Phone" type="tel" required>
                     <div class="add-contact-form-buttons">
-                    <button type="button" class="cancel" onclick= "closePopup()">Delete<img src="img/x.svg" alt=""></button>
+                    <button type="button" class="cancel" onclick= "closePopup()">Close<img src="img/x.svg" alt=""></button>
                     <button type="submit" class="create">Save<img src="img/check.png" alt=""></button>
                     </div>
                 </form>
@@ -385,15 +383,23 @@ function getEditUserTemplate(){
 
 
 async function submitEditUserForm(){
-    let fullName = document.getElementById('editName').value;
+    let fullName = document.getElementById('editNameUser').value;
     let nameParts = fullName.split(' ');
     let name = nameParts[0];
     let surname = nameParts.slice(1).join(' ');
-    let email = document.getElementById('editMail').value;
-    let phone = document.getElementById('editPhone').value;
+    let email = document.getElementById('editMailUser').value;
+    let phone = document.getElementById('editPhoneUser').value;
     let id = activeUserInContacts.id
     let password = activeUserInContacts.contact.password;
-    let user = JSON.parse(localStorage.getItem('user'));
+
+    data = {
+        id: activeUserInContacts.id,
+        name: name,
+        surname: surname,
+        email: email,
+        phone: phone,
+        password: password
+    };
 
     user.name = name;
     user.surname = surname;
@@ -404,19 +410,15 @@ async function submitEditUserForm(){
     
     localStorage.setItem('user', JSON.stringify(user));
     document.getElementById('edit-user-popup').classList.add('d-none');
-    await updateUser(`/users/${activeUserInContacts.id}`);
-    loadContacts();
+    await updateUser(`/users/${activeUserInContacts.id}`, data);
+    await loadUser('/users');
+    showUserInfo(id);
+    showUserInContacts();
     checkUserAndRedirect();
-    addUserToContact();
+    init(); // Funktion zum aktualisieren der Initialien im Header, bei Überarbeitung noch umbenennen !
 }
 
 async function updateUser(path = "", data={}) {
-    data = {
-         id: activeUserInContacts.id,
-         name: activeUserInContacts.contact.name,
-         email: activeUserInContacts.contact.email,
-         phone: activeUserInContacts.contact.phone,
-     };
      let response = await fetch(BASE_URL + path + ".json",{
          method: "PUT",
          headers: {
@@ -515,7 +517,7 @@ function getEditContactTemplate(eachContact){
                     <input id="editMail" class="add-contact-input-mail" placeholder="Email" type="email" required>
                     <input id="editPhone" class="add-contact-input-tel" placeholder="Phone" type="tel" required>
                     <div class="add-contact-form-buttons">
-                    <button type="button" class="cancel" onclick= "closePopup()">Delete<img src="img/x.svg" alt=""></button>
+                    <button type="button" class="cancel" onclick= "closePopup()">Close<img src="img/x.svg" alt=""></button>
                     <button type="submit" class="create">Save<img src="img/check.png" alt=""></button>
                     </div>
                 </form>

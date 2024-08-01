@@ -19,8 +19,7 @@ async function logIn(path = "") {
     let response = await fetch(BASE_URL + path + ".json");
     let responseToJson = await response.json();
     console.log(responseToJson);
-    let keys = Object.keys(responseToJson); // erstellt ein Array, das alle Schlüssel eines Objekts enthält
-    console.log(keys);
+    let keys = Object.keys(responseToJson);
 
     for (let i = 0; i < keys.length; i++) {
         const key = keys[i];
@@ -31,6 +30,7 @@ async function logIn(path = "") {
             isValidUser = true;
             let user = JSON.stringify(userData);
             localStorage.setItem('user', user);
+            console.log(user);
             break
         }
     }
