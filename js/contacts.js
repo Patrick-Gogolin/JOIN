@@ -278,7 +278,7 @@ async function postContacts(path = "", data = {}) {
  */
 async function deleteContacts(contactID) {
   let index = contactsKeys.indexOf(contactID);
-  let contactName = contacts[index].name;
+  let contactName = contacts[index].contact.name;
   removeContactFromTasks(allTasks, contactName);
   closeEditOptions();
   let response = await fetch(BASE_URL + `contacts/${contactID}.json`, {
@@ -344,31 +344,29 @@ function removeContactFromTasks(tasksArray, contactName) {
  * @param {number} i - The index of the task in the 'allTasks' array.
  * @returns {Promise<Object>} - A promise that resolves to the JSON response from the server.
  */
-async function updateTaskAfterDeleteOrUpdatedContact(path = "", data = {}, i) {
-  data = {
-    id: "",
-    title: allTasks[i]["title"],
-    description: allTasks[i]["description"],
-    deadline: allTasks[i]["deadline"],
-    priority: allTasks[i]["priority"],
-    subtasks: JSON.stringify(allTasks[i]["subtasks"]),
-    doneSubtasks: JSON.stringify(allTasks[i]["doneSubtasks"]),
-    assignedContacts: JSON.stringify(allTasks[i]["assignedContacts"]),
-    assignedContactsColors: JSON.stringify(
-      allTasks[i]["assignedContactsColors"]
-    ),
-    assignedContactsId: JSON.stringify(allTasks[i]["assignedContactsId"]),
-    category: allTasks[i]["category"],
-    status: allTasks[i]["status"],
-  };
-  let response = await fetch(BASE_URL + path + ".json", {
-    method: "PUT",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(data),
-  });
-  return (responseToJson = await response.json());
+async function updateTaskAfterDeleteOrUpdatedContact(path = "", data={}, i) {
+    data = {
+         id: "",
+         title: allTasks[i]['title'],
+         description: allTasks[i]['description'],
+         deadline: allTasks[i]['deadline'],
+         priority: allTasks[i]['priority'],
+         subtasks: JSON.stringify(allTasks[i]['subtasks']),
+         doneSubtasks: JSON.stringify(allTasks[i]['doneSubtasks']),
+         assignedContacts: JSON.stringify(allTasks[i]['assignedContacts']),
+         assignedContactsColors: JSON.stringify(allTasks[i]['assignedContactsColors']),
+         assignedContactsId: JSON.stringify(allTasks[i]['assignedContactsId']),
+         category: allTasks[i]['category'],
+         status: allTasks[i]['status']
+     };
+     let response = await fetch(BASE_URL + path + ".json",{
+         method: "PUT",
+         headers: {
+             "Content-Type": "application/json",
+         },
+         body: JSON.stringify(data)
+     });
+   return responseToJson = await response.json();
 }
 
 /**
