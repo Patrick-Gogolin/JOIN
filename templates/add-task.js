@@ -341,34 +341,74 @@ function deleteSubtask(i) {
     }
 }
 
-function openSelectContactsContainer() {
-    let container = document.getElementById('choose-contacts-container');
+function openSelectContactsContainer(event) {
+    event.stopPropagation();
+    let contactsContainer = document.getElementById('choose-contacts-container');
     let assignedContacts = document.getElementById('show-assigned-contacts');
-    if (assignOptionsContactsContainer === false) {
-        container.classList.remove('d-none');
+    let categoryContainer = document.getElementById('choose-category-container');
+
+    // Schließen Sie den Kategorie-Container, wenn er geöffnet ist
+    if (assignCategoryContainer) {
+        categoryContainer.classList.add('d-none');
+        assignCategoryContainer = false;
+    }
+
+    // Öffnen oder schließen Sie den Kontakte-Container
+    if (!assignOptionsContactsContainer) {
+        contactsContainer.classList.remove('d-none');
         assignOptionsContactsContainer = true;
         renderContacts();
         assignedContacts.classList.add('d-none');
-    }
-    else {
-        container.classList.add('d-none');
+    } else {
+        contactsContainer.classList.add('d-none');
         assignOptionsContactsContainer = false;
         renderAssignedContacts();
         assignedContacts.classList.remove('d-none');
     }
 }
 
-function openSelectCategoryContainer() {
-    let container = document.getElementById('choose-category-container');
-    if (assignCategoryContainer === false) {
-        container.classList.remove('d-none');
-        assignCategoryContainer = true;
+function openSelectCategoryContainer(event) {
+    event.stopPropagation();
+    let categoryContainer = document.getElementById('choose-category-container');
+    let contactsContainer = document.getElementById('choose-contacts-container');
+    let assignedContacts = document.getElementById('show-assigned-contacts');
+
+    // Schließen Sie den Kontakte-Container, wenn er geöffnet ist
+    if (assignOptionsContactsContainer) {
+        contactsContainer.classList.add('d-none');
+        assignOptionsContactsContainer = false;
+        renderAssignedContacts();
+        assignedContacts.classList.remove('d-none');
     }
-    else {
-        container.classList.add('d-none');
+
+    // Öffnen oder schließen Sie den Kategorie-Container
+    if (!assignCategoryContainer) {
+        categoryContainer.classList.remove('d-none');
+        assignCategoryContainer = true;
+    } else {
+        categoryContainer.classList.add('d-none');
         assignCategoryContainer = false;
     }
 }
+
+// Schließen Sie die Container, wenn außerhalb davon geklickt wird
+document.addEventListener('click', function(event) {
+    let contactsContainer = document.getElementById('choose-contacts-container');
+    let categoryContainer = document.getElementById('choose-category-container');
+    let assignedContacts = document.getElementById('show-assigned-contacts');
+
+    if (!contactsContainer.contains(event.target)) {
+        contactsContainer.classList.add('d-none');
+        assignOptionsContactsContainer = false;
+        renderAssignedContacts();
+        assignedContacts.classList.remove('d-none');
+    }
+
+    if (!categoryContainer.contains(event.target)) {
+        categoryContainer.classList.add('d-none');
+        assignCategoryContainer = false;
+    }
+});
 
 function selectCategory(id, i) {
     let container = document.getElementById('choose-category-container');

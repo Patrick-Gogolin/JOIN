@@ -53,7 +53,7 @@
                     <div class="select-contacts-container">
                         <input onkeyup="searchContacts()" id="search-contact-inputfield" type="text"
                             placeholder="Select contacts to assign">
-                        <img onclick="openSelectContactsContainer()" src="img/arrow-drop-down-contacts.svg" alt="">
+                        <img onclick="openSelectContactsContainer(event)" src="img/arrow-drop-down-contacts.svg" alt="">
                     </div>
                     <div id="choose-contacts-container" class="choose-contacts-container d-none">
                         <div id="active-user-container" class="d-none">
@@ -90,7 +90,7 @@
                     <span class="headline-input">Category<span class="red-star-required">*</span></span>
                     <div class="select-contacts-container" id="select-contacts-container">
                         <span id="selected-task-headline">Select task category</span>
-                        <img onclick="openSelectCategoryContainer()" src="img/arrow-drop-down-contacts.svg" alt="">
+                        <img onclick="openSelectCategoryContainer(event)" src="img/arrow-drop-down-contacts.svg" alt="">
                     </div>
                     <span id="category-required-span" class="this-field-required-span d-none">This field is
                         required</span>
