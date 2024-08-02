@@ -1021,6 +1021,7 @@ body:has(.back_img_boarder:hover) .back_img_boarder img{
     .add-contact-input-tel{
         height: 41px;
         margin-bottom: 24px;
+        padding-right: 40px;
         
     }
 
@@ -1133,7 +1134,7 @@ body:has(.back_img_boarder:hover) .back_img_boarder img{
     }
 }
 
-@media (max-height: 950px) {
+@media (max-height: 980px) {
     .popup-right{
         bottom: 2%;
     }
@@ -1143,6 +1144,8 @@ body:has(.back_img_boarder:hover) .back_img_boarder img{
         height: 100px;
         margin-bottom: 11px;
         font-size: 40px;
+        left: calc((100% - 100px) / 2);
+        top: calc((93% - 100px) / 2);
     }
 
     .add-contact-input-name{
@@ -1182,7 +1185,7 @@ body:has(.back_img_boarder:hover) .back_img_boarder img{
     }
 }
 
-@media (max-height: 650px) {
+@media (max-height: 680px) {
     .form input{
         margin-bottom: 15px;
     }
@@ -1202,8 +1205,26 @@ body:has(.back_img_boarder:hover) .back_img_boarder img{
         left: calc((100% - 50px) / 2);
         top: calc((93% - 80px) / 2);
     }
+    .edit-contact-logo{
+        width: 80px;
+        height: 80px;
+        margin-bottom: 11px;
+        font-size: 32px;
+        left: calc((100% - 80px) / 2);
+        top: calc((93% - 80px) / 2);
+    }
 }
 
+@media (max-height: 600px) {
+    .edit-contact-logo{
+        width: 60px;
+        height: 60px;
+        margin-bottom: 11px;
+        font-size: 24px;
+        left: calc((100% - 60px) / 2);
+        top: calc((93% - 60px) / 2);
+    }
+}
 
 @media (max-width: 1300px) {
     .edit-contact-logo{
