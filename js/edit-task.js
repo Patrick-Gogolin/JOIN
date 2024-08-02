@@ -14,6 +14,7 @@ function OpenEditTaskWindow(id) {
     let index = taskKeys.indexOf(id);
     let task = allTasks[index];
     emptyTask = JSON.parse(JSON.stringify(task));
+    checkStatusOfPriority(emptyTask);
     let {urgentClass, mediumClass, lowClass} = getPriorityClasses(task.priority);
     let {urgentClassSvg, mediumClassSvg, lowClassSvg} = getPrioritySvgPaths(task.priority);
     console.log(emptyTask);
@@ -87,6 +88,18 @@ function OpenEditTaskWindow(id) {
     eventListenerForSubtaskInputField('add-subtask-input-container-inputfield-edit-task')
     renderAssignedContactsEditTask();
     renderSubtasksFromEditTask();
+}
+
+function checkStatusOfPriority(emptyTask) {
+    if(emptyTask.priority === "Medium") {
+        mediumActiveEditTask = true;
+    }
+    if(emptyTask.priority === "Urgent") {
+        urgentActiveEditTask = true;
+    }
+    if(emptyTask.priority === "Low") {
+        lowActiveEditTask = true;
+    }
 }
 
 function eventListenerForSubtaskInputField(id) {

@@ -1,4 +1,4 @@
-function renderDetailTaskSlideHtml(task, imageSrc, index, bgColor, id) {
+function renderDetailTaskSlideHtml(task, imgSrc, index, bgColor, id) {
     return /*html*/`
     <div class="popup-content">
                     <div class="task-card-header">
@@ -8,7 +8,7 @@ function renderDetailTaskSlideHtml(task, imageSrc, index, bgColor, id) {
                     <div class="task-card-title">${task.title}</div>
                     <div class="task-card-description">${task.description}</div>
                     <div class="task-card-date"><span class="edit-task-subheadline">Due date:</span><div>${task.deadline}</div></div>
-                    <div class="task-card-priority"><span class="edit-task-subheadline">Priority:</span><div class="task-card-priority-icon">${task.priority}<img id="priority-of-task-in-edit-task" class="task-card-priority-sign" src=${imageSrc} alt=""></div></div>
+                    <div class="task-card-priority"><span class="edit-task-subheadline">Priority:</span><div class="task-card-priority-icon">${task.priority}<img id="priority-of-task-in-edit-task" class="task-card-priority-sign" src=${imgSrc} alt=""></div></div>
                     <div class="task-card-assigned"><span class="edit-task-subheadline">Assigned To:</span>
                         <div id="assigned-contacts-edit-task-container" class="task-card-assigned-list">
                         </div>

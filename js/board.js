@@ -157,7 +157,7 @@ function renderPriorityImage(task) {
         return 'img/low-prio.svg';
     }
     else {
-        return null;
+        return 'img/white.jpg';
     }
 
 }
