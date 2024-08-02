@@ -34,7 +34,6 @@ async function onloadFunc(){
 
 
 function addUserToContact(){
-    
     let userEmail = user.email;
     let userName = user.name + " " + user.surname;
     let userPhone = user.phone;
@@ -62,7 +61,6 @@ if (activeUserInContacts !== null) {
     let userEmail = activeUserInContacts.contact.email;
     let userColor = activeUserInContacts.contact.color;
     let userInitials = getContactsInitials(activeUserInContacts);
-
     userElementInContacts.innerHTML = `<div id="contact-list-element-${activeUserInContacts.id}" class="contact user-contact-element" onclick="showUserContactInfo()">
     <div class="contact-logo" style="background-color: ${userColor};" >${userInitials}</div>
     <div class="contact-name">
@@ -80,7 +78,6 @@ async function getTasksForContactsPage(path = "") {
     let responseToJson = await response.json();
     let keys = Object.keys(responseToJson);
     taskKeys = keys;
-
     for (let i = 0; i < keys.length; i++) {
         const key = keys[i];
         const task = responseToJson[key];
@@ -133,7 +130,6 @@ async function loadContacts(path=""){
     let contactListElement = document.getElementById('contact-list');
     contactListElement.innerHTML = `<div class="user-contact" id="user-contact"></div>`;
     let currentInitial = "";
-
     for (let index = 0; index < contacts.length; index++) {
         let eachContact = contacts[index];
         let contactInitial = eachContact.contact.name.charAt(0).toUpperCase();
@@ -149,6 +145,7 @@ async function loadContacts(path=""){
     return responseToJson = await response.json(); 
 }
 
+
 async function loadUser(path="") {
     let userEmail = user.email;
     let userName = user.name + " " + user.surname;
@@ -158,12 +155,9 @@ async function loadUser(path="") {
     let responseToJson = await response.json();
     console.log(responseToJson);
     let keys = Object.keys(responseToJson);
-
     for (let i = 0; i < keys.length; i++) {
         const key = keys[i];
         const userData = responseToJson[key];
-
-
         if(userData.name === user.name && userData.email === user.email && user.name !== "Guest"){
             activeUserInContacts =
                 {
@@ -241,7 +235,7 @@ async function postContacts(path="", data={}){
 
 async function deleteContacts(contactID){
     let index = contactsKeys.indexOf(contactID);
-    let contactName = contacts[index].contact.name;
+    let contactName = contacts[index].name;
     removeContactFromTasks(allTasks, contactName);
     closeEditOptions();
     let response = await fetch(BASE_URL + `contacts/${contactID}.json`, {
@@ -274,10 +268,8 @@ async function deleteContacts(contactID){
 function removeContactFromTasks(tasksArray, contactName) {
     affectedTaskIndices.length = 0;
     affectedTaskIndexArray.length = 0;
-
     tasksArray.forEach((task, taskIndex) => {
         const index = task.assignedContacts.indexOf(contactName);
-
         if (index !== -1) {
             task.assignedContacts.splice(index, 1);
             task.assignedContactsColors.splice(index, 1);
@@ -344,7 +336,6 @@ function editUserAsContact(){
     let userEmail = user.email;
     let userName = user.name + " " + user.surname;
     let userPhone = user.phone;
-    
     document.getElementById('edit-user-popup').classList.remove("d-none");
     document.getElementById('edit-user-popup').innerHTML = getEditUserTemplate();
     document.getElementById('editNameUser').value = userName;
@@ -425,6 +416,7 @@ async function submitEditUserForm(){
     }
 }
 
+
 async function updateUser(path = "", data={}) {
      let response = await fetch(BASE_URL + path + ".json",{
          method: "PUT",
@@ -491,6 +483,7 @@ function updateContactNameFromTasks(tasksArray, contactName, id) {
     console.log(affectedTaskIndexArray);
     return affectedTaskIndices;
 }
+
 
 async function putContacts(path="", data={}){
     let response = await fetch(BASE_URL + path + ".json",{
@@ -595,6 +588,7 @@ function getContactsInitials(eachContact){
     return initials;
 }
 
+
 function getUserInitials(){
     let nameparts = [user.name, user.surname];
     let initials = "";
@@ -637,7 +631,6 @@ function checkForMobileMode(){
 
 
 function giveAnimations(){
-
     let elements = [
         document.getElementById('animation-header'),
         document.getElementById('animation-title'),
@@ -676,12 +669,13 @@ function userFeedbackSlideIn(){
 
 
 function backToList(){
-    
     if(window.innerWidth<= 800){
         isSelected = false;
         document.getElementById('contact-list-responsive').style.display ="block";
         document.getElementById('contact-info').style.display = "none";
+        if (document.getElementById('edit-more-options') !== null){
         document.getElementById('edit-more-options').style.display = "none";
+        }
         document.querySelectorAll('.contact').forEach(element => {
             element.style.backgroundColor = '';
             element.style.color = '';
@@ -716,6 +710,7 @@ function showContactInfo(eachContact){
     showInfo(eachContact); 
 }
 
+
 function showUserContactInfo(user){
     isSelected = true;
     checkForMobileMode();
@@ -733,6 +728,7 @@ function showInfo(eachContact){
     document.getElementById('contact-info').innerHTML = getEachContactInfo(eachContact);
     giveAnimations();
 }
+
 
 function showUserInfo(user){
     document.getElementById('contact-info').innerHTML = getUserContactInfo(user);
@@ -781,6 +777,7 @@ function getEachContactInfo(eachContact){
                         </div></div>`
                 ;
 }
+
 
 function getUserContactInfo(){
 
@@ -843,12 +840,15 @@ function openEditOptions(){
 
 
 function closeEditOptions(){
+    if (document.getElementById('edit-more-options-list') !== null){
     document.getElementById('edit-more-options-list').style.animation = "300ms move-out";
     setTimeout(() => {
+        if (document.getElementById('edit-more-options-list') !== null){
         document.getElementById('edit-more-options-list').style.display = "none";
+        }
     }, 300);
 }
-
+}
 document.addEventListener('DOMContentLoaded', function() {
     // Set default mobile width and height thresholds
     const mobileWidthPortrait = 768;  // Width threshold for mobile portrait mode
