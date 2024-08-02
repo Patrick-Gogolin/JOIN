@@ -29,7 +29,6 @@ async function getTasks(path = "") {
         };
         allTasks.push(data);
     }
-
     updateHTML();
 }
 

@@ -5,7 +5,6 @@ let affectedTaskIndices = [];
 let affectedTaskIndexArray = [];
 let activeUserInContacts = null;
 
-
 /**
  * Retrieves the user object from the local storage and parses it as JSON.
  * @returns {Object} The user object.
@@ -14,7 +13,6 @@ const user = JSON.parse(localStorage.getItem("user"));
 
 window.addEventListener("resize", checkForMobileMode);
 window.addEventListener("load", checkForMobileMode);
-
 
 /**
  * Loads contacts, adds user to contacts, sorts contacts alphabetically, and performs other operations on page load.
@@ -25,7 +23,6 @@ async function onloadFunc() {
   let contactResponse = await loadContacts("contacts");
   let contactKeysArray = Object.keys(contactResponse);
   contactsKeys = Object.keys(contactResponse);
-  console.log(contactsKeys);
   for (let index = 0; index < contactKeysArray.length; index++) {
     contacts.push({
       id: contactKeysArray[index],
@@ -39,7 +36,6 @@ async function onloadFunc() {
   showUserInContacts();
   checkForMobileMode();
 }
-
 
 /**
  * Adds a user to the contact list.
@@ -62,9 +58,7 @@ function addUserToContact() {
       },
     };
   }
-  console.log(activeUserInContacts);
 }
-
 
 /**
  * Displays the active user's information in the contacts section.
@@ -85,7 +79,6 @@ function showUserInContacts() {
     </div>`;
   }
 }
-
 
 /**
  * Retrieves tasks for the contacts page.
@@ -119,7 +112,6 @@ async function getTasksForContactsPage(path = "") {
   }
 }
 
-
 /**
  * Sorts the contacts array alphabetically by contact name.
  */
@@ -134,7 +126,6 @@ function sortContactsAlphabetically() {
       key: contactsKeys[index],
     };
   });
-
   // Sort the combinedArray based on the contact name in ascending order
   combinedArray.sort((a, b) => {
     const nameA = a.contact.contact.name.toUpperCase();
@@ -147,18 +138,10 @@ function sortContactsAlphabetically() {
     }
     return 0;
   });
-
   // Update the contacts array with the sorted contacts
   contacts = combinedArray.map((item) => item.contact);
-
   // Update the contactsKeys array with the sorted keys
   contactsKeys = combinedArray.map((item) => item.key);
-
-  // Log the sorted contacts array
-  console.log(contacts);
-
-  // Log the sorted contactsKeys array
-  console.log(contactsKeys);
 }
 
 
@@ -188,7 +171,6 @@ async function loadContacts(path = "") {
   return (responseToJson = await response.json());
 }
 
-
 /**
  * Loads user data from a specified path.
  * @param {string} path - The path to the user data.
@@ -201,7 +183,6 @@ async function loadUser(path = "") {
   let password = user.password;
   let response = await fetch(BASE_URL + path + ".json");
   let responseToJson = await response.json();
-  console.log(responseToJson);
   let keys = Object.keys(responseToJson);
   for (let i = 0; i < keys.length; i++) {
     const key = keys[i];
@@ -222,10 +203,8 @@ async function loadUser(path = "") {
         },
       };
     }
-    console.log(activeUserInContacts);
   }
 }
-
 
 /**
  * Displays user feedback on the screen.
@@ -248,7 +227,6 @@ function showUserFeedback() {
     userFeedbackSlideIn();
   }
 }
-
 
 /**
  * Posts a new contact to the server.
@@ -293,7 +271,6 @@ async function postContacts(path = "", data = {}) {
   return newContact;
 }
 
-
 /**
  * Deletes a contact from the contacts list and performs additional actions.
  * @param {string} contactID - The ID of the contact to be deleted.
@@ -335,7 +312,6 @@ async function deleteContacts(contactID) {
   return await response.json();
 }
 
-
 /**
  * Removes a contact from tasks and returns an array of affected task indices.
  * @param {Array} tasksArray - The array of tasks.
@@ -360,7 +336,6 @@ function removeContactFromTasks(tasksArray, contactName) {
   console.log(affectedTaskIndexArray);
   return affectedTaskIndices;
 }
-
 
 /**
  * Updates a task after deleting or updating a contact.
@@ -396,7 +371,6 @@ async function updateTaskAfterDeleteOrUpdatedContact(path = "", data = {}, i) {
   return (responseToJson = await response.json());
 }
 
-
 /**
  * Removes a contact from the contacts array based on the provided contact ID.
  * @param {string} contactID - The ID of the contact to be removed.
@@ -408,7 +382,6 @@ function removeContactFromArray(contactID) {
     contacts.splice(index, 1);
   }
 }
-
 
 /**
  * Opens the edit contact popup and populates it with the contact details.
@@ -432,7 +405,6 @@ function editContact(eachContact) {
     .classList.remove("animation-close");
 }
 
-
 /**
  * Edit the user as a contact.
  */
@@ -452,7 +424,6 @@ function editUserAsContact() {
     .getElementById("edit-user-popup-content")
     .classList.remove("animation-close");
 }
-
 
 /**
  * Returns the template for editing a user.
@@ -482,7 +453,6 @@ function getEditUserTemplate() {
             </div>
         </div>`;
 }
-
 
 /**
  * Submits the form for editing a user.
@@ -535,7 +505,6 @@ async function submitEditUserForm() {
   }
 }
 
-
 /**
  * Updates a user's data in the specified path.
  * @param {string} path - The path where the user's data will be updated.
@@ -552,7 +521,6 @@ async function updateUser(path = "", data = {}) {
   });
   return (responseToJson = await response.json());
 }
-
 
 /**
  * Submits the edit contact form and updates the contact information.
@@ -600,7 +568,6 @@ async function submitEditContactForm(event, contactID) {
   }
 }
 
-
 /**
  * Updates the contact name in tasksArray from contactName to newNameOfContact.
  * @param {Array} tasksArray - The array of tasks.
@@ -628,7 +595,6 @@ function updateContactNameFromTasks(tasksArray, contactName, id) {
   return affectedTaskIndices;
 }
 
-
 /**
  * Updates the contacts data at the specified path.
  * @param {string} path - The path where the contacts data should be updated.
@@ -649,7 +615,6 @@ async function putContacts(path = "", data = {}) {
   }
   return await response.json();
 }
-
 
 /**
  * Generates the HTML template for editing a contact.
@@ -681,7 +646,6 @@ function getEditContactTemplate(eachContact) {
         </div>`;
 }
 
-
 /**
  * Adds a contact by displaying a popup.
  */
@@ -690,7 +654,6 @@ function addContact() {
   document.getElementById("popup-content").classList.add("animation");
   document.getElementById("add-contact-popup").classList.remove("d-none");
 }
-
 
 /**
  * Closes the popup and performs necessary animations and DOM manipulations.
@@ -728,14 +691,12 @@ function closePopup() {
   }
 }
 
-
 /**
  * Prevents the event from bubbling up the DOM tree.
  */
 function doNotClose(event) {
   event.stopPropagation();
 }
-
 
 /**
  * Generates the template for a contact list element.
@@ -759,7 +720,6 @@ function getContactListTemplate(eachContact) {
     </div>`;
 }
 
-
 /**
  * Get the initials of a contact's name.
  * @param {Object} eachContact - The contact object.
@@ -780,7 +740,6 @@ function getContactsInitials(eachContact) {
   return initials;
 }
 
-
 /**
  * Returns the initials of a user based on their name and surname.
  * @returns {string} The initials of the user.
@@ -798,7 +757,6 @@ function getUserInitials() {
   return initials;
 }
 
-
 /**
  * Returns the template for an ABC separator.
  */
@@ -807,7 +765,6 @@ function getABCSeparatorTemplate(letter) {
                 <p>${letter}</p>
             </div>`;
 }
-
 
 /**
  * Checks for mobile mode and adjusts the display of contact list and contact info accordingly.
@@ -832,7 +789,6 @@ function checkForMobileMode() {
     contactInfo.style.width = "48%";
   }
 }
-
 
 /**
  * Applies animations to specific elements based on the width of the window.
@@ -859,7 +815,6 @@ function giveAnimations() {
   });
 }
 
-
 /**
  * Slides in the user feedback element.
  */
@@ -876,7 +831,6 @@ function userFeedbackSlideIn() {
     feedback.classList.add("d-none");
   }, 2900);
 }
-
 
 /**
  * Function to navigate back to the contact list.
@@ -898,7 +852,6 @@ function backToList() {
   checkForMobileMode();
 }
 
-
 /**
  * Shows or hides the mobile header based on the window width.
  */
@@ -913,7 +866,6 @@ function showMobileHeader() {
     mobileHeader.style.display = "none";
   }
 }
-
 
 /**
  * Displays the contact information and highlights the selected contact.
@@ -934,7 +886,6 @@ function showContactInfo(eachContact) {
   ).style.color = "white";
   showInfo(eachContact);
 }
-
 
 /**
  * Displays the contact information of a user and highlights the selected contact in the contact list.
@@ -957,7 +908,6 @@ function showUserContactInfo(user) {
   showUserInfo(user);
 }
 
-
 /**
  * Displays the contact information for a given contact.
  */
@@ -974,7 +924,6 @@ function showUserInfo(user) {
   document.getElementById("contact-info").innerHTML = getUserContactInfo(user);
   giveAnimations();
 }
-
 
 /**
  * Generates the contact information HTML for each contact.
@@ -1030,7 +979,6 @@ function getEachContactInfo(eachContact) {
                         </div></div>`;
 }
 
-
 /**
  * Retrieves the user's contact information.
  *
@@ -1074,7 +1022,6 @@ function getUserContactInfo() {
                         </div></div>`;
 }
 
-
 /**
  * Generates a random background color in RGB format.
  * @returns {string} The randomly generated background color in RGB format.
@@ -1087,7 +1034,6 @@ function random_bg_color() {
   return bgColor;
 }
 
-
 /**
  * Opens the edit options list by applying animation and changing the display style to flex.
  */
@@ -1096,7 +1042,6 @@ function openEditOptions() {
     "300ms move-in";
   document.getElementById("edit-more-options-list").style.display = "flex";
 }
-
 
 /**
  * Closes the edit options list by hiding it with an animation.
@@ -1113,7 +1058,6 @@ function closeEditOptions() {
     }, 300);
   }
 }
-
 
 document.addEventListener("DOMContentLoaded", function () {
   const mobileWidthPortrait = 768;
