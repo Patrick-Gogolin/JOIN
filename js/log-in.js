@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 /**
- * This function is for the log-in of a user who has an account
+ * This function is for the log-in of a user who has an account and store in case of successfull log in the user in the local storage
  * 
  * @param {string} path  - Path which is added to the BASE URL 
  */
@@ -42,7 +42,11 @@ async function logIn(path = "") {
         checkLogInData(isValidUser);
 }
 
-
+/**
+ * This function checks if the log in data is correct and forwards to the summary.html if the data is correct or gives feedback if not
+ * 
+ * @param {boolean} isValidUser - By default this variable is false and only turns to true if the log in data is correct
+ */
 function checkLogInData(isValidUser){
     if(isValidUser){
         document.getElementById('password').classList.remove('password-not-the-same');
@@ -55,17 +59,29 @@ function checkLogInData(isValidUser){
     }
 }
 
+/**
+ * This function is for a user who has no log in data and who wants to test the site but doesnt wants to create an account 
+ * 
+ */
 function guestLogIn() {
     let guestUser = {email: "", name: "Guest", password: "", surname: " "};
     localStorage.setItem("user", JSON.stringify(guestUser));
-    console.log(guestUser);
     window.location.href = 'summary.html';
 }
 
+/**
+ * Handles the form submission and prevents the default form submission behavior.
+ * 
+ * @param {Event} event - The event object representing the form submission event.
+ */
 function handleFormSubmit(event) {
     event.preventDefault();
 }
 
+/**
+ * This function checks if a user is stored in the local storage. If not the user is redirected to the index.html
+ * 
+ */
 function checkUserAndRedirect() {
     let userKey = 'user';
     let user = localStorage.getItem(userKey);
@@ -75,40 +91,29 @@ function checkUserAndRedirect() {
     }
 }
 
+/**
+ * This Function checks for screenmode and gives warning if user is turning phone to landscape mode
+ * 
+ */
 document.addEventListener('DOMContentLoaded', function() {
-    // Set default mobile width and height thresholds
-    const mobileWidthPortrait = 768;  // Width threshold for mobile portrait mode
-    const mobileHeightPortrait = 1024; // Height threshold for mobile portrait mode
+    const mobileWidthPortrait = 768;  
+    const mobileHeightPortrait = 1024;
+    const mobileWidthLandscape = 1024;
+    const mobileHeightLandscape = 768;
+    const maxMobileWidth = 932;
   
-    const mobileWidthLandscape = 1024; // Width threshold for mobile landscape mode
-    const mobileHeightLandscape = 768; // Height threshold for mobile landscape mode
-  
-    // Define a maximum width to distinguish between mobile and desktop
-    const maxMobileWidth = 932;  // This should be the upper limit for mobile devices
-  
-    // Function to check orientation and display the warning if needed
     function checkOrientation() {
       const isLandscape = window.innerWidth > window.innerHeight;
-  
-      // Check if the screen width is less than or equal to the maxMobileWidth
       const isMobile = window.innerWidth <= maxMobileWidth;
-  
-      // Conditions for showing the warning
       const isMobilePortrait = isMobile && window.innerWidth <= mobileWidthPortrait && window.innerHeight <= mobileHeightPortrait;
       const isMobileLandscape = isMobile && window.innerWidth <= mobileWidthLandscape && window.innerHeight <= mobileHeightLandscape;
-  
-      // Show the warning if the device is in landscape mode and fits mobile dimensions
       if (isLandscape && (isMobilePortrait || isMobileLandscape)) {
         document.getElementById('landscape-warning').classList.add('visible');
       } else {
         document.getElementById('landscape-warning').classList.remove('visible');
       }
     }
-  
-    // Initial check
     checkOrientation();
-  
-    // Check orientation on resize/orientation change
     window.addEventListener('resize', checkOrientation);
     window.addEventListener('orientationchange', checkOrientation);
   });
