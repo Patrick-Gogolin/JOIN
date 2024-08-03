@@ -212,7 +212,6 @@ async function deleteTaskFromDatabase(path = "") {
  * 
  * @param {string} idDefault - The ID of the default grey button element that will be hidden.
  * @param {string} idBlue - The ID of the blue button element that will be displayed.
- * 
  */
 function changeAddSignToBlue(idDefault, idBlue) {
     let addButtonGrey = document.getElementById(idDefault);
@@ -226,7 +225,6 @@ function changeAddSignToBlue(idDefault, idBlue) {
  * 
  * @param {string} idDefault - The ID of the default grey button element that will be displayed.
  * @param {string} idBlue - The ID of the blue button element that will be hidden.
- * 
  */
 function changeAddSingToDefault(idDefault, idBlue) {
     let addButtonGrey = document.getElementById(idDefault);
@@ -235,6 +233,12 @@ function changeAddSingToDefault(idDefault, idBlue) {
     addButtonBlue.classList.add('d-none');
 }
 
+/**
+ * Extracts the initials from an array of full names.
+ * 
+ * @param {string[]} namesArray - An array of full names, where each name is a string containing one or more words.
+ * @returns {string[]} An array of initials corresponding to each name in the input array. Each initial is a string of uppercase letters.
+ */
 function getInitialsOfFetchedData(namesArray) {
     return namesArray.map(name => {
         let nameParts = name.split(" ");
@@ -243,6 +247,14 @@ function getInitialsOfFetchedData(namesArray) {
     });
 }
 
+/**
+ * Determines the URL of the priority image based on the task's priority level.
+ * 
+ * @param {Object} task - An object representing a task. It should include a `priority` property.
+ * @param {string} task.priority - The priority level of the task. Expected values are "Urgent", "Medium", or "Low".
+ * 
+ * @returns {string} The path to the image file representing the priority of the task. 
+ */
 function renderPriorityImage(task) {
     if (task.priority === "Urgent") {
         return 'img/urgent-prio.svg';
@@ -256,9 +268,17 @@ function renderPriorityImage(task) {
     else {
         return 'img/white.jpg';
     }
-
 }
 
+/**
+ * Updates a resource on the server with the given data using a PUT request.
+ * 
+ * @param {string} path - The path to the resource to be updated, relative to the `BASE_URL`. 
+ * @param {Object} [data={}] - An optional parameter for additional data to be included in the request body.
+ * @param {number} i - The index of the task in the `allTasks` array that contains the data to be sent in the request.
+ * 
+ * @returns {Promise<Object>} A promise that resolves to the JSON response from the server after the update.
+ */
 async function updateData(path = "", data = {}, i) {
     data = allTasks[i];
     let response = await fetch(BASE_URL + path + ".json", {
@@ -269,9 +289,12 @@ async function updateData(path = "", data = {}, i) {
         body: JSON.stringify(data)
     });
     return responseToJson = await response.json();
-
 }
 
+/**
+ * Updates the HTML content of the task management sections based on their statuses. It also calls the `renderContentIfAreaIsEmpty` function to handle empty sections, if necessary.
+ * 
+ */
 function updateHTML() {
     let toDo = allTasks.filter(t => t['status'] == 'todo');
     let inProgress = allTasks.filter(t => t['status'] == 'progress');
@@ -289,6 +312,14 @@ function updateHTML() {
     renderTasks(done, 'done');
 }
 
+/**
+ * Updates the HTML content of task sections if they are empty.
+ * 
+ * @param {Array} toDo - An array of tasks with the status 'todo'.
+ * @param {Array} inProgress - An array of tasks with the status 'progress'.
+ * @param {Array} awaitFeedback - An array of tasks with the status 'feedback'.
+ * @param {Array} done - An array of tasks with the status 'done'.
+ */
 function renderContentIfAreaIsEmpty(toDo, inProgress, awaitFeedback, done) {
     if (toDo.length === 0) {
         let content = document.getElementById('todo');
