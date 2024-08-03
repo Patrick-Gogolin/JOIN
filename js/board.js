@@ -3,6 +3,12 @@ let allTasks = [];
 let taskKeys = null;
 let currentDraggedElement;
 
+/**
+ * Fetches tasks from a specified path and updates the `allTasks` array.
+ *  
+ * @param {string} path - The path appended to the `BASE_URL` to fetch tasks. This should be a relative path, for example, 'tasks' or 'projects/tasks'.
+ *
+ */
 async function getTasks(path = "") {
     allTasks.length = 0;
     let response = await fetch(BASE_URL + path + ".json");
@@ -32,34 +38,76 @@ async function getTasks(path = "") {
     updateHTML();
 }
 
-function openEditTaskOverlayer(id) {
-    document.getElementById(`${id}`).classList.remove('d-none');
-    document.body.style.overflow = 'hidden';
-}
+/**
+ * Opens the add task overlayer to be able to add a task and prevents body from scrolling when open
+ * 
+ * @param {string} id - This is the id which is used to define the status of the task which will be created
+ */
+function openAddTaskOverlayer(id) {
+    if(id === "todo") {
+     statusOfTask = "todo"
+    }
+    else if(id === "progress") {
+     statusOfTask = "progress"
+    }
+    else if(id === "feedback") {
+     statusOfTask = "feedback"
+    }
 
-function closeEditTaskOverlay(id) {
-    document.getElementById(`${id}`).classList.add('d-none');
+    document.getElementById('overlayer').classList.remove('d-none');
     document.body.style.overflow = 'hidden';
-}
+ }
 
+ /**
+ * Renders the detail view of a task and updates the UI with task information.
+ * 
+ * @param {string} id - The unique identifier of the task to be rendered. This ID is used to locate the task within the `allTasks` array.
+
+ */
 function renderDetailTaskSlide(id) {
     let content = document.getElementById('edit-task-overlayer');
     let index = taskKeys.indexOf(id);
     let task = allTasks[index];
     emptyTask = JSON.parse(JSON.stringify(task));
-    console.log(emptyTask);
     let imageSrc = renderPriorityImage(task);
     let initials = getInitialsOfFetchedData(task.assignedContacts);
     let bgColor = task.category === "User Story" ? 'bg-blue' : 'bg-green';
     openEditTaskOverlayer('edit-task-overlayer');
-    console.log(task);
     content.innerHTML = renderDetailTaskSlideHtml(task, imageSrc, index, bgColor, id);
 
     forLoopContactsForDetailTaskSlide(task, initials)
-
     forLoopSubtasksForDetailTaskSlide(task)
 }
 
+/**
+ * Opens the specified edit task overlay by removing the 'd-none' class
+ * and preventing page scrolling.
+ * 
+ * @param {string} id - The ID of the overlay element to be opened. This ID is used to locate the element within the DOM.
+ */
+function openEditTaskOverlayer(id) {
+    document.getElementById(`${id}`).classList.remove('d-none');
+    document.body.style.overflow = 'hidden';
+}
+
+/**
+ * Closes the specified edit task overlay by adding the 'd-none' class
+ * and re-enabling page scrolling.
+ * 
+ * @param {string} id - The ID of the overlay element to be closed. This ID is used to locate the element within the DOM.
+ */
+function closeEditTaskOverlay(id) {
+    document.getElementById(`${id}`).classList.add('d-none');
+    document.body.style.overflow = 'hidden';
+}
+
+/**
+ * Renders and appends HTML content for each assigned contact in the task
+ * to the specified container element.
+ * 
+ * @param {Object} task - The task object containing details of the assigned contacts.
+ * @param {Array<string>} initials - An array of initials corresponding to each assigned contact.
+ */
 function forLoopContactsForDetailTaskSlide(task, initials,) {
     for (let i = 0; i < task['assignedContacts'].length; i++) {
         let assignedContactsContent = document.getElementById('assigned-contacts-edit-task-container');
@@ -70,12 +118,16 @@ function forLoopContactsForDetailTaskSlide(task, initials,) {
     }
 }
 
+/**
+ * Renders and appends HTML content for each subtask of the given task to the specified container element, based on whether each subtask is done or not.
+ * 
+ * @param {Object} task - The task object containing details of the subtasks.        
+ */
 function forLoopSubtasksForDetailTaskSlide(task) {
     for (let i = 0; i < task['subtasks'].length; i++) {
         let subtaskContent = document.getElementById('task-card-subtasks-container');
         let subtask = task['subtasks'][i];
         let index = task['doneSubtasks'].indexOf(subtask);
-        console.log(index);
         if (index !== -1) {
             subtaskContent.innerHTML += renderDetailTaskSlideDoneSubtasksHtml(subtask, i);
         }
@@ -85,30 +137,57 @@ function forLoopSubtasksForDetailTaskSlide(task) {
     }
 }
 
+/**
+ * Updates the status of a subtask in the edit task view based on the state of the associated checkbox.
+ * 
+ * @param {number} i - The index of the task being edited, used to identify the specific subtask and checkbox elements.
+ * 
+ */
 async function changeSubtaskStatusEditTask(i) {
     let subtask = document.getElementById(`subtask-of-edit-task${i}`).innerHTML;
     let checkBoxClickable = document.getElementById(`checkbox-subtask-edit-task-clickable${i}`);
     let indexOfTaskKeys = taskKeys.indexOf(emptyTask.id);
     allTasks[indexOfTaskKeys] = emptyTask;
-    
     let emptyCheckBoxSrc = "img/empty-check-box.svg";
     let filledCheckBoxSrc = "img/filled-check-box.svg";
     
     if (checkBoxClickable.src.endsWith(emptyCheckBoxSrc)) {
-        checkBoxClickable.src = filledCheckBoxSrc;
-        emptyTask.doneSubtasks.push(subtask);
-        console.log(emptyTask);
+        await markSubtaskAsDone(subtask, checkBoxClickable, indexOfTaskKeys, filledCheckBoxSrc);
+    } else {
+       await markSubtaskAsNotDone(subtask, checkBoxClickable, indexOfTaskKeys, emptyCheckBoxSrc);
+        }
+}
+
+/**
+ * Marks a subtask as completed by updating its checkbox state and adding it to the list of done subtasks.
+ * 
+ * @param {string} subtask - The text of the subtask that is being marked as done.
+ * @param {HTMLImageElement} checkBoxClickable - The HTML `<img>` element representing the checkbox for the subtask.
+ * @param {number} indexOfTaskKeys - The index of the task in the `allTasks` array, used to identify which task to update.
+ * @param {string} filledCheckBoxSrc - The URL of the image that represents a filled checkbox (completed state).
+ */
+async function markSubtaskAsDone(subtask, checkBoxClickable, indexOfTaskKeys, filledCheckBoxSrc) {
+    checkBoxClickable.src = filledCheckBoxSrc;
+    emptyTask.doneSubtasks.push(subtask);
+    await updateTask(`/tasks/${allTasks[indexOfTaskKeys].id}`);
+    updateHTML();
+}
+
+/**
+ * Marks a subtask as not completed by updating its checkbox state and removing it from the list of done subtasks.
+ * 
+ * @param {string} subtask - The text of the subtask that is being marked as not done.
+ * @param {HTMLImageElement} checkBoxClickable - The HTML `<img>` element representing the checkbox for the subtask.
+ * @param {number} indexOfTaskKeys - The index of the task in the `allTasks` array, used to identify which task to update.
+ * @param {string} emptyCheckBoxSrc - The URL of the image that represents an empty checkbox (not completed state).
+ */
+async function markSubtaskAsNotDone(subtask, checkBoxClickable, indexOfTaskKeys, emptyCheckBoxSrc) {
+    checkBoxClickable.src = emptyCheckBoxSrc;
+    const subtaskIndex = emptyTask.doneSubtasks.indexOf(subtask);
+    if (subtaskIndex !== -1) {
+        emptyTask.doneSubtasks.splice(subtaskIndex, 1);
         await updateTask(`/tasks/${allTasks[indexOfTaskKeys].id}`);
         updateHTML();
-    } else {
-        checkBoxClickable.src = emptyCheckBoxSrc;
-        let index = emptyTask.doneSubtasks.indexOf(subtask);
-        if (index !== -1) {
-            emptyTask.doneSubtasks.splice(index, 1);
-            console.log(emptyTask);
-            await updateTask(`/tasks/${allTasks[indexOfTaskKeys].id}`);
-            updateHTML();
-        }
     }
 }
 
@@ -121,7 +200,6 @@ async function deleteTaskFromDatabase(path = "") {
         await getTasks('/tasks');
     }, 300);
     return responseToJson = await response.json();
-
 }
 
 function changeAddSignToBlue(idDefault, idBlue) {

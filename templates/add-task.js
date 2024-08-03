@@ -42,21 +42,6 @@ async function getContacts(path = "") {
     sortAlphabetically();
 }
 
-function openAddTaskOverlayer(id) {
-    if(id === "todo") {
-     statusOfTask = "todo"
-    }
-    else if(id === "progress") {
-     statusOfTask = "progress"
-    }
-    else if(id === "feedback") {
-     statusOfTask = "feedback"
-    }
-
-    document.getElementById('overlayer').classList.remove('d-none');
-    document.body.style.overflow = 'hidden';
- }
-
  function closeOverlayer() {
     let subtaskContent = document.getElementById('added-subtask-main-container');
     let title = document.getElementById('title');
