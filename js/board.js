@@ -191,17 +191,29 @@ async function markSubtaskAsNotDone(subtask, checkBoxClickable, indexOfTaskKeys,
     }
 }
 
+/**
+ * Deletes a task from the database by sending a DELETE request to the specified path.
+ * 
+ * @param {string} path - The path used to identify the specific task to delete.
+ */
 async function deleteTaskFromDatabase(path = "") {
     let response = await fetch(BASE_URL + path + ".json", {
         method: "DELETE",
     });
-    setTimeout(async function () {
-        closeEditTaskOverlay('edit-task-overlayer')
+    setTimeout(async () => {
+        closeEditTaskOverlay('edit-task-overlayer');
         await getTasks('/tasks');
     }, 300);
     return responseToJson = await response.json();
 }
 
+/**
+ * Changes the appearance of an add button by toggling between two versions of the button: a default (grey) version and a highlighted (blue) version.
+ * 
+ * @param {string} idDefault - The ID of the default grey button element that will be hidden.
+ * @param {string} idBlue - The ID of the blue button element that will be displayed.
+ * 
+ */
 function changeAddSignToBlue(idDefault, idBlue) {
     let addButtonGrey = document.getElementById(idDefault);
     let addButtonBlue = document.getElementById(idBlue);
@@ -209,6 +221,13 @@ function changeAddSignToBlue(idDefault, idBlue) {
     addButtonBlue.classList.remove('d-none');
 }
 
+/**
+ * Reverts the appearance of an add button to its default state by toggling between the default (grey) and highlighted (blue) versions.
+ * 
+ * @param {string} idDefault - The ID of the default grey button element that will be displayed.
+ * @param {string} idBlue - The ID of the blue button element that will be hidden.
+ * 
+ */
 function changeAddSingToDefault(idDefault, idBlue) {
     let addButtonGrey = document.getElementById(idDefault);
     let addButtonBlue = document.getElementById(idBlue);
