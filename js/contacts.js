@@ -293,7 +293,7 @@ async function deleteContacts(contactID) {
     "contact-info"
   ).innerHTML = `<div class="contact-info-header">
     <div onclick="backToList()" class="back_img_boarder">
-    <img src="/img/arrow-left-line.png" alt="">
+    <img src="img/arrow-left-line.png" alt="">
 </div>
     <h1>Contacts</h1>
     <div class="contact-info-header-separator"></div>
@@ -432,7 +432,7 @@ function getEditUserTemplate() {
   return `<div id="edit-user-popup-content" class="popup-content animation" onclick="doNotClose(event)">
             <div class="popup-left">
                 <div onclick="closePopup()" class="back-icon-white-boarder"><img class="back-icon-white" src="img/close_white.png" alt=""></div>
-                <img class="join-logo" src="/img/capa_2.png" alt="">
+                <img class="join-logo" src="img/capa_2.png" alt="">
                 <h1>Edit contact</h1>
                 <div class="blue-line"></div>
             </div>
@@ -624,7 +624,7 @@ function getEditContactTemplate(eachContact) {
   return `<div id="edit-contact-popup-content" class="popup-content animation" onclick="doNotClose(event)">
             <div class="popup-left">
                 <div onclick="closePopup()" class="back-icon-white-boarder"><img class="back-icon-white" src="img/close_white.png" alt=""></div>
-                <img class="join-logo" src="/img/capa_2.png" alt="">
+                <img class="join-logo" src="img/capa_2.png" alt="">
                 <h1>Edit contact</h1>
                 <div class="blue-line"></div>
             </div>
@@ -937,7 +937,7 @@ function getEachContactInfo(eachContact) {
   return `
     <div class="contact-info-header">
                 <div onclick="backToList()" class="back_img_boarder">
-                    <img src="/img/arrow-left-line.png" alt="">
+                    <img src="img/arrow-left-line.png" alt="">
                 </div>
                 <h1>Contacts</h1>
                 <div class="contact-info-header-separator"></div>
@@ -950,10 +950,10 @@ function getEachContactInfo(eachContact) {
                         <div class="contact-data-icon">
                             <div onclick='editContact(${JSON.stringify(
                               eachContact
-                            )})' class="edit"><img src="/img/edit.png" alt=""><p>Edit</p></div>
+                            )})' class="edit"><img src="img/edit.png" alt=""><p>Edit</p></div>
                             <div onclick="deleteContacts('${
                               eachContact.id
-                            }')" class="delete"><img src="/img/delete.png" alt=""><p>Delete</p></div>
+                            }')" class="delete"><img src="img/delete.png" alt=""><p>Delete</p></div>
                         </div>
                 </div>
                 </div>
@@ -964,16 +964,16 @@ function getEachContactInfo(eachContact) {
                 <p id="animation-phone" class="tel-number" >${contactPhone}</p>
                 </div>
                 <div onclick='openEditOptions(); doNotClose(event)' id="edit-more-options" class="more_img_boarder">
-                    <img src="/img/more_vert.png" alt="">
+                    <img src="img/more_vert.png" alt="">
                 </div>
                 <div onclick="doNotClose(event)" id="edit-more-options-list" class="more_options">
                 <div class="more_options_icon" >
                             <div onclick='editContact(${JSON.stringify(
                               eachContact
-                            )})' class="edit" style="margin-bottom: 15px;"><img src="/img/edit.png" alt="" ><p>Edit</p></div>
+                            )})' class="edit" style="margin-bottom: 15px;"><img src="img/edit.png" alt="" ><p>Edit</p></div>
                             <div onclick="deleteContacts('${
                               eachContact.id
-                            }')" class="delete"><img src="/img/delete.png" alt=""><p>Delete</p></div>
+                            }')" class="delete"><img src="img/delete.png" alt=""><p>Delete</p></div>
                         </div></div>`;
 }
 
@@ -990,7 +990,7 @@ function getUserContactInfo() {
   return `
     <div class="contact-info-header">
                 <div onclick="backToList()" class="back_img_boarder">
-                    <img src="/img/arrow-left-line.png" alt="">
+                    <img src="img/arrow-left-line.png" alt="">
                 </div>
                 <h1>Contacts</h1>
                 <div class="contact-info-header-separator"></div>
@@ -1001,7 +1001,7 @@ function getUserContactInfo() {
                 <div id="contact-data-logo" class="contact-data-logo" style="background-color: rgb(41, 171, 226);">${initials}</div>
                 <div class="contact-data-name"><span>${contactName}</span> 
                         <div class="contact-data-icon">
-                            <div onclick='editUserAsContact()' class="edit"><img src="/img/edit.png" alt=""><p>Edit</p></div>
+                            <div onclick='editUserAsContact()' class="edit"><img src="img/edit.png" alt=""><p>Edit</p></div>
                         </div>
                 </div>
                 </div>
@@ -1012,11 +1012,11 @@ function getUserContactInfo() {
                 <p id="animation-phone" class="tel-number" >${contactPhone}</p>
                 </div>
                 <div onclick='openEditOptions(); doNotClose(event)' id="edit-more-options" class="more_img_boarder">
-                    <img src="/img/more_vert.png" alt="">
+                    <img src="img/more_vert.png" alt="">
                 </div>
                 <div onclick="doNotClose(event)" id="edit-more-options-list" class="more_options">
                 <div class="more_options_icon" >
-                            <div onclick='editUserAsContact()' class="edit" style="margin-bottom: 15px;"><img src="/img/edit.png" alt="" ><p>Edit</p></div>
+                            <div onclick='editUserAsContact()' class="edit" style="margin-bottom: 15px;"><img src="img/edit.png" alt="" ><p>Edit</p></div>
                         </div></div>`;
 }
 
