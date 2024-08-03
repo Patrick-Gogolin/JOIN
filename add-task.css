@@ -872,6 +872,20 @@ ul {
         margin-left: 0;  
     }
     
+    .add-task-headlinde-container {
+        padding: 80px 0px 48px 96px;
+    }
+
+    .button-container{
+        position: fixed;
+        bottom: 80px;
+        padding: 16px;
+        justify-content: space-evenly;
+        align-items: center;
+        background: #F6F7F8;
+        width: 100%;
+        z-index: 99;
+    }
 }
 
 

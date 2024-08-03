@@ -2,7 +2,7 @@ function renderDetailTaskSlideHtml(task, imgSrc, index, bgColor, id) {
     return /*html*/`
     <div class="popup-content">
                     <div class="task-card-header">
-                        <span class=${bgColor}>${task.category}</span><div onclick="closeEditTaskOverlay('edit-task-overlayer')" class="task-card-back-icon-boarder"><img class="task-card-back-icon" src="/img/cancel.svg" alt=""></div>
+                        <span class=${bgColor}>${task.category}</span><div onclick="closeEditTaskOverlay('edit-task-overlayer')" class="task-card-back-icon-boarder"><img class="task-card-back-icon" src="img/cancel.svg" alt=""></div>
                     </div>
                     <div class="task-card-content">
                     <div class="task-card-title">${task.title}</div>
@@ -20,14 +20,14 @@ function renderDetailTaskSlideHtml(task, imgSrc, index, bgColor, id) {
                     </div>
                     <div class="task-card-footer">
                         <div onmouseover="changeAddSignToBlue('delete-task-grey', 'delete-task-blue')" onmouseout="changeAddSingToDefault('delete-task-grey', 'delete-task-blue')" onclick="deleteTaskFromDatabase('/tasks/${taskKeys[index]}')" class="task-card-delete">
-                            <img id="delete-task-grey" src="/img/delete.svg" alt="Trashbin">
-                            <img id="delete-task-blue" class="d-none" src="/img/delete-blue.svg" alt="Trashbin">
+                            <img id="delete-task-grey" src="img/delete.svg" alt="Trashbin">
+                            <img id="delete-task-blue" class="d-none" src="img/delete-blue.svg" alt="Trashbin">
                             <span>Delete</span>
                         </div>
                         <div class="task-card-separator"></div>
                         <div onclick = "OpenEditTaskWindow('${id}')" onmouseover="changeAddSignToBlue('edit-task-grey', 'edit-task-blue')" onmouseout="changeAddSingToDefault('edit-task-grey', 'edit-task-blue')" class="task-card-edit">
-                            <img id="edit-task-grey" src="/img/edit.svg" alt="Pencil">
-                            <img id="edit-task-blue" class="d-none" src="/img/edit-blue.svg" alt="Pencil">
+                            <img id="edit-task-grey" src="img/edit.svg" alt="Pencil">
+                            <img id="edit-task-blue" class="d-none" src="img/edit-blue.svg" alt="Pencil">
                             <span>Edit</span>
                     </div>
                 </div>`;
@@ -49,7 +49,7 @@ function renderDetailTaskSlideDoneSubtasksHtml(subtask, i) {
     return /*html*/`
      <div class="single-subtask-in-edit-slide-container">
      <div onclick="changeSubtaskStatusEditTask(${i})" class="checkbox-subtask">
-        <img id="checkbox-subtask-edit-task-clickable${i}" src="/img/filled-check-box.svg" alt="">
+        <img id="checkbox-subtask-edit-task-clickable${i}" src="img/filled-check-box.svg" alt="">
     </div>
         <div>
             <span id="subtask-of-edit-task${i}">${subtask}</span>
@@ -61,7 +61,7 @@ function renderDetailTaskSlideNotDoneSubtasksHtml(subtask, i) {
     return /*html*/`
      <div class="single-subtask-in-edit-slide-container">
      <div onclick="changeSubtaskStatusEditTask(${i})" class="checkbox-subtask">
-        <img id="checkbox-subtask-edit-task-clickable${i}" src="/img/empty-check-box.svg" alt="">
+        <img id="checkbox-subtask-edit-task-clickable${i}" src="img/empty-check-box.svg" alt="">
     </div>
         <div>
             <span id="subtask-of-edit-task${i}">${subtask}</span>
@@ -82,7 +82,7 @@ function renderTasksInToDoHtml(task, bgColor, subtasks, doneSubtasks, imageSrc, 
         <div class="category-container">
             <div class="category-span ${bgColor}" id="category${i}">${task.category}</div>
             <div class="task-up-and-down">
-                <img onclick="event.stopPropagation(); nextStatus('${task.id}')" src="./img/down_icon.png" alt="">
+                <img onclick="event.stopPropagation(); nextStatus('${task.id}')" src="img/down_icon.png" alt="">
             </div>
         </div>
         <div class="title-container">
@@ -126,8 +126,8 @@ function renderTasksInProgressHtml(task, bgColor, subtasks, doneSubtasks, imageS
         <div class="category-container">
             <div class="category-span ${bgColor}" id="category${i}">${task.category}</div>
             <div class="task-up-and-down">
-                <img onclick="event.stopPropagation(); previousStatus('${task.id}')" src="./img/up_icon.png" alt="">
-                <img onclick="event.stopPropagation(); nextStatus('${task.id}')" src="./img/down_icon.png" alt="">
+                <img onclick="event.stopPropagation(); previousStatus('${task.id}')" src="img/up_icon.png" alt="">
+                <img onclick="event.stopPropagation(); nextStatus('${task.id}')" src="img/down_icon.png" alt="">
             </div>
         </div>
         <div class="title-container">
@@ -170,8 +170,8 @@ function renderAssignedContactsInProgress(initial, contactColors) {
         <div class="category-container">
             <div class="category-span ${bgColor}" id="category${i}">${task.category}</div>
             <div class="task-up-and-down">
-                <img onclick="event.stopPropagation(); previousStatus('${task.id}')" src="./img/up_icon.png" alt="">
-                <img onclick="event.stopPropagation(); nextStatus('${task.id}')" src="./img/down_icon.png" alt="">
+                <img onclick="event.stopPropagation(); previousStatus('${task.id}')" src="img/up_icon.png" alt="">
+                <img onclick="event.stopPropagation(); nextStatus('${task.id}')" src="img/down_icon.png" alt="">
         </div>
         </div>
         <div class="title-container">
@@ -214,7 +214,7 @@ function renderTasksInDoneHtml(task, bgColor, subtasks, doneSubtasks, imageSrc, 
         <div class="category-container">
             <div class="category-span ${bgColor}" id="category${i}">${task.category}</div>
             <div class="task-up-and-down">
-                <img onclick="event.stopPropagation(); previousStatus('${task.id}')" src="./img/up_icon.png" alt="">
+                <img onclick="event.stopPropagation(); previousStatus('${task.id}')" src="img/up_icon.png" alt="">
             </div>
         </div>
         <div class="title-container">
@@ -251,8 +251,8 @@ function renderTasksHtml(task, bgColor, doneSubtasks, subtasks, i, status, image
         <div class="category-container">
             <div class="category-span ${bgColor}" id="category${i}">${task.category}</div>
             <div class="task-up-and-down">
-                    <img class= ${currentStatusToDo} onclick="event.stopPropagation(); previousStatus('${task.id}')" src="./img/up_icon.png" alt="">
-                    <img class= ${currentStatusDone} onclick="event.stopPropagation(); nextStatus('${task.id}')" src="./img/down_icon.png" alt="">
+                    <img class= ${currentStatusToDo} onclick="event.stopPropagation(); previousStatus('${task.id}')" src="img/up_icon.png" alt="">
+                    <img class= ${currentStatusDone} onclick="event.stopPropagation(); nextStatus('${task.id}')" src="img/down_icon.png" alt="">
             </div>
         </div>
             <div class="title-container">
