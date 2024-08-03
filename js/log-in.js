@@ -117,3 +117,7 @@ document.addEventListener('DOMContentLoaded', function() {
     window.addEventListener('resize', checkOrientation);
     window.addEventListener('orientationchange', checkOrientation);
   });
+
+  function disableScroll() {
+    document.body.style.overflow = 'hidden';
+}
