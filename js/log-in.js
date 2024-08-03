@@ -39,7 +39,7 @@ async function logIn(path = "") {
             break
         }
     }
-        checkLogInData(isValidUser);
+    checkLogInData(isValidUser);
 }
 
 /**
