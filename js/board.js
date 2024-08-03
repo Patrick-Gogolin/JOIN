@@ -342,32 +342,12 @@ function renderContentIfAreaIsEmpty(toDo, inProgress, awaitFeedback, done) {
     }
 }
 
-function filterTasks() {
-    let input = document.getElementById('filterInput').value.toLowerCase();
-    let filteredTasks = allTasks.filter(task => task.title.toLowerCase().includes(input));
-
-    updateFilteredHTML(filteredTasks);
-}
-
-function updateFilteredHTML(filteredTasks) {
-    let todo = filteredTasks.filter(t => t['status'] == 'todo');
-    let progress = filteredTasks.filter(t => t['status'] == 'progress');
-    let feedback = filteredTasks.filter(t => t['status'] == 'feedback');
-    let done = filteredTasks.filter(t => t['status'] == 'done');
-
-    document.getElementById('todo').innerHTML = '';
-    document.getElementById('progress').innerHTML = '';
-    document.getElementById('feedback').innerHTML = '';
-    document.getElementById('done').innerHTML = '';
-
-    renderContentIfAreaIsEmpty(todo, progress, feedback, done);
-
-    renderTasks(todo, 'todo');
-    renderTasks(progress, 'progress');
-    renderTasks(feedback, 'feedback');
-    renderTasks(done, 'done');
-}
-
+/**
+ * Renders tasks in the specified status section of the HTML content.
+ *
+ * @param {Array} tasks - The array of task objects to be rendered.
+ * @param {string} status - The status category of the tasks (e.g., 'todo', 'progress', 'feedback', 'done').
+ */
 function renderTasks(tasks, status) {
     for (let i = 0; i < tasks.length; i++) {
         let content = document.getElementById(status);
@@ -386,6 +366,14 @@ function renderTasks(tasks, status) {
     removeHighlight(status);
 }
 
+/**
+ * Renders the assigned contacts' initials in the task card.
+ *
+ * @param {string} status - The status category of the task (e.g., 'todo', 'progress', 'feedback', 'done').
+ * @param {number} i - The index of the task within its status category.
+ * @param {Object} task - The task object containing details of the task.
+ * @param {Array<string>} initials - An array of initials representing the assigned contacts.
+ */
 function renderAssignedContactsInTaskCard(status, i, task, initials) {
     for (let x = 0; x < initials.length; x++) {
         const initial = initials[x];
@@ -395,96 +383,26 @@ function renderAssignedContactsInTaskCard(status, i, task, initials) {
     }
 }
 
+document.addEventListener('DOMContentLoaded', function() {
 
-async function nextStatus(taskId) {
-    const taskIndex = allTasks.findIndex(t => t.id === taskId);
-    if (taskIndex !== -1) {
-        const task = allTasks[taskIndex];
-        const currentIndex = taskStatuses.indexOf(task.status);
-        if (currentIndex < taskStatuses.length - 1) {
-            task.status = taskStatuses[currentIndex + 1];
-            await updateTaskWithArrow(`/tasks/${task.id}`, data, task);
-            updateHTML();
-        }
-    } else {
-        console.error(`Task with id ${taskId} not found`);
-    }
-}
-
-async function previousStatus(taskId) {
-    const taskIndex = allTasks.findIndex(t => t.id === taskId);
-    if (taskIndex !== -1) {
-        const task = allTasks[taskIndex];
-        const currentIndex = taskStatuses.indexOf(task.status);
-        if (currentIndex > 0) {
-            task.status = taskStatuses[currentIndex - 1];
-            await updateTaskWithArrow(`/tasks/${task.id}`, data, task);
-            updateHTML();
-        }
-    } else {
-        console.error(`Task with id ${taskId} not found`);
-    }
-}
-
-async function updateTaskWithArrow(path = "", data={}, task) {
-    data = {
-         id: "",
-         title: task['title'],
-         description: task['description'],
-         deadline: task['deadline'],
-         priority: task['priority'],
-         subtasks: JSON.stringify(task['subtasks']),
-         doneSubtasks: JSON.stringify(task['doneSubtasks']),
-         assignedContacts: JSON.stringify(task['assignedContacts']),
-         assignedContactsColors: JSON.stringify(task['assignedContactsColors']),
-         assignedContactsId: JSON.stringify(task['assignedContactsId']),
-         category: task['category'],
-         status: task['status']
-     };
-     let response = await fetch(BASE_URL + path + ".json",{
-         method: "PUT",
-         headers: {
-             "Content-Type": "application/json",
-         },
-         body: JSON.stringify(data)
-     });
-   return responseToJson = await response.json();
-   }
-
-   document.addEventListener('DOMContentLoaded', function() {
-    // Set default mobile width and height thresholds
-    const mobileWidthPortrait = 768;  // Width threshold for mobile portrait mode
-    const mobileHeightPortrait = 1024; // Height threshold for mobile portrait mode
+    const mobileWidthPortrait = 768;  
+    const mobileHeightPortrait = 1024;
+    const mobileWidthLandscape = 1024; 
+    const mobileHeightLandscape = 768;
+    const maxMobileWidth = 932;  
   
-    const mobileWidthLandscape = 1024; // Width threshold for mobile landscape mode
-    const mobileHeightLandscape = 768; // Height threshold for mobile landscape mode
-  
-    // Define a maximum width to distinguish between mobile and desktop
-    const maxMobileWidth = 932;  // This should be the upper limit for mobile devices
-  
-    // Function to check orientation and display the warning if needed
     function checkOrientation() {
       const isLandscape = window.innerWidth > window.innerHeight;
-  
-      // Check if the screen width is less than or equal to the maxMobileWidth
       const isMobile = window.innerWidth <= maxMobileWidth;
-  
-      // Conditions for showing the warning
       const isMobilePortrait = isMobile && window.innerWidth <= mobileWidthPortrait && window.innerHeight <= mobileHeightPortrait;
       const isMobileLandscape = isMobile && window.innerWidth <= mobileWidthLandscape && window.innerHeight <= mobileHeightLandscape;
-  
-      // Show the warning if the device is in landscape mode and fits mobile dimensions
       if (isLandscape && (isMobilePortrait || isMobileLandscape)) {
         document.getElementById('landscape-warning').classList.add('visible');
       } else {
         document.getElementById('landscape-warning').classList.remove('visible');
       }
     }
-  
-    // Initial check
     checkOrientation();
-  
-    // Check orientation on resize/orientation change
     window.addEventListener('resize', checkOrientation);
     window.addEventListener('orientationchange', checkOrientation);
   });
