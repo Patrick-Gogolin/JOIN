@@ -352,8 +352,6 @@ function deleteSubtask(i) {
 
 function openSelectContactsContainer(event) {
     event.stopPropagation();
-    let contactsContainer = document.getElementById('choose-contacts-container');
-    let assignedContacts = document.getElementById('show-assigned-contacts');
     let categoryContainer = document.getElementById('choose-category-container');
 
     if (assignCategoryContainer) {
@@ -361,29 +359,36 @@ function openSelectContactsContainer(event) {
         assignCategoryContainer = false;
     }
     if (!assignOptionsContactsContainer) {
-        contactsContainer.classList.remove('d-none');
-        assignOptionsContactsContainer = true;
-        renderContacts();
-        assignedContacts.classList.add('d-none');
+        openContactsContainerToAssign()
     } else {
-        contactsContainer.classList.add('d-none');
-        assignOptionsContactsContainer = false;
-        renderAssignedContacts();
-        assignedContacts.classList.remove('d-none');
+        closeContactsContainerToAssign()
     }
+}
+
+function openContactsContainerToAssign() {
+    let contactsContainer = document.getElementById('choose-contacts-container');
+    let assignedContacts = document.getElementById('show-assigned-contacts');
+    contactsContainer.classList.remove('d-none');
+    assignOptionsContactsContainer = true;
+    renderContacts();
+    assignedContacts.classList.add('d-none');
+}
+
+function closeContactsContainerToAssign() {
+    let contactsContainer = document.getElementById('choose-contacts-container');
+    let assignedContacts = document.getElementById('show-assigned-contacts');
+    contactsContainer.classList.add('d-none');
+    assignOptionsContactsContainer = false;
+    renderAssignedContacts();
+    assignedContacts.classList.remove('d-none');
 }
 
 function openSelectCategoryContainer(event) {
     event.stopPropagation();
     let categoryContainer = document.getElementById('choose-category-container');
-    let contactsContainer = document.getElementById('choose-contacts-container');
-    let assignedContacts = document.getElementById('show-assigned-contacts');
 
     if (assignOptionsContactsContainer) {
-        contactsContainer.classList.add('d-none');
-        assignOptionsContactsContainer = false;
-        renderAssignedContacts();
-        assignedContacts.classList.remove('d-none');
+        closeContactsContainerToAssign()
     }
     if (!assignCategoryContainer) {
         categoryContainer.classList.remove('d-none');
@@ -397,13 +402,9 @@ function openSelectCategoryContainer(event) {
 document.addEventListener('click', function(event) {
     let contactsContainer = document.getElementById('choose-contacts-container');
     let categoryContainer = document.getElementById('choose-category-container');
-    let assignedContacts = document.getElementById('show-assigned-contacts');
 
     if (!contactsContainer.contains(event.target)) {
-        contactsContainer.classList.add('d-none');
-        assignOptionsContactsContainer = false;
-        renderAssignedContacts();
-        assignedContacts.classList.remove('d-none');
+        closeContactsContainerToAssign()
     }
 
     if (!categoryContainer.contains(event.target)) {
@@ -429,19 +430,23 @@ function renderContacts() {
     container.innerHTML = "";
 
     if (activeUser != "" && activeUser[0] != "Guest" ) {
-        activeUserContainer.classList.remove('d-none');
-        let activeUserUpdated = [activeUser.join(" ")];
-        let activeUserInitialsUpdated = [activeUserInitials.join("")];
-
-        for (let y = 0; y < activeUserUpdated.length; y++) {
-            renderActiveUser(y, activeUserUpdated, activeUserContainer, activeUserInitialsUpdated);
-    
-            for (let i = 0; i < contacts.length; i++) {
-                renderSingleContact(i, container);
-            }
-        }
+        renderActiveUserAndContacts(activeUserContainer, container);
     }
     else {
+        for (let i = 0; i < contacts.length; i++) {
+            renderSingleContact(i, container);
+        }
+    }
+}
+
+function renderActiveUserAndContacts(activeUserContainer, container) {
+    activeUserContainer.classList.remove('d-none');
+    let activeUserUpdated = [activeUser.join(" ")];
+    let activeUserInitialsUpdated = [activeUserInitials.join("")];
+
+    for (let y = 0; y < activeUserUpdated.length; y++) {
+        renderActiveUser(y, activeUserUpdated, activeUserContainer, activeUserInitialsUpdated);
+
         for (let i = 0; i < contacts.length; i++) {
             renderSingleContact(i, container);
         }
@@ -470,19 +475,27 @@ function assignTaskToLoggedInUser(i) {
     let index = assignedContactsId.indexOf(i);
     let checkbox = document.getElementById('checkbox-active-user');
     if (index === -1) {
-        container.classList.add('bg-navy');
-        assignedContactsColors.push(colorForActiveUser[0]);
-        assignedContactsId.push(i);
-        assignedContactsNames.push(loggedInUserName)
-        checkbox.src = "img/filled-check-box-white.svg"
+        markActiveUserAndAssignTaskToHim(container,loggedInUserName, i, checkbox);
     }
     else {
-        container.classList.remove('bg-navy');
-        assignedContactsColors.splice(index,1);
-        assignedContactsNames.splice(index, 1);
-        assignedContactsId.splice(index, 1);
-        checkbox.src = "img/empty-check-box.svg"
+        unmarkAndTakeTaskAway(container, index, checkbox);
     }
+}
+
+function markActiveUserAndAssignTaskToHim(container, loggedInUserName, i, checkbox)  {
+    container.classList.add('bg-navy');
+    assignedContactsColors.push(colorForActiveUser[0]);
+    assignedContactsId.push(i);
+    assignedContactsNames.push(loggedInUserName)
+    checkbox.src = "img/filled-check-box-white.svg"
+}
+
+function unmarkAndTakeTaskAway(container, index, checkbox) {
+    container.classList.remove('bg-navy');
+    assignedContactsColors.splice(index,1);
+    assignedContactsNames.splice(index, 1);
+    assignedContactsId.splice(index, 1);
+    checkbox.src = "img/empty-check-box.svg"
 }
 
 function assignTaskToContact(i) {
@@ -491,19 +504,19 @@ function assignTaskToContact(i) {
     let index = assignedContactsId.indexOf(i);
     let checkbox = document.getElementById(`checkbox${i}`);
     if (index === -1) {
-        container.classList.add('bg-navy');
-        assignedContactsColors.push(colors[i]);
-        assignedContactsId.push(i);
-        assignedContactsNames.push(contactName)
-        checkbox.src = "img/filled-check-box-white.svg"
+        markContactAndAssignTaskToHim(container, contactName, i, checkbox);
     }
     else {
-        container.classList.remove('bg-navy');
-        assignedContactsColors.splice(index,1);
-        assignedContactsNames.splice(index, 1);
-        assignedContactsId.splice(index, 1);
-        checkbox.src = "img/empty-check-box.svg";
+        unmarkAndTakeTaskAway(container, index, checkbox);
     }
+}
+
+function markContactAndAssignTaskToHim(container, contactName, i, checkbox) {
+    container.classList.add('bg-navy');
+    assignedContactsColors.push(colors[i]);
+    assignedContactsId.push(i);
+    assignedContactsNames.push(contactName)
+    checkbox.src = "img/filled-check-box-white.svg"
 }
 
 
@@ -532,10 +545,10 @@ function renderAssignedContacts() {
 
 function getInitialsAssignedContactsId() {
         assignedContactsInitials.length = 0;
-    let initials = assignedContactsNames.map(name => {
+        assignedContactsNames.map(name => {
         let nameParts = name.split(/[\s-]+/);
         let initial = nameParts.map(part => part.charAt(0).toUpperCase()).join("");
-         assignedContactsInitials.push(initial);
+        assignedContactsInitials.push(initial);
     });
 }
 
@@ -543,22 +556,24 @@ function searchContacts() {
     let search = document.getElementById('search-contact-inputfield').value.toLowerCase().trim();
     let content = document.getElementById('select-contact-container');
     let activeUserContainer = document.getElementById('active-user-container');
-    let container = document.getElementById('choose-contacts-container');
+    let contactsContainer = document.getElementById('choose-contacts-container');
     let assignedContacts = document.getElementById('show-assigned-contacts');
     content.innerHTML = '';
 
     if(search.length > 0) {
-        container.classList.remove('d-none');
+        contactsContainer.classList.remove('d-none');
         assignOptionsContactsContainer = true;
         assignedContacts.classList.add('d-none');
     }
     else {
-        container.classList.add('d-none');
-        assignOptionsContactsContainer = false;
-        assignedContacts.classList.remove('d-none');
-        renderAssignedContacts();
+        closeContactsContainerToAssign()
     }
 
+    renderActiveUserIfLoggedIn(activeUserContainer, search);
+    renderContacts(content, search);
+}
+
+function renderActiveUserIfLoggedIn(activeUserContainer, search) {
     if (activeUser.length > 0 && activeUser[0] != "Guest") { 
         let activeUserUpdated = activeUser.join(" ");
         let activeUserInitialsUpdated = activeUserInitials.join("");
@@ -568,25 +583,16 @@ function searchContacts() {
 
         if (activeUserUpdated.toLowerCase().includes(search)) {
             activeUserContainer.classList.remove('d-none');
-            activeUserContainer.innerHTML = /*html*/`
-            <div id="logged-in-user" onclick="assignTaskToLoggedInUser('logged-in-user')" class="single-contact-container ${bgColor}">
-                <div class="single-contact-name-container">
-                    <div class="contact-name-initials-container" style="background-color: ${color};">
-                        <span class="user-initials-span">${activeUserInitialsUpdated}</span>
-                    </div>
-                    <span id="logged-in-user-name">${activeUserUpdated}</span><span>(You)</span>
-                </div>
-                <div>
-                    <img id="checkbox-active-user" src=${checkBox} alt="Checkbox">
-                </div>
-            </div>`;
+            activeUserContainer.innerHTML = renderActiveUserAfterSearchHtml(bgColor, color, activeUserInitialsUpdated, activeUserUpdated, checkBox);
         } else {
             activeUserContainer.innerHTML = '';
         }
     } else {
         activeUserContainer.classList.add('d-none');
     }
+}
 
+function renderContacts(content, search) {
     for (let i = 0; i < userNames.length; i++) {
         let checkBox = renderCheckBox(i);
         const userName = userNames[i];
@@ -596,26 +602,14 @@ function searchContacts() {
         let bgColor = assignedContactsId.includes(i) ? 'bg-navy' : 'bg-white';
 
         if (userNameLowerCase.includes(search)) {
-            content.innerHTML += /*html*/`
-            <div id="${i}" onclick="assignTaskToContact(${i})" class="single-contact-container ${bgColor}">
-                <div class="single-contact-name-container">
-                    <div class="contact-name-initials-container" style="background-color: ${color};">
-                        <span class="user-initials-span">${userNameInitial}</span>
-                    </div>
-                    <span id="assigned-contact-name${i}">${userName}</span>
-                </div>
-                <div>
-                    <img id="checkbox${i}" src=${checkBox} alt="Checkbox">
-                </div>
-            </div>`;
+            content.innerHTML += renderContactsAfterSearchHtml(i, bgColor, color, userNameInitial, userName, checkBox);
         }
     }
 }
 
-
 function getInitials() {
-    let initials = userNames.map(name => {
-        let nameParts = name.split(/[\s-]+/); // Split by space or hyphen
+        userNames.map(name => {
+        let nameParts = name.split(/[\s-]+/);
         let initial = nameParts.map(part => part.charAt(0).toUpperCase()).join("");
         userNamesInitials.push(initial);
         return initial;
@@ -641,7 +635,6 @@ function loadAndGetNameOfActiveUser() {
         activeUser.push(user.surname);
         let initials = activeUser.map(name => name.charAt(0));
         activeUserInitials = initials;
-
         return user;
     } else {
         console.log("user not found");

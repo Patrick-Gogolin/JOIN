@@ -100,3 +100,33 @@ function renderAssignedContactsHtml(color, initials) {
         <span class="user-initials-span">${initials}</span>
     </div>`;
 }
+
+function renderActiveUserAfterSearchHtml(bgColor, color, activeUserInitialsUpdated, activeUserUpdated, checkBox) {
+    return /*html*/`
+    <div id="logged-in-user" onclick="assignTaskToLoggedInUser('logged-in-user')" class="single-contact-container ${bgColor}">
+        <div class="single-contact-name-container">
+            <div class="contact-name-initials-container" style="background-color: ${color};">
+                <span class="user-initials-span">${activeUserInitialsUpdated}</span>
+            </div>
+            <span id="logged-in-user-name">${activeUserUpdated}</span><span>(You)</span>
+        </div>
+            <div>
+                <img id="checkbox-active-user" src=${checkBox} alt="Checkbox">
+            </div>
+    </div>`;
+}
+
+function renderContactsAfterSearchHtml(i, bgColor, color, userNameInitial, userName, checkBox) {
+    return /*html*/`
+    <div id="${i}" onclick="assignTaskToContact(${i})" class="single-contact-container ${bgColor}">
+        <div class="single-contact-name-container">
+            <div class="contact-name-initials-container" style="background-color: ${color};">
+                <span class="user-initials-span">${userNameInitial}</span>
+            </div>
+            <span id="assigned-contact-name${i}">${userName}</span>
+        </div>
+        <div>
+            <img id="checkbox${i}" src=${checkBox} alt="Checkbox">
+        </div>
+    </div>`;
+}
