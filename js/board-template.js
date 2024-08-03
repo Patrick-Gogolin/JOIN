@@ -30,7 +30,7 @@ function renderDetailTaskSlideHtml(task, imgSrc, index, bgColor, id) {
                             <img id="edit-task-blue" class="d-none" src="img/edit-blue.svg" alt="Pencil">
                             <span>Edit</span>
                     </div>
-                </div>`;
+    </div>`;
 }
 
 function renderDetailTaskSlideContactsHtml(initial, contact, contactColors) {
