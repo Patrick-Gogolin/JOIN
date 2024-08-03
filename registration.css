@@ -210,7 +210,7 @@ h1 {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.overlayer-successful-login{
+.overlayer-successful-sign-up{
     position: fixed;
     top: 0;
     left: 0;
@@ -226,7 +226,7 @@ h1 {
     display: none;
 }
 
-.successful-login-banner {
+.successful-sign-up-banner {
     width: 312px;
     height: 74px;
     background-color: #2A3647;
@@ -294,13 +294,15 @@ h1 {
     }
 
     .back-to-log-in-container{
-        left: 5%;
+        left: 3%;
         top: 6.7%;
     }
 
     .input-container input{
         width: 100%;
         background-position: 97%;
+        padding-right: 40px;
+        font-size: 14px;
     }
     
 }
@@ -349,8 +351,8 @@ h1 {
     }
 
     .back-to-log-in-container{
-        left: 10%;
-        top: 6.7%;
+        left: 5%;
+        top: 8.7%;
     }
 }
 
@@ -358,6 +360,11 @@ h1 {
     .sign-up-formular{
         padding: 9px 16px 9px 16px;
         gap: 20px;
+    }
+
+    .back-to-log-in-container{
+        left: 5%;
+        top: 5.7%;
     }
 }
 
@@ -379,7 +386,14 @@ h1 {
     }
 
     .back-to-log-in-container{
-        left: 7%;
+        left: 5%;
+    }
+    
+    .join-logo{
+        top: 20px;
+        left: 38px;
+        width: 64px;
+        height: 78px;
     }
 } 
 
