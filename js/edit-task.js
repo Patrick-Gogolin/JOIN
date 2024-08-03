@@ -20,7 +20,7 @@ function OpenEditTaskWindow(id) {
     console.log(emptyTask);
     content.innerHTML = /*html*/`
     <div class="popup-content-edit-task">
-        <img onclick="closeEditTaskOverlay('edit-task-popup')" class="close-overlayer-sign-edit-task" src="/img/cancel.svg" alt="Cross">
+        <img onclick="closeEditTaskOverlay('edit-task-popup')" class="close-overlayer-sign-edit-task" src="img/cancel.svg" alt="Cross">
         <div class="edit-task-content">
         <div class="title-input-container">
                 <span class="headline-input">Title<span class="red-star-required">*</span></span>
