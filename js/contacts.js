@@ -653,48 +653,6 @@ function addContact() {
   document.getElementById("add-contact-popup").classList.remove("d-none");
 }
 
-/**
- * Closes the popup and performs necessary animations and DOM manipulations.
- * @function closePopup
- * @returns {void}
- */
-function closePopup() {
-  checkForMobileMode();
-  document.getElementById("popup-content").classList.remove("animation");
-  document.getElementById("popup-content").classList.add("animation-close");
-  setTimeout(() => {
-    document.getElementById("add-contact-popup").classList.add("d-none");
-  }, 300);
-  if (document.getElementById("edit-contact-popup-content") != null) {
-    document
-      .getElementById("edit-contact-popup-content")
-      .classList.remove("animation");
-    document
-      .getElementById("edit-contact-popup-content")
-      .classList.add("animation-close");
-    setTimeout(() => {
-      document.getElementById("edit-contact-popup").classList.add("d-none");
-    }, 300);
-  }
-  if (document.getElementById("edit-user-popup-content") != null) {
-    document
-      .getElementById("edit-user-popup-content")
-      .classList.remove("animation");
-    document
-      .getElementById("edit-user-popup-content")
-      .classList.add("animation-close");
-    setTimeout(() => {
-      document.getElementById("edit-user-popup").classList.add("d-none");
-    }, 200);
-  }
-}
-
-/**
- * Prevents the event from bubbling up the DOM tree.
- */
-function doNotClose(event) {
-  event.stopPropagation();
-}
 
 /**
  * Generates the template for a contact list element.
@@ -764,106 +722,6 @@ function getABCSeparatorTemplate(letter) {
             </div>`;
 }
 
-/**
- * Checks for mobile mode and adjusts the display of contact list and contact info accordingly.
- */
-function checkForMobileMode() {
-  showMobileHeader();
-  giveAnimations();
-  let width = window.innerWidth;
-  let contactList = document.getElementById("contact-list-responsive");
-  let contactInfo = document.getElementById("contact-info");
-  if (width <= 800 && isSelected === true) {
-    contactList.style.display = "none";
-    contactInfo.style.display = "block";
-    contactInfo.style.width = "100%";
-  } else if (width <= 800 && isSelected === false) {
-    contactList.style.display = "block";
-    contactInfo.style.display = "none";
-    contactList.style.width = "100%";
-  } else {
-    contactInfo.style.display = "block";
-    contactList.style.display = "block";
-    contactInfo.style.width = "48%";
-  }
-}
-
-/**
- * Applies animations to specific elements based on the width of the window.
- */
-function giveAnimations() {
-  let elements = [
-    document.getElementById("animation-header"),
-    document.getElementById("animation-title"),
-    document.getElementById("animation-email-title"),
-    document.getElementById("animation-email"),
-    document.getElementById("animation-phone-title"),
-    document.getElementById("animation-phone"),
-  ];
-  let width = window.innerWidth;
-
-  elements.forEach((element) => {
-    if (element) {
-      if (width <= 800) {
-        element.classList.remove("animation");
-      } else {
-        element.classList.add("animation");
-      }
-    }
-  });
-}
-
-/**
- * Slides in the user feedback element.
- */
-function userFeedbackSlideIn() {
-  let feedback = document.getElementById("user-feedback");
-  feedback.style.animation = "slide-from-right 1000ms";
-  feedback.style.bottom = "3%";
-  feedback.style.left = "650px";
-  feedback.classList.remove("d-none");
-  setTimeout(() => {
-    feedback.style.animation = "slide-to-right 1000ms";
-  }, 2000);
-  setTimeout(() => {
-    feedback.classList.add("d-none");
-  }, 2900);
-}
-
-/**
- * Function to navigate back to the contact list.
- * @returns {void}
- */
-function backToList() {
-  if (window.innerWidth <= 800) {
-    isSelected = false;
-    document.getElementById("contact-list-responsive").style.display = "block";
-    document.getElementById("contact-info").style.display = "none";
-    if (document.getElementById("edit-more-options") !== null) {
-      document.getElementById("edit-more-options").style.display = "none";
-    }
-    document.querySelectorAll(".contact").forEach((element) => {
-      element.style.backgroundColor = "";
-      element.style.color = "";
-    });
-  }
-  checkForMobileMode();
-}
-
-/**
- * Shows or hides the mobile header based on the window width.
- */
-function showMobileHeader() {
-  let header = document.getElementById("contact-header");
-  let mobileHeader = document.getElementById("contact-mobile-header");
-  if (window.innerWidth <= 1220) {
-    header.classList.add("d-none");
-    mobileHeader.style.display = "flex";
-  } else {
-    header.classList.remove("d-none");
-    mobileHeader.style.display = "none";
-  }
-}
 
 /**
  * Displays the contact information and highlights the selected contact.
@@ -884,6 +742,7 @@ function showContactInfo(eachContact) {
   ).style.color = "white";
   showInfo(eachContact);
 }
+
 
 /**
  * Displays the contact information of a user and highlights the selected contact in the contact list.
@@ -1021,9 +880,162 @@ function getUserContactInfo() {
 }
 
 /**
- * Generates a random background color in RGB format.
- * @returns {string} The randomly generated background color in RGB format.
+ * Checks for mobile mode and adjusts the display of contact list and contact info accordingly.
  */
+function checkForMobileMode() {
+  showMobileHeader();
+  giveAnimations();
+  let width = window.innerWidth;
+  let contactList = document.getElementById("contact-list-responsive");
+  let contactInfo = document.getElementById("contact-info");
+  if (width <= 800 && isSelected === true) {
+    contactList.style.display = "none";
+    contactInfo.style.display = "block";
+    contactInfo.style.width = "100%";
+  } else if (width <= 800 && isSelected === false) {
+    contactList.style.display = "block";
+    contactInfo.style.display = "none";
+    contactList.style.width = "100%";
+  } else {
+    contactInfo.style.display = "block";
+    contactList.style.display = "block";
+    contactInfo.style.width = "48%";
+  }
+}
+
+/**
+ * Closes the popup and performs necessary animations and DOM manipulations.
+ * @function closePopup
+ * @returns {void}
+ */
+function closePopup() {
+  checkForMobileMode();
+  document.getElementById("popup-content").classList.remove("animation");
+  document.getElementById("popup-content").classList.add("animation-close");
+  setTimeout(() => {
+    document.getElementById("add-contact-popup").classList.add("d-none");
+  }, 300);
+  if (document.getElementById("edit-contact-popup-content") != null) {
+    document
+      .getElementById("edit-contact-popup-content")
+      .classList.remove("animation");
+    document
+      .getElementById("edit-contact-popup-content")
+      .classList.add("animation-close");
+    setTimeout(() => {
+      document.getElementById("edit-contact-popup").classList.add("d-none");
+    }, 300);
+  }
+  if (document.getElementById("edit-user-popup-content") != null) {
+    document
+      .getElementById("edit-user-popup-content")
+      .classList.remove("animation");
+    document
+      .getElementById("edit-user-popup-content")
+      .classList.add("animation-close");
+    setTimeout(() => {
+      document.getElementById("edit-user-popup").classList.add("d-none");
+    }, 200);
+  }
+}
+
+
+/**
+ * Prevents the event from bubbling up the DOM tree.
+ */
+function doNotClose(event) {
+  event.stopPropagation();
+}
+
+
+
+
+
+/**
+* Applies animations to specific elements based on the width of the window.
+*/
+function giveAnimations() {
+  let elements = [
+    document.getElementById("animation-header"),
+    document.getElementById("animation-title"),
+    document.getElementById("animation-email-title"),
+    document.getElementById("animation-email"),
+    document.getElementById("animation-phone-title"),
+    document.getElementById("animation-phone"),
+  ];
+  let width = window.innerWidth;
+
+  elements.forEach((element) => {
+    if (element) {
+      if (width <= 800) {
+        element.classList.remove("animation");
+      } else {
+        element.classList.add("animation");
+      }
+    }
+  });
+}
+
+
+/**
+* Slides in the user feedback element.
+*/
+function userFeedbackSlideIn() {
+  let feedback = document.getElementById("user-feedback");
+  feedback.style.animation = "slide-from-right 1000ms";
+  feedback.style.bottom = "3%";
+  feedback.style.left = "650px";
+  feedback.classList.remove("d-none");
+  setTimeout(() => {
+    feedback.style.animation = "slide-to-right 1000ms";
+  }, 2000);
+  setTimeout(() => {
+    feedback.classList.add("d-none");
+  }, 2900);
+}
+
+
+/**
+* Function to navigate back to the contact list.
+* @returns {void}
+*/
+function backToList() {
+  if (window.innerWidth <= 800) {
+    isSelected = false;
+    document.getElementById("contact-list-responsive").style.display = "block";
+    document.getElementById("contact-info").style.display = "none";
+    if (document.getElementById("edit-more-options") !== null) {
+      document.getElementById("edit-more-options").style.display = "none";
+    }
+    document.querySelectorAll(".contact").forEach((element) => {
+      element.style.backgroundColor = "";
+      element.style.color = "";
+    });
+  }
+  checkForMobileMode();
+}
+
+
+/**
+* Shows or hides the mobile header based on the window width.
+*/
+function showMobileHeader() {
+  let header = document.getElementById("contact-header");
+  let mobileHeader = document.getElementById("contact-mobile-header");
+  if (window.innerWidth <= 1220) {
+    header.classList.add("d-none");
+    mobileHeader.style.display = "flex";
+  } else {
+    header.classList.remove("d-none");
+    mobileHeader.style.display = "none";
+  }
+}
+
+
+/**
+* Generates a random background color in RGB format.
+* @returns {string} The randomly generated background color in RGB format.
+*/
 function random_bg_color() {
   var x = Math.floor(Math.random() * 256);
   var y = Math.floor(Math.random() * 256);
@@ -1032,14 +1044,16 @@ function random_bg_color() {
   return bgColor;
 }
 
+
 /**
- * Opens the edit options list by applying animation and changing the display style to flex.
- */
+* Opens the edit options list by applying animation and changing the display style to flex.
+*/
 function openEditOptions() {
   document.getElementById("edit-more-options-list").style.animation =
     "300ms move-in";
   document.getElementById("edit-more-options-list").style.display = "flex";
 }
+
 
 /**
  * Closes the edit options list by hiding it with an animation.
@@ -1056,6 +1070,7 @@ function closeEditOptions() {
     }, 300);
   }
 }
+
 
 document.addEventListener("DOMContentLoaded", function () {
   const mobileWidthPortrait = 768;

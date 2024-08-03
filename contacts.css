@@ -55,7 +55,7 @@
 
   @keyframes climb-up {
     from{
-        transform: translateY(500%);
+        transform: translateY(900%);
     }
 
     to{
@@ -69,13 +69,13 @@
     }
 
     to{
-        transform: translateY(500%);
+        transform: translateY(900%);
     }
   }
 
   @keyframes slide-from-right {
     from{
-        transform: translateX(500%);
+        transform: translateX(900%);
     }
 
     to{
@@ -89,7 +89,7 @@
     }
 
     to{
-        transform: translateX(500%);
+        transform: translateX(900%);
     }
   }
 
