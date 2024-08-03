@@ -35,12 +35,12 @@ body {
     position: relative;
     max-width: 1920px;
     margin: 0 auto;
-    min-height: 100vh;
+    min-height: 100svh;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    /* Ausgangsfarbe */
+    
 }
 
 .logo {
@@ -211,6 +211,7 @@ h1 {
 
 .email-input {
     padding: 12px 21px 12px 21px;
+    padding-right: 40px;
     background: url(img/mail-logo-for-input.svg);
     background-repeat: no-repeat;
     background-position: 380px;
@@ -418,6 +419,7 @@ h1 {
     .password-input {
         width: 260px;
         background-position: 225px;
+        font-size: 14px;
     }
 
     .remember-me-container {

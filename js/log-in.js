@@ -1,6 +1,10 @@
 const BASE_URL = "https://remotestorage-c5224-default-rtdb.europe-west1.firebasedatabase.app/"
+let isValidUser = false;
 
-
+/**
+ * This Function adds click Event Listener to the log-in and guest-log-in button 
+ * 
+ */
 document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('login-button').addEventListener('click', function() {
         logIn('/users');
@@ -11,26 +15,27 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
+/**
+ * This function is for the log-in of a user who has an account
+ * 
+ * @param {string} path  - Path which is added to the BASE URL 
+ */
+
 async function logIn(path = "") {
     let email = document.getElementById('email').value;
     let password = document.getElementById('password').value;
-    let isValidUser = false;
-
     let response = await fetch(BASE_URL + path + ".json");
     let responseToJson = await response.json();
-    console.log(responseToJson);
     let keys = Object.keys(responseToJson);
 
     for (let i = 0; i < keys.length; i++) {
         const key = keys[i];
         const userData = responseToJson[key];
 
-
         if(userData.email === email && userData.password === password){
             isValidUser = true;
             let user = JSON.stringify(userData);
             localStorage.setItem('user', user);
-            console.log(user);
             break
         }
     }
