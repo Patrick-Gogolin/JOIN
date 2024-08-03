@@ -50,13 +50,12 @@ async function getContacts(path = "") {
     let contactsContent = document.getElementById('show-assigned-contacts');
     let category = document.getElementById('selected-task-headline');
     let addSubtaskInputfield = document.getElementById('add-subtask-input-container-inputfield');
-    let content = document.getElementById('add-subtask-svg-container');
-    let cancelAndConfirm = document.getElementById('cancel-or-confirm-subtask-container');
-    content.classList.remove('d-none');
-    cancelAndConfirm.classList.add('d-none');
+    let searchInputfield = document.getElementById('search-contact-inputfield');
+    setSubtaskInputAreaToDefault();
     document.getElementById('overlayer').classList.add('d-none');
     document.body.style.overflow = 'auto';
-    resetAddTaskSlide(title, description, date, category, contactsContent, subtaskContent, addSubtaskInputfield);
+    resetAddTaskSlide(title, description, date, category, contactsContent, subtaskContent, addSubtaskInputfield, searchInputfield);
+    setSubtaskInputAreaToDefault();
 }
 
 async function addTask() {
@@ -66,46 +65,36 @@ async function addTask() {
     let date = document.getElementById('date');
     let contactsContent = document.getElementById('show-assigned-contacts');
     let category = document.getElementById('selected-task-headline');
-    let selectContactsContainer = document.getElementById('select-contacts-container');
-    let titleRequiredSpan = document.getElementById('title-required-span');
-    let dateRequiredSpan = document.getElementById('date-required-span');
-    let categoryRequiredSpan = document.getElementById('category-required-span');
     let addSubtaskInputfield = document.getElementById('add-subtask-input-container-inputfield');
-    let content = document.getElementById('add-subtask-svg-container');
-    let cancelAndConfirm = document.getElementById('cancel-or-confirm-subtask-container');
-    content.classList.remove('d-none');
-    cancelAndConfirm.classList.add('d-none');
+    let searchInputfield = document.getElementById('search-contact-inputfield');
     
-    checkField(title, titleRequiredSpan);
-    checkField(date, dateRequiredSpan);
-
-    if (category.innerHTML === "Select task category") {
-        selectContactsContainer.classList.add('this-field-required-border');
-        categoryRequiredSpan.classList.remove('d-none');
-    }
-
-    else {
-        selectContactsContainer.classList.remove('this-field-required-border');
-        categoryRequiredSpan.classList.add('d-none');
-    }
+    setSubtaskInputAreaToDefault();
+    messageIfRequiredFieldsAreNotFilled();
 
     if (title.value !== "" && date.value !== "" && category.innerHTML !== "Select task category") {
-        await postTask('/tasks/')
-        document.getElementById('task-successfull-created-container').classList.remove('d-none');
-        setTimeout(async function() {
-            closeOverlayer();
-            document.getElementById('task-successfull-created-container').classList.add('d-none');
-            resetAddTaskSlide(title, description, date, category, contactsContent, subtaskContent, addSubtaskInputfield);
-            await getTasks('/tasks');
-        }, 900);
-        }
+        await createTaskAndRefresh(title, description, date, category, contactsContent, subtaskContent, addSubtaskInputfield, searchInputfield);
+    }
 }
 
-function resetAddTaskSlide(title, description, date, category, contacts, subtasksContent, addSubtaskInputfield) {
+async function createTaskAndRefresh(title, description, date, category, contactsContent, subtaskContent, addSubtaskInputfield, searchInputfield) {
+    await postTask('/tasks/');
+    const successContainer = document.getElementById('task-successfull-created-container');
+    successContainer.classList.remove('d-none');
+    setTimeout(async () => {
+        closeOverlayer();
+        successContainer.classList.add('d-none');
+        resetAddTaskSlide(title, description, date, category, contactsContent, subtaskContent, addSubtaskInputfield, searchInputfield);
+        await getTasks('/tasks');
+    }, 900);
+}
+
+function resetAddTaskSlide(title, description, date, category, contacts, subtasksContent, addSubtaskInputfield, searchInputfield) {
+    resetRequiredFieldMessages();
     resetButtons();
     title.value = "";
     description.value = "";
     date.value = "";
+    searchInputfield.value = "";
     category.innerHTML = "Select task category";
     contacts.innerHTML = "";
     subtasksContent.innerHTML = "";
@@ -118,6 +107,25 @@ function resetAddTaskSlide(title, description, date, category, contacts, subtask
     subtasks.length = 0;
 }
 
+function setSubtaskInputAreaToDefault(){
+    let content = document.getElementById('add-subtask-svg-container');
+    let cancelAndConfirm = document.getElementById('cancel-or-confirm-subtask-container');
+    content.classList.remove('d-none');
+    cancelAndConfirm.classList.add('d-none');
+}
+
+function messageIfRequiredFieldsAreNotFilled() {
+    let titleRequiredSpan = document.getElementById('title-required-span');
+    let dateRequiredSpan = document.getElementById('date-required-span');
+    let categoryRequiredSpan = document.getElementById('category-required-span');
+    let selectContactsContainer = document.getElementById('select-contacts-container');
+    let category = document.getElementById('selected-task-headline');
+
+    checkField(title, titleRequiredSpan);
+    checkField(date, dateRequiredSpan);
+    checkCategoryField(category, categoryRequiredSpan, selectContactsContainer);
+}
+
 function checkField(field, requiredSpan) {
     if (field.value === '') {
         field.classList.add('this-field-required-border');
@@ -126,6 +134,26 @@ function checkField(field, requiredSpan) {
         requiredSpan.classList.add('d-none');
         field.classList.remove('this-field-required-border')
     }
+}
+
+function checkCategoryField(category, requiredSpan, container) {
+    if (category.innerHTML === "Select task category"){
+        container.classList.add('this-field-required-border');
+        requiredSpan.classList.remove('d-none');
+    }
+    else {
+        container.classList.remove('this-field-required-border');
+        requiredSpan.classList.add('d-none');
+    }
+}
+
+function resetRequiredFieldMessages() {
+    document.getElementById('title-required-span').classList.add('d-none');
+    document.getElementById('date-required-span').classList.add('d-none');
+    document.getElementById('category-required-span').classList.add('d-none');
+    document.getElementById('date').classList.remove('this-field-required-border');
+    document.getElementById('title').classList.remove('this-field-required-border');
+    document.getElementById('select-contacts-container').classList.remove('this-field-required-border');
 }
 
 function urgentPriority() {
@@ -144,7 +172,6 @@ function urgentPriority() {
     }
 
     urgentActive = !urgentActive;
-    console.log(priority);
 }
 
 function mediumPriority() {
@@ -163,7 +190,6 @@ function mediumPriority() {
     }
 
     mediumActive = !mediumActive;
-    console.log(priority);
 }
 
 function lowPriority() {
@@ -182,7 +208,6 @@ function lowPriority() {
     }
 
     lowActive = !lowActive;
-    console.log(priority);
 }
 
 function resetButtons() {
@@ -260,7 +285,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
     }
 });
 
-
 function renderSubtasks() {
     let content = document.getElementById('added-subtask-main-container');
     content.innerHTML = "";
@@ -332,13 +356,10 @@ function openSelectContactsContainer(event) {
     let assignedContacts = document.getElementById('show-assigned-contacts');
     let categoryContainer = document.getElementById('choose-category-container');
 
-    // Schließen Sie den Kategorie-Container, wenn er geöffnet ist
     if (assignCategoryContainer) {
         categoryContainer.classList.add('d-none');
         assignCategoryContainer = false;
     }
-
-    // Öffnen oder schließen Sie den Kontakte-Container
     if (!assignOptionsContactsContainer) {
         contactsContainer.classList.remove('d-none');
         assignOptionsContactsContainer = true;
@@ -358,15 +379,12 @@ function openSelectCategoryContainer(event) {
     let contactsContainer = document.getElementById('choose-contacts-container');
     let assignedContacts = document.getElementById('show-assigned-contacts');
 
-    // Schließen Sie den Kontakte-Container, wenn er geöffnet ist
     if (assignOptionsContactsContainer) {
         contactsContainer.classList.add('d-none');
         assignOptionsContactsContainer = false;
         renderAssignedContacts();
         assignedContacts.classList.remove('d-none');
     }
-
-    // Öffnen oder schließen Sie den Kategorie-Container
     if (!assignCategoryContainer) {
         categoryContainer.classList.remove('d-none');
         assignCategoryContainer = true;
@@ -376,7 +394,6 @@ function openSelectCategoryContainer(event) {
     }
 }
 
-// Schließen Sie die Container, wenn außerhalb davon geklickt wird
 document.addEventListener('click', function(event) {
     let contactsContainer = document.getElementById('choose-contacts-container');
     let categoryContainer = document.getElementById('choose-category-container');
@@ -403,7 +420,6 @@ function selectCategory(id, i) {
     container.classList.add('d-none');
     assignCategoryContainer = false;
     assignedCategory = category;
-    console.log(assignedCategory);
 }
 
 function renderContacts() {
@@ -621,13 +637,10 @@ function loadAndGetNameOfActiveUser() {
     let userAsText = localStorage.getItem('user');
     if (userAsText) {
         let user = JSON.parse(userAsText);
-        console.log(user);
         activeUser.push(user.name);
         activeUser.push(user.surname);
-        console.log(activeUser);
         let initials = activeUser.map(name => name.charAt(0));
         activeUserInitials = initials;
-        console.log(activeUserInitials);
 
         return user;
     } else {
@@ -665,41 +678,3 @@ async function postTask(path = "", data={}) {
     });
     return responseToJson = await response.json();
 }
-
-document.addEventListener('DOMContentLoaded', function() {
-    // Set default mobile width and height thresholds
-    const mobileWidthPortrait = 768;  // Width threshold for mobile portrait mode
-    const mobileHeightPortrait = 1024; // Height threshold for mobile portrait mode
-  
-    const mobileWidthLandscape = 1024; // Width threshold for mobile landscape mode
-    const mobileHeightLandscape = 768; // Height threshold for mobile landscape mode
-  
-    // Define a maximum width to distinguish between mobile and desktop
-    const maxMobileWidth = 932;  // This should be the upper limit for mobile devices
-  
-    // Function to check orientation and display the warning if needed
-    function checkOrientation() {
-      const isLandscape = window.innerWidth > window.innerHeight;
-  
-      // Check if the screen width is less than or equal to the maxMobileWidth
-      const isMobile = window.innerWidth <= maxMobileWidth;
-  
-      // Conditions for showing the warning
-      const isMobilePortrait = isMobile && window.innerWidth <= mobileWidthPortrait && window.innerHeight <= mobileHeightPortrait;
-      const isMobileLandscape = isMobile && window.innerWidth <= mobileWidthLandscape && window.innerHeight <= mobileHeightLandscape;
-  
-      // Show the warning if the device is in landscape mode and fits mobile dimensions
-      if (isLandscape && (isMobilePortrait || isMobileLandscape)) {
-        document.getElementById('landscape-warning').classList.add('visible');
-      } else {
-        document.getElementById('landscape-warning').classList.remove('visible');
-      }
-    }
-  
-    // Initial check
-    checkOrientation();
-  
-    // Check orientation on resize/orientation change
-    window.addEventListener('resize', checkOrientation);
-    window.addEventListener('orientationchange', checkOrientation);
-  });
