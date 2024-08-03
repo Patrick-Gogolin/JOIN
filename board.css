@@ -1325,6 +1325,7 @@ color: #29ABE2;
     }
 
     .content{
+        margin-top: 120px;
         margin-left: 0;
         padding: 0px 64px 140px 64px;
     }
