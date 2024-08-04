@@ -1233,3 +1233,29 @@ body:has(.back_img_boarder:hover) .back_img_boarder img{
     }
 }
 
+.contact-list {
+  --sb-track-color: #ffffff;
+  --sb-thumb-color: #a8a8a8;
+  --sb-size: 8px;
+}
+
+.contact-list::-webkit-scrollbar {
+  width: var(--sb-size);
+}
+
+.contact-list::-webkit-scrollbar-track {
+  background: var(--sb-track-color);
+  border-radius: 4px;
+}
+
+.contact-list::-webkit-scrollbar-thumb {
+  background: var(--sb-thumb-color);
+  border-radius: 4px;
+}
+
+@supports not selector(::-webkit-scrollbar) {
+    .contact-list {
+      scrollbar-color: var(--sb-thumb-color)
+                     var(--sb-track-color);
+  }
+}
