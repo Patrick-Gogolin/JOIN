@@ -11,25 +11,24 @@ body {
 }
 
 #landscape-warning {
-    display: none; /* Hidden by default */
+    display: none;
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.8); /* Semi-transparent black background */
+    background-color: rgba(0, 0, 0, 0.8);
     color: white;
     font-size: 1em;
     text-align: center;
-    line-height: 100vh; /* Center text vertically */
-    z-index: 9999; /* Ensure it is on top */
+    line-height: 100vh;
+    z-index: 9999;
   }
   
-  /* Show the warning when needed */
   #landscape-warning.visible {
     display: flex;
-    align-items: center; /* Center text vertically */
-    justify-content: center; /* Center text horizontally */
+    align-items: center;
+    justify-content: center;
   }
 
 .content {
@@ -104,7 +103,6 @@ body {
     justify-content: center;
     gap: 18px;
     transition: transform 100ms ease, background-color 100ms ease;
-    /* Transition für Transform und Hintergrundfarbe */
 }
 
 .todo img {
@@ -151,7 +149,6 @@ body {
     justify-content: center;
     gap: 18px;
     transition: transform 100ms ease, background-color 100ms ease;
-    /* Transition für Transform und Hintergrundfarbe */
 }
 
 .done img {
@@ -199,7 +196,6 @@ body {
     align-items: center;
     gap: 60px;
     transition: transform 100ms ease, background-color 100ms ease;
-    /* Transition für Transform und Hintergrundfarbe */
 }
 
 .urgency-item {
@@ -284,7 +280,6 @@ body {
     justify-content: center;
     gap: 13px;
     transition: transform 100ms ease, background-color 100ms ease;
-    /* Transition für Transform und Hintergrundfarbe */
 }
 
 .task-button-middle {
@@ -300,7 +295,6 @@ body {
     justify-content: center;
     gap: 13px;
     transition: transform 100ms ease, background-color 100ms ease;
-    /* Transition für Transform und Hintergrundfarbe */
 }
 
 .task-button-right {
@@ -316,7 +310,6 @@ body {
     justify-content: center;
     gap: 13px;
     transition: transform 100ms ease, background-color 100ms ease;
-    /* Transition für Transform und Hintergrundfarbe */
 }
 
 .task-numbers {
@@ -366,63 +359,45 @@ body {
 
 .todo:hover {
     transform: scale(1.1) translateX(8px);
-    /* Vergrößern bei Hover */
     cursor: pointer;
-    /* Zeiger-Cursor bei Hover */
     background-color: #2A3647;
-    /* Hintergrundfarbe bei Hover */
 }
 
 .done:hover {
     transform: scale(1.1) translateX(-8px);
-    /* Vergrößern bei Hover */
     cursor: pointer;
-    /* Zeiger-Cursor bei Hover */
     background-color: #2A3647;
-    /* Hintergrundfarbe bei Hover */
 }
 
 .task-button-left:hover {
     transform: scale(1.1) translateX(8px);
-    /* Vergrößern bei Hover */
     cursor: pointer;
-    /* Zeiger-Cursor bei Hover */
     background-color: #2A3647;
-    /* Hintergrundfarbe bei Hover */
 }
 
 .task-button-middle:hover {
     transform: scale(1.1);
-    /* Vergrößern bei Hover */
     cursor: pointer;
-    /* Zeiger-Cursor bei Hover */
     background-color: #2A3647;
-    /* Hintergrundfarbe bei Hover */
 }
 
 .task-button-right:hover {
     transform: scale(1.1) translateX(-8px);
-    /* Vergrößern bei Hover */
     cursor: pointer;
-    /* Zeiger-Cursor bei Hover */
     background-color: #2A3647;
-    /* Hintergrundfarbe bei Hover */
 }
 
 .todo:hover .edit-bg,
 .done:hover .done-bg {
     background-color: white;
-    /* Hintergrundfarbe der Edit- und Done-Hintergründe bei Hover */
 }
 
 .todo:hover .edit-bg svg path {
     fill: #2A3647;
-    /* Füllfarbe des SVG-Pfads bei Hover */
 }
 
 .done:hover .done-bg svg path {
     stroke: #2A3647;
-    /* Strichfarbe des SVG-Pfads bei Hover */
 }
 
 .todo:hover .todo-txt-container,
@@ -431,16 +406,12 @@ body {
 .urgency:hover .urgency-txt-container,
 .urgency:hover .date {
     color: white;
-    /* Textfarbe ändern, wenn .urgency gehovert wird */
 }
 
 .urgency:hover {
     transform: scale(1.02) translateY(8px) translateX(8px);
-    /* Vergrößern bei Hover */
     cursor: pointer;
-    /* Zeiger-Cursor bei Hover */
     background-color: #2A3647;
-    /* Hintergrundfarbe bei Hover */
 }
 
 .task-button-left:hover .task-numbers,
@@ -484,24 +455,20 @@ body {
 @media screen and (max-width: 1360px) {
     .greeting {
         font-size: 36px;
-        /* Adjust the size as needed */
     }
 
     .greeting-name {
         font-size: 48px;
-        /* Adjust the size as needed */
     }
 }
 
 @media screen and (max-width: 1270px) {
     .greeting {
         font-size: 30px;
-        /* Adjust the size as needed */
     }
 
     .greeting-name {
         font-size: 40px;
-        /* Adjust the size as needed */
     }
 }
 
@@ -570,9 +537,7 @@ body {
     #mobile-header,
     #mobile-sidebar {
         transition: opacity 1s ease-in-out;
-        /* Definiert die Transition für Opazität mit ease-in-out */
         opacity: 0;
-        /* Setzt die Opazität auf 0, um den Inhalt initial auszublenden */
     }
 }
 
