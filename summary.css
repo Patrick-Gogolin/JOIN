@@ -8,6 +8,7 @@ body {
     margin: 0;
     font-family: 'Inter';
     background-color: #F6F7F8;
+    overflow: hidden;
 }
 
 #landscape-warning {
