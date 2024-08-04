@@ -1,6 +1,3 @@
-
-
-
 /**
  * Closes the popup and performs necessary animations and DOM manipulations.
  * @function closePopup
@@ -23,14 +20,12 @@ function closePopup() {
   }
 }
 
-
 /**
  * Prevents the event from bubbling up the DOM tree.
  */
 function doNotClose(event) {
   event.stopPropagation();
 }
-
 
 /**
  * Applies animations to specific elements based on the width of the window.
@@ -56,7 +51,6 @@ function giveAnimations() {
   });
 }
 
-
 /**
  * Displays user feedback on the screen.
  */
@@ -79,7 +73,6 @@ function showUserFeedback() {
     }
   }
 
-
 /**
  * Slides in the user feedback element.
  */
@@ -96,7 +89,6 @@ function userFeedbackSlideIn() {
     feedback.classList.add("d-none");
   }, 2900);
 }
-
 
 /**
  * Function to navigate back to the contact list.
@@ -118,7 +110,6 @@ function backToList() {
   checkForMobileMode();
 }
 
-
 /**
  * Shows or hides the mobile header based on the window width.
  */
@@ -134,7 +125,6 @@ function showMobileHeader() {
   }
 }
 
-
 /**
  * Generates a random background color in RGB format.
  * @returns {string} The randomly generated background color in RGB format.
@@ -147,7 +137,6 @@ function random_bg_color() {
   return bgColor;
 }
 
-
 /**
  * Opens the edit options list by applying animation and changing the display style to flex.
  */
@@ -156,7 +145,6 @@ function openEditOptions() {
     "300ms move-in";
   document.getElementById("edit-more-options-list").style.display = "flex";
 }
-
 
 /**
  * Closes the edit options list by hiding it with an animation.
@@ -173,7 +161,6 @@ function closeEditOptions() {
     }, 300);
   }
 }
-
 
 document.addEventListener("DOMContentLoaded", function () {
   const mobileWidthPortrait = 768;

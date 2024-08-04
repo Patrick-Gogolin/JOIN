@@ -15,27 +15,29 @@ async function deleteContacts(contactID) {
     removeContactFromArray(contactID);
     await loadContacts();
   }
-  document.getElementById(
-    "contact-info"
-  ).innerHTML = `<div class="contact-info-header">
-      <div onclick="backToList()" class="back_img_boarder">
-      <img src="img/arrow-left-line.png" alt="">
-  </div>
-      <h1>Contacts</h1>
-      <div class="contact-info-header-separator"></div>
-      <span>Better with a team</span>
-      <div class="contact-info-header-separator-mobile"></div>
-      </div>`;
+  document.getElementById("contact-info").innerHTML = renderContactInfoSectionAfterDeleteContactHtml();
+  await updateTaskInBoard();
+  return await response.json();
+}
+
+/**
+ * Updates tasks on the board based on the indices of affected tasks.
+ * 
+ * This asynchronous function iterates over the list of affected task indices and updates each task
+ * by calling `updateTaskAfterDeleteOrUpdatedContact` with the appropriate task ID, data, and index.
+ * The function waits for each update operation to complete before proceeding to the next one.
+ * 
+ * @returns {Promise<void>} A promise that resolves when all tasks have been updated.
+ * 
+ * @throws {Error} If there is an issue with the `updateTaskAfterDeleteOrUpdatedContact` function or if there is a problem with the task data or indices.
+ * 
+ */
+async function updateTaskInBoard() {
   for (let i = 0; i < affectedTaskIndices.length; i++) {
     const task = affectedTaskIndices[i];
     const taskIndex = affectedTaskIndexArray[i];
-    await updateTaskAfterDeleteOrUpdatedContact(
-      `/tasks/${task}`,
-      data,
-      taskIndex
-    );
+    await updateTaskAfterDeleteOrUpdatedContact(`/tasks/${task}`,data,taskIndex);
   }
-  return await response.json();
 }
 
 /**
@@ -57,9 +59,6 @@ function removeContactFromTasks(tasksArray, contactName) {
       affectedTaskIndexArray.push(taskIndex);
     }
   });
-  console.log(allTasks);
-  console.log(affectedTaskIndices);
-  console.log(affectedTaskIndexArray);
   return affectedTaskIndices;
 }
 
@@ -80,9 +79,7 @@ async function updateTaskAfterDeleteOrUpdatedContact(path = "", data = {}, i) {
     subtasks: JSON.stringify(allTasks[i]["subtasks"]),
     doneSubtasks: JSON.stringify(allTasks[i]["doneSubtasks"]),
     assignedContacts: JSON.stringify(allTasks[i]["assignedContacts"]),
-    assignedContactsColors: JSON.stringify(
-      allTasks[i]["assignedContactsColors"]
-    ),
+    assignedContactsColors: JSON.stringify(allTasks[i]["assignedContactsColors"]),
     assignedContactsId: JSON.stringify(allTasks[i]["assignedContactsId"]),
     category: allTasks[i]["category"],
     status: allTasks[i]["status"],
@@ -116,19 +113,13 @@ function removeContactFromArray(contactID) {
 function editContact(eachContact) {
   closeEditOptions();
   document.getElementById("edit-contact-popup").classList.remove("d-none");
-  document.getElementById("edit-contact-popup").innerHTML =
-    getEditContactTemplate(eachContact);
+  document.getElementById("edit-contact-popup").innerHTML = getEditContactTemplate(eachContact);
   document.getElementById("editName").value = eachContact.contact.name;
   document.getElementById("editMail").value = eachContact.contact.email;
   document.getElementById("editPhone").value = eachContact.contact.phone;
-  document.getElementById(`contact-logo-${eachContact}`).style.backgroundColor =
-    eachContact.contact.color;
-  document
-    .getElementById("edit-contact-popup-content")
-    .classList.add("animation");
-  document
-    .getElementById("edit-contact-popup-content")
-    .classList.remove("animation-close");
+  document.getElementById(`contact-logo-${eachContact}`).style.backgroundColor = eachContact.contact.color;
+  document.getElementById("edit-contact-popup-content").classList.add("animation");
+  document.getElementById("edit-contact-popup-content").classList.remove("animation-close");
 }
 
 /**
@@ -143,12 +134,9 @@ function editUserAsContact() {
   document.getElementById("editNameUser").value = userName;
   document.getElementById("editMailUser").value = userEmail;
   document.getElementById("editPhoneUser").value = userPhone;
-  document.getElementById(`user-logo`).style.backgroundColor =
-    "rgb(41,171,226)";
+  document.getElementById(`user-logo`).style.backgroundColor = "rgb(41,171,226)";
   document.getElementById("edit-user-popup-content").classList.add("animation");
-  document
-    .getElementById("edit-user-popup-content")
-    .classList.remove("animation-close");
+  document.getElementById("edit-user-popup-content").classList.remove("animation-close");
 }
 
 /**
