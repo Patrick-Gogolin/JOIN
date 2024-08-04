@@ -146,6 +146,15 @@ function renderSingleContact(index, container) {
     container.innerHTML += renderContactsHtml(color, userName, userNameInitial, bgColor, checkBoxContacts, index);
 }
 
+/**
+ * Assigns or unassigns a task to the logged-in user.
+ *
+ * This function toggles the assignment of a task to the logged-in user based on the current state.
+ * If the user is not already assigned to the task, it marks the user as assigned and updates the relevant UI elements.
+ * If the user is already assigned, it unmarks the user and removes the task assignment.
+ *
+ * @param {number} i - The index or identifier for the task element.
+ */
 function assignTaskToLoggedInUser(i) {
     let container = document.getElementById(i);
     let loggedInUserName = document.getElementById('logged-in-user-name').innerHTML;
@@ -159,6 +168,17 @@ function assignTaskToLoggedInUser(i) {
     }
 }
 
+/**
+ * Marks the active user and assigns the task to them.
+ *
+ * This function visually marks the active user as assigned to a task, updates the assigned contacts array,
+ * and changes the checkbox to indicate that the task has been assigned to the active user.
+ *
+ * @param {HTMLElement} container - The HTML element representing the task container.
+ * @param {string} loggedInUserName - The name of the logged-in user.
+ * @param {number} i - The index or identifier for the task element.
+ * @param {HTMLElement} checkbox - The checkbox element representing the task assignment status.
+ */
 function markActiveUserAndAssignTaskToHim(container, loggedInUserName, i, checkbox)  {
     container.classList.add('bg-navy');
     assignedContactsColors.push(colorForActiveUser[0]);
@@ -167,6 +187,16 @@ function markActiveUserAndAssignTaskToHim(container, loggedInUserName, i, checkb
     checkbox.src = "img/filled-check-box-white.svg"
 }
 
+/**
+ * Unmarks the active user and removes the task assignment.
+ *
+ * This function visually unmarks the active user as assigned to a task, updates the assigned contacts array
+ * by removing the user, and changes the checkbox to indicate that the task has been unassigned from the active user.
+ *
+ * @param {HTMLElement} container - The HTML element representing the task container.
+ * @param {number} index - The index of the user in the assigned contacts arrays.
+ * @param {HTMLElement} checkbox - The checkbox element representing the task assignment status.
+ */
 function unmarkAndTakeTaskAway(container, index, checkbox) {
     container.classList.remove('bg-navy');
     assignedContactsColors.splice(index,1);
@@ -175,6 +205,15 @@ function unmarkAndTakeTaskAway(container, index, checkbox) {
     checkbox.src = "img/empty-check-box.svg"
 }
 
+/**
+ * Assigns or unassigns a task to a contact based on the current state.
+ *
+ * This function toggles the assignment of a task to a contact. It either marks the contact as assigned to the
+ * task if they are not currently assigned, or unmarks them if they are already assigned. It updates the visual
+ * representation and the assigned contacts arrays accordingly.
+ *
+ * @param {string} i - The ID of the HTML element representing the contact.
+ */
 function assignTaskToContact(i) {
     let container = document.getElementById(i);
     let contactName = document.getElementById(`assigned-contact-name${i}`).innerHTML;
@@ -188,6 +227,18 @@ function assignTaskToContact(i) {
     }
 }
 
+/**
+ * Marks a contact as assigned to the task and updates the visual representation.
+ *
+ * This function adds the contact to the list of assigned contacts and updates the associated visual elements
+ * to reflect this assignment. It modifies the contact container's background color and updates the checkbox
+ * to show the contact as selected. The contact's color, ID, and name are added to the respective arrays.
+ *
+ * @param {HTMLElement} container - The HTML element representing the contact container.
+ * @param {string} contactName - The name of the contact being assigned.
+ * @param {string} i - The ID of the contact.
+ * @param {HTMLImageElement} checkbox - The checkbox element indicating the assignment status.
+ */
 function markContactAndAssignTaskToHim(container, contactName, i, checkbox) {
     container.classList.add('bg-navy');
     assignedContactsColors.push(colors[i]);
@@ -196,6 +247,16 @@ function markContactAndAssignTaskToHim(container, contactName, i, checkbox) {
     checkbox.src = "img/filled-check-box-white.svg"
 }
 
+/**
+ * Returns the path to the checkbox image based on the assignment status of a contact.
+ *
+ * This function determines the appropriate image for a checkbox based on whether the contact ID is in the list
+ * of assigned contact IDs. It returns a path to either a filled or empty checkbox image, depending on the contact's
+ * assignment status.
+ *
+ * @param {string} id - The ID of the contact for which the checkbox image is to be determined.
+ * @returns {string} The path to the checkbox image (`img/filled-check-box-white.svg` or `img/empty-check-box.svg`).
+ */
 function renderCheckBox(id) {
     if(assignedContactsId.length === 0) {
         return "img/empty-check-box.svg";
@@ -208,6 +269,14 @@ function renderCheckBox(id) {
     }
 }
 
+/**
+ * Renders the list of assigned contacts in the assigned contacts container.
+ *
+ * This function updates the HTML content of the assigned contacts container by rendering
+ * each assigned contact with their initials and color. It retrieves the initials and color
+ * information for each assigned contact, clears the existing content in the container, and
+ * appends the new rendered HTML.
+ */
 function renderAssignedContacts() {
     getInitialsAssignedContactsId();
     let assignedContactsContainer = document.getElementById('show-assigned-contacts');
@@ -219,6 +288,17 @@ function renderAssignedContacts() {
     }
 }
 
+/**
+ * Searches for contacts based on the input value and updates the UI accordingly.
+ *
+ * This function performs a search operation based on the value entered in the search input field.
+ * It updates the display of contacts in the `select-contact-container` based on the search term.
+ * Additionally, it shows or hides various UI elements such as the contacts container and assigned contacts
+ * based on whether there is a search query. If a search query is present, it reveals the contacts container 
+ * and hides the assigned contacts. If no search query is present, it closes the contacts container and 
+ * displays assigned contacts.
+
+ */
 function searchContacts() {
     let search = document.getElementById('search-contact-inputfield').value.toLowerCase().trim();
     let content = document.getElementById('select-contact-container');
@@ -240,6 +320,19 @@ function searchContacts() {
     renderContactsAfterSearch(content, search);
 }
 
+/**
+ * Renders the active user in the UI if they are logged in and their name matches the search query.
+ *
+ * This function checks if there is an active user and if their name does not indicate a guest. 
+ * If an active user is found, it creates a display for the user based on their name and initials,
+ * and updates the UI to reflect the current state (e.g., assigned or not assigned). The active user's 
+ * details are rendered only if their name matches the search query. If the search query does not match, 
+ * the active user's container is cleared. If there is no active user or if the active user is a guest, 
+ * the container is hidden.
+ *
+ * @param {HTMLElement} activeUserContainer - The DOM element that displays the active user's information.
+ * @param {string} search - The search query used to filter the active user display.
+ */
 function renderActiveUserIfLoggedIn(activeUserContainer, search) {
     if (activeUser.length > 0 && activeUser[0] != "Guest") { 
         let activeUserUpdated = activeUser.join(" ");
@@ -259,6 +352,17 @@ function renderActiveUserIfLoggedIn(activeUserContainer, search) {
     }
 }
 
+/**
+ * Renders contact information in the UI based on the search query.
+ *
+ * This function iterates through all user names and displays contact information in the given container 
+ * (`content`) only for those contacts whose names match the search query. Each contact is displayed with 
+ * an associated checkbox, background color indicating whether they are assigned, and other relevant details.
+ * If a contact's name includes the search query (case-insensitive), the contact is added to the `content` container.
+ *
+ * @param {HTMLElement} content - The DOM element where the contact information will be rendered.
+ * @param {string} search - The search query used to filter the contacts displayed in the UI.
+ */
 function renderContactsAfterSearch(content, search) {
     for (let i = 0; i < userNames.length; i++) {
         let checkBox = renderCheckBox(i);
