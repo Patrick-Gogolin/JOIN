@@ -168,7 +168,7 @@ function searchContacts() {
     }
 
     renderActiveUserIfLoggedIn(activeUserContainer, search);
-    renderContacts(content, search);
+    renderContactsAfterSearch(content, search);
 }
 
 function renderActiveUserIfLoggedIn(activeUserContainer, search) {
@@ -190,7 +190,7 @@ function renderActiveUserIfLoggedIn(activeUserContainer, search) {
     }
 }
 
-function renderContacts(content, search) {
+function renderContactsAfterSearch(content, search) {
     for (let i = 0; i < userNames.length; i++) {
         let checkBox = renderCheckBox(i);
         const userName = userNames[i];
