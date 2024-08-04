@@ -1230,11 +1230,6 @@ color: #29ABE2;
     .state-of-task-container{
         position: fixed;
         top: 290px;
-        padding-left: 8px;
-        padding-right: 10px;
-        margin-left: -10px;
-        margin-right: 0px;
-        width: 280px;
     }
 
     .rendered-tasks-area-to-do, .rendered-tasks-area-in-progress, .rendered-tasks-area-await-feedback, .rendered-tasks-area-done {
@@ -1248,7 +1243,7 @@ color: #29ABE2;
     .header-board-container{
         width: 1124px;
         padding-right: 10px;
-        padding-left: 10px;
+        padding-left:10px;
     }
 
     .rendered-tasks-container{
