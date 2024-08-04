@@ -912,10 +912,7 @@ ul {
         width: 100%;
         z-index: 99;
     }
-
-    .seperator{
-        display: none;
-    }
+    
 
     .input-for-task{
         gap: 16px;
