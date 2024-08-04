@@ -1246,9 +1246,9 @@ color: #29ABE2;
     }
 
     .header-board-container{
-        width: 1114px;
+        width: 1124px;
         padding-right: 10px;
-        margin-left: 7px;
+        padding-left: 10px;
     }
 
     .rendered-tasks-container{
