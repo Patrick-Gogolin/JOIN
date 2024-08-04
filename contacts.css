@@ -115,7 +115,7 @@ body{
     color: white;
     font-size: 1em;
     text-align: center;
-    line-height: 100vh; /* Center text vertically */
+    line-height: 100svh; /* Center text vertically */
     z-index: 9999; /* Ensure it is on top */
   }
   
@@ -159,7 +159,7 @@ header{
 
 .popup-content {
     overflow: hidden;
-    height: 65vh;
+    height: 65svh;
     width: 75vw;
     max-width: 1212px;
     background-color: white;
@@ -420,11 +420,11 @@ body:has(.cancel:hover) .cancel img{
     background-color: white;
     overflow-y: auto;
     width: 38%;
-    max-height: 100vh;
+    max-height: 100svh;
 }
 
 .contact-info{
-    height: calc(100vh - 80px);
+    height: calc(100svh - 80px);
 }
 
 .animation{
@@ -988,7 +988,7 @@ body:has(.back_img_boarder:hover) .back_img_boarder img{
 
     .popup-content{
         flex-direction: column;
-        height: 82vh;
+        height: 82svh;
         width: 50vw;
         position: relative;
         align-items: center;
@@ -1056,7 +1056,7 @@ body:has(.back_img_boarder:hover) .back_img_boarder img{
     }
 
     .contact-list{
-        height: calc(100vh - 80px);
+        height: calc(100svh - 80px);
     }
 
 }
