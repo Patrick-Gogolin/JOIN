@@ -934,6 +934,7 @@ ul {
         width: 100%;
         left: calc((100% - 443px) / 2);
         z-index: 50;
+        top: 80px;
     }
 }
 
@@ -1011,6 +1012,10 @@ ul {
 
     html{
         scrollbar-width: none;
+    }
+
+    .input-for-task{
+        margin-bottom: 172px;
     }
 }
 
