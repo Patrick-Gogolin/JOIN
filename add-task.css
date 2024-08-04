@@ -965,7 +965,7 @@ ul {
 @media screen and (max-width:462px) {
     .add-task-headlinde-container{
         top: 44px;
-        left: calc((100% - 302px) / 2);
+        left: calc((100% - 315px) / 2);
     }
 
     .add-task-headlinde-container h1{
