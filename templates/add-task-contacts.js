@@ -1,3 +1,14 @@
+/**
+ * Toggles the visibility of the select contacts container.
+ *
+ * This function handles the opening and closing of the container for selecting contacts. It stops the propagation
+ * of the click event to prevent unintended side effects. It also ensures that the category container is hidden
+ * if it is currently open. Depending on the current state of the contacts container, it either opens or closes it.
+ *
+ * @param {Event} event - The click event that triggered the function. The event propagation is stopped to prevent the event from bubbling up to parent elements.
+ */
+
+
 function openSelectContactsContainer(event) {
     event.stopPropagation();
     let categoryContainer = document.getElementById('choose-category-container');
@@ -13,6 +24,16 @@ function openSelectContactsContainer(event) {
     }
 }
 
+/**
+ * Toggles the visibility of the select contacts container and handles category container visibility.
+ *
+ * This function manages the display state of the container used to select contacts. It stops the propagation of the
+ * click event to prevent other event handlers from executing. It ensures that the category selection container is
+ * closed if it is open. Then, it toggles the visibility of the contacts selection container based on its current state.
+ *
+ * @param {Event} event - The click event that triggered the function. The event propagation is stopped to prevent
+ *                        the event from bubbling up to parent elements.
+ */
 function openContactsContainerToAssign() {
     let contactsContainer = document.getElementById('choose-contacts-container');
     let assignedContacts = document.getElementById('show-assigned-contacts');
@@ -22,6 +43,13 @@ function openContactsContainerToAssign() {
     assignedContacts.classList.add('d-none');
 }
 
+/**
+ * Closes the contacts selection container and updates the assigned contacts display.
+ *
+ * This function hides the contacts selection container and sets the corresponding state variable to false.
+ * It then calls the `renderAssignedContacts` function to update the displayed list of assigned contacts
+ * and ensures that the assigned contacts container is visible.
+ */
 function closeContactsContainerToAssign() {
     let contactsContainer = document.getElementById('choose-contacts-container');
     let assignedContacts = document.getElementById('show-assigned-contacts');
@@ -31,6 +59,14 @@ function closeContactsContainerToAssign() {
     assignedContacts.classList.remove('d-none');
 }
 
+/**
+ * Renders the active user and contacts into their respective containers.
+ *
+ * This function clears the inner HTML of the active user and contact containers. 
+ * If there is an active user that is not a guest, it calls `renderActiveUserAndContacts` 
+ * to display the active user and their contacts. Otherwise, it iterates over all contacts 
+ * and renders each one individually using `renderSingleContact`.
+ */
 function renderContacts() {
     let activeUserContainer = document.getElementById('active-user-container');
     let container = document.getElementById('select-contact-container');
@@ -47,6 +83,17 @@ function renderContacts() {
     }
 }
 
+/**
+ * Renders the active user and their contacts into the provided containers.
+ *
+ * This function makes the active user container visible and updates the active user's
+ * name and initials. It then iterates over the active user array to render the active user,
+ * followed by iterating over all contacts to render each one individually.
+ *
+ * @param {HTMLElement} activeUserContainer - The container element for displaying the active user.
+ * @param {HTMLElement} container - The container element for displaying the contacts.
+ */
+
 function renderActiveUserAndContacts(activeUserContainer, container) {
     activeUserContainer.classList.remove('d-none');
     let activeUserUpdated = [activeUser.join(" ")];
@@ -61,6 +108,18 @@ function renderActiveUserAndContacts(activeUserContainer, container) {
     }
 }
 
+/**
+ * Renders the active user's information into the specified container.
+ *
+ * This function generates the HTML content for the active user based on their name,
+ * initials, and other properties. It also determines the background color for the active
+ * user container based on whether the active user is included in the assigned contacts.
+ *
+ * @param {number} y - The index of the active user in the activeUserUpdated array.
+ * @param {string[]} activeUserUpdated - An array containing the active user's updated name.
+ * @param {HTMLElement} activeUserContainer - The container element for displaying the active user.
+ * @param {string[]} activeUserInitialsUpdated - An array containing the active user's updated initials.
+ */
 function renderActiveUser(y, activeUserUpdated, activeUserContainer, activeUserInitialsUpdated) {
     const activeUserName = activeUserUpdated[y];
     let checkBox = renderCheckBox("logged-in-user");
@@ -68,6 +127,16 @@ function renderActiveUser(y, activeUserUpdated, activeUserContainer, activeUserI
     activeUserContainer.innerHTML = renderActiveUserHtml(activeUserName, activeUserInitialsUpdated, y, checkBox, bgColor, colorForActiveUser);
 }
 
+/**
+ * Renders a single contact's information into the specified container.
+ *
+ * This function generates the HTML content for a contact based on their color,
+ * name, initials, and other properties. It also determines the background color for
+ * the contact container based on whether the contact is included in the assigned contacts.
+ *
+ * @param {number} index - The index of the contact in the contacts array.
+ * @param {HTMLElement} container - The container element for displaying the contact.
+ */
 function renderSingleContact(index, container) {
     const color = colors[index];
     const userName = userNames[index];
