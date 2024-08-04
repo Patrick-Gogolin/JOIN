@@ -11,7 +11,7 @@ function renderContactInfoSectionAfterDeleteContactHtml() {
       </div>`;
 }
 
-function renderEditUserTemplateHtml(initials, activeUserInContacts, id) {
+function renderEditUserTemplateHtml(initials, activeUserInContacts) {
     return /*html*/`
     <div id="edit-user-popup-content" class="popup-content animation" onclick="doNotClose(event)">
               <div class="popup-left">
