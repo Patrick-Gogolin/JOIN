@@ -942,7 +942,7 @@ ul {
     .add-task-headlinde-container{
         position: fixed;
         top: 82px;
-        left: 0;
+        left: 40px;
         padding: 0;
         width: 100%;
         background: #F6F7F8;
@@ -950,6 +950,7 @@ ul {
         height: 128px;
         display: flex;
         align-items: end;
+
     }
 
     .add-task-headlinde-container h1{
