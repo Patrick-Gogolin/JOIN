@@ -7,12 +7,16 @@
 body {
     font-family: 'Inter';
     background-color: #F6F7F8;
-    overflow-y: hidden;
 }
 
 .header-shadow{
     position: fixed;
     width: 100%;
+    z-index: 2;
+}
+
+.sidebar-container{
+    z-index: 2;
 }
 
 input,
@@ -676,6 +680,13 @@ h1 {
     margin-bottom: 48px;
     gap: 32px;
     flex-wrap: wrap;
+    position: fixed;
+    top: 96px;
+    background: #F6F7F8;
+    width: 71.5%;
+    z-index: 1;
+    padding-top: 80px;
+    padding-bottom: 41px;
 }
 
 .search-and-add-task-container {
@@ -738,7 +749,7 @@ h1 {
     padding-bottom: 20px;
     position: sticky;
     position:-webkit-sticky;
-    top: 0;
+    top: -1;
     z-index: 10;
     background: rgb(246,247,248);
     width: 270px;
@@ -760,6 +771,7 @@ h1 {
     gap: 32px;
     overflow: scroll;
     scrollbar-width: none;
+    margin-top: 120px;
 
 }
 
@@ -771,7 +783,7 @@ h1 {
     display: flex;
     flex-direction: column;
     gap: 18px;
-    height: calc(100vh - 355px);
+    height: 100%;
     background-color: #F6F7F8;
     border-radius: 24px;
     overflow: visible;
@@ -1276,8 +1288,12 @@ color: #29ABE2;
 
 @media screen and (max-width: 1240px) {
 
+    body{
+        overflow: hidden;
+    }
     .rendered-tasks-container{
         height: calc(100vh - 490px);
+        margin-top: 0;
     }
     
     .search-and-add-task-container button{
@@ -1377,6 +1393,13 @@ color: #29ABE2;
 
     .clear-and-create-task-button-container{
         position: unset;
+    }
+
+    .header-board-container{
+        position: unset;
+        width: unset;
+        padding-top: 0;
+        padding-bottom: 0;
     }
 
 }
