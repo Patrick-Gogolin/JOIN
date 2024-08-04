@@ -1,3 +1,8 @@
+.content-center {
+    display: flex;
+    justify-content: center;
+}
+
 .add-task-slide {
     margin-left: 232px;
     display: flex;
@@ -1037,3 +1042,8 @@ ul {
     justify-content: center; /* Center text horizontally */
   }
 
+  @media screen and (min-width: 2500px) {
+    .add-task-slide {
+        margin-left: 0px;
+}
+  }
