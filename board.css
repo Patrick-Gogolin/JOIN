@@ -865,7 +865,7 @@ h1 {
     gap: 24px;
     cursor: pointer;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transition: .3s ease-in-out;
+    transition: 100ms ease-in-out;
 }
 
 .task-container:hover {
