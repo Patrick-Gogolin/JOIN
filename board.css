@@ -986,7 +986,7 @@ body{
     background-color: white;
     max-width: 525px;
     width: 95%;
-    max-height: 85vh;
+    max-height: 85svh;
     border-radius: 30px;
     padding: 48px 40px 48px 40px; 
     display: flex;
@@ -1239,6 +1239,10 @@ color: #29ABE2;
     .task-up-and-down{
         display: none;
     }
+
+    .header-board-container{
+        width: 1104px;
+    }
 }
 
 @media screen and (max-width: 1536px) {
@@ -1246,7 +1250,7 @@ color: #29ABE2;
     .rendered-tasks-container{
         flex-direction: column;
         overflow-y: scroll;
-        height: calc(100vh - 320px);
+        height: calc(100svh - 320px);
         scrollbar-width: none;
     }
 
@@ -1292,7 +1296,7 @@ color: #29ABE2;
         overflow: hidden;
     }
     .rendered-tasks-container{
-        height: calc(100vh - 490px);
+        height: calc(100svh - 490px);
         margin-top: 0;
     }
     
@@ -1506,7 +1510,7 @@ color: #29ABE2;
 
 @media screen and (max-height: 900px) {
     .add-task-slide{
-        height: 95vh;
+        height: 95svh;
         overflow: scroll;
         scrollbar-width: none;
     }
@@ -1522,7 +1526,7 @@ color: #29ABE2;
     }
 
     .rendered-tasks-container{
-        height:calc(100vh - 400px);
+        height:calc(100svh - 400px);
     }
 }
 
@@ -1543,7 +1547,7 @@ color: #29ABE2;
     }
 
     .rendered-tasks-container{
-        height: calc(100vh - 360px);
+        height: calc(100svh - 360px);
     }
 
     .task-card-footer{
@@ -1559,17 +1563,17 @@ color: #29ABE2;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.8); /* Semi-transparent black background */
+    background-color: rgba(0, 0, 0, 0.8);
     color: white;
     font-size: 1em;
     text-align: center;
-    line-height: 100vh; /* Center text vertically */
-    z-index: 9999; /* Ensure it is on top */
+    line-height: 100svh;
+    z-index: 9999;
   }
   
-  /* Show the warning when needed */
+ 
   #landscape-warning.visible {
     display: flex;
-    align-items: center; /* Center text vertically */
-    justify-content: center; /* Center text horizontally */
+    align-items: center;
+    justify-content: center;
   }
