@@ -22,6 +22,12 @@ let assignedContactsId = [];
 let assignedContactsColors =[];
 let statusOfTask = null;
 
+/**
+ * Fetches contact data from the specified path and processes the data to populate contacts and related arrays.
+ *
+ * @param {string} [path=""] - The path added to the BASE URL to fetch the contact data.
+ * @returns {Promise<void>} A promise that resolves once the contact data is fetched and processed.
+ */
 async function getContacts(path = "") {
     let response = await fetch(BASE_URL + path + ".json");
     let responseToJson = await response.json();
@@ -42,6 +48,9 @@ async function getContacts(path = "") {
     sortAlphabetically();
 }
 
+/**
+ * Closes the task overlay and resets all input fields.
+ */
  function closeOverlayer() {
     let subtaskContent = document.getElementById('added-subtask-main-container');
     let title = document.getElementById('title');
@@ -57,6 +66,10 @@ async function getContacts(path = "") {
     setSubtaskInputAreaToDefault();
 }
 
+/**
+ * Adds a new task and refreshes the task list.
+ * 
+ */
 async function addTask() {
     let subtaskContent = document.getElementById('added-subtask-main-container');
     let title = document.getElementById('title');
@@ -75,6 +88,18 @@ async function addTask() {
     }
 }
 
+/**
+ * Creates a new task and refreshes the task list.
+ * 
+ * @param {HTMLElement} title - The title input element for the new task.
+ * @param {HTMLElement} description - The description input element for the new task.
+ * @param {HTMLElement} date - The date input element for the new task.
+ * @param {HTMLElement} category - The category display element for the new task.
+ * @param {HTMLElement} contactsContent - The contacts display element for the new task.
+ * @param {HTMLElement} subtaskContent - The subtask container element for the new task.
+ * @param {HTMLElement} addSubtaskInputfield - The input field for adding subtasks.
+ * @param {HTMLElement} searchInputfield - The input field for searching contacts.
+ */
 async function createTaskAndRefresh(title, description, date, category, contactsContent, subtaskContent, addSubtaskInputfield, searchInputfield) {
     await postTask('/tasks/');
     const successContainer = document.getElementById('task-successfull-created-container');
@@ -87,6 +112,18 @@ async function createTaskAndRefresh(title, description, date, category, contacts
     }, 900);
 }
 
+/**
+ * Resets the add task slide to its default state.
+ * 
+ * @param {HTMLElement} title - The title input element to be reset.
+ * @param {HTMLElement} description - The description input element to be reset.
+ * @param {HTMLElement} date - The date input element to be reset.
+ * @param {HTMLElement} category - The category display element to be reset.
+ * @param {HTMLElement} contacts - The contacts display element to be reset.
+ * @param {HTMLElement} subtasksContent - The subtask container element to be reset.
+ * @param {HTMLElement} addSubtaskInputfield - The input field for adding subtasks to be reset.
+ * @param {HTMLElement} searchInputfield - The input field for searching contacts to be reset.
+ */
 function resetAddTaskSlide(title, description, date, category, contacts, subtasksContent, addSubtaskInputfield, searchInputfield) {
     resetRequiredFieldMessages();
     resetButtons();
@@ -106,6 +143,10 @@ function resetAddTaskSlide(title, description, date, category, contacts, subtask
     subtasks.length = 0;
 }
 
+/**
+ * Resets the subtask input area to its default state.
+ *
+ */
 function setSubtaskInputAreaToDefault(){
     let content = document.getElementById('add-subtask-svg-container');
     let cancelAndConfirm = document.getElementById('cancel-or-confirm-subtask-container');
@@ -113,6 +154,10 @@ function setSubtaskInputAreaToDefault(){
     cancelAndConfirm.classList.add('d-none');
 }
 
+/**
+ * Displays error messages if required fields are not filled.
+ * 
+ */
 function messageIfRequiredFieldsAreNotFilled() {
     let titleRequiredSpan = document.getElementById('title-required-span');
     let dateRequiredSpan = document.getElementById('date-required-span');
@@ -125,6 +170,12 @@ function messageIfRequiredFieldsAreNotFilled() {
     checkCategoryField(category, categoryRequiredSpan, selectContactsContainer);
 }
 
+/**
+ * Checks if a field is empty and toggles the required error message.
+ *
+ * @param {HTMLElement} field - The input field to be checked.
+ * @param {HTMLElement} requiredSpan - The span element that displays the required error message.
+ */
 function checkField(field, requiredSpan) {
     if (field.value === '') {
         field.classList.add('this-field-required-border');
@@ -155,6 +206,13 @@ function resetRequiredFieldMessages() {
     document.getElementById('select-contacts-container').classList.remove('this-field-required-border');
 }
 
+/**
+ * Checks if the category field is set to the default value and toggles the required error message.
+ *
+ * @param {HTMLElement} category - The element displaying the selected category.
+ * @param {HTMLElement} requiredSpan - The span element that displays the required error message.
+ * @param {HTMLElement} container - The container element that wraps the category selection.
+ */
 function openSelectCategoryContainer(event) {
     event.stopPropagation();
     let categoryContainer = document.getElementById('choose-category-container');
@@ -171,6 +229,14 @@ function openSelectCategoryContainer(event) {
     }
 }
 
+/**
+ * Handles click events on the document to close the contacts and category containers if the click is outside of them.
+ *
+ * This function adds an event listener to the document that listens for click events. 
+ * If the click is outside the contacts or category containers, the corresponding containers are closed.
+ *
+ * @param {MouseEvent} event - The click event triggered on the document.
+ */
 document.addEventListener('click', function(event) {
     let contactsContainer = document.getElementById('choose-contacts-container');
     let categoryContainer = document.getElementById('choose-category-container');
@@ -185,6 +251,12 @@ document.addEventListener('click', function(event) {
     }
 });
 
+/**
+ * Selects a category from the given category container and updates the category display.
+ *
+ * @param {string} id - The ID of the element containing the selected category's name.
+ * @param {string} i - The ID of the element where the selected category should be displayed.
+ */
 function selectCategory(id, i) {
     let container = document.getElementById('choose-category-container');
     category = document.getElementById(id).innerHTML;
@@ -195,6 +267,10 @@ function selectCategory(id, i) {
     assignedCategory = category;
 }
 
+/**
+ * Generates initials for each contact name in the `assignedContactsNames` array and stores them in the `assignedContactsInitials` array.
+ * 
+ */
 function getInitialsAssignedContactsId() {
         assignedContactsInitials.length = 0;
         assignedContactsNames.map(name => {
@@ -204,6 +280,11 @@ function getInitialsAssignedContactsId() {
     });
 }
 
+/**
+ * Generates initials for each name in the `userNames` array and stores them in the `userNamesInitials` array.
+ *
+ * @returns {string[]} An array of initials corresponding to the names in `userNames`.
+ */
 function getInitials() {
         userNames.map(name => {
         let nameParts = name.split(/[\s-]+/);
@@ -213,6 +294,10 @@ function getInitials() {
     });
 }
 
+/**
+ * Sorts the `userNames`, `userNamesInitials`, and `colors` arrays alphabetically based on the names in the `userNames` array.
+ * 
+ */
 function sortAlphabetically() {
     let combinedArray = userNames.map((name, index) => {
         return { name: name, initial: userNamesInitials[index], color: colors[index] };
@@ -224,6 +309,11 @@ function sortAlphabetically() {
     colors = sortedCombinedArray.map(item => item.color);
 }
 
+/**
+ * Loads the active user's information from local storage and updates related variables.
+ *
+ * @returns {Object|null} The user object if found, otherwise `null`.
+ */
 function loadAndGetNameOfActiveUser() {
     let userAsText = localStorage.getItem('user');
     if (userAsText) {
@@ -239,6 +329,13 @@ function loadAndGetNameOfActiveUser() {
     }
 }
 
+/**
+ * Sends a POST request to create a new task with the specified data.
+ *
+ * @param {string} [path=""] - The endpoint path where the POST request is sent. This should be the relative URL  to the task resource on the server.
+ * @param {Object} [data={}] - An optional object with additional data to be sent with the request. If provided,it will be merged with the default data.
+ * @returns {Promise<Object>} A promise that resolves to the JSON response from the server.
+ */
 async function postTask(path = "", data={}) {
     let taskTitle = document.getElementById('title').value;
     let taskDescription = document.getElementById('description-of-task').value;
