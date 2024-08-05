@@ -155,8 +155,7 @@ function closeEditOptions() {
       "300ms move-out";
     setTimeout(() => {
       if (document.getElementById("edit-more-options-list") !== null) {
-        document.getElementById("edit-more-options-list").style.display =
-          "none";
+        document.getElementById("edit-more-options-list").style.display = "none";
       }
     }, 300);
   }
@@ -175,14 +174,8 @@ document.addEventListener("DOMContentLoaded", function () {
   function checkOrientation() {
     const isLandscape = window.innerWidth > window.innerHeight;
     const isMobile = window.innerWidth <= maxMobileWidth;
-    const isMobilePortrait =
-      isMobile &&
-      window.innerWidth <= mobileWidthPortrait &&
-      window.innerHeight <= mobileHeightPortrait;
-    const isMobileLandscape =
-      isMobile &&
-      window.innerWidth <= mobileWidthLandscape &&
-      window.innerHeight <= mobileHeightLandscape;
+    const isMobilePortrait = isMobile && window.innerWidth <= mobileWidthPortrait && window.innerHeight <= mobileHeightPortrait;
+    const isMobileLandscape = isMobile && window.innerWidth <= mobileWidthLandscape && window.innerHeight <= mobileHeightLandscape;
     if (isLandscape && (isMobilePortrait || isMobileLandscape)) {
       document.getElementById("landscape-warning").classList.add("visible");
     } else {
