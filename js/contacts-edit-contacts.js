@@ -113,7 +113,7 @@ function removeContactFromArray(contactID) {
 function editContact(eachContact) {
   closeEditOptions();
   document.getElementById("edit-contact-popup").classList.remove("d-none");
-  document.getElementById("edit-contact-popup").innerHTML = getEditContactTemplate(eachContact);
+  getEditContactTemplate(eachContact);
   document.getElementById("editName").value = eachContact.contact.name;
   document.getElementById("editMail").value = eachContact.contact.email;
   document.getElementById("editPhone").value = eachContact.contact.phone;
@@ -130,7 +130,7 @@ function editUserAsContact() {
   let userName = user.name + " " + user.surname;
   let userPhone = user.phone;
   document.getElementById("edit-user-popup").classList.remove("d-none");
-  document.getElementById("edit-user-popup").innerHTML = getEditUserTemplate();
+  getEditUserTemplate();
   document.getElementById("editNameUser").value = userName;
   document.getElementById("editMailUser").value = userEmail;
   document.getElementById("editPhoneUser").value = userPhone;
@@ -145,27 +145,8 @@ function editUserAsContact() {
  */
 function getEditUserTemplate() {
   let initials = getUserInitials();
-  return `<div id="edit-user-popup-content" class="popup-content animation" onclick="doNotClose(event)">
-              <div class="popup-left">
-                  <div onclick="closePopup()" class="back-icon-white-boarder"><img class="back-icon-white" src="img/close_white.png" alt=""></div>
-                  <img class="join-logo" src="img/capa_2.png" alt="">
-                  <h1>Edit contact</h1>
-                  <div class="blue-line"></div>
-              </div>
-              <div id="user-logo" class="edit-contact-logo">${initials}</div>
-              <div class="popup-right">
-                  <div onclick="closePopup()" class="back-icon-boarder"><img class="back-icon" src="img/x.svg" alt=""></div>
-                  <form class="form" onsubmit="submitEditUserForm('${activeUserInContacts.id}'); return false;">
-                      <input id="editNameUser" class="add-contact-input-name" placeholder="Vor und Nachname" type="text" required>
-                      <input id="editMailUser" class="add-contact-input-mail" placeholder="Email" type="email" required>
-                      <input id="editPhoneUser" class="add-contact-input-tel" placeholder="Phone" type="tel" required>
-                      <div class="add-contact-form-buttons">
-                      <button type="button" class="cancel" onclick= "closePopup()">Close<img src="img/x.svg" alt=""></button>
-                      <button type="submit" class="create">Save<img src="img/check.png" alt=""></button>
-                      </div>
-                  </form>
-              </div>
-          </div>`;
+  let template = renderEditUserTemplateHtml(initials, activeUserInContacts);
+  document.getElementById('edit-user-popup').innerHTML = template;
 }
 
 /**
@@ -173,19 +154,18 @@ function getEditUserTemplate() {
  * @async
  */
 async function submitEditUserForm() {
-  let contactName = activeUserInContacts.contact.name;
-  updateContactNameFromTasks(allTasks, contactName, "editNameUser");
-  let { name, surname, email, phone } = getUserFormData();
-  let id = activeUserInContacts.id;
-  let password = activeUserInContacts.contact.password;
-  let data = createUserData(id, name, surname, email, phone, password);
-  updateUserDetailsInMemory(id, name, surname, email, phone, password);
-  localStorage.setItem("user", JSON.stringify(user));
-  document.getElementById("edit-user-popup").classList.add("d-none");
+let contactName = activeUserInContacts.contact.name;
+updateContactNameFromTasks(allTasks, contactName, "editNameUser");
+let { name, surname, email, phone } = getUserFormData();
+let id = activeUserInContacts.id;
+let password = activeUserInContacts.contact.password;
+let data = createUserData(id, name, surname, email, phone, password);
+updateUserDetailsInMemory(id, name, surname, email, phone, password);
+localStorage.setItem("user", JSON.stringify(user));
+document.getElementById("edit-user-popup").classList.add("d-none");
 updateUserAndLoadData(id, data);
 updateTasks(data);
 }
-
 
 /**
  * Retrieves user form data from the DOM.
@@ -201,7 +181,6 @@ function getUserFormData() {
   
     return { name, surname, email, phone };
   }
-
 
 /**
  * Creates a user data object.
@@ -225,7 +204,6 @@ function createUserData(id, name, surname, email, phone, password) {
     };
   }
 
-
 /**
  * Updates the user details in memory.
  *
@@ -244,7 +222,6 @@ function updateUserDetailsInMemory(id, name, surname, email, phone, password) {
     user.id = id;
     user.password = password;
   }
-
   
 /**
  * Updates the user data and loads the updated data.
@@ -297,7 +274,6 @@ async function submitEditContactForm(event, contactID) {
     await updateTasks(data);
 }
 
-
 /**
  * Retrieves the contact form data from the input fields.
  * @returns {Object} An object containing the name, email, and phone of the contact.
@@ -307,8 +283,7 @@ function getContactFormData() {
     let email = document.getElementById("editMail").value;
     let phone = document.getElementById("editPhone").value;
     return { name, email, phone };
-  }
-
+}
 
 /**
  * Creates an updated contact object with the specified properties.
@@ -326,8 +301,7 @@ function createUpdatedContact(name, email, phone, color) {
       phone: phone,
       color: color,
     };
-  }
-
+}
 
 /**
  * Retrieves the color of a contact based on the contact ID.
@@ -337,8 +311,7 @@ function createUpdatedContact(name, email, phone, color) {
 function getContactColor(contactID) {
     let indexOfContact = contacts.findIndex((obj) => obj.id === contactID);
     return contacts[indexOfContact].contact.color;
-  }
-
+}
 
 /**
  * Updates a contact with the given contact ID and updated contact information.
@@ -359,7 +332,6 @@ async function updateContact(contactID, updatedContact) {
     }
   }
 
-
 /**
  * Updates a contact in memory.
  * @param {string} contactID - The ID of the contact to be updated.
@@ -371,8 +343,7 @@ function updateContactInMemory(contactID, updatedContact) {
     if (index !== -1) {
       contacts[index].contact = updatedContact;
     }
-  }
-
+}
 
 /**
  * Updates tasks with the provided data.
@@ -385,8 +356,7 @@ async function updateTasks(data) {
       const taskIndex = affectedTaskIndexArray[i];
       await updateTaskAfterDeleteOrUpdatedContact(`/tasks/${task}`, data, taskIndex);
     }
-  }
-
+}
 
 /**
  * Updates the contact name in tasksArray from contactName to newNameOfContact.
@@ -406,12 +376,8 @@ function updateContactNameFromTasks(tasksArray, contactName, id) {
       affectedTaskIndices.push(tasksArray[taskIndex].id);
       affectedTaskIndexArray.push(taskIndex);
     }});
-  console.log(allTasks);
-  console.log(affectedTaskIndices);
-  console.log(affectedTaskIndexArray);
   return affectedTaskIndices;
 }
-
 
 /**
  * Updates the contacts data at the specified path.
@@ -441,27 +407,8 @@ async function putContacts(path = "", data = {}) {
  */
 function getEditContactTemplate(eachContact) {
   let initials = getContactsInitials(eachContact);
-  return `<div id="edit-contact-popup-content" class="popup-content animation" onclick="doNotClose(event)">
-              <div class="popup-left">
-                  <div onclick="closePopup()" class="back-icon-white-boarder"><img class="back-icon-white" src="img/close_white.png" alt=""></div>
-                  <img class="join-logo" src="img/capa_2.png" alt="">
-                  <h1>Edit contact</h1>
-                  <div class="blue-line"></div>
-              </div>
-              <div id="contact-logo-${eachContact}" class="edit-contact-logo">${initials}</div>
-              <div class="popup-right">
-                  <div onclick="closePopup()" class="back-icon-boarder"><img class="back-icon" src="img/x.svg" alt=""></div>
-                  <form class="form" onsubmit="submitEditContactForm(event, '${eachContact.id}'); return false;">
-                      <input id="editName" class="add-contact-input-name" placeholder="Vor und Nachname" type="text" required>
-                      <input id="editMail" class="add-contact-input-mail" placeholder="Email" type="email" required>
-                      <input id="editPhone" class="add-contact-input-tel" placeholder="Phone" type="tel" required>
-                      <div class="add-contact-form-buttons">
-                      <button type="button" class="cancel" onclick= "closePopup()">Close<img src="img/x.svg" alt=""></button>
-                      <button type="submit" class="create">Save<img src="img/check.png" alt=""></button>
-                      </div>
-                  </form>
-              </div>
-          </div>`;
+  let template = renderEditContactTemplateHtml(eachContact, initials);
+  document.getElementById('edit-contact-popup').innerHTML = template;
 }
 
 /**
