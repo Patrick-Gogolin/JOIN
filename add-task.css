@@ -651,6 +651,7 @@ select {
     border: 1px solid #D1D1D1;
     cursor: pointer;
     background-color: white;
+    padding-right: 14px;
 }
 
 .add-subtask-input-container input {
@@ -924,6 +925,7 @@ ul {
     }
 
     .add-task-headlinde-container {
+        background-color: #F6F7F8;
         padding: 55px 0px 8px 0px;
         width: unset;
         margin-right: 162px;
