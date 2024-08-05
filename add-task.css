@@ -644,6 +644,7 @@ select {
 .add-subtask-input-container {
     display: flex;
     align-items: center;
+    justify-content: space-around;
     width: 440px;
     height: 48px;
     border-radius: 10px;
@@ -675,8 +676,7 @@ select {
 .cancel-or-confirm-subtask-container {
     display: flex;
     align-items: center;
-    gap: 4px;
-    padding-right: 18px;
+    gap: 2px;
 }
 
 .cancel-or-confirm-subtask-container img:hover {
@@ -983,6 +983,7 @@ ul {
     .add-subtask-input-container,
     .single-subtask-container {
         width: 100%;
+        min-width: 317px;
     }
 
     .add-subtask-input-container input {
