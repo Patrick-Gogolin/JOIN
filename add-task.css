@@ -761,7 +761,7 @@ ul {
     font-size: 16px;
     border: none;
     width: 300px;
-    background-color: rgb(246,247,248);
+    background-color: rgb(246, 247, 248);
 }
 
 .this-field-required-span {
@@ -844,44 +844,44 @@ ul {
     height: 425px;
 }
 
-@media screen and (min-width:1404px){
-    .header-shadow{
+@media screen and (min-width:1404px) {
+    .header-shadow {
         width: 100%;
         position: fixed;
     }
 
-    .add-task-headlinde-container{
+    .add-task-headlinde-container {
         margin-top: 80px;
     }
 }
 
 @media screen and (max-width: 1404px) {
-    header{
+    header {
         display: none !important;
     }
 
-    .mobile-header{
+    .mobile-header {
         display: flex !important;
     }
 
-    .sidebar-container{
+    .sidebar-container {
         display: none !important;
     }
 
-    .mobile-sidebar-container{
+    .mobile-sidebar-container {
         display: flex !important;
     }
 
-    .add-task-slide{
+    .add-task-slide {
         margin-top: 80px;
-        margin-left: 0;  
+        margin-left: 0;
     }
-    
+
     .add-task-headlinde-container {
         padding: 80px 0px 48px 96px;
     }
 
-    .button-container{
+    .button-container {
         position: fixed;
         bottom: 80px;
         padding: 16px;
@@ -894,15 +894,16 @@ ul {
 }
 
 
-@media screen and (max-width: 1170px){
-    .main-seperator{
-        display: none;
-    }
-    .cancel-button{
+@media screen and (max-width: 1170px) {
+    .main-seperator {
         display: none;
     }
 
-    .button-container{
+    .cancel-button {
+        display: none;
+    }
+
+    .button-container {
         position: fixed;
         bottom: 80px;
         padding: 16px;
@@ -912,9 +913,9 @@ ul {
         width: 100%;
         z-index: 99;
     }
-    
 
-    .input-for-task{
+
+    .input-for-task {
         gap: 16px;
         flex-direction: column;
         margin-bottom: 172px;
@@ -922,12 +923,11 @@ ul {
         margin-top: 135px;
     }
 
-    .add-task-headlinde-container{
+    .add-task-headlinde-container {
         padding: 55px 0px 8px 0px;
         width: unset;
         margin-right: 162px;
         position: fixed;
-        background: #F6F7F8;
         width: 100%;
         left: calc((100% - 443px) / 2);
         z-index: 50;
@@ -936,10 +936,8 @@ ul {
 }
 
 @media screen and (max-width:652px) {
-    .add-task-headlinde-container{
-        position: fixed;
-        top: 78px;
-        padding: 0;
+    .add-task-headlinde-container {
+        padding-left: 8px;
         width: 100%;
         background: #F6F7F8;
         z-index: 99;
@@ -949,27 +947,32 @@ ul {
 
     }
 
-    .input-for-task{
+    .input-for-task {
         margin-top: 159px;
     }
 
-    .button-container{
+    .button-container {
         gap: 50px;
-        justify-content:center;
+        justify-content: center;
     }
 }
 
 @media screen and (max-width:462px) {
-    .add-task-headlinde-container{
-        top: 44px;
-        left: calc((100% - 315px) / 2);
+    .add-task-headlinde-container {
+        padding-left: 40px;
+        padding-right: 16px;
+        margin-right: 0px;
+        top: 50px;
+        position: fixed;
+        left: 0px;
+        right: 0px;
     }
 
-    .add-task-headlinde-container h1{
+    .add-task-headlinde-container h1 {
         font-size: 47px;
     }
 
-    .input-for-task{
+    .input-for-task {
         margin-top: 121px;
     }
 
@@ -978,25 +981,25 @@ ul {
     .date-container input,
     .assigned-to-input-container select,
     .add-subtask-input-container,
-    .single-subtask-container{
-        width: 300px;
+    .single-subtask-container {
+        width: 100%;
     }
 
-    .add-subtask-input-container input{
+    .add-subtask-input-container input {
         width: 260px;
     }
 
     .priority-button-container {
         gap: 8px;
-        width: 295px
+        width: 100%;
     }
 
-    .priority-button-container button{
+    .priority-button-container button {
         width: 33%;
         font-size: 16px;
     }
 
-    .input-for-task{
+    .input-for-task {
         padding-left: 8px;
         padding-right: 8px;
     }
@@ -1004,45 +1007,51 @@ ul {
 
 @media screen and (max-height:1055px) {
 
-    html{
+    html {
         scrollbar-width: none;
     }
 
-    .input-for-task{
+    .input-for-task {
         margin-bottom: 172px;
     }
 }
 
 @media screen and (max-height:680px) {
-    .button-container{
+    .button-container {
         padding-bottom: 20px;
     }
 }
 
 #landscape-warning {
-    display: none; /* Hidden by default */
+    display: none;
+    /* Hidden by default */
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.8); /* Semi-transparent black background */
+    background-color: rgba(0, 0, 0, 0.8);
+    /* Semi-transparent black background */
     color: white;
     font-size: 1em;
     text-align: center;
-    line-height: 100vh; /* Center text vertically */
-    z-index: 9999; /* Ensure it is on top */
-  }
-  
-  /* Show the warning when needed */
-  #landscape-warning.visible {
-    display: flex;
-    align-items: center; /* Center text vertically */
-    justify-content: center; /* Center text horizontally */
-  }
+    line-height: 100vh;
+    /* Center text vertically */
+    z-index: 9999;
+    /* Ensure it is on top */
+}
 
-  @media screen and (min-width: 2500px) {
+/* Show the warning when needed */
+#landscape-warning.visible {
+    display: flex;
+    align-items: center;
+    /* Center text vertically */
+    justify-content: center;
+    /* Center text horizontally */
+}
+
+@media screen and (min-width: 2500px) {
     .add-task-slide {
         margin-left: 0px;
+    }
 }
-  }
