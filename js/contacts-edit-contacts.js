@@ -271,6 +271,7 @@ async function submitEditContactForm(event, contactID) {
     let color = getContactColor(contactID);
     let updatedContact = createUpdatedContact(name, email, phone, color);
     await updateContact(contactID, updatedContact);
+    sortContactsAlphabetically();
     await updateTasks(data);
 }
 
