@@ -6,17 +6,17 @@ let affectedTaskIndexArray = [];
 let activeUserInContacts = null;
 
 /**
- * Retrieves the user object from the local storage and parses it as JSON.
- * @returns {Object} The user object.
- */
+* Retrieves the user object from the local storage and parses it as JSON.
+* @returns {Object} The user object.
+*/
 const user = JSON.parse(localStorage.getItem("user"));
 
 window.addEventListener("resize", checkForMobileMode);
 window.addEventListener("load", checkForMobileMode);
 
 /**
- * Checks for mobile mode and adjusts the display of contact list and contact info accordingly.
- */
+* Checks for mobile mode and adjusts the display of contact list and contact info accordingly.
+*/
 function checkForMobileMode() {
   showMobileHeader();
   giveAnimations();
@@ -38,11 +38,10 @@ function checkForMobileMode() {
   }
 }
 
-
 /**
- * Loads contacts, adds user to contacts, sorts contacts alphabetically, and performs other operations on page load.
- * @returns {Promise<void>} A promise that resolves when all operations are completed.
- */
+* Loads contacts, adds user to contacts, sorts contacts alphabetically, and performs other operations on page load.
+* @returns {Promise<void>} A promise that resolves when all operations are completed.
+*/
 async function onloadFunc() {
   isSelected = false;
   let contactResponse = await loadContacts("contacts");
@@ -61,7 +60,6 @@ async function onloadFunc() {
   showUserInContacts();
   checkForMobileMode();
 }
-
 
 /**
  * Adds a user to the contact list.
@@ -86,7 +84,6 @@ function addUserToContact() {
   }
 }
 
-
 /**
  * Displays the active user's information in the contacts section.
  */
@@ -97,16 +94,9 @@ function showUserInContacts() {
     let userEmail = activeUserInContacts.contact.email;
     let userColor = activeUserInContacts.contact.color;
     let userInitials = getContactsInitials(activeUserInContacts);
-    userElementInContacts.innerHTML = `<div id="contact-list-element-${activeUserInContacts.id}" class="contact user-contact-element" onclick="showUserContactInfo()">
-    <div class="contact-logo" style="background-color: ${userColor};" >${userInitials}</div>
-    <div class="contact-name">
-     <p>${userName} <span><small>(YOU)</small></span></p>
-     <a href="">${userEmail}</a>
-    </div>
-    </div>`;
+    userElementInContacts.innerHTML = renderUserInfoHtml(activeUserInContacts, userColor, userInitials, userName, userEmail);
   }
 }
-
 
 /**
  * Retrieves tasks for the contacts page.
@@ -140,7 +130,6 @@ async function getTasksForContactsPage(path = "") {
   }
 }
 
-
 /**
  * Sorts the contacts array alphabetically by contact name.
  */
@@ -148,19 +137,25 @@ function sortContactsAlphabetically() {
   let combinedArray = contacts.map((contact, index) => {
     return {
       contact: contact,
-      key: contactsKeys[index],};});
+      key: contactsKeys[index],
+    };
+  });
+
   combinedArray.sort((a, b) => {
     const nameA = a.contact.contact.name.toUpperCase();
     const nameB = b.contact.contact.name.toUpperCase();
     if (nameA < nameB) {
-      return -1;}
+      return -1;
+    }
     if (nameA > nameB) {
-      return 1;}
-    return 0;});
+      return 1;
+    }
+    return 0;
+  });
+
   contacts = combinedArray.map((item) => item.contact);
   contactsKeys = combinedArray.map((item) => item.key);
 }
-
 
 /**
  * Loads contacts from a specified path and updates the contact list on the webpage.
@@ -171,21 +166,20 @@ function sortContactsAlphabetically() {
 async function loadContacts(path = "") {
   let response = await fetch(BASE_URL + path + ".json");
   let contactListElement = document.getElementById("contact-list");
-  contactListElement.innerHTML = `<div class="user-contact" id="user-contact"></div>`;
+  contactListElement.innerHTML = renderUserContainerHtml();
   let currentInitial = "";
   for (let index = 0; index < contacts.length; index++) {
     let eachContact = contacts[index];
     let contactInitial = eachContact.contact.name.charAt(0).toUpperCase();
     if (contactInitial !== currentInitial) {
-      currentInitial = contactInitial;
-      contactListElement.innerHTML += getABCSeparatorTemplate(currentInitial);}
+    currentInitial = contactInitial;
+    contactListElement.innerHTML += getABCSeparatorTemplate(currentInitial);}
     contactListElement.innerHTML += getContactListTemplate(eachContact);
     getContactsInitials(eachContact);
     random_bg_color(eachContact);
     showUserInContacts();}
   return (responseToJson = await response.json());
 }
-
 
 /**
  * Loads user data from a specified path.
@@ -201,11 +195,7 @@ async function loadUser(path = "") {
   for (let i = 0; i < keys.length; i++) {
     const key = keys[i];
     const userData = responseToJson[key];
-    if (
-      userData.name === user.name &&
-      userData.email === user.email &&
-      user.name !== "Guest"
-    ) {
+    if (userData.name === user.name && userData.email === user.email && user.name !== "Guest") {
       activeUserInContacts = {
         id: key,
         contact: {
@@ -219,7 +209,6 @@ async function loadUser(path = "") {
     }
   }
 }
-
 
 /**
  * Posts a new contact to the server.
@@ -239,21 +228,46 @@ async function postContacts(path = "", data = {}) {
     phone: phone.value,
     color: color,
   };
-  let response = await fetch(BASE_URL + path + ".json", {
-    method: "POST",
-    header: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(data),
-  });
+  let response = await postRequest(path, data);
   let newContact = await response.json();
   contacts.push({
     id: newContact.name,
     contact: data,
   });
   contactsKeys.push(newContact.name);
-  sortContactsAlphabetically();
-  await loadContacts();
+  resetAndCloseAddContactPopUp(name, email, phone, newContact, data);
+}
+
+/**
+ * Sends a POST request to the specified path with the provided data.
+ * 
+ * @param {string} path - The endpoint path to send the request to.
+ * @param {Object} data - The data to send in the request body.
+ * @returns {Promise<Response>} The response from the fetch request.
+ */
+async function postRequest(path, data) {
+  const response = await fetch(BASE_URL + path + ".json", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  });
+  return response;
+}
+
+/**
+ * Resets the input fields, closes the add contact popup, and performs necessary updates.
+ * 
+ * @param {HTMLInputElement} name - The input element for the contact's name.
+ * @param {HTMLInputElement} email - The input element for the contact's email.
+ * @param {HTMLInputElement} phone - The input element for the contact's phone.
+ * @param {Object} newContact - The newly created contact object.
+ * @param {Object} data - The data of the new contact.
+ * @returns {Object} The new contact object.
+ */
+async function resetAndCloseAddContactPopUp(name, email, phone, newContact, data) {
+  await loadContacts("/contacts");
   name.value = "";
   email.value = "";
   phone.value = "";
@@ -263,7 +277,6 @@ async function postContacts(path = "", data = {}) {
   showContactInfo({ id: newContact.name, contact: data });
   return newContact;
 }
-
 
 /**
  * Generates the template for a contact list element.
@@ -283,7 +296,6 @@ function getContactListTemplate(eachContact) {
     </div>`;
 }
 
-
 /**
  * Get the initials of a contact's name.
  * @param {Object} eachContact - The contact object.
@@ -295,15 +307,12 @@ function getContactsInitials(eachContact) {
   let nameparts = fullname.split(" ");
   let initials = "";
   if (nameparts.length > 1) {
-    initials =
-      nameparts[0].charAt(0).toUpperCase() +
-      nameparts[nameparts.length - 1].charAt(0).toUpperCase();
+    initials = nameparts[0].charAt(0).toUpperCase() + nameparts[nameparts.length - 1].charAt(0).toUpperCase();
   } else if (nameparts.length === 1) {
     initials = nameparts[0].charAt(0).toUpperCase();
   }
   return initials;
 }
-
 
 /**
  * Returns the initials of a user based on their name and surname.
@@ -322,7 +331,6 @@ function getUserInitials() {
   return initials;
 }
 
-
 /**
  * Returns the template for an ABC separator.
  */
@@ -331,7 +339,6 @@ function getABCSeparatorTemplate(letter) {
                 <p>${letter}</p>
             </div>`;
 }
-
 
 /**
  * Displays the contact information and highlights the selected contact.
@@ -352,7 +359,6 @@ function showContactInfo(eachContact) {
   ).style.color = "white";
   showInfo(eachContact);
 }
-
 
 /**
  * Displays the contact information of a user and highlights the selected contact in the contact list.
@@ -379,8 +385,7 @@ function showUserContactInfo(user) {
  * Displays the contact information for a given contact.
  */
 function showInfo(eachContact) {
-  document.getElementById("contact-info").innerHTML =
-    getEachContactInfo(eachContact);
+  getEachContactInfo(eachContact);
   giveAnimations();
 }
 
@@ -388,7 +393,7 @@ function showInfo(eachContact) {
  * Updates the contact information section with the user's contact info and applies animations.
  */
 function showUserInfo(user) {
-  document.getElementById("contact-info").innerHTML = getUserContactInfo(user);
+  getUserContactInfo(user);
   giveAnimations();
 }
 
@@ -403,47 +408,8 @@ function getEachContactInfo(eachContact) {
   let contactEmail = eachContact.contact.email;
   let contactPhone = eachContact.contact.phone;
   let actualBgColor = eachContact.contact.color;
-  return `
-    <div class="contact-info-header">
-                <div onclick="backToList()" class="back_img_boarder">
-                    <img src="img/arrow-left-line.png" alt="">
-                </div>
-                <h1>Contacts</h1>
-                <div class="contact-info-header-separator"></div>
-                <span>Better with a team</span>
-                <div class="contact-info-header-separator-mobile"></div>
-    </div>
-                <div id="animation-header" class="contact-data">
-                <div id="contact-data-logo" class="contact-data-logo" style="background:${actualBgColor};">${initials}</div>
-                <div class="contact-data-name"><span>${contactName}</span> 
-                        <div class="contact-data-icon">
-                            <div onclick='editContact(${JSON.stringify(
-                              eachContact
-                            )})' class="edit"><img src="img/edit.png" alt=""><p>Edit</p></div>
-                            <div onclick="deleteContacts('${
-                              eachContact.id
-                            }')" class="delete"><img src="img/delete.png" alt=""><p>Delete</p></div>
-                        </div>
-                </div>
-                </div>
-                <h2 id="animation-title">Contact Information</h2>
-                <h3 id="animation-email-title">Email</h3>
-                <a id="animation-email" href="">${contactEmail}</a>
-                <h3 id="animation-phone-title">Phone</h3>
-                <p id="animation-phone" class="tel-number" >${contactPhone}</p>
-                </div>
-                <div onclick='openEditOptions(); doNotClose(event)' id="edit-more-options" class="more_img_boarder">
-                    <img src="img/more_vert.png" alt="">
-                </div>
-                <div onclick="doNotClose(event)" id="edit-more-options-list" class="more_options">
-                <div class="more_options_icon" >
-                            <div onclick='editContact(${JSON.stringify(
-                              eachContact
-                            )})' class="edit" style="margin-bottom: 15px;"><img src="img/edit.png" alt="" ><p>Edit</p></div>
-                            <div onclick="deleteContacts('${
-                              eachContact.id
-                            }')" class="delete"><img src="img/delete.png" alt=""><p>Delete</p></div>
-                        </div></div>`;
+  let template = renderGetEachContactInfoHtml(actualBgColor, initials, eachContact, contactEmail, contactPhone, contactName);
+  document.getElementById("contact-info").innerHTML = template;
 }
 
 /**
@@ -456,35 +422,6 @@ function getUserContactInfo() {
   let contactName = user.name + " " + user.surname;
   let contactEmail = user.email;
   let contactPhone = user.phone;
-  return `
-    <div class="contact-info-header">
-                <div onclick="backToList()" class="back_img_boarder">
-                    <img src="img/arrow-left-line.png" alt="">
-                </div>
-                <h1>Contacts</h1>
-                <div class="contact-info-header-separator"></div>
-                <span>Better with a team</span>
-                <div class="contact-info-header-separator-mobile"></div>
-    </div>
-                <div id="animation-header" class="contact-data">
-                <div id="contact-data-logo" class="contact-data-logo" style="background-color: rgb(41, 171, 226);">${initials}</div>
-                <div class="contact-data-name"><span>${contactName}</span> 
-                        <div class="contact-data-icon">
-                            <div onclick='editUserAsContact()' class="edit"><img src="img/edit.png" alt=""><p>Edit</p></div>
-                        </div>
-                </div>
-                </div>
-                <h2 id="animation-title">Contact Information</h2>
-                <h3 id="animation-email-title">Email</h3>
-                <a id="animation-email" href="">${contactEmail}</a>
-                <h3 id="animation-phone-title">Phone</h3>
-                <p id="animation-phone" class="tel-number" >${contactPhone}</p>
-                </div>
-                <div onclick='openEditOptions(); doNotClose(event)' id="edit-more-options" class="more_img_boarder">
-                    <img src="img/more_vert.png" alt="">
-                </div>
-                <div onclick="doNotClose(event)" id="edit-more-options-list" class="more_options">
-                <div class="more_options_icon" >
-                            <div onclick='editUserAsContact()' class="edit" style="margin-bottom: 15px;"><img src="img/edit.png" alt="" ><p>Edit</p></div>
-                        </div></div>`;
+  let template = renderGetUserInfoHtml(initials, contactName, contactPhone, contactEmail);
+  document.getElementById("contact-info").innerHTML = template;
 }

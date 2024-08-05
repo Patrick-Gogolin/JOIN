@@ -60,3 +60,108 @@ function renderEditContactTemplateHtml(eachContact, initials) {
               </div>
           </div>`;
 }
+
+function renderUserInfoHtml(activeUserInContacts, userColor, userInitials, userName, userEmail) {
+    return /*html*/`
+    <div id="contact-list-element-${activeUserInContacts.id}" class="contact user-contact-element" onclick="showUserContactInfo()">
+        <div class="contact-logo" style="background-color: ${userColor};" >${userInitials}</div>
+        <div class="contact-name">
+            <p>${userName} <span><small>(YOU)</small></span></p>
+            <a href="">${userEmail}</a>
+        </div>
+    </div>`;
+}
+
+function renderUserContainerHtml() {
+    return /*html*/`
+    <div class="user-contact" id="user-contact"></div>`;
+}
+
+function renderGetUserInfoHtml(initials, contactName, contactPhone, contactEmail) {
+    return /*html*/`
+        <div class="contact-info-header">
+                <div onclick="backToList()" class="back_img_boarder">
+                    <img src="img/arrow-left-line.png" alt="">
+                </div>
+                <h1>Contacts</h1>
+                <div class="contact-info-header-separator"></div>
+                <span>Better with a team</span>
+                <div class="contact-info-header-separator-mobile"></div>
+    </div>
+                <div id="animation-header" class="contact-data">
+                <div id="contact-data-logo" class="contact-data-logo" style="background-color: rgb(41, 171, 226);">${initials}</div>
+                <div class="contact-data-name"><span>${contactName}</span> 
+                        <div class="contact-data-icon">
+                            <div onclick='editUserAsContact()' class="edit"><img src="img/edit.png" alt=""><p>Edit</p></div>
+                        </div>
+                </div>
+                </div>
+                <h2 id="animation-title">Contact Information</h2>
+                <h3 id="animation-email-title">Email</h3>
+                <a id="animation-email" href="">${contactEmail}</a>
+                <h3 id="animation-phone-title">Phone</h3>
+                <p id="animation-phone" class="tel-number" >${contactPhone}</p>
+                </div>
+                <div onclick='openEditOptions(); doNotClose(event)' id="edit-more-options" class="more_img_boarder">
+                    <img src="img/more_vert.png" alt="">
+                </div>
+                <div onclick="doNotClose(event)" id="edit-more-options-list" class="more_options">
+                <div class="more_options_icon" >
+                            <div onclick='editUserAsContact()' class="edit" style="margin-bottom: 15px;"><img src="img/edit.png" alt="" ><p>Edit</p></div>
+                        </div></div>`;
+}
+
+function renderGetEachContactInfoHtml(actualBgColor, initials, eachContact, contactEmail, contactPhone, contactName) {
+    return /*html*/`
+      <div class="contact-info-header">
+    <div onclick="backToList()" class="back_img_boarder">
+        <img src="img/arrow-left-line.png" alt="">
+    </div>
+    <h1>Contacts</h1>
+    <div class="contact-info-header-separator"></div>
+    <span>Better with a team</span>
+    <div class="contact-info-header-separator-mobile"></div>
+</div>
+
+<div id="animation-header" class="contact-data">
+    <div id="contact-data-logo" class="contact-data-logo" style="background: ${actualBgColor};">
+        ${initials}
+    </div>
+    <div class="contact-data-name">
+        <span>${contactName}</span>
+        <div class="contact-data-icon">
+            <div onclick='editContact(${JSON.stringify(eachContact)})' class="edit">
+                <img src="img/edit.png" alt="">
+                <p>Edit</p>
+            </div>
+            <div onclick="deleteContacts('${eachContact.id}')" class="delete">
+                <img src="img/delete.png" alt="">
+                <p>Delete</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<h2 id="animation-title">Contact Information</h2>
+<h3 id="animation-email-title">Email</h3>
+<a id="animation-email" href="">${contactEmail}</a>
+<h3 id="animation-phone-title">Phone</h3>
+<p id="animation-phone" class="tel-number">${contactPhone}</p>
+
+<div onclick='openEditOptions(); doNotClose(event)' id="edit-more-options" class="more_img_boarder">
+    <img src="img/more_vert.png" alt="">
+</div>
+
+<div onclick="doNotClose(event)" id="edit-more-options-list" class="more_options">
+    <div class="more_options_icon">
+        <div onclick='editContact(${JSON.stringify(eachContact)})' class="edit" style="margin-bottom: 15px;">
+            <img src="img/edit.png" alt="">
+            <p>Edit</p>
+        </div>
+        <div onclick="deleteContacts('${eachContact.id}')" class="delete">
+            <img src="img/delete.png" alt="">
+            <p>Delete</p>
+        </div>
+    </div>
+</div>`;
+}
