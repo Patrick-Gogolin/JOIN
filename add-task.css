@@ -764,7 +764,6 @@ ul {
     font-family: inter;
     font-size: 16px;
     border: none;
-    width: 300px;
     background-color: rgb(246, 247, 248);
 }
 
@@ -986,9 +985,18 @@ ul {
     .date-container input,
     .assigned-to-input-container select,
     .add-subtask-input-container,
-    .single-subtask-container {
+    .single-subtask-container,
+    .edit-subtask-container {
         width: 100%;
         min-width: 317px;
+    }
+
+    .single-subtask-container{
+        padding: 0px;
+    }
+
+    .edit-subtask-container {
+        justify-content: space-around;
     }
 
     .add-subtask-input-container input {
