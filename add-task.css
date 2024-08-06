@@ -912,7 +912,8 @@ ul {
         position: fixed;
         bottom: 80px;
         padding: 16px;
-        justify-content: space-evenly;
+        justify-content: center;
+        gap: 90px;
         align-items: center;
         background: #F6F7F8;
         width: 100%;
@@ -943,7 +944,6 @@ ul {
 
 @media screen and (max-width:652px) {
     .add-task-headlinde-container {
-        padding-left: 8px;
         width: 100%;
         background: #F6F7F8;
         z-index: 99;
@@ -958,7 +958,7 @@ ul {
     }
 
     .button-container {
-        gap: 50px;
+        gap: 100px;
         justify-content: center;
     }
 }
@@ -982,6 +982,14 @@ ul {
         margin-top: 121px;
     }
 
+     .required-reminder-container {
+        font-size: 12px;
+    }
+
+    .button-container {
+        gap: 19px;
+        justify-content: center;
+    }
     .title-input-container input,
     .description-input-container textarea,
     .date-container input,
@@ -1018,6 +1026,13 @@ ul {
     .input-for-task {
         padding-left: 8px;
         padding-right: 8px;
+    }
+}
+
+@media screen and (max-width:360px) {
+    .button-container {
+        padding: 16px 8px;
+        justify-content: center;
     }
 }
 
