@@ -60,7 +60,7 @@ body {
 }
 
 .mobile-sub-menu {
-    position: absolute;
+    position: fixed;
     right: -170px; /* Initially hidden */
     top: 81px;
     background-color: #2A3647;
