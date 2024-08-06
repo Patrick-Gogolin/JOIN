@@ -13,46 +13,9 @@
     <script src="templates/include.js"></script>
     <script src="./templates/header.js"></script>
     <script src="templates/sidebar.js"></script>
+    <script src="js/check-for-landscape.js"></script>
 </head>
-<script>
-       document.addEventListener('DOMContentLoaded', function() {
-    // Set default mobile width and height thresholds
-    const mobileWidthPortrait = 768;  // Width threshold for mobile portrait mode
-    const mobileHeightPortrait = 1024; // Height threshold for mobile portrait mode
-  
-    const mobileWidthLandscape = 1024; // Width threshold for mobile landscape mode
-    const mobileHeightLandscape = 768; // Height threshold for mobile landscape mode
-  
-    // Define a maximum width to distinguish between mobile and desktop
-    const maxMobileWidth = 932;  // This should be the upper limit for mobile devices
-  
-    // Function to check orientation and display the warning if needed
-    function checkOrientation() {
-      const isLandscape = window.innerWidth > window.innerHeight;
-  
-      // Check if the screen width is less than or equal to the maxMobileWidth
-      const isMobile = window.innerWidth <= maxMobileWidth;
-  
-      // Conditions for showing the warning
-      const isMobilePortrait = isMobile && window.innerWidth <= mobileWidthPortrait && window.innerHeight <= mobileHeightPortrait;
-      const isMobileLandscape = isMobile && window.innerWidth <= mobileWidthLandscape && window.innerHeight <= mobileHeightLandscape;
-  
-      // Show the warning if the device is in landscape mode and fits mobile dimensions
-      if (isLandscape && (isMobilePortrait || isMobileLandscape)) {
-        document.getElementById('landscape-warning').classList.add('visible');
-      } else {
-        document.getElementById('landscape-warning').classList.remove('visible');
-      }
-    }
-  
-    // Initial check
-    checkOrientation();
-  
-    // Check orientation on resize/orientation change
-    window.addEventListener('resize', checkOrientation);
-    window.addEventListener('orientationchange', checkOrientation);
-  });
-</script>
+
 <body onload="includeHTML(); checkUserAndRedirect()">
     <div id="landscape-warning" class="hidden">
         Please turn your device to Portrait Mode.
