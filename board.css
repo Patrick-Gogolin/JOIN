@@ -167,6 +167,7 @@ select {
     font-weight: 200;
     font-size: 20px;
     cursor: pointer;
+    resize: none;
 }
 
 .task-description-textarea:focus {
@@ -584,7 +585,6 @@ select {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 440px;
     min-height: 35px;
     padding: 4px 21px 4px 21px;
     border-radius: 10px;
@@ -1616,7 +1616,7 @@ color: #29ABE2;
     }
   }
 
-  .added-subtask-main-container, .task-card-subtasks-list {
+  /* .added-subtask-main-container, .task-card-subtasks-list {
     --sb-track-color: #ffffff;
     --sb-thumb-color: #a8a8a8;
     --sb-size: 5px;
@@ -1640,4 +1640,4 @@ color: #29ABE2;
     .added-subtask-main-container, .task-card-subtasks {
         scrollbar-color: var(--sb-thumb-color) var(--sb-track-color);
     }
-}
+} */
