@@ -1615,29 +1615,3 @@ color: #29ABE2;
                        var(--sb-track-color);
     }
   }
-
-  /* .added-subtask-main-container, .task-card-subtasks-list {
-    --sb-track-color: #ffffff;
-    --sb-thumb-color: #a8a8a8;
-    --sb-size: 5px;
-}
-
-.added-subtask-main-container, .task-card-subtasks::-webkit-scrollbar {
-    width: var(--sb-size);
-}
-
-.added-subtask-main-container, .task-card-subtasks::-webkit-scrollbar-track {
-    background: var(--sb-track-color);
-    border-radius: 4px;
-}
-
-.added-subtask-main-container, .task-card-subtasks::-webkit-scrollbar-thumb {
-    background: var(--sb-thumb-color);
-    border-radius: 4px;
-}
-
-@supports not selector(::-webkit-scrollbar) {
-    .added-subtask-main-container, .task-card-subtasks {
-        scrollbar-color: var(--sb-thumb-color) var(--sb-track-color);
-    }
-} */
