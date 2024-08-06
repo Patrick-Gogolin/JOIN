@@ -63,7 +63,7 @@
 }
 
 .task-card-description {
-    word-break: break-all;
+    word-break: break-word;
 }
 
 .add-subtask-svg-edit-task-container {
