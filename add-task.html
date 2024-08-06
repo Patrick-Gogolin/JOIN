@@ -30,7 +30,7 @@
 <body id="body-add-task" onload="getContacts('/contacts'); checkUserAndRedirect()">
     <div id="landscape-warning" class="hidden">
         Please turn your device to Portrait Mode.
-      </div>
+    </div>
     <div w3-include-html="templates/header.html"></div>
     <div w3-include-html="templates/sidebar.html"></div>
     <div w3-include-html="templates/mobile-header.html"></div>
@@ -59,7 +59,7 @@
                 <div class="assigned-to-input-container">
                     <span class="headline-input">Assigned to</span>
                     <div class="select-contacts-container">
-                        <input onkeyup="searchContacts()" id="search-contact-inputfield" type="text"
+                        <input onkeyup="searchContacts()" id="search-contact-inputfield-main" type="text"
                             placeholder="Select contacts to assign">
                         <img onclick="openSelectContactsContainer(event)" src="img/arrow-drop-down-contacts.svg" alt="">
                     </div>

@@ -5,39 +5,47 @@ async function addTaskMain() {
     let date = document.getElementById('date');
     let contactsContent = document.getElementById('show-assigned-contacts');
     let category = document.getElementById('selected-task-headline');
-    let selectContactsContainer = document.getElementById('select-contacts-container');
-    let titleRequiredSpan = document.getElementById('title-required-span');
-    let dateRequiredSpan = document.getElementById('date-required-span');
-    let categoryRequiredSpan = document.getElementById('category-required-span');
     statusOfTask = "todo";
-    let addSubtaskInputfield = document.getElementById('add-subtask-input-container-inputfield');
+    let addSubtaskInputfield = document.getElementById('add-subtask-input-container-inputfield-main');
+    let searchInputfield = document.getElementById('search-contact-inputfield-main');
+    
+    setSubtaskInputAreaInEditTaskToDefault();
+    messageIfRequiredFieldsAreNotFilledInEditTask();
+
+    if (title.value !== "" && date.value !== "" && category.innerHTML !== "Select task category") {
+        await createTaskAndRefreshEditTask(title, description, date, category, contactsContent, subtaskContent, addSubtaskInputfield, searchInputfield);
+        }
+}
+
+async function createTaskAndRefreshEditTask(title, description, date, category, contactsContent, subtaskContent, addSubtaskInputfield, searchInputfield) {
+    await postTask('/tasks/');
+    const successContainer = document.getElementById('task-successfull-created-container');
+    successContainer.classList.remove('d-none');
+    setTimeout(async () => {
+        window.location.href = 'board.html';
+        successContainer.classList.add('d-none');
+        resetAddTaskSlide(title, description, date, category, contactsContent, subtaskContent, addSubtaskInputfield, searchInputfield);
+        await getTasks('/tasks');
+    }, 900);
+}
+
+function setSubtaskInputAreaInEditTaskToDefault() {
     let content = document.getElementById('add-subtask-svg-container');
     let cancelAndConfirm = document.getElementById('cancel-or-confirm-subtask-container');
     content.classList.remove('d-none');
     cancelAndConfirm.classList.add('d-none');
-    
+}
+
+function messageIfRequiredFieldsAreNotFilledInEditTask() {
+    let titleRequiredSpan = document.getElementById('title-required-span');
+    let dateRequiredSpan = document.getElementById('date-required-span');
+    let categoryRequiredSpan = document.getElementById('category-required-span');
+    let selectContactsContainer = document.getElementById('select-contacts-container');
+    let category = document.getElementById('selected-task-headline');
+
     checkField(title, titleRequiredSpan);
     checkField(date, dateRequiredSpan);
-
-    if (category.innerHTML === "Select task category") {
-        selectContactsContainer.classList.add('this-field-required-border');
-        categoryRequiredSpan.classList.remove('d-none');
-    }
-
-    else {
-        selectContactsContainer.classList.remove('this-field-required-border');
-        categoryRequiredSpan.classList.add('d-none');
-    }
-
-    if (title.value !== "" && date.value !== "" && category.innerHTML !== "Select task category") {
-        await postTask('/tasks/')
-        document.getElementById('task-successfull-created-container').classList.remove('d-none');
-        setTimeout(async function() {
-            document.getElementById('task-successfull-created-container').classList.add('d-none');
-            resetAddTaskSlide(title, description, date, category, contactsContent, subtaskContent, addSubtaskInputfield)
-            window.location.href = 'board.html';
-        }, 900);
-        }
+    checkCategoryField(category, categoryRequiredSpan, selectContactsContainer);
 }
 
 function clearAddTaskMasque() {
@@ -47,12 +55,10 @@ function clearAddTaskMasque() {
     let date = document.getElementById('date');
     let contactsContent = document.getElementById('show-assigned-contacts');
     let category = document.getElementById('selected-task-headline');
-    let addSubtaskInputfield = document.getElementById('add-subtask-input-container-inputfield');
-    let content = document.getElementById('add-subtask-svg-container');
-    let cancelAndConfirm = document.getElementById('cancel-or-confirm-subtask-container');
-    content.classList.remove('d-none');
-    cancelAndConfirm.classList.add('d-none');
-    resetAddTaskSlide(title, description, date, category, contactsContent, subtaskContent, addSubtaskInputfield)
+    let addSubtaskInputfield = document.getElementById('add-subtask-input-container-inputfield-main');
+    let searchInputfield = document.getElementById('search-contact-inputfield-main');
+    setSubtaskInputAreaInEditTaskToDefault();
+    resetAddTaskSlide(title, description, date, category, contactsContent, subtaskContent, addSubtaskInputfield, searchInputfield);
 }
 
 function addSubtaskMain() {;
