@@ -611,6 +611,7 @@ select {
     position: absolute;
     top: 76px;
     width: 100%;
+    margin-top: 6px;
 }
 
 .category-to-select-container {
