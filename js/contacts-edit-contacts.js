@@ -23,10 +23,6 @@ async function deleteContacts(contactID) {
 /**
  * Updates tasks on the board based on the indices of affected tasks.
  * 
- * This asynchronous function iterates over the list of affected task indices and updates each task
- * by calling `updateTaskAfterDeleteOrUpdatedContact` with the appropriate task ID, data, and index.
- * The function waits for each update operation to complete before proceeding to the next one.
- * 
  * @returns {Promise<void>} A promise that resolves when all tasks have been updated.
  * 
  * @throws {Error} If there is an issue with the `updateTaskAfterDeleteOrUpdatedContact` function or if there is a problem with the task data or indices.

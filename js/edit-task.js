@@ -7,6 +7,11 @@ let assignedContactsInitialsEditTask = [];
 let editMenuSubtaskIsOpenInEditTask = false;
 let currentSubtask = null;
 
+/**
+ * Opens the edit task window with the provided task ID.
+ * 
+ * @param {string} id - The ID of the task to edit.
+ */
 function OpenEditTaskWindow(id) {
     closeEditTaskOverlay('edit-task-overlayer');
     openEditTaskOverlayer('edit-task-popup');
@@ -17,79 +22,18 @@ function OpenEditTaskWindow(id) {
     checkStatusOfPriority(emptyTask);
     let {urgentClass, mediumClass, lowClass} = getPriorityClasses(task.priority);
     let {urgentClassSvg, mediumClassSvg, lowClassSvg} = getPrioritySvgPaths(task.priority);
-    console.log(emptyTask);
-    content.innerHTML = /*html*/`
-    <div class="popup-content-edit-task">
-        <img onclick="closeEditTaskOverlay('edit-task-popup')" class="close-overlayer-sign-edit-task" src="img/cancel.svg" alt="Cross">
-        <div class="edit-task-content">
-        <div class="title-input-container">
-                <span class="headline-input">Title<span class="red-star-required">*</span></span>
-                <input id="title-edit-task" onblur="newTitle()" type="text" value="${task.title}" required>
-                <span id="title-required-span-edit-task" class="this-field-required-span d-none">This field is required</span>
-        </div>
-        <div class="description-input-container">
-        <span class="headline-input">Description</span>
-        <textarea id="description-of-task-edit-task" onblur="newDescription()" class="task-description-textarea" name="" id="">${task.description}</textarea>
-        </div>
-        <div class="date-container">
-            <span class="headline-input">Due Date<span class="red-star-required">*</span></span>
-            <input id="date-edit-task" onblur="newDate()" type="date" value=${task.deadline} required>
-            <span id="date-required-span-edit-task" class="this-field-required-span d-none">This field is required</span>
-        </div>
-        <div class="priority-container">
-            <span class="headline-input">Prio</span>
-            <div class="priority-button-container">
-                <button onclick="urgentPriorityEditTask()" id="urgent-button-edit-task" class="urgent-button ${urgentClass}">Urgent <img id="urgent-prio-sign-edit-task" src=${urgentClassSvg} alt=""></button>
-                <button onclick="mediumPriorityEditTask()" id="medium-button-edit-task" class="medium-button ${mediumClass}">Medium <img id="medium-prio-sign-edit-task" src=${mediumClassSvg} alt=""></button>
-                <button onclick="lowPriorityEditTask()" id="low-button-edit-task" class="low-button ${lowClass}">Low <img id="low-prio-sign-edit-task" src=${lowClassSvg} alt=""></button>
-            </div>
-        </div>
-        <div class="assigned-to-input-container">
-            <span class="headline-input">Assigned to</span>
-            <div class="select-contacts-container">
-                <input onkeyup="searchContactsEditTask()" id="search-contact-inputfield-edit-task" type="text" placeholder="Select contacts to assign">
-                <div class="arrow-drop-down">
-                    <img onclick="openSelectContactsContainerEditTask(event)" src="img/arrow-drop-down-contacts.svg"alt="">
-                </div>
-            </div>
-            <div id="choose-contacts-container-edit-task" class="choose-contacts-container d-none">
-                <div id="active-user-container-edit-task" class="d-none">
-                </div>
-                <div class="contacts-to-select-container" id="select-contact-container-edit-task">
-                </div>
-            </div>
-        </div>
-        <div id="show-assigned-contacts-edit-task" class="show-assigned-contacts">
-        </div>
-        <div class="subtask-area-container">
-            <div class="add-subtask-container">
-                <span class="headline-input">Subtask</span>
-                <div class="add-subtask-input-container">
-                    <input id="add-subtask-input-container-inputfield-edit-task" oninput="changeIconsSubtasksEditTask()" type="text" placeholder="Add new subtask">
-                    <div id="add-subtask-svg-container-edit-task" class="add-subtask-svg-container">
-                        <img id="add-subtask-svg" class="add-subtask-svg" src="img/addsubtask.svg" alt="">
-                    </div>
-                    <div id="cancel-or-confirm-subtask-container-edit-task" class="cancel-or-confirm-subtask-container d-none">
-                        <img onclick="clearSubtaskEditTask()" src="img/cancel.svg" alt="">
-                        <div class="seperator"></div>
-                        <img onclick="addSubtaskEditTask()" src="img/check-grey.svg" alt="">
-                    </div>
-                </div>
-            </div>
-            <div id="added-subtask-main-container-edit-task" class="added-subtask-main-container">
-            </div>
-        </div>
-        </div>
-        <div class="update-task-button-container">
-            <button onclick= "finalUpdateTask(${index})">Ok <img src="img/check.svg" alt=""></button>
-        </div>
-    </div>`;
+    content.innerHTML = renderEditTaskSlideHtml(task, urgentClass, mediumClass, lowClass, index,urgentClassSvg, mediumClassSvg, lowClassSvg);
 
     eventListenerForSubtaskInputField('add-subtask-input-container-inputfield-edit-task')
     renderAssignedContactsEditTask();
     renderSubtasksFromEditTask();
 }
 
+/**
+ * Checks the priority status of the given task and sets the corresponding flags.
+ *
+ * @param {Object} emptyTask - The task object to check the priority status of.
+ */
 function checkStatusOfPriority(emptyTask) {
     if(emptyTask.priority === "Medium") {
         mediumActiveEditTask = true;
@@ -102,6 +46,11 @@ function checkStatusOfPriority(emptyTask) {
     }
 }
 
+/**
+ * Adds an event listener to a subtask input field to handle 'Enter' key press.
+ *
+ * @param {string} id - The ID of the input field element.
+ */
 function eventListenerForSubtaskInputField(id) {
     let inputField = document.getElementById(id);
     if (inputField) {
@@ -114,6 +63,12 @@ function eventListenerForSubtaskInputField(id) {
     }
 }
 
+/**
+ * Returns the appropriate SVG paths based on the priority level.
+ *
+ * @param {string} priority - The priority level ('Urgent', 'Medium', 'Low').
+ * @returns {Object} An object containing SVG paths for urgent, medium, and low priorities.
+ */
 function getPrioritySvgPaths(priority) {
     return {
         urgentClassSvg: priority === 'Urgent' ? 'img/urgent-prio-white.svg' : 'img/urgent-prio.svg',
@@ -122,6 +77,12 @@ function getPrioritySvgPaths(priority) {
     };
 }
 
+/**
+ * Returns an object with CSS class names based on the priority level.
+ *
+ * @param {string} priority - The priority level ('Urgent', 'Medium', 'Low').
+ * @returns {Object} An object containing CSS class names for urgent, medium, and low priorities.
+ */
 function getPriorityClasses(priority) {
     return {
         urgentClass: priority === 'Urgent' ? 'urgent' : '',
@@ -130,284 +91,25 @@ function getPriorityClasses(priority) {
     };
 }
 
-function urgentPriorityEditTask() {
-    if (!urgentActiveEditTask) {
-        resetButtonsEditTask();
-        let urgentButton = document.getElementById('urgent-button-edit-task');
-        let urgentPrioSign = document.getElementById('urgent-prio-sign-edit-task');
-        let taskPriority = urgentButton.innerText;
-        urgentButton.classList.add('urgent');
-        urgentPrioSign.src = 'img/urgent-prio-white.svg';
-        emptyTask.priority = taskPriority;
-        urgentActiveEditTask = true;
-    } else {
-        let urgentButton = document.getElementById('urgent-button-edit-task');
-        let urgentPrioSign = document.getElementById('urgent-prio-sign-edit-task');
-        urgentButton.classList.remove('urgent');
-        urgentPrioSign.src = 'img/urgent-prio.svg';
-        emptyTask.priority = "";
-        urgentActiveEditTask = false;
-    }
-}
-
-function mediumPriorityEditTask() {
-    if (!mediumActiveEditTask) {
-        resetButtonsEditTask();
-        let urgentButton = document.getElementById('medium-button-edit-task');
-        let urgentPrioSign = document.getElementById('medium-prio-sign-edit-task');
-        let taskPriority = urgentButton.innerText;
-        urgentButton.classList.add('medium');
-        urgentPrioSign.src = 'img/medium-prio.svg';
-        emptyTask.priority = taskPriority;
-        mediumActiveEditTask = true;
-    } else {
-        let urgentButton = document.getElementById('medium-button-edit-task');
-        let urgentPrioSign = document.getElementById('medium-prio-sign-edit-task');
-        urgentButton.classList.remove('medium');
-        urgentPrioSign.src = 'img/medium-prio-orange.svg';
-        emptyTask.priority = "";
-        mediumActiveEditTask = false;
-    }
-}
-
-function lowPriorityEditTask() {
-    if (!lowActiveEditTask) {
-        resetButtonsEditTask();
-        let urgentButton = document.getElementById('low-button-edit-task');
-        let urgentPrioSign = document.getElementById('low-prio-sign-edit-task');
-        let taskPriority = urgentButton.innerText;
-        urgentButton.classList.add('low');
-        urgentPrioSign.src = 'img/low-prio-white.svg';
-        emptyTask.priority = taskPriority;
-        lowActiveEditTask = true;
-    } else {
-        let urgentButton = document.getElementById('low-button-edit-task');
-        let urgentPrioSign = document.getElementById('low-prio-sign-edit-task');
-        urgentButton.classList.remove('low');
-        urgentPrioSign.src = 'img/low-prio.svg';
-        emptyTask.priority = "";
-        lowActiveEditTask = false;
-    }
-}
-
-function resetButtonsEditTask() {
-    emptyTask.Priority = "";
-    resetUrgentButtonEditTask();
-    resetMediumButtonEditTask();
-    resetLowButtonEditTask();
-}
-
-function resetUrgentButtonEditTask() {
-    let urgentButton = document.getElementById('urgent-button-edit-task');
-    let urgentPrioSign = document.getElementById('urgent-prio-sign-edit-task');
-    urgentButton.classList.remove('urgent');
-    urgentPrioSign.src = 'img/urgent-prio.svg';
-    urgentActiveEditTask = false;
-}
-
-function resetMediumButtonEditTask() {
-    let mediumButton = document.getElementById('medium-button-edit-task');
-    let mediumPrioSign = document.getElementById('medium-prio-sign-edit-task');
-    mediumButton.classList.remove('medium');
-    mediumPrioSign.src = 'img/medium-prio-orange.svg';
-    mediumActiveEditTask = false;
-}
-
-function resetLowButtonEditTask() {
-    let lowButton = document.getElementById('low-button-edit-task');
-    let lowPrioSign = document.getElementById('low-prio-sign-edit-task');
-    lowButton.classList.remove('low');
-    lowPrioSign.src = 'img/low-prio.svg';
-    lowActiveEditTask = false;
-}
-
-function openSelectContactsContainerEditTask() {
-    let container = document.getElementById('choose-contacts-container-edit-task');
-    let assignedContacts = document.getElementById('show-assigned-contacts-edit-task');
-    if (assignOptionsContactsContainerEditTask === false) {
-        container.classList.remove('d-none');
-        assignOptionsContactsContainerEditTask = true;
-        renderContactsEditTask();
-        assignedContacts.classList.add('d-none')
-    }
-    else {
-        container.classList.add('d-none');
-        assignOptionsContactsContainerEditTask = false;
-        renderAssignedContactsEditTask();
-        assignedContacts.classList.remove('d-none');
-    }
-}
-
-function renderContactsEditTask() {
-    let activeUserContainer = document.getElementById('active-user-container-edit-task');
-    let container = document.getElementById('select-contact-container-edit-task');
-    activeUserContainer.innerHTML = "";
-    container.innerHTML = "";
-
-    if (activeUser != "" && activeUser[0] != "Guest") {
-        activeUserContainer.classList.remove('d-none');
-        let activeUserUpdated = activeUser.join(" ");
-        let activeUserInitialsUpdated = [activeUserInitials.join("")];
-        for (let y = 0; y < 1; y++) {
-            const activeUserName = activeUserUpdated;
-            let checkBox = renderCheckBoxEditTask(activeUserUpdated);
-            let bgColor = emptyTask.assignedContacts.indexOf(activeUserUpdated) !== -1 ? 'bg-navy' : 'bg-white';
-            activeUserContainer.innerHTML = /*html*/`
-            <div id="logged-in-user-edit-task" onclick="assignTaskToLoggedInUserEditTask('logged-in-user-edit-task')" class="single-contact-container ${bgColor}">
-                <div class="single-contact-name-container">
-                    <div class="contact-name-initials-container" style="background-color: ${colorForActiveUser[0]};">
-                        <span class="user-initials-span">${activeUserInitialsUpdated}</span>
-                    </div>
-                    <span id="logged-in-user-name-edit-task">${activeUserName}</span><span>(You)</span>
-                </div>
-                <div>
-                    <img id="checkbox-active-user-edit-task" src=${checkBox} alt="Checkbox">
-                </div>
-            </div>`;
-    
-            for (let i = 0; i < contacts.length; i++) {
-                const color = colors[i];
-                const userName = userNames[i];
-                const userNameInitial = userNamesInitials[i];
-                let checkBoxContacts = renderCheckBoxEditTask(userName);
-                let bgColor = emptyTask.assignedContacts.indexOf(userName) !== -1 ? 'bg-navy' : 'bg-white'
-                container.innerHTML += /*html*/`
-        <div id="assign-contact-to-task${i}" onclick="assignTaskToContactEditTask(${i})"  class="single-contact-container ${bgColor}">
-            <div class="single-contact-name-container">
-                <div class="contact-name-initials-container" style="background-color: ${color};">
-                    <span class="user-initials-span">${userNameInitial}</span>
-                </div>
-                <span id="assigned-contact-name-edit-task${i}">${userName}</span>
-            </div>
-            <div>
-                <img id="checkbox-edit-task${i}" src=${checkBoxContacts} alt="Checkbox">
-            </div>
-        </div>`;
-    
-            }
-        }
-    }
-    else {
-    
-        for (let i = 0; i < contacts.length; i++) {
-            const color = colors[i];
-            const userName = userNames[i];
-            const userNameInitial = userNamesInitials[i];
-            let checkBoxContacts = renderCheckBoxEditTask(userName);
-            let bgColor = emptyTask.assignedContacts.indexOf(userName) !== -1 ? 'bg-navy' : 'bg-white'
-            container.innerHTML += /*html*/`
-     <div id="assign-contact-to-task${i}" onclick="assignTaskToContactEditTask(${i})"  class="single-contact-container ${bgColor}">
-        <div class="single-contact-name-container">
-            <div class="contact-name-initials-container" style="background-color: ${color};">
-                <span class="user-initials-span">${userNameInitial}</span>
-            </div>
-            <span id="assigned-contact-name-edit-task${i}">${userName}</span>
-        </div>
-        <div>
-            <img id="checkbox-edit-task${i}" src=${checkBoxContacts} alt="Checkbox">
-        </div>
-    </div>`;
-    }
-}
-}
-
-function searchContactsEditTask() {
-    let search = document.getElementById('search-contact-inputfield-edit-task').value.toLowerCase().trim();
-    let content = document.getElementById('select-contact-container-edit-task');
-    let activeUserContainer = document.getElementById('active-user-container-edit-task');
-    let container = document.getElementById('choose-contacts-container-edit-task');
-    let assignedContacts = document.getElementById('show-assigned-contacts-edit-task');
-    content.innerHTML = '';
-
-    if(search.length > 0) {
-        container.classList.remove('d-none');
-        assignOptionsContactsContainerEditTask = true;
-        assignedContacts.classList.add('d-none');
-    }
-    else {
-        container.classList.add('d-none');
-        assignOptionsContactsContainerEditTask = false;
-        assignedContacts.classList.remove('d-none');
-        renderAssignedContactsEditTask();
-    }
-
-    if (activeUser.length > 0 && activeUser[0] != "Guest") { 
-        let activeUserUpdated = activeUser.join(" ");
-        let activeUserInitialsUpdated = activeUserInitials.join("");
-        let checkBox = renderCheckBoxEditTask(activeUserUpdated);
-        let bgColor = emptyTask.assignedContacts.indexOf(activeUserUpdated) !== -1 ? 'bg-navy' : 'bg-white';
-        let color = colorForActiveUser;
-
-        if (activeUserUpdated.toLowerCase().includes(search)) {
-            activeUserContainer.classList.remove('d-none');
-            activeUserContainer.innerHTML = /*html*/`
-            <div id="logged-in-user-edit-task" onclick="assignTaskToLoggedInUserEditTask('logged-in-user-edit-task')" class="single-contact-container ${bgColor}">
-                <div class="single-contact-name-container">
-                    <div class="contact-name-initials-container" style="background-color: ${color};">
-                        <span class="user-initials-span">${activeUserInitialsUpdated}</span>
-                    </div>
-                    <span id="logged-in-user-name-edit-task">${activeUserUpdated}</span><span>(You)</span>
-                </div>
-                <div>
-                    <img id="checkbox-active-user-edit-task" src=${checkBox} alt="Checkbox">
-                </div>
-            </div>`;
-        } else {
-            activeUserContainer.innerHTML = '';
-        }
-    } else {
-        activeUserContainer.classList.add('d-none');
-    }
-
-    for (let i = 0; i < contacts.length; i++) {
-        const color = colors[i];
-        const userName = userNames[i];
-        const userNameLowerCase = userName.toLowerCase();
-        const userNameInitial = userNamesInitials[i];
-        let checkBoxContacts = renderCheckBoxEditTask(userName);
-        let bgColor = emptyTask.assignedContacts.indexOf(userName) !== -1 ? 'bg-navy' : 'bg-white'
-
-        if (userNameLowerCase.includes(search)) {
-        content.innerHTML += /*html*/`
-<div id="assign-contact-to-task${i}" onclick="assignTaskToContactEditTask(${i})"  class="single-contact-container ${bgColor}">
-    <div class="single-contact-name-container">
-        <div class="contact-name-initials-container" style="background-color: ${color};">
-            <span class="user-initials-span">${userNameInitial}</span>
-        </div>
-        <span id="assigned-contact-name-edit-task${i}">${userName}</span>
-    </div>
-    <div>
-        <img id="checkbox-edit-task${i}" src=${checkBoxContacts} alt="Checkbox">
-    </div>
-</div>`;
-        }
-    }
-}
-
-function renderAssignedContactsEditTask() {
-    getInitialsAssignedContactsIdEditTask();
-    console.log(assignedContactsInitialsEditTask);
-    let assignedContactsContainer = document.getElementById('show-assigned-contacts-edit-task');
-    assignedContactsContainer.innerHTML = "";
-    for (let i = 0; i < assignedContactsInitialsEditTask.length; i++) {
-        const initials = assignedContactsInitialsEditTask[i];
-        const color = emptyTask.assignedContactsColors[i];
-        assignedContactsContainer.innerHTML += /*html*/`
-        <div class="contact-name-initials-container" style="background-color: ${color}">
-            <span class="user-initials-span">${initials}</span>
-        </div>`;
-    }
-}
-
+/**
+ * Extracts the initials of assigned contacts for the edit task and updates the global array `assignedContactsInitialsEditTask`.
+ *
+ */
 function getInitialsAssignedContactsIdEditTask() {
     assignedContactsInitialsEditTask.length = 0;
-    let initials = emptyTask.assignedContacts.map(name => {
-        let nameParts = name.split(/[\s-]+/);
-        let initial = nameParts.map(part => part.charAt(0).toUpperCase()).join("");
-        assignedContactsInitialsEditTask.push(initial);
+    emptyTask.assignedContacts.map(name => {
+    let nameParts = name.split(/[\s-]+/);
+    let initial = nameParts.map(part => part.charAt(0).toUpperCase()).join("");
+    assignedContactsInitialsEditTask.push(initial);
     });
 }
 
+/**
+ * Determines the appropriate checkbox image URL for a contact in the edit task based on their assignment status.
+ *
+ * @param {string} id - The identifier of the contact to check for assignment.
+ * @returns {string} The URL of the appropriate checkbox image.
+ */
 function renderCheckBoxEditTask(id) {
     if(emptyTask.assignedContacts.length === 0) {
         return "img/empty-check-box.svg";
@@ -420,206 +122,123 @@ function renderCheckBoxEditTask(id) {
     }
 }
 
+/**
+ * Assigns or unassigns a task to the currently logged-in user in the edit task view.
+ *
+ * @param {string} i - The ID of the HTML element representing the contact in the task assignment view.
+ */
 function assignTaskToLoggedInUserEditTask(i) {
     let container = document.getElementById(i);
     let loggedInUserName = document.getElementById('logged-in-user-name-edit-task').innerHTML;
     let index = emptyTask.assignedContacts.indexOf(loggedInUserName);
     let checkbox = document.getElementById('checkbox-active-user-edit-task');
     if (index === -1) {
-        container.classList.add('bg-navy');
-        emptyTask.assignedContactsColors.push(colorForActiveUser[0]);
-        emptyTask.assignedContacts.push(loggedInUserName);
-        checkbox.src = "img/filled-check-box-white.svg"
+        markActiveUserAndAssignTaskToHimInEditTask(container, loggedInUserName, checkbox);
     }
     else {
-        container.classList.remove('bg-navy');
-        emptyTask.assignedContacts.splice(index,1);
-        emptyTask.assignedContactsColors.splice(index, 1);
-        checkbox.src = "img/empty-check-box.svg"
+        unmarkAndTakeTaskAwayInEditTask(container, index, checkbox);
     }
 }
 
+/**
+ * Marks the currently logged-in user as assigned to the task in the edit task view.
+ *
+ * @param {HTMLElement} container - The HTML element representing the contact in the task assignment view.
+ * @param {string} loggedInUserName - The name of the currently logged-in user who is being assigned the task.
+ * @param {HTMLImageElement} checkbox - The image element representing the checkbox icon that indicates assignment status.
+ */
+function markActiveUserAndAssignTaskToHimInEditTask(container, loggedInUserName, checkbox) {
+    container.classList.add('bg-navy');
+    emptyTask.assignedContactsColors.push(colorForActiveUser[0]);
+    emptyTask.assignedContacts.push(loggedInUserName);
+    checkbox.src = "img/filled-check-box-white.svg";
+}
+
+/**
+ * Unmarks the currently logged-in user and removes the task assignment in the edit task view.
+ *
+ * @param {HTMLElement} container - The HTML element representing the contact in the task assignment view.
+ * @param {number} index - The index of the logged-in user's name in the `emptyTask.assignedContacts` array.
+ * @param {HTMLImageElement} checkbox - The image element representing the checkbox icon that indicates assignment status.
+ */
+function unmarkAndTakeTaskAwayInEditTask(container, index, checkbox) {
+    container.classList.remove('bg-navy');
+    emptyTask.assignedContacts.splice(index,1);
+    emptyTask.assignedContactsColors.splice(index, 1);
+    checkbox.src = "img/empty-check-box.svg";
+}
+
+/**
+ * Assigns or unassigns a task to a contact in the edit task view.
+ *
+ * @param {number} i - The index or identifier used to locate the specific contact and associated elements.
+ * @param {HTMLElement} container - The HTML element representing the contact's container in the task assignment view.
+ * @param {string} contactName - The name of the contact being assigned or unassigned.
+ * @param {HTMLImageElement} checkbox - The image element representing the checkbox icon for the contact's assignment status.
+ */
 function assignTaskToContactEditTask(i) {
     let container = document.getElementById(`assign-contact-to-task${i}`);
     let contactName = document.getElementById(`assigned-contact-name-edit-task${i}`).innerHTML;
     let index = emptyTask.assignedContacts.indexOf(contactName);
-    console.log(index);
     let checkbox = document.getElementById(`checkbox-edit-task${i}`);
     if (index === -1) {
-        container.classList.add('bg-navy');
-        emptyTask.assignedContactsColors.push(colors[i]);
-        emptyTask.assignedContacts.push(contactName);
-        checkbox.src = "img/filled-check-box-white.svg"
+        markContactAndAssignTaskToHimInEditTask(container, contactName, i, checkbox);
     }
     else {
-        container.classList.remove('bg-navy');
-        emptyTask.assignedContacts.splice(index,1);
-        emptyTask.assignedContactsColors.splice(index, 1);
-        checkbox.src = "img/empty-check-box.svg";
+        unmarkAndTakeTaskAwayInEditTask(container, index, checkbox);
     }
 }
 
-function renderSubtasksFromEditTask() {
-    let content = document.getElementById('added-subtask-main-container-edit-task');
-    let subtasks = emptyTask.subtasks;
-    content.innerHTML = "";
-    for (let i = 0; i < subtasks.length; i++) {
-        const subtask = subtasks[i];
-            content.innerHTML += /*html*/`
-            <div id="single-subtask-container-edit-task${i}" class="single-subtask-container bg-grey-hover" onmouseout="hoverExitFunctionEditTask(${i})" onmouseover="hoverFunctionEditTask(${i})">
-                <ul>
-                    <li id="list-content-edit-task${i}" class="list-element">${subtask}</li>
-                </ul>
-                <div id="edit-delete-created-subtask-container-edit-task${i}" class="edit-delete-created-subtask-container d-none">
-                    <img id="single-subtask-edit-edit-task${i}" class="edit-sign" onclick="OpenEditTaskInEditTask(${i})" src="img/edit.svg" alt="">
-                    <div class="seperator"></div>
-                    <img id="single-subtask-delete-edit-task${i}" class="delete-sign" onclick="deleteTaskInEditTask(${i})" src="img/delete.svg" alt="">
-                </div>
-            </div>`;
-            }
+/**
+ * Marks a contact as assigned to a task and updates the UI accordingly.
+ * 
+ * @param {HTMLElement} container - The HTML element representing the contact's container.
+ * @param {string} contactName - The name of the contact being assigned to the task.
+ * @param {number} i - The index of the contact used to determine the color for the assignment.
+ * @param {HTMLImageElement} checkbox - The image element representing the checkbox icon for the contact's assignment status.
+ */
+function markContactAndAssignTaskToHimInEditTask(container, contactName, i, checkbox) {
+    container.classList.add('bg-navy');
+    emptyTask.assignedContactsColors.push(colors[i]);
+    emptyTask.assignedContacts.push(contactName);
+    checkbox.src = "img/filled-check-box-white.svg"
 }
 
-function hoverFunctionEditTask(i) {
-    let editContainer = document.getElementById(`edit-delete-created-subtask-container-edit-task${i}`);
-    if (editContainer) {
-        editContainer.classList.remove('d-none');
-    }
-}
-
-function hoverExitFunctionEditTask(i) {
-    let editContainer = document.getElementById(`edit-delete-created-subtask-container-edit-task${i}`);
-    if (editContainer) {
-        editContainer.classList.add('d-none');
-    }
-}
-
-function OpenEditTaskInEditTask(i) {
-    let content = document.getElementById(`single-subtask-container-edit-task${i}`);
-    let listValue = document.getElementById(`list-content-edit-task${i}`).innerHTML;
-    currentSubtask = listValue;
-    console.log(currentSubtask);
-
-    if (editMenuSubtaskIsOpenInEditTask === false) {
-        content.classList.remove('bg-grey-hover');
-        content.classList.add('blue-underline');
-        content.innerHTML = /*html*/`
-        <div class="edit-subtask-container">
-                <input id="edit-task-input-edit-task${i}" class="edit-subtask-inputfield" value="${listValue}">
-                <div id="delete-confirm-edit-subtask-edit-task" class="delete-confirm-edit-subtask-container">
-                    <img class="delete-sign" onclick="deleteOpenEditTaskInEditTask(${i})" src="img/delete.svg" alt="">
-                    <div class="seperator"></div>
-                    <img class="confirm-edit" onclick="editTaskInEditTask(${i})" src="img/check-grey.svg" alt="">
-                </div>
-        </div>`;
-        editMenuSubtaskIsOpenInEditTask = true;
-    }
-}
-
-function editTaskInEditTask(i) {
-    let taskElement = document.getElementById(`edit-task-input-edit-task${i}`);
-    let newValue = taskElement.value;
-
-    let doneIndex = emptyTask.doneSubtasks.indexOf(currentSubtask);
-
-    if (doneIndex !== -1) {
-        emptyTask.subtasks.splice(i, 1, newValue);
-        emptyTask.doneSubtasks.splice(doneIndex, 1, newValue);
-    } else {
-        emptyTask.subtasks.splice(i, 1, newValue);
-    }
-    currentSubtask = null;
-
-    console.log(emptyTask);
-    renderSubtasksFromEditTask();
-    editMenuSubtaskIsOpenInEditTask = false;
-}
-
-function deleteOpenEditTaskInEditTask(i) {
-    emptyTask.subtasks.splice(i, 1);
-    emptyTask.doneSubtasks.splice(i, 1);
-    console.log(emptyTask);
-    renderSubtasksFromEditTask();
-    editMenuSubtaskIsOpenInEditTask = false;
-}
-
-function deleteTaskInEditTask(i) {
-    if (editMenuSubtaskIsOpenInEditTask === false) {
-        emptyTask.subtasks.splice(i, 1);
-        emptyTask.doneSubtasks.splice(i, 1);
-        renderSubtasksFromEditTask();
-    }
-}
-
-function changeIconsSubtasksEditTask() {
-    let content = document.getElementById('add-subtask-svg-container-edit-task');
-    let cancelAndConfirm = document.getElementById('cancel-or-confirm-subtask-container-edit-task')
-    let input = document.getElementById('add-subtask-input-container-inputfield-edit-task');
-    if (input.value === '') {
-        content.classList.remove('d-none');
-        cancelAndConfirm.classList.add('d-none');
-    }
-    else {
-        content.classList.add('d-none');
-        cancelAndConfirm.classList.remove('d-none');
-    }
-}
-
-function clearSubtaskEditTask() {
-    let addSignContainer = document.getElementById('add-subtask-svg-container-edit-task');
-    let cancelAndConfirm = document.getElementById('cancel-or-confirm-subtask-container-edit-task')
-    let inputField = document.getElementById('add-subtask-input-container-inputfield-edit-task');
-
-    inputField.value = '';
-    addSignContainer.classList.remove('d-none');
-    cancelAndConfirm.classList.add('d-none');
-}
-
-function addSubtaskEditTask() {
-    let addSignContainer = document.getElementById('add-subtask-svg-container-edit-task');
-    let cancelAndConfirm = document.getElementById('cancel-or-confirm-subtask-container-edit-task')
-    let inputField = document.getElementById('add-subtask-input-container-inputfield-edit-task');
-    let content = document.getElementById('added-subtask-main-container-edit-task');
-    let subtasks = emptyTask.subtasks;
-    emptyTask.subtasks.push(inputField.value);
-    content.innerHTML = "";
-    for (let i = 0; i < subtasks.length; i++) {
-        const subtask = subtasks[i];
-        content.innerHTML += /*html*/`
-          <div id="single-subtask-container-edit-task${i}" class="single-subtask-container bg-grey-hover" onmouseout="hoverExitFunctionEditTask(${i})" onmouseover="hoverFunctionEditTask(${i})">
-            <ul>
-                <li id="list-content-edit-task${i}" class="list-element">${subtask}</li>
-            </ul>
-            <div id="edit-delete-created-subtask-container-edit-task${i}" class="edit-delete-created-subtask-container d-none">
-                <img id="single-subtask-edit-edit-task${i}" class="edit-sign" onclick="OpenEditTaskInEditTask(${i})" src="img/edit.svg" alt="">
-                <div class="seperator"></div>
-                <img id="single-subtask-delete-edit-task${i}" class="delete-sign" onclick="deleteTaskInEditTask(${i})" src="img/delete.svg" alt="">
-            </div>
-        </div>`;
-    }
-    inputField.value = '';
-    addSignContainer.classList.remove('d-none');
-    cancelAndConfirm.classList.add('d-none');
-    editMenuSubtaskIsOpenInEditTask = false;
-}
-
+/**
+ * Updates the title of the current task with the value from the title input field.
+ *
+ */
 function newTitle() {
     let title = document.getElementById("title-edit-task").value;
     emptyTask.title = title;
-    console.log(emptyTask);
 }
 
+/**
+ * Updates the description of the current task with the value from the description input field.
+ *
+ */
 function newDescription() {
     let description = document.getElementById("description-of-task-edit-task").value;
     emptyTask.description = description;
-    console.log(emptyTask);
 }
 
+/**
+ * Updates the deadline of the current task with the value from the date input field.
+ *
+ */
 function newDate() {
     let date = document.getElementById("date-edit-task").value;
     emptyTask.deadline = date;
-    console.log(emptyTask);
 }
 
+/**
+ * Sends an HTTP PUT request to update a task on the server with the current task data.
+ *
+ * @param {string} [path=""] - The endpoint path where the task update request will be sent.
+ * @param {Object} [data={}] - An object containing the task's details. Defaults to an empty object.
+ * @returns {Promise<Object>} A promise that resolves to the JSON response from the server.
+ * 
+ */
 async function updateTask(path = "", data={}) {
    data = {
         id: "",
@@ -645,6 +264,13 @@ async function updateTask(path = "", data={}) {
   return responseToJson = await response.json();
   }
 
+  /**
+ * Finalizes and updates a task based on the current values in the edit form.
+ *
+ * @param {number} index - The index of the task in the `taskKeys` array to be updated.
+ * @returns {Promise<void>} A promise that resolves when the task update is complete.
+ *
+ */
  async function finalUpdateTask(index) {
     let title = document.getElementById('title-edit-task');
     let date = document.getElementById('date-edit-task');
@@ -653,7 +279,6 @@ async function updateTask(path = "", data={}) {
     let indexOfTaskKeys = taskKeys.indexOf(emptyTask.id);
     allTasks[indexOfTaskKeys] = emptyTask;
     let key = taskKeys[indexOfTaskKeys];
-    console.log(allTasks);
 
     checkField(title, titleRequiredSpan);
     checkField(date, dateRequiredSpan);
