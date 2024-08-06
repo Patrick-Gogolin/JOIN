@@ -195,7 +195,7 @@
                     </div>
                     <div id="todo" class="rendered-tasks-area-to-do drag-area" ondrop="moveTo('todo')"
                         ondragleave="removeHighlight('todo')" ondragover="allowDrop(event); highlight('todo')" onmouseover="enableDrawing()">
-                        <div class="create-task-container">
+                        <div class="create-task-container nothing-to-do-nothing-done-container">
                             <span>No tasks To do</span>
                         </div>
                     </div>
@@ -213,6 +213,9 @@
                     </div>
                     <div id="progress" class="rendered-tasks-area-in-progress drag-area" ondrop="moveTo('progress')"
                         ondragleave="removeHighlight('progress')" ondragover="allowDrop(event); highlight('progress')" onmouseover="enableDrawing()">
+                        <div class="create-task-container nothing-to-do-nothing-done-container">
+                            <span>No tasks in progress</span>
+                        </div>
                     </div>
                 </div>
                 <div class="task-column" id="feedback-mb">
@@ -228,6 +231,9 @@
                     </div>
                     <div id="feedback" class="rendered-tasks-area-await-feedback drag-area" ondrop="moveTo('feedback')"
                         ondragleave="removeHighlight('feedback')" ondragover="allowDrop(event); highlight('feedback')" onmouseover="enableDrawing()">
+                        <div class="create-task-container nothing-to-do-nothing-done-container">
+                            <span>No tasks awaiting feedback</span>
+                        </div>
                     </div>
                 </div>
                 <div class="task-column" id="done-mb">
@@ -236,6 +242,9 @@
                     </div>
                     <div id="done" class="rendered-tasks-area-done drag-area" ondrop="moveTo('done')"
                         ondragleave="removeHighlight('done')" ondragover="allowDrop(event); highlight('done')" onmouseover="enableDrawing()">
+                        <div class="create-task-container nothing-to-do-nothing-done-container">
+                            <span>No tasks Done</span>
+                        </div>
                     </div>
                 </div>
             </div>
