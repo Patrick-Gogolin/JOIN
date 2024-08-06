@@ -651,7 +651,6 @@ select {
     border: 1px solid #D1D1D1;
     cursor: pointer;
     background-color: white;
-    padding-right: 14px;
 }
 
 .add-subtask-input-container input {
@@ -663,6 +662,10 @@ select {
     font-family: inter;
     font-weight: 200;
     font-size: 20px;
+}
+
+.add-subtask-svg-container {
+    margin-right: 14px;
 }
 
 .add-subtask-input-container:hover {
