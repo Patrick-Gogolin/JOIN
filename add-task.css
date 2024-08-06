@@ -878,6 +878,7 @@ ul {
     .add-task-slide {
         margin-top: 80px;
         margin-left: 0;
+        padding-bottom: 225px;
     }
 
     .add-task-headlinde-container {
@@ -1071,9 +1072,36 @@ ul {
     }
 }
 
-/* @media screen and (max-height: 1110px) {
-    .choose-contacts-container {
-        z-index: 999;
-        height: 210px;
+@media screen and (max-width: 1170px) {
+    .add-task-slide {
+        padding-bottom: 32px;
     }
-} */
+}
+
+
+
+.choose-contacts-container {
+    --sb-track-color: #ffffff;
+    --sb-thumb-color: #a8a8a8;
+    --sb-size: 5px;
+}
+
+.choose-contacts-container::-webkit-scrollbar {
+    width: var(--sb-size);
+}
+
+.choose-contacts-container::-webkit-scrollbar-track {
+    background: var(--sb-track-color);
+    border-radius: 4px;
+}
+
+.choose-contacts-container::-webkit-scrollbar-thumb {
+    background: var(--sb-thumb-color);
+    border-radius: 4px;
+}
+
+@supports not selector(::-webkit-scrollbar) {
+    .choose-contacts-container {
+        scrollbar-color: var(--sb-thumb-color) var(--sb-track-color);
+    }
+}
