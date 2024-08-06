@@ -165,3 +165,14 @@ function renderGetEachContactInfoHtml(actualBgColor, initials, eachContact, cont
     </div>
 </div>`;
 }
+
+function renderGetContactListTemplateHtml(eachContact, bgColor, initials) {
+    return /*html*/`
+     <div id="contact-list-element-${eachContact.id}" class="contact" onclick='showContactInfo(${JSON.stringify(eachContact)})'>
+        <div class="contact-logo" style="background-color: ${bgColor};" >${initials}</div>
+        <div class="contact-name">
+         <p>${eachContact.contact.name}</p>
+         <a href="">${eachContact.contact.email}</a>
+    </div>
+    </div>`;
+}

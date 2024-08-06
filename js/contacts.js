@@ -351,12 +351,8 @@ function showContactInfo(eachContact) {
     element.style.backgroundColor = "";
     element.style.color = "";
   });
-  document.getElementById(
-    `contact-list-element-${eachContact.id}`
-  ).style.background = "#2A3647";
-  document.getElementById(
-    `contact-list-element-${eachContact.id}`
-  ).style.color = "white";
+  document.getElementById(`contact-list-element-${eachContact.id}`).style.background = "#2A3647";
+  document.getElementById(`contact-list-element-${eachContact.id}`).style.color = "white";
   showInfo(eachContact);
 }
 
@@ -372,12 +368,8 @@ function showUserContactInfo(user) {
     element.style.backgroundColor = "";
     element.style.color = "";
   });
-  document.getElementById(
-    `contact-list-element-${activeUserInContacts.id}`
-  ).style.background = "#2A3647";
-  document.getElementById(
-    `contact-list-element-${activeUserInContacts.id}`
-  ).style.color = "white";
+  document.getElementById(`contact-list-element-${activeUserInContacts.id}`).style.background = "#2A3647";
+  document.getElementById(`contact-list-element-${activeUserInContacts.id}`).style.color = "white";
   showUserInfo(user);
 }
 
