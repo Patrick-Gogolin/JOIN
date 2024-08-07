@@ -118,9 +118,11 @@ function updateLoginGreetingText() {
  * Checks the screen width and shows the greeting if required.
  */
 function checkScreenWidthAndShowGreeting() {
+    const greetingContainer = document.getElementById('log-in-greeting');
     const screenWidth = window.innerWidth;
 
     if (screenWidth <= 920) {
+        greetingContainer.style.display = 'flex';
         setTimeout(showGreetingForTwoSeconds, 1000);
         setTimeout(showContent, 1000);
     } else {

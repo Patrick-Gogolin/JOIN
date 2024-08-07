@@ -432,6 +432,7 @@ body {
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    display: none;
 }
 
 .log-in-greeting-text {
