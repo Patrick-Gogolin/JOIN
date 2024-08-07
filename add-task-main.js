@@ -92,7 +92,7 @@ function messageIfRequiredFieldsAreNotFilledInEditTask() {
  * and category, and resets their values. It also calls functions to reset the subtask input area and the
  * entire add task slide to their default states.
  */
-function clearAddTaskMasque() {
+function clearAddTaskMasque(searchInputfieldId) {
     let subtaskContent = document.getElementById('added-subtask-main-container');
     let title = document.getElementById('title');
     let description = document.getElementById('description-of-task');
@@ -100,7 +100,7 @@ function clearAddTaskMasque() {
     let contactsContent = document.getElementById('show-assigned-contacts');
     let category = document.getElementById('selected-task-headline');
     let addSubtaskInputfield = document.getElementById('add-subtask-input-container-inputfield-main');
-    let searchInputfield = document.getElementById('search-contact-inputfield-main');
+    let searchInputfield = document.getElementById(searchInputfieldId);
     setSubtaskInputAreaInEditTaskToDefault();
     resetAddTaskSlide(title, description, date, category, contactsContent, subtaskContent, addSubtaskInputfield, searchInputfield);
 }

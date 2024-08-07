@@ -45,10 +45,12 @@ function mediumPriority() {
         mediumButton.classList.add('medium');
         mediumPrioSign.src = 'img/medium-prio.svg';
         priority = mediumButton.innerText;
+        console.log(priority);
     } else {
         mediumButton.classList.remove('medium');
         mediumPrioSign.src = 'img/medium-prio-orange.svg';
         priority = "";
+        console.log("deaktiviert");
     }
 
     mediumActive = !mediumActive;
@@ -96,6 +98,13 @@ function resetButtons() {
     resetLowButton();
 }
 
+function resetPriorityToDefault() {
+    priority = "Medium";
+    resetUrgentButton();
+    resetMediumButtonAfterClosingSlide();
+    resetLowButton();
+}
+
 /**
  * Resets the urgent priority button to its default visual state.
  *
@@ -128,6 +137,14 @@ function resetMediumButton() {
     mediumButton.classList.remove('medium');
     mediumPrioSign.src = 'img/medium-prio-orange.svg';
     mediumActive = false;
+}
+
+function resetMediumButtonAfterClosingSlide() {
+    let mediumButton = document.getElementById('medium-button');
+    let mediumPrioSign = document.getElementById('medium-prio-sign');
+    mediumButton.classList.add('medium');
+    mediumPrioSign.src = 'img/medium-prio.svg';
+    mediumActive = true;
 }
 
 /**

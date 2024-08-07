@@ -59,7 +59,7 @@
                 <div class="assigned-to-input-container">
                     <span class="headline-input">Assigned to</span>
                     <div class="select-contacts-container">
-                        <input onkeyup="searchContacts()" id="search-contact-inputfield-main" type="text"
+                        <input onkeyup="searchContacts('search-contact-inputfield-main')" id="search-contact-inputfield-main" type="text"
                             placeholder="Select contacts to assign">
                         <img onclick="openSelectContactsContainer(event)" src="img/arrow-drop-down-contacts.svg" alt="">
                     </div>
@@ -88,8 +88,8 @@
                     <div class="priority-button-container">
                         <button onclick="urgentPriority()" id="urgent-button" class="urgent-button">Urgent <img
                                 id="urgent-prio-sign" src="img/urgent-prio.svg" alt=""></button>
-                        <button onclick="mediumPriority()" id="medium-button" class="medium-button">Medium <img
-                                id="medium-prio-sign" src="img/medium-prio-orange.svg" alt=""></button>
+                        <button onclick="mediumPriority()" id="medium-button" class="medium-button medium">Medium <img
+                                id="medium-prio-sign" src="img/medium-prio.svg" alt=""></button>
                         <button onclick="lowPriority()" id="low-button" class="low-button">Low <img id="low-prio-sign"
                                 src="img/low-prio.svg" alt=""></button>
                     </div>
@@ -100,8 +100,7 @@
                         <span id="selected-task-headline">Select task category</span>
                         <img onclick="openSelectCategoryContainer(event)" src="img/arrow-drop-down-contacts.svg" alt="">
                     </div>
-                    <span id="category-required-span" class="this-field-required-span d-none">This field is
-                        required</span>
+                    <span id="category-required-span" class="this-field-required-span d-none">This field is required</span>
                     <div id="choose-category-container" class="choose-category-container d-none">
                         <div onclick="selectCategory('select-category-technical-task-span', 'selected-task-headline')"
                             class="category-to-select-container" id="select-category-technical-task">
@@ -142,7 +141,7 @@
                 <span><span class="red-star-required">*</span>This field is required</span>
             </div>
             <div class="clear-and-create-task-button-container">
-                <button onclick="clearAddTaskMasque()" id="clear-button" class="cancel-button">Clear</button>
+                <button onclick="clearAddTaskMasque('search-contact-inputfield-main')" id="clear-button" class="cancel-button">Clear</button>
                 <button id="post-task-button" onclick="addTaskMain()" class="check-button">Create Task <img
                         src="img/check.svg" alt=""></button>
 

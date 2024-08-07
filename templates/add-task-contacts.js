@@ -299,8 +299,8 @@ function renderAssignedContacts() {
  * displays assigned contacts.
 
  */
-function searchContacts() {
-    let search = document.getElementById('search-contact-inputfield-main').value.toLowerCase().trim();
+function searchContacts(searchInputfieldId) {
+    let search = document.getElementById(searchInputfieldId).value.toLowerCase().trim();
     let content = document.getElementById('select-contact-container');
     let activeUserContainer = document.getElementById('active-user-container');
     let contactsContainer = document.getElementById('choose-contacts-container');

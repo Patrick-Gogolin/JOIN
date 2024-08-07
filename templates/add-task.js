@@ -5,9 +5,9 @@ let assignedCategory = "";
 let subtasks = [];
 let doneSubtasks = [];
 let urgentActive = false;
-let mediumActive = false;
+let mediumActive = true;
 let lowActive = false;
-let priority = "";
+let priority = "Medium";
 let assignedTaskToLoggedInUser = false;
 let contacts = [];
 let userNames = [];
@@ -126,7 +126,7 @@ async function createTaskAndRefresh(title, description, date, category, contacts
  */
 function resetAddTaskSlide(title, description, date, category, contacts, subtasksContent, addSubtaskInputfield, searchInputfield) {
     resetRequiredFieldMessages();
-    resetButtons();
+    resetPriorityToDefault();
     title.value = "";
     description.value = "";
     date.value = "";
