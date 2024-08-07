@@ -4,7 +4,9 @@
  */
 function filterTasks() {
     let input = document.getElementById('filterInput').value.toLowerCase();
-    let filteredTasks = allTasks.filter(task => task.title.toLowerCase().includes(input));
+    let filteredTasks = allTasks.filter(task => 
+        task.title.toLowerCase().includes(input) || task.description.toLowerCase().includes(input)
+    );
 
     updateFilteredHTML(filteredTasks);
 }
