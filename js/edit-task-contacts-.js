@@ -183,10 +183,22 @@ function renderContactsAfterSearchInEditTask(content, search) {
 function renderAssignedContactsEditTask() {
     getInitialsAssignedContactsIdEditTask();
     let assignedContactsContainer = document.getElementById('show-assigned-contacts-edit-task');
+    let displayedAssignedContactsInitials = 4;
+    let extraAssignedContacts = assignedContactsInitialsEditTask.length - displayedAssignedContactsInitials;
     assignedContactsContainer.innerHTML = "";
-    for (let i = 0; i < assignedContactsInitialsEditTask.length; i++) {
-        const initials = assignedContactsInitialsEditTask[i];
-        const color = emptyTask.assignedContactsColors[i];
-        assignedContactsContainer.innerHTML += renderAssignedContactsInEditTaskHtml(color, initials);
+
+    if(assignedContactsInitialsEditTask.length <= 4) {
+        for (let x = 0; x < assignedContactsInitialsEditTask.length; x++) {
+            const initials = assignedContactsInitialsEditTask[x];
+            let color = emptyTask.assignedContactsColors[x];
+            assignedContactsContainer.innerHTML += renderAssignedContactsInEditTaskHtml(color, initials);
+        }
+    } else {
+        for (let x = 0; x < 4; x++) {
+            const initials = assignedContactsInitialsEditTask[x];
+            let color = emptyTask.assignedContactsColors[x];
+            assignedContactsContainer.innerHTML += renderAssignedContactsInEditTaskHtml(color, initials);
+            }
+            assignedContactsContainer.innerHTML += renderSignThatMoreContactsAreAssignedHtml(extraAssignedContacts);
     }
 }

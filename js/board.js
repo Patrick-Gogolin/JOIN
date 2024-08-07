@@ -367,18 +367,31 @@ function renderTasks(tasks, status) {
 }
 
 /**
- * Renders the assigned contacts' initials in the task card.
- *
- * @param {string} status - The status category of the task (e.g., 'todo', 'progress', 'feedback', 'done').
- * @param {number} i - The index of the task within its status category.
- * @param {Object} task - The task object containing details of the task.
- * @param {Array<string>} initials - An array of initials representing the assigned contacts.
+ * Renders the assigned contacts in a task card.
+ * 
+ * @param {string} status - The status of the task.
+ * @param {number} i - The index of the task.
+ * @param {object} task - The task object.
+ * @param {string[]} initials - The initials of the assigned contacts.
  */
 function renderAssignedContactsInTaskCard(status, i, task, initials) {
-    for (let x = 0; x < initials.length; x++) {
-        const initial = initials[x];
-        let contactColors = task.assignedContactsColors[x];
-        let contentForContacts = document.getElementById(`contacts-${status}-container${i}`);
-        contentForContacts.innerHTML += assignedContactContainerHtml(initial, contactColors);
+    let contentForContacts = document.getElementById(`contacts-${status}-container${i}`);
+    let displayedAssignedContactsInitials = 4;
+    let extraAssignedContacts = initials.length - displayedAssignedContactsInitials;
+    contentForContacts.innerHTML = "";
+
+    if(initials.length <= 4) {
+        for (let x = 0; x < initials.length; x++) {
+            const initial = initials[x];
+            let contactColors = task.assignedContactsColors[x];
+            contentForContacts.innerHTML += assignedContactContainerHtml(initial, contactColors);
+        }
+    } else {
+        for (let x = 0; x < 4; x++) {
+            const initial = initials[x];
+            let contactColors = task.assignedContactsColors[x];
+            contentForContacts.innerHTML += assignedContactContainerHtml(initial, contactColors);
+            }
+            contentForContacts.innerHTML += renderSignThatMoreContactsAreAssignedHtml(extraAssignedContacts);
     }
 }

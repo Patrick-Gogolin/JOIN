@@ -280,11 +280,11 @@ function renderCheckBox(id) {
 function renderAssignedContacts() {
     getInitialsAssignedContactsId();
     let assignedContactsContainer = document.getElementById('show-assigned-contacts');
-    let displayedAssignedContactsInitials = 5;
+    let displayedAssignedContactsInitials = 4;
     let extraAssignedContacts = assignedContactsInitials.length - displayedAssignedContactsInitials;
     assignedContactsContainer.innerHTML = "";
 
-    if(assignedContactsInitials.length < 6) {
+    if(assignedContactsInitials.length <= 4) {
         for (let i = 0; i < assignedContactsInitials.length; i++) {
             const initials = assignedContactsInitials[i];
             const color = assignedContactsColors[i];
@@ -292,7 +292,7 @@ function renderAssignedContacts() {
         }
     }
     else {  
-        for (let i = 0; i < 6; i++) {
+        for (let i = 0; i < 4; i++) {
         const initials = assignedContactsInitials[i];
         const color = assignedContactsColors[i];
         assignedContactsContainer.innerHTML += renderAssignedContactsHtml(color, initials);
