@@ -1048,10 +1048,6 @@ ul {
     html {
         scrollbar-width: none;
     }
-
-    .input-for-task {
-        margin-bottom: 172px;
-    }
 }
 
 @media screen and (max-height:680px) {
