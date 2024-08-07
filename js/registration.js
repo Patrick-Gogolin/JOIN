@@ -24,10 +24,10 @@ document.addEventListener('DOMContentLoaded', (event) => {
     const emailInput = document.getElementById('email');
     emailInput.addEventListener('input', function(event) {
         const emailValue = emailInput.value;
-        const regex = /^[^\s@]+@[^\s@]+\.(de|com)$/;
+        const regex = /^[^\s@]+@[^\s@]+\.(de|ch|com|uk|fr)$/;
         
         if (!regex.test(emailValue)) {
-            emailInput.setCustomValidity('Invalid email domain. Please use .de or .com');
+            emailInput.setCustomValidity('Please use a valid e-mail domain.');
         } else {
             emailInput.setCustomValidity('');
         }

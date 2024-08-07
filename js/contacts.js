@@ -410,3 +410,28 @@ function getUserContactInfo() {
   let template = renderGetUserInfoHtml(initials, contactName, contactPhone, contactEmail);
   document.getElementById("contact-info").innerHTML = template;
 }
+
+/**
+ * Event Listener: DOMContentLoaded
+ *
+ * Sets up an event listener for the email input field to validate the email domain.
+ * This event listener waits for the DOM content to be fully loaded, then checks if the email input field exists.
+ * If it exists, it attaches an 'input' event listener to the input field. When the user types in the email field,
+ * the email address is validated to ensure it ends with `.de` or `.com`. If the email address does not match the
+ * required format, a custom validity message is set. If it matches, the custom validity message is cleared.
+ *
+ * @param {Event} event - The event object.
+ */
+document.addEventListener('DOMContentLoaded', (event) => {
+  const emailInput = document.getElementById('mail');
+  emailInput.addEventListener('input', function(event) {
+      const emailValue = emailInput.value;
+      const regex = /^[^\s@]+@[^\s@]+\.(de|ch|com|uk|fr)$/;
+      
+      if (!regex.test(emailValue)) {
+          emailInput.setCustomValidity('Please use a valid e-mail domain.');
+      } else {
+          emailInput.setCustomValidity('');
+      }
+  });
+});
