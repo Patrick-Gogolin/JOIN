@@ -101,6 +101,11 @@ function renderAssignedContactsHtml(color, initials) {
     </div>`;
 }
 
+function renderSignThatMoreContactsAreAssignedHtml(assignedContactsInitials) {
+    return /*html*/`
+    <span class="show-that-more-contacts-are-assigned-span">+${assignedContactsInitials.length}</span>`;
+}
+
 function renderActiveUserAfterSearchHtml(bgColor, color, activeUserInitialsUpdated, activeUserUpdated, checkBox) {
     return /*html*/`
     <div id="logged-in-user" onclick="assignTaskToLoggedInUser('logged-in-user')" class="single-contact-container ${bgColor}">

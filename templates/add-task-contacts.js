@@ -281,12 +281,23 @@ function renderAssignedContacts() {
     getInitialsAssignedContactsId();
     let assignedContactsContainer = document.getElementById('show-assigned-contacts');
     assignedContactsContainer.innerHTML = "";
-    for (let i = 0; i < assignedContactsInitials.length; i++) {
+
+    if(assignedContactsInitials.length < 6) {
+        for (let i = 0; i < assignedContactsInitials.length; i++) {
+            const initials = assignedContactsInitials[i];
+            const color = assignedContactsColors[i];
+            assignedContactsContainer.innerHTML += renderAssignedContactsHtml(color, initials);
+        }
+    }
+    else {  
+        for (let i = 0; i < 6; i++) {
         const initials = assignedContactsInitials[i];
         const color = assignedContactsColors[i];
         assignedContactsContainer.innerHTML += renderAssignedContactsHtml(color, initials);
+        }
+        assignedContactsContainer.innerHTML += renderSignThatMoreContactsAreAssignedHtml(assignedContactsInitials);
     }
-}
+    }
 
 /**
  * Searches for contacts based on the input value and updates the UI accordingly.

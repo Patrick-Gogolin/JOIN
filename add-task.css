@@ -278,6 +278,12 @@ select {
     flex-wrap: wrap;
 }
 
+.show-that-more-contacts-are-assigned-span {
+    display: flex;
+    align-items: center;
+    margin-left: 8px;
+}
+
 .bg-navy {
     background-color: #2A3647 !important;
     color: white;
