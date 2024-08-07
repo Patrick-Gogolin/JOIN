@@ -139,6 +139,13 @@ function resetMediumButton() {
     mediumActive = false;
 }
 
+/**
+ * Resets the medium priority button and its associated sign after closing a slide.
+ *
+ * This function reverts the state of the medium priority button to its default state by
+ * adding the 'medium' class to the button and updating the source of the priority sign image
+ * to indicate medium priority. It also sets the `mediumActive` flag to true.
+ */
 function resetMediumButtonAfterClosingSlide() {
     let mediumButton = document.getElementById('medium-button');
     let mediumPrioSign = document.getElementById('medium-prio-sign');
