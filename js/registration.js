@@ -10,6 +10,32 @@ const dataTemplate = {
 };
 
 /**
+ * Event Listener: DOMContentLoaded
+ *
+ * Sets up an event listener for the email input field to validate the email domain.
+ * This event listener waits for the DOM content to be fully loaded, then checks if the email input field exists.
+ * If it exists, it attaches an 'input' event listener to the input field. When the user types in the email field,
+ * the email address is validated to ensure it ends with `.de` or `.com`. If the email address does not match the
+ * required format, a custom validity message is set. If it matches, the custom validity message is cleared.
+ *
+ * @param {Event} event - The event object.
+ */
+document.addEventListener('DOMContentLoaded', (event) => {
+    const emailInput = document.getElementById('email');
+    emailInput.addEventListener('input', function(event) {
+        const emailValue = emailInput.value;
+        const regex = /^[^\s@]+@[^\s@]+\.(de|com)$/;
+        
+        if (!regex.test(emailValue)) {
+            emailInput.setCustomValidity('Invalid email domain. Please use .de or .com');
+        } else {
+            emailInput.setCustomValidity('');
+        }
+    });
+});
+
+
+/**
  * Posts user data to the specified path.
  * 
  * This function retrieves user data from form input fields, checks if the passwords match,
