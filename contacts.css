@@ -428,11 +428,11 @@ body:has(.cancel:hover) .cancel img{
 }
 
 .animation{
-    animation: slideMe 0.125s;
+    animation: slideMe 0.125s forwards;
 }
 
 .animation-close{
-    animation: slideOut 0.125s;
+    animation: slideOut 0.125s forwards;
 }
 
 .add-contact{

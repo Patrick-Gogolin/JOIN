@@ -175,4 +175,12 @@ function renderGetContactListTemplateHtml(eachContact, bgColor, initials) {
          <a href="">${eachContact.contact.email}</a>
     </div>
     </div>`;
+    }
+
+function renderGetABCSeparatorTemplateHtml(letter) {
+    return /*html*/`
+    <div class="abc-separator">
+        <p>${letter}</p>
+    </div>`;
 }
+

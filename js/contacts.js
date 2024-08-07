@@ -286,14 +286,8 @@ async function resetAndCloseAddContactPopUp(name, email, phone, newContact, data
 function getContactListTemplate(eachContact) {
   let initials = getContactsInitials(eachContact);
   let bgColor = eachContact.contact.color;
-  return `
-    <div id="contact-list-element-${eachContact.id}" class="contact" onclick='showContactInfo(${JSON.stringify(eachContact)})'>
-        <div class="contact-logo" style="background-color: ${bgColor};" >${initials}</div>
-        <div class="contact-name">
-         <p>${eachContact.contact.name}</p>
-         <a href="">${eachContact.contact.email}</a>
-    </div>
-    </div>`;
+  let template = renderGetContactListTemplateHtml(eachContact, bgColor, initials);
+  return template;
 }
 
 /**
@@ -335,9 +329,8 @@ function getUserInitials() {
  * Returns the template for an ABC separator.
  */
 function getABCSeparatorTemplate(letter) {
-  return `<div class="abc-separator">
-                <p>${letter}</p>
-            </div>`;
+  let template = renderGetABCSeparatorTemplateHtml(letter);
+  return template;
 }
 
 /**

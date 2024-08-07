@@ -7,16 +7,16 @@ function closePopup() {
   checkForMobileMode();
   document.getElementById("popup-content").classList.remove("animation");
   document.getElementById("popup-content").classList.add("animation-close");
-  setTimeout(() => {document.getElementById("add-contact-popup").classList.add("d-none");}, 125);
+  setTimeout(() => {document.getElementById("add-contact-popup").classList.add("d-none");}, 200);
   if (document.getElementById("edit-contact-popup-content") != null) {
     document.getElementById("edit-contact-popup-content").classList.remove("animation");
     document.getElementById("edit-contact-popup-content").classList.add("animation-close");
-    setTimeout(() => {document.getElementById("edit-contact-popup").classList.add("d-none");}, 125);
+    setTimeout(() => {document.getElementById("edit-contact-popup").classList.add("d-none");}, 200);
   }
   if (document.getElementById("edit-user-popup-content") != null) {
     document.getElementById("edit-user-popup-content").classList.remove("animation");
     document.getElementById("edit-user-popup-content").classList.add("animation-close");
-    setTimeout(() => {document.getElementById("edit-user-popup").classList.add("d-none");}, 125);
+    setTimeout(() => {document.getElementById("edit-user-popup").classList.add("d-none");}, 200);
   }
 }
 

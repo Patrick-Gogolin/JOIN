@@ -412,7 +412,7 @@ function getEditContactTemplate(eachContact) {
  * Adds a contact by displaying a popup.
  */
 function addContact() {
+  document.getElementById("add-contact-popup").classList.remove("d-none");
   document.getElementById("popup-content").classList.remove("animation-close");
   document.getElementById("popup-content").classList.add("animation");
-  document.getElementById("add-contact-popup").classList.remove("d-none");
 }
