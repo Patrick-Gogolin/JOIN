@@ -236,6 +236,7 @@ async function postContacts(path = "", data = {}) {
   });
   contactsKeys.push(newContact.name);
   resetAndCloseAddContactPopUp(name, email, phone, newContact, data);
+  sortContactsAlphabetically();
 }
 
 /**
