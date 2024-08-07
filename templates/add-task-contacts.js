@@ -280,6 +280,8 @@ function renderCheckBox(id) {
 function renderAssignedContacts() {
     getInitialsAssignedContactsId();
     let assignedContactsContainer = document.getElementById('show-assigned-contacts');
+    let displayedAssignedContactsInitials = 5;
+    let extraAssignedContacts = assignedContactsInitials.length - displayedAssignedContactsInitials;
     assignedContactsContainer.innerHTML = "";
 
     if(assignedContactsInitials.length < 6) {
@@ -295,7 +297,7 @@ function renderAssignedContacts() {
         const color = assignedContactsColors[i];
         assignedContactsContainer.innerHTML += renderAssignedContactsHtml(color, initials);
         }
-        assignedContactsContainer.innerHTML += renderSignThatMoreContactsAreAssignedHtml(assignedContactsInitials);
+        assignedContactsContainer.innerHTML += renderSignThatMoreContactsAreAssignedHtml(extraAssignedContacts);
     }
     }
 

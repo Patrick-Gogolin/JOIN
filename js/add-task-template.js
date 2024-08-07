@@ -101,9 +101,9 @@ function renderAssignedContactsHtml(color, initials) {
     </div>`;
 }
 
-function renderSignThatMoreContactsAreAssignedHtml(assignedContactsInitials) {
+function renderSignThatMoreContactsAreAssignedHtml(extraAssignedContacts) {
     return /*html*/`
-    <span class="show-that-more-contacts-are-assigned-span">+${assignedContactsInitials.length}</span>`;
+    <span class="show-that-more-contacts-are-assigned-span">+${extraAssignedContacts}</span>`;
 }
 
 function renderActiveUserAfterSearchHtml(bgColor, color, activeUserInitialsUpdated, activeUserUpdated, checkBox) {
