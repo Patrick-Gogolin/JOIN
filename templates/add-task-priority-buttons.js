@@ -45,12 +45,10 @@ function mediumPriority() {
         mediumButton.classList.add('medium');
         mediumPrioSign.src = 'img/medium-prio.svg';
         priority = mediumButton.innerText;
-        console.log(priority);
     } else {
         mediumButton.classList.remove('medium');
         mediumPrioSign.src = 'img/medium-prio-orange.svg';
         priority = "";
-        console.log("deaktiviert");
     }
 
     mediumActive = !mediumActive;
